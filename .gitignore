@@ -12,3 +12,6 @@ bin/
 .project
 .settings/
 .classpath
+
+#ignore vscode settings
+.vscode
