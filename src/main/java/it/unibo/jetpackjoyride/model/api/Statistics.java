@@ -6,30 +6,89 @@ package it.unibo.jetpackjoyride.model.api;
  * 
  */
 public interface Statistics {
+    
     /**
-     * Method that updates the deaths of the player
+     * Method to get the player's deaths
+     * @return the number of deaths
      */
-    public int updateDeaths();
+    public int getDeaths();
 
     /**
-     * Method that updates the counter of killed npc
+     * Method that increments the deaths of the player
      */
-    public int updateKilledNpc();
+    public void setDeaths();
+
+    /**
+     * Method to get the amount of killed npc
+     * @return the number of killed npc
+     */
+    public int getKilledNpc();
+
+    /**
+     * Method that increments the counter of killed npc
+     */
+    public void setKilledNpc();
+
+    /**
+     * Method to get the amount of grabbed money  during the games
+     * @return the number of grabbed money 
+     */
+    public int getGrabbedMoney();
+
+    /**
+     * Method to set the amount of grabbed money of the last game
+     */
+    public void setGrabbedMoney(int lastGameMoney);
+
+    /**
+     * Method to get the amount of money spent in the shop
+     * @return the amount of money spent
+     */
+    public int getMoneySpent();
 
     /**
      * Method that updates the counter of money spent in the shop
+     * @param newPayment
+     *          the amount of money spent on the last payment
      */
-    public int moneySpent();
+    public void setMoneySpent(int newPayment);
 
     /**
-     * Method that update the record for max reahced meters 
+     * Method to get the record for max reahced meters 
+     * @return the value of maximum meters reached 
      */
-    public int maxMeters();
+    public int getMaxMeters();
 
     /**
-     * Method that update total meters performed
+     * Method to set a new record for max meters
+     * @param newRecord
+     *          the newRecord
      */
-    public int totalMeters();
+    public void setMaxMeters(int newRecord);
+
+    /**
+     * Method that get total meters performed
+     * @return the value of total meters performed
+     */
+    public int getTotalMeters();
+
+    /**
+     * Method to add meters of the last game
+     * @param lastGameMeters
+     *          meters of the last game
+     */
+    public void setTotalMeters(int lastGameMeters);
+
+    /**
+     * Method to get the amount of grabbed objects during the games
+     * @return the number of grabbed objects
+     */
+    public int getGrabbedObjects();
+
+    /**
+     * Method to increment the number of grabbed objects
+     */
+    public void setGrabbedObjects();
 
     
 }
