@@ -19,6 +19,12 @@ public class StatisticsImpl implements Statistics{
     private int grabbedObjects;
 
     /**
+     * Empty constructor of the class
+     */
+    public StatisticsImpl() {
+    }
+
+    /**
      * Constructor of class Statistics. This constructor will be called by the core during the loading of the game with the information in the csv file
      * @param deaths number of deaths
      * @param killedNpc number of killed npc
