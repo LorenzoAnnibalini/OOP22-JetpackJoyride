@@ -13,6 +13,28 @@ public class StatisticsImpl implements Statistics{
     private int totalMeters;
     private int grabbedObjects;
 
+    /**
+     * Constructor of class Statistics. This constructor will be called by the core during the loading of the game with the information in the csv file
+     * @param deaths number of deaths
+     * @param killedNpc number of killed npc
+     * @param grabbedMoney number of grabbed money
+     * @param maxMoney number of max grabbed money
+     * @param moneySpent number of money spent
+     * @param maxMeters number of max meters performed
+     * @param totalMeters number of total meters performed
+     * @param grabbedObjects number of total gabbed objects
+     */
+    public StatisticsImpl(int deaths, int killedNpc, int grabbedMoney, int maxMoney, int moneySpent, int maxMeters, int totalMeters, int grabbedObjects) {
+        this.deaths = deaths;
+        this.killedNpc = killedNpc;
+        this.grabbedMoney = grabbedMoney;
+        this.maxMoney = maxMoney;
+        this.moneySpent = moneySpent;
+        this. maxMeters = maxMeters;
+        this.totalMeters = totalMeters;
+        this.grabbedObjects = grabbedObjects;
+    }
+
     @Override
     public int getDeaths() {
         return this.deaths;
