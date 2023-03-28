@@ -42,7 +42,7 @@ public interface Statistics {
     public void setGrabbedMoney(int amount);
 
     /**
-     * Method that get the maximum quantity of money grabbed in one game
+     * Method to get the maximum quantity of money grabbed in one game
      * @return number of maximum money grabbed
      */
     public int getMaxMoney();
@@ -66,13 +66,7 @@ public interface Statistics {
     public int getMaxMeters();
 
     /**
-     * Method to set a new record for max meters
-     * @param meters the new record
-     */
-    public void setMaxMeters(int meters);
-
-    /**
-     * Method that get total meters performed
+     * Method to get total meters performed
      * @return the value of total meters performed
      */
     public int getTotalMeters();
