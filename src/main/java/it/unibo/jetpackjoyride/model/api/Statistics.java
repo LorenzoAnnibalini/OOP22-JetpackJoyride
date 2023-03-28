@@ -1,7 +1,7 @@
 package it.unibo.jetpackjoyride.model.api;
 
 /**
- * This is the class that updates the statistic of the game
+ * This is the class to get and set the statistic of the game
  * @author emanuele.sanchi@studio.unibo.it
  * 
  */
@@ -16,7 +16,7 @@ public interface Statistics {
     /**
      * Method that increments the deaths of the player
      */
-    public void setDeaths();
+    public void incrementDeaths();
 
     /**
      * Method to get the amount of killed npc
@@ -27,18 +27,25 @@ public interface Statistics {
     /**
      * Method that increments the counter of killed npc
      */
-    public void setKilledNpc();
+    public void incrementKilledNpc();
 
     /**
-     * Method to get the amount of grabbed money  during the games
+     * Method to get the amount of grabbed money during the games
      * @return the number of grabbed money 
      */
     public int getGrabbedMoney();
 
     /**
-     * Method to set the amount of grabbed money of the last game
+     * Method to add the amount of grabbed money of the last game to the total
+     * @param amount money reahced on last game
      */
-    public void setGrabbedMoney(int lastGameMoney);
+    public void setGrabbedMoney(int amount);
+
+    /**
+     * Method that get the maximum quantity of money grabbed in one game
+     * @return number of maximum money grabbed
+     */
+    public int getMaxMoney();
 
     /**
      * Method to get the amount of money spent in the shop
@@ -48,10 +55,9 @@ public interface Statistics {
 
     /**
      * Method that updates the counter of money spent in the shop
-     * @param newPayment
-     *          the amount of money spent on the last payment
+     * @param amount the amount of money spent on the last payment
      */
-    public void setMoneySpent(int newPayment);
+    public void setMoneySpent(int amount);
 
     /**
      * Method to get the record for max reahced meters 
@@ -61,10 +67,9 @@ public interface Statistics {
 
     /**
      * Method to set a new record for max meters
-     * @param newRecord
-     *          the newRecord
+     * @param meters the new record
      */
-    public void setMaxMeters(int newRecord);
+    public void setMaxMeters(int meters);
 
     /**
      * Method that get total meters performed
@@ -74,10 +79,9 @@ public interface Statistics {
 
     /**
      * Method to add meters of the last game
-     * @param lastGameMeters
-     *          meters of the last game
+     * @param meters meters of the last game
      */
-    public void setTotalMeters(int lastGameMeters);
+    public void setTotalMeters(int meters);
 
     /**
      * Method to get the amount of grabbed objects during the games
@@ -88,7 +92,7 @@ public interface Statistics {
     /**
      * Method to increment the number of grabbed objects
      */
-    public void setGrabbedObjects();
+    public void incrementGrabbedObjects();
 
     
 }
