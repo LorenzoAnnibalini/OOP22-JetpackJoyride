@@ -18,5 +18,15 @@ public interface Scientist {
      */
     public Direction getDirection();
 
+    /**
+     * Method to get if the scientist is alive
+     * @return true if the scientist is alive, false otherwise
+     */
+    public Boolean isAlive();
+
+    /**
+     * Method to set the Scientist's isAlive to false
+     */
+    public void killScientist();
     
 }
