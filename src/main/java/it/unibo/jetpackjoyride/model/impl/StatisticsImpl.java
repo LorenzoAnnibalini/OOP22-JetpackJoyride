@@ -2,6 +2,11 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import it.unibo.jetpackjoyride.model.api.Statistics;
 
+/**
+ * This is the class to get and set the statistic of the game
+ * @author emanuele.sanchi@studio.unibo.it
+ * 
+ */
 public class StatisticsImpl implements Statistics{
 
     private int deaths;

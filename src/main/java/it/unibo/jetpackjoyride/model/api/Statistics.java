@@ -1,7 +1,7 @@
 package it.unibo.jetpackjoyride.model.api;
 
 /**
- * This is the class to get and set the statistic of the game
+ * This is the interface to get and set the statistic of the game
  * @author emanuele.sanchi@studio.unibo.it
  * 
  */
