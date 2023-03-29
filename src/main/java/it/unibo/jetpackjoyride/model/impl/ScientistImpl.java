@@ -16,12 +16,17 @@ public class ScientistImpl implements Scientist{
     private final Direction direction;
     private boolean life;
     private double speed;
-    private String texture;
+    private String[] texture;
+    private int textureIndex;
 
-    public ScientistImpl(Direction direction, String texture) {
-        this.direction = direction;
-        this.life = true;
-        this.texture = texture;
+    public ScientistImpl(Direction direction, String[] texture) {
+        if(texture.length == 0) {
+            throw new IllegalArgumentException("Texture can't be empty");
+        }else{
+            this.direction = direction;
+            this.life = true;
+            this.texture = texture;
+        }
     }
 
     @Override
@@ -53,13 +58,25 @@ public class ScientistImpl implements Scientist{
     }
 
     @Override
-    public String getTexture() {
+    public String[] getTexture() {
         return this.texture;
     }
 
     @Override
-    public void setTexture(String texture) {
-        this.texture = texture;
+    public void setTexture(String[] texture) {
+        if(texture.length == 0) {
+            throw new IllegalArgumentException("Texture can't be empty");
+        }else{
+            this.texture = texture;
+        }
+    }
+
+    @Override
+    public String run() {
+        if(this.textureIndex == this.texture.length) {
+            this.textureIndex = 0;
+        }
+        return this.texture[this.textureIndex++];
     }
     
 }

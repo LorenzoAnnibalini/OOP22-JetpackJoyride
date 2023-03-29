@@ -42,15 +42,22 @@ public interface Scientist {
     //TODO: vedi commento a inizio interfaccia
     /**
      * Method to get the texture of the scientist
-     * @return the texture of the scientist
+     * @return the texture array of the scientist
      */
-    public String getTexture();
+    public String[] getTexture();
 
     //TODO: vedi commento a inizio interfaccia
     /**
      * Method to set the texture of the scientist
      * @param texture the texture of the scientist
+     * @throws IllegalArgumentException if the texture array is empty
      */
-    public void setTexture(String texture);
+    public void setTexture(String[] texture);
+
+    /**
+     * Method to simulate the scientist's run
+     * @return the next texture of the scientist and increment the textureIndex
+     */
+    public String run();
     
 }
