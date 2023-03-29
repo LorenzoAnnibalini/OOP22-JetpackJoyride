@@ -5,6 +5,10 @@ package it.unibo.jetpackjoyride.model.api;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
+/**
+ * Enum to represent the direction of the scientist
+ * Can't be changed
+ */
 enum Direction {
     RIGHT,
     LEFT
@@ -25,7 +29,8 @@ public interface Scientist {
     public Boolean isAlive();
 
     /**
-     * Method to set the Scientist's isAlive to false
+     * Method to kill the Scientist's
+     * Set the life of the scientist to false
      */
     public void killScientist();
     
