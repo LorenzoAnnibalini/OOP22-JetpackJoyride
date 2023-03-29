@@ -5,15 +5,6 @@ package it.unibo.jetpackjoyride.model.api;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-/**
- * Enum to represent the direction of the scientist
- * Can't be changed
- */
-enum Direction {
-    RIGHT,
-    LEFT
-    }
-
 public interface Scientist {
     
     /**
