@@ -10,15 +10,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.jetpackjoyride.core.api.Saves;
 import it.unibo.jetpackjoyride.core.impl.*;
 
 public class SavesTest {
-    Saves s = new SavesImpl();
-
     @Test
     void testDownloadDatas() throws FileNotFoundException {
-        assertEquals(List.of(0,0,0,0,0,0,0,0,0), this.s.downloadSaves());
+        assertEquals(List.of(0,0,0,0,0,0,0,0,0), Saves.downloadSaves());
     }
     
 }
