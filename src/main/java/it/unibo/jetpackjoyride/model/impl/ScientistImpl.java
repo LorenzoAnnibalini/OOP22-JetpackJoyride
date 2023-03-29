@@ -5,22 +5,27 @@ import it.unibo.jetpackjoyride.model.api.Scientist;
 
 public class ScientistImpl implements Scientist{
 
+    private final Direction direction;
+    private boolean life;
+
+    public ScientistImpl(Direction direction) {
+        this.direction = direction;
+        this.life = true;
+    }
+
     @Override
     public Direction getDirection() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDirection'");
+        return this.direction;
     }
 
     @Override
     public Boolean isAlive() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isAlive'");
+        return this.life;
     }
 
     @Override
     public void killScientist() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'killScientist'");
+        this.life = false;    
     }
     
 }
