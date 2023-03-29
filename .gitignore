@@ -15,3 +15,6 @@ bin/
 
 #ignore vscode settings
 .vscode
+
+#ignore csv saves file
+*.csv
