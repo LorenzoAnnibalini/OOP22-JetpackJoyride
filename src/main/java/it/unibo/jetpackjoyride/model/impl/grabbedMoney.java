@@ -1,12 +1,16 @@
 package it.unibo.jetpackjoyride.model.impl;
 
 /**
- * Class to count number of grabbedMoney
+ * Class to count number of grabbedMoney.
  * 
  * @author emanuele.sanchi@studio.unibo.it
  * 
  */
-public class grabbedMoney extends StatisticsImpl {
+public class GrabbedMoney extends StatisticsImpl {
+
+    public GrabbedMoney(int value) {
+        super(value);
+    }
 
     @Override
     public void increment() {

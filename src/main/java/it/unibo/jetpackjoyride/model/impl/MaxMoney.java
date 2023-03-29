@@ -1,9 +1,15 @@
 package it.unibo.jetpackjoyride.model.impl;
 
 /**
- * Class to count amount of max money in one game
+ * Class to count amount of max money in one game.
+ * 
+ * @author emanuele.sanchi@studio.unibo.it
  */
-public class MaxMoney extends StatisticsImpl{
+public class MaxMoney extends StatisticsImpl {
+
+    public MaxMoney(int value) {
+        super(value);
+    }
 
     @Override
     public void setValue(int amount) {
@@ -13,5 +19,5 @@ public class MaxMoney extends StatisticsImpl{
     @Override
     public void increment() {
     }
-    
+
 }

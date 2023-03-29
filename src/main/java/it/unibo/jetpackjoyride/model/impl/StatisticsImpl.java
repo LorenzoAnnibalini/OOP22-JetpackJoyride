@@ -3,7 +3,7 @@ package it.unibo.jetpackjoyride.model.impl;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 
 /**
- * This is the abstract class for the statistics
+ * This is the abstract class for the statistics.
  * 
  * @author emanuele.sanchi@studio.unibo.it
  * 
@@ -11,6 +11,10 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
 public abstract class StatisticsImpl implements Statistics {
     protected int value;
     private String name;
+
+    public StatisticsImpl(final int value) {
+        this.value = value;
+    }
 
     /**
      * Method to get the value of the statistic.
