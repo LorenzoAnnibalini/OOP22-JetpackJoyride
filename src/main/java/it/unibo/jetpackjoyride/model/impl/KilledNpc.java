@@ -8,8 +8,8 @@ package it.unibo.jetpackjoyride.model.impl;
  */
 public class KilledNpc extends StatisticsImpl {
 
-    public KilledNpc(int value) {
-        super(value);
+    public KilledNpc(int value, String name) {
+        super(value, name);
     }
 
     @Override

@@ -7,8 +7,8 @@ package it.unibo.jetpackjoyride.model.impl;
  */
 public class GrabbedObjects extends StatisticsImpl {
 
-    public GrabbedObjects(int value) {
-        super(value);
+    public GrabbedObjects(int value, String name) {
+        super(value, name);
     }
 
     @Override

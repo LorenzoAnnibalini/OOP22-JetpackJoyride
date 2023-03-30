@@ -7,10 +7,9 @@ package it.unibo.jetpackjoyride.model.impl;
  */
 public class MaxMeters extends StatisticsImpl {
 
-    public MaxMeters(int value) {
-        super(value);
+    public MaxMeters(int value, String name) {
+        super(value, name);
     }
-
     @Override
     public void setValue(int amount) {
         super.value = amount;

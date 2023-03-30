@@ -8,8 +8,8 @@ package it.unibo.jetpackjoyride.model.impl;
  */
 public class GrabbedMoney extends StatisticsImpl {
 
-    public GrabbedMoney(int value) {
-        super(value);
+    public GrabbedMoney(int value, String name) {
+        super(value, name);
     }
 
     @Override

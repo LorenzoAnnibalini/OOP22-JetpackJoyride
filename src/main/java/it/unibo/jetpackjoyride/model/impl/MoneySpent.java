@@ -7,8 +7,8 @@ package it.unibo.jetpackjoyride.model.impl;
  */
 public class MoneySpent extends StatisticsImpl {
 
-    public MoneySpent(int value) {
-        super(value);
+    public MoneySpent(int value, String name) {
+        super(value, name);
     }
 
     @Override

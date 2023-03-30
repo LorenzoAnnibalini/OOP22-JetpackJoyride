@@ -7,8 +7,8 @@ package it.unibo.jetpackjoyride.model.impl;
  */
 public class TotalMeters extends StatisticsImpl {
 
-    public TotalMeters(int value) {
-        super(value);
+    public TotalMeters(int value, String name) {
+        super(value, name);
     }
 
     @Override

@@ -12,8 +12,14 @@ public abstract class StatisticsImpl implements Statistics {
     protected int value;
     private String name;
 
-    public StatisticsImpl(final int value) {
+    /**
+     * Class constructor
+     * @param value initial value of this statstic
+     * @param name statistic's name
+     */
+    public StatisticsImpl(final int value, final String name) {
         this.value = value;
+        this.name = name;
     }
 
     /**
