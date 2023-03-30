@@ -1,7 +1,6 @@
 package it.unibo.jetpackjoyride.model.api;
 
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Interface for game statistics.
@@ -35,8 +34,14 @@ public interface Statistics {
      * Method to increment a statistic.
      * 
      * @param name  the name of the statistic tant want to be increment
-     * @param value the optional value that we want to increment the statistic. If
-     *              empty, default value is 1
+     * @param value the value that we want to add to that statistic
      */
-    void increment(String name, Optional<Integer> value);
+    void increment(String name, int value);
+
+    /**
+     * Method to increment a statistic.
+     * 
+     * @param name the name of the statistic tant want to be increment by 1
+     */
+    void increment(String name);
 }

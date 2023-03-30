@@ -2,8 +2,6 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-
 import it.unibo.jetpackjoyride.model.api.Statistics;
 
 /**
@@ -29,12 +27,13 @@ public class StatisticsImpl implements Statistics {
     }
 
     @Override
-    public void increment(String name, Optional<Integer> value) {
-        if (value.isPresent()) {
-            statistics.replace(name, statistics.get(name) + value.get());
-        } else {
-            statistics.replace(name, statistics.get(name) + 1);
-        }
+    public void increment(String name, int value) {
+        statistics.replace(name, statistics.get(name) + value);
+    }
+
+    @Override
+    public void increment(String name) {
+        statistics.replace(name, statistics.get(name) + 1);
     }
 
     @Override
