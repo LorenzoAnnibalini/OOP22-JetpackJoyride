@@ -35,7 +35,7 @@ public class SavesImpl implements Saves {
     public void uploadSaves(Map<String, Integer> stats) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
         for (String name : stats.keySet()) {
-            writer.write(name + ";" + stats.get(name));
+            writer.write(name + ";" + stats.get(name) + "\n");
         }
         writer.close();
     }
