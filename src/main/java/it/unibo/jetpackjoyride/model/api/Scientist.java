@@ -54,6 +54,7 @@ public interface Scientist {
      */
     public void setTexture(String[] texture);
 
+    //TODO: vedi commento a inizio interfaccia
     /**
      * Method to simulate the scientist's run
      * @return the next texture of the scientist and increment the textureIndex
