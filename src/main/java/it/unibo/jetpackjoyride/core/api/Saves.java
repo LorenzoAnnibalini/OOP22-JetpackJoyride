@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.core.api;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ public interface Saves {
      * 
      * @return a map of statistics
      */
-    Map<String, Integer> downloadSaves();
+    Map<String, Integer> downloadSaves() throws FileNotFoundException;
 
     /**
      * Method to save newstatistcs in file
