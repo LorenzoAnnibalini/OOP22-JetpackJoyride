@@ -15,7 +15,8 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 public class SavesTest {
 
     /**
-     * Test for Download datas (Before run this test, set all values in file
+     * Test for Download and Upload datas (Before run this test, set all values in
+     * file
      * "saves.csv" to 0)
      * 
      * @throws IOException
