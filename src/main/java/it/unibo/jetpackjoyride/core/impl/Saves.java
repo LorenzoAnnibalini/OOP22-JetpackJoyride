@@ -23,6 +23,9 @@ import java.io.*;
 public class Saves {
 
     private final static String SEPARATOR = File.separator;
+    private final static int NAME_POSITION = 0;
+    private final static int VALUE_POSITION = 1;
+    private final static String filename = "resources" + SEPARATOR + "saves.csv";
     private static Deaths deaths;
     private static KilledNpc killedNpc;
     private static GrabbedMoney grabbedMoney;
@@ -31,7 +34,78 @@ public class Saves {
     private static MaxMoney maxMoney;
     private static MoneySpent moneySpent;
     private static TotalMeters totalMeters;
-    private final static String filename = "resources" + SEPARATOR + "saves.csv";
+
+    /**
+     * Getter method for deaths.
+     * 
+     * @return number of deaths
+     */
+    public static Deaths getDeaths() {
+        return deaths;
+    }
+
+    /**
+     * Getter method for killed npc.
+     * 
+     * @return number of killed npc
+     */
+    public static KilledNpc getKilledNpc() {
+        return killedNpc;
+    }
+
+    /**
+     * Getter method for grabbed money.
+     * 
+     * @return amount of grabbed money
+     */
+    public static GrabbedMoney getGrabbedMoney() {
+        return grabbedMoney;
+    }
+
+    /**
+     * Getter method for grabbed objects.
+     * 
+     * @return number of grabbed objects
+     */
+    public static GrabbedObjects getGrabbedObjects() {
+        return grabbedObjects;
+    }
+
+    /**
+     * Getter method for max meters.
+     * 
+     * @return number of max meters
+     */
+    public static MaxMeters getMaxMeters() {
+        return maxMeters;
+    }
+
+    /**
+     * Getter method for max money.
+     * 
+     * @return amount of max money
+     */
+    public static MaxMoney getMaxMoney() {
+        return maxMoney;
+    }
+
+    /**
+     * Getter method for money spent.
+     * 
+     * @return amount of money spent
+     */
+    public static MoneySpent getMoneySpent() {
+        return moneySpent;
+    }
+
+    /**
+     * Getter method for total meters.
+     * 
+     * @return number of total meters
+     */
+    public static TotalMeters getTotalMeters() {
+        return totalMeters;
+    }
 
     /**
      * Method to download datas from csv file.
@@ -42,30 +116,32 @@ public class Saves {
     public static Map<String, Integer> downloadSaves() throws FileNotFoundException {
         Scanner sc = new Scanner(new File(filename));
         Map<String, Integer> statistics = new HashMap<>();
-        sc.useDelimiter(";");
         while (sc.hasNextLine()) {
-            String name = sc.next();
-            int value = sc.nextInt();
+            String data = sc.nextLine();
+            String name = data.split(";")[NAME_POSITION];
+            int value = Integer.parseInt(data.split(";")[VALUE_POSITION]);
             statistics.put(name, value);
         }
         sc.close();
         // Creation of statistics objects
-        deaths = new Deaths(statistics.get(statistics.keySet().stream().filter(x -> x == "Deaths").findFirst().get()));
-        grabbedMoney = new GrabbedMoney(statistics.get(statistics.keySet().stream().filter(x -> x == "GrabbedMoney").findFirst().get()));
-        grabbedObjects = new GrabbedObjects(statistics.get(statistics.keySet().stream().filter(x -> x == "GrabbedObjects").findFirst().get()));
-        killedNpc = new KilledNpc(statistics.get(statistics.keySet().stream().filter(x -> x == "KilledNpc").findFirst().get()));
-        maxMeters = new MaxMeters(statistics.get(statistics.keySet().stream().filter(x -> x == "MaxMeters").findFirst().get()));
-        maxMoney = new MaxMoney(statistics.get(statistics.keySet().stream().filter(x -> x == "MaxMoney").findFirst().get()));
-        moneySpent = new MoneySpent(statistics.get(statistics.keySet().stream().filter(x -> x == "MoneySpent").findFirst().get()));
-        totalMeters = new TotalMeters(statistics.get(statistics.keySet().stream().filter(x -> x == "TotalMeters").findFirst().get()));
+        deaths = new Deaths(fillValue(statistics, "Deaths"), "Deaths");
+        grabbedMoney = new GrabbedMoney(fillValue(statistics, "GrabbedMoney"), "GrabbedMoney");
+        grabbedObjects = new GrabbedObjects(fillValue(statistics, "GrabbedObjects"), "GrabbedObjects");
+        killedNpc = new KilledNpc(fillValue(statistics, "KilledNpc"), "KilledNpc");
+        maxMeters = new MaxMeters(fillValue(statistics, "MaxMeters"), "MaxMeters");
+        maxMoney = new MaxMoney(fillValue(statistics, "MaxMoney"), "MaxMoney");
+        moneySpent = new MoneySpent(fillValue(statistics, "MoneySpent"), "MoneySpent");
+        totalMeters = new TotalMeters(fillValue(statistics, "TotalMeters"), "TotalMeters");
         return statistics;
     }
 
     /**
      * Method that writes new statistics on file.
+     * 
      * @throws IOException
      */
-    public static void uploadSaves() throws IOException{
+    public static void uploadSaves() throws IOException {
+        // System.out.println(deaths.getClass() + ";" + deaths.getValue() + "\n");
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
         writer.write(deaths.getName() + ";" + deaths.getValue() + "\n");
         writer.write(killedNpc.getName() + ";" + killedNpc.getValue() + "\n");
@@ -78,4 +154,17 @@ public class Saves {
         writer.close();
     }
 
+    /**
+     * Method to take the value of a statistics by his name.
+     * 
+     * @param stats the map of names and values
+     * @param name  the name of statistc to take
+     * @return value of statistic passed
+     */
+    private static int fillValue(Map<String, Integer> stats, String name) {
+        return stats.get(stats.keySet().stream()
+                .filter(x -> x.startsWith(name))
+                .findAny()
+                .get());
+    }
 }
