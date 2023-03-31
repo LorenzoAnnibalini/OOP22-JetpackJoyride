@@ -65,6 +65,17 @@ public class GameObject {
 	public void flipVelOnX(){
 		this.vel = new Vector2d(-vel.x, vel.y);
 	}
+
+    /**
+     * update the state of a GameObject recalculating its position
+     * from is current position plus 
+     * (the velocity of the object multiplied by a factor dt).
+     * dt example: dt can be the time elapsed between two frames. 
+     * @param dt
+     */
+    public void updateState(long dt){
+        this.pos = this.pos.sum(vel.mul(0.001 * dt));
+    }
 	
     /**
      * get the current position of the game object.
