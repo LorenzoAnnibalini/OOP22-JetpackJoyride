@@ -8,7 +8,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class Electrode extends Obstacles{
+public class Electrode extends Obstacle{
 
     public Electrode(Type type, Point2d pos, Vector2d vel) {
         super(type, pos, vel);

@@ -8,9 +8,9 @@ import it.unibo.jetpackjoyride.common.Vector2d;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public abstract class Obstacles extends GameObject{
+public abstract class Obstacle extends GameObject{
 
-    public Obstacles(Type type, Point2d pos, Vector2d vel) {
+    public Obstacle(Type type, Point2d pos, Vector2d vel) {
         super(type, pos, vel);
         //TODO Auto-generated constructor stub
     }

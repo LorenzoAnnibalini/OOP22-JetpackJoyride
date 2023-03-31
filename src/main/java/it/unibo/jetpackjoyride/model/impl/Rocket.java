@@ -8,7 +8,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class Rocket extends Obstacles{
+public class Rocket extends Obstacle{
 
     public Rocket(Type type, Point2d pos, Vector2d vel) {
         super(type, pos, vel);
