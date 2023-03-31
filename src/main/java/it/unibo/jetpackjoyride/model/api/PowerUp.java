@@ -6,7 +6,7 @@ public interface PowerUp {
      * @author: lorenzo.annibalini@studio.unibo.it
      */
 
-    public static enum PowerUpType { SHIELD, SPEED, JETPACK, COIN, NONE }
+    public static enum PowerUpType { SHIELD, SPEED, JETPACK, LIFE }
 
     /**
      * active the powerup
@@ -30,6 +30,8 @@ public interface PowerUp {
 
     /**
      * set the cost in coin of the powerup
+     * @param cost the cost in coin of the powerup
+     * @throws IllegalArgumentException if cost is negative
      */
     public void setCost(int cost);
 
@@ -40,6 +42,8 @@ public interface PowerUp {
 
     /**
      * Set the duration of the powerup
+     * @param duration the duration of the powerup
+     * @throws IllegalArgumentException if duration is negative
      */
     public void setDuration(int duration);
 
