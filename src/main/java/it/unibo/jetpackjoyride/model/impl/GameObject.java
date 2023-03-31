@@ -10,7 +10,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 
 public class GameObject {
 
-	public static enum Type { BARRY, SCIENTIST, LASER, ROCKET, ELECTRODES }
+	public static enum Type { BARRY, SCIENTIST, LASERRAY, ROCKET, ELECTRODE }
 
 	private Type type;
 	private Point2d pos;
