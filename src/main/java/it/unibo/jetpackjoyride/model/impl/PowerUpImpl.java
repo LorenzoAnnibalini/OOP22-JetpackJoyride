@@ -15,6 +15,7 @@ public class PowerUpImpl implements PowerUp{
     private int duration;
 
     public PowerUpImpl(final PowerUpType type, final int cost, final int duration) {
+        if(type == null)throw new IllegalArgumentException("Type cannot be null");
         this.type = type;
         this.setCost(cost);
         this.setDuration(duration);
