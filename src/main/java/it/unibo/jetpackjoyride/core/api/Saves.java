@@ -14,6 +14,7 @@ public interface Saves {
      * Method to get the value from file and save them into HashMap in class
      * Statistics.
      * 
+     * @throws FileNotFoundException if the file is not found
      * @return a map of statistics
      */
     Map<String, Integer> downloadSaves() throws FileNotFoundException;
