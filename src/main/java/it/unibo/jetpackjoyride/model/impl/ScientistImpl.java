@@ -20,7 +20,7 @@ public class ScientistImpl extends GameObject implements Scientist{
 
     public ScientistImpl(Direction direction, String[] texture, Point2d point, Vector2d velocity) {
         super(Type.SCIENTIST, point, velocity);
-        if(texture.length == 0 || point == null || direction == null) {
+        if(texture.length == 0 || direction == null) {
             throw new IllegalArgumentException("Input can't be empty");
         }else{
             this.direction = direction;
