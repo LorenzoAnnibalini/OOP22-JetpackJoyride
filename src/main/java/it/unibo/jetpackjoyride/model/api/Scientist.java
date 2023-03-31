@@ -1,5 +1,8 @@
 package it.unibo.jetpackjoyride.model.api;
 
+import it.unibo.jetpackjoyride.common.Point2d;
+import it.unibo.jetpackjoyride.common.Vector2d;
+
 /**
  * TODO: Mettiamo la PATH della texture qui ?
  * Interface for the scientist
@@ -27,17 +30,30 @@ public interface Scientist {
     public void killScientist();
 
     /**
-     * Method to set the speed of the scientist
-     * @param speed the speed of the scientist
+     * Method to get the current position of the scientist
+     * @return the current position of the scientist
      */
-    public void setSpeed(double speed);
+    public Point2d getCurrentPos();
 
     /**
-     * Method to get the speed of the scientist
-     * @return the speed of the scientist
-     * @throws IllegalArgumentException if the speed is not allowed
+     * Method to set the current position of the scientist
+     * @param point the new position of the scientist
+     * @throws IllegalArgumentException if the point is null
      */
-    public double getSpeed();
+    public void setCurrentPos(Point2d point);
+
+    /**
+     * Method to get the current velocity of the scientist
+     * @return the current velocity of the scientist
+     */
+    public Vector2d getVelocity();
+
+    /**
+     * Method to set the current velocity of the scientist
+     * @param velocity the new velocity of the scientist
+     * @throws IllegalArgumentException if the velocity is null
+     */
+    public void setVelocity(Vector2d velocity);
 
     //TODO: vedi commento a inizio interfaccia
     /**
