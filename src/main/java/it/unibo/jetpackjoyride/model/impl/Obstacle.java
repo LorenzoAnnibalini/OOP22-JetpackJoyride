@@ -14,13 +14,15 @@ public abstract class Obstacle extends GameObject{
 
     /**
      * Constructor of the Obstacle 
-     * that only recall the constructor of the superclass.
+     * call back the constructor of the superclass
+     * and set the obstacle state to active.
      * @param type
      * @param pos
      * @param vel
      */
     public Obstacle(Type type, Point2d pos, Vector2d vel) {
         super(type, pos, vel);
+        this.setActiveOn();
     }
     
     /**
