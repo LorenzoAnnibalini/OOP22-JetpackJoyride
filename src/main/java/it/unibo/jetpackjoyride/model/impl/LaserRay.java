@@ -10,9 +10,36 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 
 public class LaserRay extends Obstacle{
 
+    private long creationTime;
+    private long changeStateTime = 40000;
+    private long activationTime;
+
+    /**
+     * Constructor to create a LaserRay obstacle.
+     * @param type
+     * @param pos
+     * @param vel
+     */
     public LaserRay(Type type, Point2d pos, Vector2d vel) {
         super(type, pos, vel);
-        //TODO Auto-generated constructor stub
+        this.setActiveOff();
+        creationTime = System.currentTimeMillis();
     }
-    
+ 
+    /**
+     * Update the state of the LaserRay obstacle by
+     * updating his postion calling back the superclass gameObject
+     * method and by activating/deactivating the obstacles if a
+     * changeStateTime is elapsed.
+     */
+    public void updateState(long dt){
+        super.updateState(dt);
+        if((System.currentTimeMillis() - this.creationTime > this.changeStateTime) && !this.isActive()){
+            this.activationTime = System.currentTimeMillis();
+            this.setActiveOn();
+        }
+        if((System.currentTimeMillis() - this.activationTime > this.changeStateTime) && this.isActive()){
+            this.setActiveOff();
+        }
+    }
 }
