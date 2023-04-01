@@ -10,9 +10,13 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 
 public class Electrode extends Obstacle{
 
+    /**
+     * Constructor to create an Electrode obstacle.
+     * @param type
+     * @param pos
+     * @param vel
+     */
     public Electrode(Type type, Point2d pos, Vector2d vel) {
         super(type, pos, vel);
-        //TODO Auto-generated constructor stub
     }
-    
 }
