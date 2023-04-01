@@ -26,10 +26,7 @@ public interface Scientist {
     public void killScientist();
 
     /**
-     * Method to simulate the scientist's run
-     * Increment the texture index 
-     * Update the position of the scientist according to the direction
-     * @return the current texture of the scientist
+     * Method to update the position of the scientist based on his direction
      */
     public void nextPosition();
     
