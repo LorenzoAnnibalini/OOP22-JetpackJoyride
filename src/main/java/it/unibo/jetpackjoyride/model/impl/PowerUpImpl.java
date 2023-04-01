@@ -4,6 +4,7 @@ import it.unibo.jetpackjoyride.model.api.PowerUp;
 
 /**
  * Generic PowerUp implementation
+ * The costractor set the powerup to disabled, need to be activated after
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
@@ -17,6 +18,7 @@ public class PowerUpImpl implements PowerUp{
     public PowerUpImpl(final PowerUpType type, final int cost, final int duration) {
         if(type == null)throw new IllegalArgumentException("Type cannot be null");
         this.type = type;
+        this.disable();
         this.setCost(cost);
         this.setDuration(duration);
     }
