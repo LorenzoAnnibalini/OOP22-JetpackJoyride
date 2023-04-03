@@ -3,8 +3,8 @@ package it.unibo.jetpackjoyride.model.impl;
 import it.unibo.jetpackjoyride.model.api.PowerUp;
 
 /**
- * Manual powerup, need to be activated by the player
- * The costractor set the powerup to disabled, need to be activated after
+ * Manual PowerUp Impementation, the costractor set the powerup to disabled
+ * This class can't modify the active state, the user have to call active() and disable() to change it
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
@@ -13,22 +13,22 @@ public class ManualPowerUp implements PowerUp{
     private boolean active;
     private final PowerUpType type;
     private int coinCost;
-    private int duration;
+    private long duration;
+    private long startTime;
 
-    public ManualPowerUp(final PowerUpType type, final int cost, final int duration) {
+    public ManualPowerUp(final PowerUpType type, final int cost, final long duration) {
         if(type == null)throw new IllegalArgumentException("Type cannot be null");
         this.type = type;
-        this.disable();
         this.setCost(cost);
         this.setDuration(duration);
+        this.disable();
+        this.startTime = System.currentTimeMillis();
     }
 
-    @Override
     public void active() {
         this.active = true;
     }
 
-    @Override
     public void disable() {
        this.active = false;
     }
@@ -43,7 +43,11 @@ public class ManualPowerUp implements PowerUp{
         return this.type;
     }
 
-    @Override
+    /**
+     * Set the cost in coin of the powerup
+     * @param cost
+     * @throws IllegalArgumentException if cost is negative
+     */
     public void setCost(int cost) {
         if(cost < 0)throw new IllegalArgumentException("Cost must be positive");
         this.coinCost = cost;
@@ -54,15 +58,24 @@ public class ManualPowerUp implements PowerUp{
         return this.coinCost;
     }
 
-    @Override
-    public void setDuration(int duration) {
+    /**
+     * Set the duration of the powerup
+     * @param duration
+     * @throws IllegalArgumentException if duration is negative
+     */
+    public void setDuration(long duration) {
         if(duration < 0)throw new IllegalArgumentException("Duration must be positive");
         this.duration = duration;
     }
 
     @Override
-    public int getDuration() {
+    public long getDuration() {
         return this.duration;
+    }
+
+    @Override
+    public long getStartTime() {
+        return this.startTime;
     }
     
 }
