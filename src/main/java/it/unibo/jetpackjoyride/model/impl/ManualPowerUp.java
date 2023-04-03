@@ -3,19 +3,19 @@ package it.unibo.jetpackjoyride.model.impl;
 import it.unibo.jetpackjoyride.model.api.PowerUp;
 
 /**
- * Generic PowerUp implementation
+ * Manual powerup, need to be activated by the player
  * The costractor set the powerup to disabled, need to be activated after
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class PowerUpImpl implements PowerUp{
+public class ManualPowerUp implements PowerUp{
 
     private boolean active;
     private final PowerUpType type;
     private int coinCost;
     private int duration;
 
-    public PowerUpImpl(final PowerUpType type, final int cost, final int duration) {
+    public ManualPowerUp(final PowerUpType type, final int cost, final int duration) {
         if(type == null)throw new IllegalArgumentException("Type cannot be null");
         this.type = type;
         this.disable();
