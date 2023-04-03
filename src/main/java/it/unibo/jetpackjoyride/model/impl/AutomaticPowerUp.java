@@ -54,11 +54,17 @@ public class AutomaticPowerUp implements PowerUp {
         return this.startTime;
     }
 
+    /*
+     * Set the cost of the powerup
+     */
     private void setCost(int cost) {
         if(cost < 0)throw new IllegalArgumentException("Cost must be positive");
         this.coinCost = cost;
     }
 
+    /*
+     * Set the duration of the powerup
+     */
     private void setDuration(long duration) {
         if(duration < 0)throw new IllegalArgumentException("Duration must be positive");
         this.duration = duration;
