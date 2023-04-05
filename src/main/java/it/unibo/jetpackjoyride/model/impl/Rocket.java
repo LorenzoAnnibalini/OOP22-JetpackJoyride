@@ -8,11 +8,15 @@ import it.unibo.jetpackjoyride.common.Vector2d;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class Rocket extends ObstacleImpl{
+public class Rocket extends ObstacleActivable{
 
+    /**
+     * Constructor to create a Rocket obstacle.
+     * @param type
+     * @param pos
+     * @param vel
+     */
     public Rocket(Type type, Point2d pos, Vector2d vel) {
         super(type, pos, vel);
-        //TODO Auto-generated constructor stub
     }
-    
 }
