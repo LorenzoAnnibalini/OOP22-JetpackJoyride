@@ -10,13 +10,26 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 
 public class Electrode extends ObstacleImpl{
 
+    public static enum Orientation { HORIZONTAL, VERTICAL }
+
+    private final Orientation orientation;
+
     /**
      * Constructor to create an Electrode obstacle.
      * @param type
      * @param pos
      * @param vel
      */
-    public Electrode(Type type, Point2d pos, Vector2d vel) {
+    public Electrode(Type type, Point2d pos, Vector2d vel, Orientation orientation) {
         super(type, pos, vel);
+        this.orientation = orientation;
+    }
+
+    /**
+     * get the orientation of the Electrode.
+     * @return the orientation of the Electrode
+     */
+    public Orientation getOrientation(){
+        return this.orientation;
     }
 }
