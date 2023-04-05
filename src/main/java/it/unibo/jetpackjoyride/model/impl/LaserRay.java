@@ -8,7 +8,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class LaserRay extends Obstacle{
+public class LaserRay extends ObstacleImpl{
 
     private long creationTime;
     private long changeStateTime = 40000;

@@ -2,13 +2,14 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
+import it.unibo.jetpackjoyride.model.api.Obstacle;
 
 /**
  * This is a class to model a generic obstacle.
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public abstract class Obstacle extends GameObject{
+public abstract class ObstacleImpl extends GameObject implements Obstacle{
 
     private boolean active;
 
@@ -20,29 +21,19 @@ public abstract class Obstacle extends GameObject{
      * @param pos
      * @param vel
      */
-    public Obstacle(Type type, Point2d pos, Vector2d vel) {
+    public ObstacleImpl(Type type, Point2d pos, Vector2d vel) {
         super(type, pos, vel);
         this.setActiveOn();
     }
     
-    /**
-     * Set the obstacle active = true.
-     */
     public void setActiveOn(){
         this.active = true;
     }
 
-    /**
-     * Set the obstacle active = false.
-     */
     public void setActiveOff(){
         this.active = false;
     }
 
-    /**
-     * Return true if the obstacle is active, false otherwise.
-     * @return true if obstacle is active, false otherwise
-     */
     public boolean isActive(){
         return this.active;
     }
