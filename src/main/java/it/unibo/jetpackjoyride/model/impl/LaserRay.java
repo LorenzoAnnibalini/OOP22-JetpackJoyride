@@ -11,7 +11,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 public class LaserRay extends ObstacleImpl{
 
     private long creationTime;
-    private long changeStateTime = 40000;
+    private final long changeStateTime = 40000;
     private long activationTime;
 
     /**
@@ -23,22 +23,24 @@ public class LaserRay extends ObstacleImpl{
     public LaserRay(Type type, Point2d pos, Vector2d vel) {
         super(type, pos, vel);
         this.setActiveOff();
-        creationTime = System.currentTimeMillis();
+        this.creationTime = System.currentTimeMillis();
     }
  
     /**
      * Update the state of the LaserRay obstacle by
-     * updating his postion calling back the superclass gameObject
-     * method and by activating/deactivating the obstacles if a
+     * activating/deactivating the obstacles if a
      * changeStateTime is elapsed.
+     * doesn't change the position calling back the superclass
+     * GameObject method because LaserRay is a fixed obstacle.
      */
     public void updateState(long dt){
-        super.updateState(dt);
-        if((System.currentTimeMillis() - this.creationTime > this.changeStateTime) && !this.isActive()){
+        if((System.currentTimeMillis() - this.creationTime > this.changeStateTime) 
+            && !this.isActive()){
             this.activationTime = System.currentTimeMillis();
             this.setActiveOn();
         }
-        if((System.currentTimeMillis() - this.activationTime > this.changeStateTime) && this.isActive()){
+        if(this.isActive()
+            && (System.currentTimeMillis() - this.activationTime > this.changeStateTime)){
             this.setActiveOff();
         }
     }
