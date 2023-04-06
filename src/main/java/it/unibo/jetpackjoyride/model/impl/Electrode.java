@@ -13,15 +13,15 @@ public class Electrode extends ObstacleImpl{
     public static enum Orientation { HORIZONTAL, VERTICAL }
 
     private final Orientation orientation;
-
+    
     /**
      * Constructor to create an Electrode obstacle.
      * @param type
      * @param pos
      * @param vel
      */
-    public Electrode(Type type, Point2d pos, Vector2d vel, Orientation orientation) {
-        super(type, pos, vel);
+    public Electrode(Type type, Point2d pos, Vector2d vel, Orientation orientation, double lenght, double width) {
+        super(type, pos, vel, lenght, width);
         this.orientation = orientation;
     }
 

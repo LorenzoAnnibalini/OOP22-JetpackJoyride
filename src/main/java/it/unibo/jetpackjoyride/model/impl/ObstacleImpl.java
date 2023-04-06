@@ -12,6 +12,8 @@ import it.unibo.jetpackjoyride.model.api.Obstacle;
 public abstract class ObstacleImpl extends GameObject implements Obstacle{
 
     private boolean active;
+    private double lenght;
+    private double width;
 
     /**
      * Constructor of the Obstacle 
@@ -21,9 +23,11 @@ public abstract class ObstacleImpl extends GameObject implements Obstacle{
      * @param pos
      * @param vel
      */
-    public ObstacleImpl(Type type, Point2d pos, Vector2d vel) {
+    public ObstacleImpl(Type type, Point2d pos, Vector2d vel, double lenght, double width) {
         super(type, pos, vel);
         this.setActiveOn();
+        this.lenght = lenght;
+        this.width = width;
     }
     
     public void setActiveOn(){
@@ -36,5 +40,13 @@ public abstract class ObstacleImpl extends GameObject implements Obstacle{
 
     public boolean isActive(){
         return this.active;
+    }
+
+    public double getLenght() {
+        return lenght;
+    }
+
+    public double getwidth() {
+        return width;
     }
 }

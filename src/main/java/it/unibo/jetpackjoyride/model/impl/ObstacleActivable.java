@@ -18,8 +18,8 @@ public abstract class ObstacleActivable extends ObstacleImpl{
      * @param pos
      * @param vel
      */
-    public ObstacleActivable(Type type, Point2d pos, Vector2d vel) {
-        super(type, pos, vel);
+    public ObstacleActivable(Type type, Point2d pos, Vector2d vel, double lenght, double width) {
+        super(type, pos, vel, lenght, width);
         this.setActiveOff();
         this.creationTime = System.currentTimeMillis();
     }

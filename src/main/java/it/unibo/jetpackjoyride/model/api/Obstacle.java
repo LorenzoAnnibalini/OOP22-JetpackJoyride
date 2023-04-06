@@ -17,4 +17,16 @@ public interface Obstacle {
      * @return true if obstacle is active, false otherwise
      */
     boolean isActive();
+
+    /**
+     * Getter for the lenght of the Obstacle.
+     * @return the lenght of the Obstacle
+     */
+    public double getLenght();
+
+    /**
+     * Getter for the width of the Obstacle.
+     * @return the width of the Obstacle
+     */
+    public double getwidth();
 }
