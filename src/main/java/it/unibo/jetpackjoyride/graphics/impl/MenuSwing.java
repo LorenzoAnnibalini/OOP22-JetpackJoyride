@@ -67,6 +67,34 @@ public class MenuSwing {
             mainPage.getMainPage().setVisible(true);
             mainJFrame.setVisible(true);
         });
+
+        // if press NewGame button open the game
+        mainPage.getNewGame().addActionListener(e -> {
+           /* TODO: implement the game
+            mainPage.getMainPage().setVisible(false);
+            mainJFrame.add(new Game());
+            mainJFrame.setVisible(true);
+            */
+        });
+
+        // if press Statistics button open the statistics page
+        mainPage.getStatistics().addActionListener(e -> {
+           /* TODO: implement the statistics
+            mainPage.getMainPage().setVisible(false);
+            mainJFrame.add(new MenuStatistics());
+            mainJFrame.setVisible(true);
+            */
+        });
+
+        // if press Shop button open the shop page
+        mainPage.getShopButton().addActionListener(e -> {
+            /* TODO: implement the shop
+            mainPage.getMainPage().setVisible(false);
+            mainJFrame.add(new MenuShop());
+            mainJFrame.setVisible(true);
+            */
+        });
+
     }
     
 }
