@@ -61,15 +61,19 @@ public class MenuSwing {
         mainJFrame.add(mainPage);
 
         //Position of the panels in the mainPage
+        mainPage.add(new JPanel(), BorderLayout.EAST);
+        mainPage.add(new JPanel(), BorderLayout.WEST);
         mainPage.add(mainPageOptions, BorderLayout.CENTER);
         mainPage.add(mainPageComands, BorderLayout.SOUTH);
 
         //Position of the panels in the settingsPage
+        settingsPage.add(new JPanel(), BorderLayout.EAST);
+        settingsPage.add(new JPanel(), BorderLayout.WEST);
         settingsPage.add(settingsPageOption, BorderLayout.CENTER);
         settingsPage.add(settingsPageComands, BorderLayout.SOUTH);
 
 /* ------------------------ MAIN PAGE -------------------------*/
-
+        
         //gameOption panel
         mainPageOptions.setLayout(new GridLayout(3,1));
         mainPageOptions.add(newGame);
