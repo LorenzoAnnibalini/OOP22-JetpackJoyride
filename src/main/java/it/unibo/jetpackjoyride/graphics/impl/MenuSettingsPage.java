@@ -96,10 +96,11 @@ public class MenuSettingsPage {
         * @return the audio
         */
         public boolean getAudioState() {
-            if(audio.getText().equals("Audio ON"))
+            if(audio.getText().equals("Audio ON")){
                 return true;
-            else
+            }else{
                 return false;
+            }
         }
     
         /**
