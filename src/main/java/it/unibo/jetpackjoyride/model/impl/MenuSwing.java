@@ -21,7 +21,6 @@ public class MenuSwing {
         JFrame mainJFrame = new JFrame();
 
         //General buttons
-        //JButton exitButton = new JButton("Exit");
         JTextArea title = new JTextArea();
         JPanel titlePanel = new JPanel();
         
@@ -38,6 +37,7 @@ public class MenuSwing {
         JPanel mainPage = new JPanel(new BorderLayout());
         JPanel mainPageOptions = new JPanel();
         JPanel mainPageComands = new JPanel();
+        JButton exitMainPage = new JButton("Exit");
         JButton settings = new JButton("Settings");
         JButton newGame = new JButton("New Game");
         JButton statistics = new JButton("Statistics");
@@ -46,6 +46,7 @@ public class MenuSwing {
         JPanel settingsPage = new JPanel(new BorderLayout());
         JPanel settingsPageOption = new JPanel();
         JPanel settingsPageComands = new JPanel();
+        JButton exitSettingsPage = new JButton("Exit");
         JButton returnBack = new JButton("Return");
         JButton audio = new JButton("Audio ON");
         int difficulty = 1;
@@ -75,10 +76,8 @@ public class MenuSwing {
         mainPageOptions.add(statistics);
 
         //settingsPageComand panel
-        JButton exitButton = new JButton("Exit");
-        mainPageComands.add(statistics);
         mainPageComands.add(settings);
-        mainPageComands.add(exitButton);
+        mainPageComands.add(exitMainPage);
 
         //set mainPage visible
         mainPage.setVisible(true);
@@ -92,7 +91,7 @@ public class MenuSwing {
 
         //settingsPageComand panel
         settingsPageComands.add(returnBack);
-        settingsPageComands.add(exitButton);
+        settingsPageComands.add(exitSettingsPage);
 
         //set settingsPage invisible
         settingsPage.setVisible(false);
@@ -108,7 +107,9 @@ public class MenuSwing {
             }
         });
          */
-        exitButton.addActionListener(e -> System.exit(0));
+        exitMainPage.addActionListener(e -> System.exit(0));
+        exitSettingsPage.addActionListener(e -> System.exit(0));
+
 
         // if press settings button open the settings page
         settings.addActionListener(e -> {
