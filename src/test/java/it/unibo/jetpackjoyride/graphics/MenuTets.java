@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.model;
+package it.unibo.jetpackjoyride.graphics;
 
 import it.unibo.jetpackjoyride.graphics.impl.MenuSwing;
 
