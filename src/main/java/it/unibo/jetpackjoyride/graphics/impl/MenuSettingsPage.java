@@ -53,6 +53,7 @@ public class MenuSettingsPage {
                 audio.setText("Audio ON");
                 //TODO: add audio
             }
+            this.saveSettings();
         });
 
         //It will change the state of the button from Easy to Medium to Hard
@@ -64,6 +65,7 @@ public class MenuSettingsPage {
             }else if (difficulty.getText().equals("Hard")) {
                 difficulty.setText("Easy");
             }
+            this.saveSettings();
         });
     }
 
@@ -116,16 +118,21 @@ public class MenuSettingsPage {
             //TODO: load settings from file
         }
 
+        public void saveSettings() {
+            //TODO: save settings to file
+        }
 
 
         /**
         * @param audio the audio to set
         */
         public void setAudio(boolean audio) {
-            if(audio)
+            if(audio){
                 this.audio.setText("Audio ON");
-            else
+            }else{
                 this.audio.setText("Audio OFF");
+            }
+            this.saveSettings();
         }
     
         /**
@@ -133,6 +140,7 @@ public class MenuSettingsPage {
         */
         public void setDifficulty(String difficulty) {
             this.difficulty.setText(difficulty);
+            this.saveSettings();
         }
 
         /**
