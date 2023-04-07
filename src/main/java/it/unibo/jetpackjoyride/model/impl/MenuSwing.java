@@ -40,6 +40,7 @@ public class MenuSwing {
         JButton exitMainPage = new JButton("Exit");
         JButton settings = new JButton("Settings");
         JButton newGame = new JButton("New Game");
+        JButton shopButton = new JButton("Shop");
         JButton statistics = new JButton("Statistics");
 
         //Settings panels
@@ -49,8 +50,7 @@ public class MenuSwing {
         JButton exitSettingsPage = new JButton("Exit");
         JButton returnBack = new JButton("Return");
         JButton audio = new JButton("Audio ON");
-        int difficulty = 1;
-        JButton setDifficulty = new JButton("Difficulty -"+difficulty);
+        JButton setDifficulty = new JButton("Easy");
 
 
         //Default settings of JFrame  
@@ -71,9 +71,10 @@ public class MenuSwing {
 /* ------------------------ MAIN PAGE -------------------------*/
 
         //gameOption panel
-        mainPageOptions.setLayout(new GridLayout(2,1));
+        mainPageOptions.setLayout(new GridLayout(3,1));
         mainPageOptions.add(newGame);
         mainPageOptions.add(statistics);
+        mainPageOptions.add(shopButton);
 
         //settingsPageComand panel
         mainPageComands.add(settings);
@@ -141,7 +142,18 @@ public class MenuSwing {
         });
 
         // if press setDifficulty button set it to the next difficulty
-         //TODO: add difficulty
+        setDifficulty.addActionListener(e -> {
+            if(setDifficulty.getText().equals("Easy")) {
+                setDifficulty.setText("Medium");
+                //TODO: set difficulty to medium
+            }else if (setDifficulty.getText().equals("Medium")) {
+                setDifficulty.setText("Hard");
+                //TODO: set difficulty to hard
+            }else if (setDifficulty.getText().equals("Hard")) {
+                setDifficulty.setText("Easy");
+                //TODO: set difficulty to easy
+            }
+        });
     }
     
 }
