@@ -18,7 +18,7 @@ public class MenuSwing {
     public MenuSwing() {
         JFrame mainJFrame = new JFrame();
 
-        //General buttons
+        //General
         JTextArea title = new JTextArea();
         JPanel titlePanel = new JPanel();
         
