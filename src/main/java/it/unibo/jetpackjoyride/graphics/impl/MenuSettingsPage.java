@@ -17,6 +17,8 @@ public class MenuSettingsPage {
     JPanel settingsPage = new JPanel(new BorderLayout());
     JPanel settingsPageOption = new JPanel();
     JPanel settingsPageComands = new JPanel();
+
+    //Settings buttons
     JButton exit = new JButton("Exit");
     JButton returnBack = new JButton("Return");
     JButton audio = new JButton("Audio ON");
