@@ -2,9 +2,12 @@ package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import it.unibo.jetpackjoyride.model.impl.GameSettingsImpl;
 
 /**
  * This class is used to create the settings page of the game.
@@ -24,7 +27,8 @@ public class MenuSettingsPage {
     JButton audio = new JButton("Audio ON");
     JButton difficulty = new JButton("Easy");
 
-    public MenuSettingsPage() {
+    public MenuSettingsPage(){
+
         //Position of the panels in the settingsPage
         settingsPage.add(new JPanel(), BorderLayout.EAST);
         settingsPage.add(new JPanel(), BorderLayout.WEST);
@@ -60,12 +64,12 @@ public class MenuSettingsPage {
 
         //It will change the state of the button from Easy to Medium to Hard
         difficulty.addActionListener(e -> {
-            if(difficulty.getText().equals("Easy")) {
-                difficulty.setText("Medium");
-            }else if (difficulty.getText().equals("Medium")) {
-                difficulty.setText("Hard");
-            }else if (difficulty.getText().equals("Hard")) {
-                difficulty.setText("Easy");
+            if(difficulty.getText().equals("Difficult : EASY")) {
+                difficulty.setText("Difficult : MEDIUM");
+            }else if (difficulty.getText().equals("Difficult : MEDIUM")) {
+                difficulty.setText("Difficult : HARD");
+            }else if (difficulty.getText().equals("Difficult : HARD")) {
+                difficulty.setText("Difficult : EASY");
             }
             this.saveSettings();
         });
@@ -116,13 +120,42 @@ public class MenuSettingsPage {
 
         /**
          * Load the settings from the file
+         * @throws FileNotFoundException
          */
-        public void loadSettings() {
-            //TODO: load settings from file
+        public void loadSettings(){
+                try{
+                GameSettingsImpl settings = new GameSettingsImpl();
+                //Audio settings
+                audio.setText(settings.getValue("audio"));
+                System.out.println(settings.getValue("audio"));
+                //Difficulty settings
+                difficulty.setText(settings.getValue("difficulty"));
+                System.out.println(settings.getValue("difficulty"));
+
+                //TODO: add more settings
+            
+            }catch(FileNotFoundException e){
+                System.out.println("File not found");
+            }
+
         }
 
+        /**
+         * Save the settings to the file
+         */
         public void saveSettings() {
-            //TODO: save settings to file
+            try{
+                GameSettingsImpl settings = new GameSettingsImpl();
+                //Audio settings
+                settings.setValue("audio", audio.getText());
+
+                //Difficulty settings
+                settings.setValue("difficulty", difficulty.getText());
+
+                settings.writeSettings();
+            }catch(FileNotFoundException e){
+                System.out.println("File not found");
+            } 
         }
 
 
