@@ -1,6 +1,6 @@
 package it.unibo.jetpackjoyride.model;
 
-import it.unibo.jetpackjoyride.model.impl.MenuSwing;
+import it.unibo.jetpackjoyride.graphics.impl.MenuSwing;
 
 public class MenuTets {
     public static void main (String[] args) {
