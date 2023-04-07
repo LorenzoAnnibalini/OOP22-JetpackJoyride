@@ -9,7 +9,6 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 
 /**
  * Menu of the game
@@ -22,7 +21,7 @@ public class MenuSwing {
         JFrame mainJFrame = new JFrame();
 
         //General buttons
-        JButton exit = new JButton("Exit");
+        //JButton exitButton = new JButton("Exit");
         JTextArea title = new JTextArea();
         JPanel titlePanel = new JPanel();
         
@@ -56,7 +55,6 @@ public class MenuSwing {
         //Default settings of JFrame  
         mainJFrame.setSize(600, 600);
         mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainJFrame.setVisible(true);
         mainJFrame.setTitle("Jetpack Joyride");
         mainJFrame.add(titlePanel, BorderLayout.NORTH);
         mainJFrame.add(mainPage);
@@ -77,11 +75,14 @@ public class MenuSwing {
         mainPageOptions.add(statistics);
 
         //settingsPageComand panel
-        mainPageComands.add(new JButton());
-        mainPageComands.add(new JButton());
+        JButton exitButton = new JButton("Exit");
+        mainPageComands.add(statistics);
+        mainPageComands.add(settings);
+        mainPageComands.add(exitButton);
 
         //set mainPage visible
         mainPage.setVisible(true);
+        mainJFrame.setVisible(true);
 
 /* ------------------------ SETTINGS PAGE -------------------------*/
         //settingsPageOption panel
@@ -90,8 +91,8 @@ public class MenuSwing {
         settingsPageOption.add(setDifficulty);
 
         //settingsPageComand panel
-        settingsPageComands.add(exit);
         settingsPageComands.add(returnBack);
+        settingsPageComands.add(exitButton);
 
         //set settingsPage invisible
         settingsPage.setVisible(false);
@@ -107,22 +108,24 @@ public class MenuSwing {
             }
         });
          */
-        exit.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(e -> System.exit(0));
 
         // if press settings button open the settings page
         settings.addActionListener(e -> {
             mainPage.setVisible(false);
-            settingsPage.setVisible(true);
             mainJFrame.add(settingsPage);
             title.setText(settingsPageText);
+            settingsPage.setVisible(true);
+            mainJFrame.setVisible(true);
         });
 
         // if press return button open the main page
         returnBack.addActionListener(e -> {
             settingsPage.setVisible(false);
-            mainPage.setVisible(true);
             mainJFrame.add(mainPage);
             title.setText(welcomText);
+            mainPage.setVisible(true);
+            mainJFrame.setVisible(true);
         });
 
         // if press audio button set it to ON or OFF
