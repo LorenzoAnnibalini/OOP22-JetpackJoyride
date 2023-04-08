@@ -4,7 +4,7 @@ import java.util.Map;
 import it.unibo.jetpackjoyride.common.Pair;
 
 /**
- * Interface to load PowerUp information.
+ * Interface for PowerUp information.
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
@@ -23,7 +23,7 @@ public interface PowerUpInformation {
      * @param name tha name of the powerUp to get the information
      * @return information of the PowerUp
      */
-    int getValue(String name);
+    Pair<String, Integer> getValue(String name);
 
     /**
      * Setter for a powerUp.
