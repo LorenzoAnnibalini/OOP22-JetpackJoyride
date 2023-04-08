@@ -8,7 +8,7 @@ import it.unibo.jetpackjoyride.common.Pair;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public interface PowerUpLoader {
+public interface PowerUpInformation {
     
     /**
      * Get map of PowerUp information.
