@@ -18,6 +18,7 @@ import it.unibo.jetpackjoyride.model.api.GameSettings;
 public class GameSettingsImpl implements GameSettings {
 
     private static Map<String, String> settings = new HashMap<>();
+    
 
     /**
      * Constructor of the class
