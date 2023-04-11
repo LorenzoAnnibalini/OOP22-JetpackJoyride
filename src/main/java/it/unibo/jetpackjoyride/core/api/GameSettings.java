@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.model.api;
+package it.unibo.jetpackjoyride.core.api;
 
 import java.util.Map;
 

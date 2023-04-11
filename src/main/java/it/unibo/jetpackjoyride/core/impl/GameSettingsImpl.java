@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.model.impl;
+package it.unibo.jetpackjoyride.core.impl;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import it.unibo.jetpackjoyride.model.api.GameSettings;
+import it.unibo.jetpackjoyride.core.api.GameSettings;
 
 /**
  * Implementation of the game settings.
