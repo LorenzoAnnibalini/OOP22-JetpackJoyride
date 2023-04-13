@@ -12,17 +12,29 @@ public interface Hitbox {
      * Method to get the width of the hitbox.
      * @return the position of the hitbox.
      */
-    public Point2d getWidthHitbox();
+    public int getWidthHitbox();
 
     /**
      * Method to get the height of the hitbox.
      * @return the position of the hitbox.
      */
-    public Point2d getHeigthHitbox();
+    public int getHeigthHitbox();
 
     /**
-     * Method to update the position of the hitbox.
+     * Method to get the position of the up-left point of hitbox.
+     * @return the position of the up-left point.
      */
-    public void updateHitbox();
+    public Point2d getPointUpLeft();
+
+    /**
+     * Method to get the position of the down-right point of hitbox.
+     * @return the position of the down-right point.
+     */
+    public Point2d getPointDownRight();
+
+    /**
+     * Method to update the position of the hitbox and main points.
+     */
+    public void updateHitbox(final Point2d posObject);
 
 }
