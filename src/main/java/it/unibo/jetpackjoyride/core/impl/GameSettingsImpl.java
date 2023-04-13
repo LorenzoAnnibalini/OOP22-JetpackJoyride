@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
 
 import it.unibo.jetpackjoyride.core.api.GameSettings;
 
@@ -27,7 +29,10 @@ public class GameSettingsImpl implements GameSettings {
      */
     public GameSettingsImpl() throws FileNotFoundException {
 
-        Scanner sc = new Scanner(new File("/Users/lorenzoannibalini/Desktop/TMP/OOP22-JetpackJoyride/resources/game_settings.csv"));  
+
+        //TODO : USARE CLASSE GENERALE READ WRITE FILES
+        
+        Scanner sc = new Scanner(new File(getClass().getProtectionDomain().getCodeSource().getLocation()+"game_settings.csv"));  
         sc.useDelimiter(";"); 
         try{ 
             while (sc.hasNext()) { 
@@ -66,7 +71,10 @@ public class GameSettingsImpl implements GameSettings {
     public void writeSettings() {
         FileWriter csvWriter;
         try{
-            csvWriter = new FileWriter("/Users/lorenzoannibalini/Desktop/TMP/OOP22-JetpackJoyride/resources/game_settings.csv");
+
+            //TODO : USARE CLASSE GENERALE READ WRITE FILES
+
+            csvWriter = new FileWriter(getClass().getProtectionDomain().getCodeSource().getLocation()+"game_settings.csv");
             for (Map.Entry<String, String> entry : settings.entrySet()) {
                 csvWriter.append(entry.getKey());
                 csvWriter.append(";");
