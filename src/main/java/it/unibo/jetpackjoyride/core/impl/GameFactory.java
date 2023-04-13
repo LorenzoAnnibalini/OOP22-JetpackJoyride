@@ -15,15 +15,15 @@ public class GameFactory {
         return instance;
     }
 
-    public Electrode createElectrode(Point2d pos, Vector2d vel, Orientation orientation, double lenght, double width){
-        return new Electrode(pos, vel, orientation, lenght, width);
+    public Electrode createElectrode(Point2d pos, Vector2d vel, Orientation orientation){
+        return new Electrode(pos, vel, orientation);
     }
 
-    public Rocket createRocket(Point2d pos, Vector2d vel, double lenght, double width){
-        return new Rocket(pos, vel, lenght, width);
+    public Rocket createRocket(Point2d pos, Vector2d vel){
+        return new Rocket(pos, vel);
     }
 
-    public LaserRay createLaserRay(Point2d pos, Vector2d vel, double lenght, double width){
-        return new LaserRay(pos, vel, lenght, width);
+    public LaserRay createLaserRay(Point2d pos, Vector2d vel){
+        return new LaserRay(pos, vel);
     }
 }

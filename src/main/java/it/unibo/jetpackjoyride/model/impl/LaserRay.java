@@ -16,7 +16,7 @@ public class LaserRay extends ObstacleActivable{
      * @param pos
      * @param vel
      */
-    public LaserRay(Point2d pos, Vector2d vel, double lenght, double width) {
-        super(pos, vel, lenght, width);
+    public LaserRay(Point2d pos, Vector2d vel) {
+        super(pos, vel);
     }
 }
