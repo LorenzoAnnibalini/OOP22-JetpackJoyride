@@ -2,6 +2,7 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
+import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.model.api.Player;
 
 
@@ -19,8 +20,8 @@ public class PlayerImpl extends GameObject implements Player {
      * @param pos
      * @param vel
      */
-    public PlayerImpl(Point2d pos, Vector2d vel) {
-        super(pos, vel);
+    public PlayerImpl(Point2d pos, Vector2d vel, Hitbox hitbox) {
+        super(pos, vel, hitbox);
     }
 
     @Override
