@@ -15,7 +15,6 @@ public interface Gadget {
      */
     Map<String, Boolean> getAll();
 
-
     /**
      * Getter of a Gadget.
      * 
