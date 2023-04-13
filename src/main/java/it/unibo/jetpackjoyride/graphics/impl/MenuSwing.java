@@ -14,8 +14,8 @@ import java.awt.Font;
  */
 
 
-public class MenuPanel {
-    public MenuPanel() {
+public class MenuSwing {
+    public MenuSwing() {
         JFrame mainJFrame = new JFrame();
 
         //General
