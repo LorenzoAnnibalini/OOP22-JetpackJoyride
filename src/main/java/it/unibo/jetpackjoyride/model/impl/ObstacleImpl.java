@@ -23,8 +23,8 @@ public abstract class ObstacleImpl extends GameObject implements Obstacle{
      * @param pos
      * @param vel
      */
-    public ObstacleImpl(Type type, Point2d pos, Vector2d vel, double lenght, double width) {
-        super(type, pos, vel);
+    public ObstacleImpl(Point2d pos, Vector2d vel, double lenght, double width) {
+        super(pos, vel);
         this.setActiveOn();
         this.lenght = lenght;
         this.width = width;

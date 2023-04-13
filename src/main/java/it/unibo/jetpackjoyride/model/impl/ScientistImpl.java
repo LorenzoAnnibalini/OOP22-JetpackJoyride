@@ -16,7 +16,7 @@ public class ScientistImpl extends GameObject implements Scientist{
     private boolean life;
 
     public ScientistImpl(Direction direction, Point2d point, Vector2d velocity) {
-        super(Type.SCIENTIST, point, velocity);
+        super(point, velocity);
         if(direction == null) {
             throw new IllegalArgumentException("Input can't be empty");
         }else{

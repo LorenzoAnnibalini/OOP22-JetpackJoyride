@@ -10,9 +10,6 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 
 public class GameObject {
 
-	public static enum Type { BARRY, SCIENTIST, LASERRAY, ROCKET, ELECTRODE }
-
-	private Type type;
 	private Point2d pos;
 	private Vector2d vel;
 	
@@ -22,18 +19,9 @@ public class GameObject {
      * @param pos
      * @param vel
      */
-	public GameObject(final Type type, final Point2d pos, final Vector2d vel){
-		this.type = type;
+	public GameObject(final Point2d pos, final Vector2d vel){
 		this.pos = pos;
 		this.vel = vel;
-	}
-	
-    /**
-     * get the type of the game object.
-     * @return type of game object
-     */
-	public Type getType(){
-		return type;
 	}
 	
     /**

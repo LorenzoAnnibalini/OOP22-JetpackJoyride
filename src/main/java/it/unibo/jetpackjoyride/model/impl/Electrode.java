@@ -20,8 +20,8 @@ public class Electrode extends ObstacleImpl{
      * @param pos
      * @param vel
      */
-    public Electrode(Type type, Point2d pos, Vector2d vel, Orientation orientation, double lenght, double width) {
-        super(type, pos, vel, lenght, width);
+    public Electrode(Point2d pos, Vector2d vel, Orientation orientation, double lenght, double width) {
+        super(pos, vel, lenght, width);
         this.orientation = orientation;
     }
 
