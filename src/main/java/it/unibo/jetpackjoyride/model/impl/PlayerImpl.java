@@ -12,6 +12,7 @@ import it.unibo.jetpackjoyride.model.api.Player;
 public class PlayerImpl extends GameObject implements Player {
    
     private boolean statusPlayer;
+    
 
     /**
      * constructor to create a player.
