@@ -6,7 +6,7 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
  * This is a class to model a generic hitbox.
  * @author mattia.burreli@studio.unibo.it
 */
-public class HitboxImpl implements Hitbox  {
+public class HitboxImpl implements Hitbox {
 
     private Point2d upLeftPoint;
     private Point2d downRightPoint;
@@ -22,8 +22,8 @@ public class HitboxImpl implements Hitbox  {
     public HitboxImpl(final int height, final int width, final Point2d posObject) {
         this.height = height;
         this.width = width;
-        this.upLeftPoint = new Point2d((posObject.x-(width/2)),posObject.y+(height/2));
-        this.downRightPoint = new Point2d((posObject.x-(width/2)),posObject.y+(height/2));
+        this.upLeftPoint = this.calcPointPosition(posObject, "-");
+        this.downRightPoint = this.calcPointPosition(posObject, "+");
     }
 
     @Override
@@ -37,11 +37,6 @@ public class HitboxImpl implements Hitbox  {
     }
 
     @Override
-    public void updateHitbox(final Point2d posObject) {
-        
-    }
-
-    @Override
     public Point2d getPointUpLeft() {
        return this.upLeftPoint;
     }
@@ -50,5 +45,26 @@ public class HitboxImpl implements Hitbox  {
     public Point2d getPointDownRight() {
         return this.downRightPoint;
     }
+
+    @Override
+    public void updateHitbox(Point2d posObject) {
+        this.upLeftPoint = this.calcPointPosition(posObject, "-");
+        this.downRightPoint = this.calcPointPosition(posObject, "+");
+    }
     
+    /**
+     * method for calculating the position of a point based on the object's position and the size of its hitbox
+     * @param posObject
+     * @param sign
+     * @return the position of the calculated point.
+     */
+    private Point2d calcPointPosition(final Point2d posObject,String sign){
+        if(sign.equals("-")){
+            return new Point2d(posObject.x - this.width/2, posObject.y - this.height/2);
+        } else if (sign.equals("+")){
+            return new Point2d(posObject.x + this.width/2, posObject.y + this.height/2);
+        } else {
+            throw new IllegalArgumentException("Sign must be '+' or '-'");
+        }
+    }
 }
