@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import it.unibo.jetpackjoyride.model.impl.GameSettingsImpl;
+import it.unibo.jetpackjoyride.core.impl.GameSettingsImpl;
 
 /**
  * This class is used to create the settings page of the game.
