@@ -2,6 +2,7 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
+import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /**
  * Class to model a LaserRay obstacle.
@@ -16,7 +17,7 @@ public class LaserRay extends ObstacleActivable{
      * @param pos
      * @param vel
      */
-    public LaserRay(Point2d pos, Vector2d vel) {
-        super(pos, vel);
+    public LaserRay(Point2d pos, Vector2d vel,Hitbox hitbox) {
+        super(pos, vel,hitbox);
     }
 }

@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.core.impl;
 
+import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.model.impl.*;
 import it.unibo.jetpackjoyride.common.*;
 import it.unibo.jetpackjoyride.model.impl.Electrode.Orientation;
@@ -15,8 +16,8 @@ public class GameFactory {
         return instance;
     }
 
-    public Electrode createElectrode(Point2d pos, Vector2d vel, Orientation orientation){
-        return new Electrode(pos, vel, orientation);
+    public Electrode createElectrode(Point2d pos, Vector2d vel, Orientation orientation, Hitbox hitbox){
+        return new Electrode(pos, vel, orientation, hitbox);
     }
 
     public Rocket createRocket(Point2d pos, Vector2d vel){

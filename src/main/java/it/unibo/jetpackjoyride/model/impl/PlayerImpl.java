@@ -16,12 +16,11 @@ public class PlayerImpl extends GameObject implements Player {
 
     /**
      * constructor to create a player.
-     * @param type
      * @param pos
      * @param vel
      */
     public PlayerImpl(Point2d pos, Vector2d vel) {
-        super(Type.BARRY, pos, vel);
+        super(pos, vel);
     }
 
     @Override
