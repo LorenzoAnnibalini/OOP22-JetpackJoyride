@@ -20,11 +20,11 @@ public class GameFactory {
         return new Electrode(pos, vel, orientation, hitbox);
     }
 
-    public Rocket createRocket(Point2d pos, Vector2d vel){
-        return new Rocket(pos, vel);
+    public Rocket createRocket(Point2d pos, Vector2d vel,Hitbox hitbox){
+        return new Rocket(pos, vel, hitbox);
     }
 
-    public LaserRay createLaserRay(Point2d pos, Vector2d vel){
-        return new LaserRay(pos, vel);
+    public LaserRay createLaserRay(Point2d pos, Vector2d vel,Hitbox hitbox){
+        return new LaserRay(pos, vel,hitbox);
     }
 }
