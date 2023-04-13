@@ -1,5 +1,5 @@
 package it.unibo.jetpackjoyride.core.api;
 
-public interface PowerUpLoader {
+public interface GadgetLoader {
     /*TODO*/
 }
