@@ -1,14 +1,15 @@
 package it.unibo.jetpackjoyride.model.api;
 
-
 /**
  * Interface for the player.
+ * 
  * @author mattia.burreli@studio.unibo.it
  */
 public interface Player {
 
     /**
      * This method returns the status of the player.
+     * 
      * @return true if the player is alive, false otherwise
      */
     public boolean getStatusPlayer();
