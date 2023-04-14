@@ -9,9 +9,7 @@ import java.awt.BorderLayout;
  */
 
 
-public class MenuPanel {
-
-    private JPanel menuPanel = new JPanel(new BorderLayout());
+public class MenuPanel extends JPanel{
 
     public MenuPanel() {
 
@@ -19,10 +17,11 @@ public class MenuPanel {
         MenuMainPage mainPage = new MenuMainPage();
         MenuSettingsPage settingsPage = new MenuSettingsPage();
 
-        //Default settings of JFrame  
-        menuPanel.add(mainPage.getMainPage());
+        //Default settings
+        this.setLayout(new BorderLayout());
+        this.add(mainPage.getMainPage());
         mainPage.getMainPage().setVisible(true);
-        menuPanel.setVisible(true);
+        this.setVisible(true);
 
 /* ------------------------ ACTION LISTENER -------------------------*/
 
@@ -33,25 +32,25 @@ public class MenuPanel {
         // if press settings button open the settings page
         mainPage.getSettings().addActionListener(e -> {
             mainPage.getMainPage().setVisible(false);
-            menuPanel.add(settingsPage.getSettingsPage());
+            this.add(settingsPage.getSettingsPage());
             settingsPage.setVisible(true);
-            menuPanel.setVisible(true);
+            this.setVisible(true);
         });
 
         // if press return button open the main page
         settingsPage.getReturnBack().addActionListener(e -> {
             settingsPage.setVisible(false);
-            menuPanel.add(mainPage.getMainPage());
+            this.add(mainPage.getMainPage());
             mainPage.getMainPage().setVisible(true);
-            menuPanel.setVisible(true);
+            this.setVisible(true);
         });
 
         // if press NewGame button open the game
         mainPage.getNewGame().addActionListener(e -> {
            /* TODO: implement the game
             mainPage.getMainPage().setVisible(false);
-            menuPanel.add(new Game());
-            menuPanel.setVisible(true);
+            this.add(new Game());
+            this.setVisible(true);
             */
         });
 
@@ -59,8 +58,8 @@ public class MenuPanel {
         mainPage.getStatistics().addActionListener(e -> {
            /* TODO: implement the statistics
             mainPage.getMainPage().setVisible(false);
-            menuPanel.add(new MenuStatistics(), BorderLayout.CENTER);
-            menuPanel.setVisible(true);
+            this.add(new MenuStatistics(), BorderLayout.CENTER);
+            this.setVisible(true);
             */
         });
 
@@ -68,19 +67,10 @@ public class MenuPanel {
         mainPage.getShopButton().addActionListener(e -> {
             /* TODO: implement the shop
             mainPage.getMainPage().setVisible(false);
-            menuPanel.add(new MenuShop(), BorderLayout.CENTER);
-            menuPanel.setVisible(true);
+            this.add(new MenuShop(), BorderLayout.CENTER);
+            this.setVisible(true);
             */
         });  
     }
-
-/*----------------------------GETTER-------------------------------*/
-    
-            /**
-            * @return the mainJPanel
-            */
-            public JPanel getMainJPanel() {
-                return this.menuPanel;
-            }
     
 }
