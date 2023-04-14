@@ -2,7 +2,10 @@ package it.unibo.jetpackjoyride.graphics.impl;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.GroupLayout.Alignment;
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 /**
@@ -24,8 +27,23 @@ public class MenuMainPage {
     private JButton shopButton = new JButton("Shop");
     private JButton statistics = new JButton("Statistics");
 
+     //Title of the main page
+     JTextArea title = new JTextArea();
+     JPanel titlePanel = new JPanel();
+
     public MenuMainPage() {
+
+        //Font of the title
+        title.setEditable(false);
+        title.setBackground(null);
+        title.setFont( new Font("Arial", Font.BOLD, 30));
+        titlePanel.add(title, Alignment.CENTER);
+        final String welcomText = "Welcome to Jetpack Joyride !";
+        title.setText(welcomText);
+
+
         //Position of the panels in the mainPage
+        mainPage.add(titlePanel, BorderLayout.NORTH);
         mainPage.add(new JPanel(), BorderLayout.EAST);
         mainPage.add(new JPanel(), BorderLayout.WEST);
         mainPage.add(mainPageOptions, BorderLayout.CENTER);

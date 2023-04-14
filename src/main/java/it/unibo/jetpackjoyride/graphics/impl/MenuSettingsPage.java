@@ -1,13 +1,16 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
+import it.unibo.jetpackjoyride.core.impl.GameSettingsImpl;
+
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import it.unibo.jetpackjoyride.core.impl.GameSettingsImpl;
+import javax.swing.JTextArea;
+import javax.swing.GroupLayout.Alignment;
 
 /**
  * This class is used to create the settings page of the game.
@@ -21,6 +24,10 @@ public class MenuSettingsPage {
     JPanel settingsPageOption = new JPanel();
     JPanel settingsPageComands = new JPanel();
 
+    //Title of the settings page
+    JTextArea title = new JTextArea();
+    JPanel titlePanel = new JPanel();
+
     //Settings buttons
     JButton exit = new JButton("Exit");
     JButton returnBack = new JButton("Return");
@@ -29,7 +36,16 @@ public class MenuSettingsPage {
 
     public MenuSettingsPage(){
 
+        //Font of the title
+        title.setEditable(false);
+        title.setBackground(null);
+        title.setFont( new Font("Arial", Font.BOLD, 30));
+        titlePanel.add(title, Alignment.CENTER);
+        final String settingsPageText = "Jetpack Joyride - Settings";
+        title.setText(settingsPageText);
+
         //Position of the panels in the settingsPage
+        settingsPage.add(titlePanel, BorderLayout.NORTH);
         settingsPage.add(new JPanel(), BorderLayout.EAST);
         settingsPage.add(new JPanel(), BorderLayout.WEST);
         settingsPage.add(settingsPageOption, BorderLayout.CENTER);
