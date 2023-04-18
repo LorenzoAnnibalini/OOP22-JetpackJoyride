@@ -16,12 +16,18 @@ public interface EntitiesGeneration {
     void generateObstacle();
 
     /**
+     * Method to generate new scientists.
+     */
+    void generateScientists();
+
+    /**
      * Method to set start time of the game to calculate laser time spawn.
      */
     void setStartTime();
 
     /**
      * Method to get all entities to spawn.
+     * 
      * @return a set of gameobjects like electrodes, rockets, laser, powerups, ecc
      */
     Set<GameObject> getEntities();

@@ -4,19 +4,28 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import javax.xml.stream.events.EndElement;
+
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.core.api.EntitiesGeneration;
+import it.unibo.jetpackjoyride.model.api.Direction;
 import it.unibo.jetpackjoyride.model.api.PowerUp;
+import it.unibo.jetpackjoyride.model.api.Scientist;
 import it.unibo.jetpackjoyride.model.impl.AutomaticPowerUp;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.LaserRay;
 import it.unibo.jetpackjoyride.model.impl.ManualPowerUp;
 import it.unibo.jetpackjoyride.model.impl.Rocket;
+import it.unibo.jetpackjoyride.model.impl.ScientistImpl;
 
+/**
+ * Implementation of class EntitiesGeneration. This class create an object to spawn the entities in game.
+ */
 public class EntitiesGenerationImpl implements EntitiesGeneration {
 
     private Set<GameObject> entities = new HashSet<>();
+    private Set<ScientistImpl> scientists = new HashSet<>();
     private boolean spawnLaser = false;
     private static final int ROCKET = 0;
     private static final int ELECTRODE = 1;
@@ -24,6 +33,7 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     private static final int YBOUND = 600;
     private static final int XBOUND = 600;
     private static final int HORIZONTAL = 0;
+    private static final int LEFT = 0;
     private long startTime = 0;// System.currentTimeMillis();
     // private static final int ROCKET = 0;
 
@@ -57,9 +67,22 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
         this.spawnLaser = this.isLaserSpawnTime();
         if (this.spawnLaser) {
             Random random = new Random();
-            this.entities.add(new LaserRay(new Point2d(EntitiesGenerationImpl.XBOUND, random.nextInt(EntitiesGenerationImpl.YBOUND)), null, null));
+            this.entities.add(new LaserRay(
+                    new Point2d(EntitiesGenerationImpl.XBOUND, random.nextInt(EntitiesGenerationImpl.YBOUND)), null,
+                    null));
             this.spawnLaser = false;
         }
+    }
+
+    @Override
+    public void generateScientists() {
+        Random random = new Random();
+        int direction = random.nextInt(2);
+        this.scientists.add(new ScientistImpl(
+                direction == EntitiesGenerationImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
+                new Point2d(direction == EntitiesGenerationImpl.LEFT ? EntitiesGenerationImpl.XBOUND : 0,
+                        EntitiesGenerationImpl.YBOUND),
+                null, null));
     }
 
     /**
@@ -71,10 +94,12 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     private boolean allowNewEntity() {
         return this.entities.size() <= 3 || !this.spawnLaser;
     }
-    
+
     /**
-     * Method to check if is time to spawn a new entity or if is time for a new laser
-     * @return
+     * Method to check if is time to spawn a new entity or if is time for a new
+     * laser
+     * 
+     * @return true if are passed 10 seconds from last laser
      */
     private boolean isLaserSpawnTime() {
         return System.currentTimeMillis() - this.startTime % 10000 == 0;
@@ -87,6 +112,14 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
 
     @Override
     public Set<GameObject> getEntities() {
-        return this.entities;
+        Set<GameObject> retSet = new HashSet<>();
+        for (GameObject g : this.entities) {
+            retSet.add(g);
+        }
+        for (ScientistImpl g : this.scientists) {
+            retSet.add(g);
+        }
+        return retSet;
     }
+
 }
