@@ -37,4 +37,20 @@ public interface Hitbox {
      */
     public void updateHitbox(final Point2d posObject);
 
+    /**
+     * Method to set the hitbox active.
+     */
+    public void setHitboxActive();
+
+    /**
+     * Method to check if the hitbox is active.
+     * @return true if the hitbox is active, false otherwise.
+     */
+    public boolean isHitboxActive();
+
+    /**
+     * Method to set the hitbox disable.
+     */
+    public void setHitboxDisable();
+
 }
