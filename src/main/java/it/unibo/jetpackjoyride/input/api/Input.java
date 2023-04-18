@@ -18,6 +18,10 @@ enum typeInput {
     MENU
 }
 
+/**
+ * Get the type of the input.
+ * @return the type of the input
+ */
 public typeInput getType();
 
 }
