@@ -32,7 +32,7 @@ public class MenuPanel extends JPanel{
         // if press settings button open the settings page
         mainPage.getSettings().addActionListener(e -> {
             mainPage.setVisible(false);
-            this.add(settingsPage.getSettingsPage());
+            this.add(settingsPage);
             settingsPage.setVisible(true);
             this.setVisible(true);
         });
@@ -66,7 +66,7 @@ public class MenuPanel extends JPanel{
         // if press Shop button open the shop page
         mainPage.getShopButton().addActionListener(e -> {
             /* TODO: implement the shop
-            mainPagenu.setVisible(false);
+            mModainPage.setVisible(false);
             this.add(new MenuShop(), BorderLayout.CENTER);
             this.setVisible(true);
             */

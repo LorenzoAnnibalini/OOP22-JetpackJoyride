@@ -102,5 +102,13 @@ public class MenuMainPage extends JPanel {
     public JButton getStatistics() {
         return statistics;
     }
+/* ------------------------ MAIN PAGE SETTER -------------------------*/
+
+    /**
+     * @param visible the visible to set
+     */
+    public void setVisible (boolean visible) {
+        this.setVisible(visible);
+    }
     
 }
