@@ -6,6 +6,7 @@ import it.unibo.jetpackjoyride.input.api.Input;
 
 /**
  * Class for the input.
+ * 
  * @author mattia.burreli@studio.unibo.it
  */
 public class InputImpl implements Input {
