@@ -14,6 +14,7 @@ public class HitboxImpl implements Hitbox {
     private Point2d downRightPoint;
     private int height;
     private int width;
+    private boolean hitboxActive;
 
     /**
      * Constructor of the Hitbox.
@@ -25,6 +26,7 @@ public class HitboxImpl implements Hitbox {
     public HitboxImpl(final int height, final int width, final Point2d posObject) {
         this.height = height;
         this.width = width;
+        this.hitboxActive = true;
         this.calcPointPosition(posObject);
     }
 
@@ -64,5 +66,20 @@ public class HitboxImpl implements Hitbox {
     private void calcPointPosition(final Point2d posObject) {
         this.upLeftPoint = new Point2d(posObject.x - this.width / 2, posObject.y - this.height / 2);
         this.downRightPoint = new Point2d(posObject.x + this.width / 2, posObject.y + this.height / 2);
+    }
+
+    @Override
+    public void setHitboxActive() {
+        this.hitboxActive = true;
+    }
+
+    @Override
+    public boolean isHitboxActive() {
+        return this.hitboxActive;
+    }
+
+    @Override
+    public void setHitboxDisable() {
+        this.hitboxActive = false;
     }
 }
