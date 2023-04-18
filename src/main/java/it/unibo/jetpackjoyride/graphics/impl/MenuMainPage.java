@@ -13,10 +13,9 @@ import java.awt.GridLayout;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class MenuMainPage {
+public class MenuMainPage extends JPanel {
     
     //Main Page panels
-    private JPanel mainPage = new JPanel(new BorderLayout());
     private JPanel mainPageOptions = new JPanel();
     private JPanel mainPageComands = new JPanel();
 
@@ -33,6 +32,9 @@ public class MenuMainPage {
 
     public MenuMainPage() {
 
+        //Main Page layout
+        this.setLayout(new BorderLayout());
+
         //Font of the title
         title.setEditable(false);
         title.setBackground(null);
@@ -43,11 +45,11 @@ public class MenuMainPage {
 
 
         //Position of the panels in the mainPage
-        mainPage.add(titlePanel, BorderLayout.NORTH);
-        mainPage.add(new JPanel(), BorderLayout.EAST);
-        mainPage.add(new JPanel(), BorderLayout.WEST);
-        mainPage.add(mainPageOptions, BorderLayout.CENTER);
-        mainPage.add(mainPageComands, BorderLayout.SOUTH);
+        this.add(titlePanel, BorderLayout.NORTH);
+        this.add(new JPanel(), BorderLayout.EAST);
+        this.add(new JPanel(), BorderLayout.WEST);
+        this.add(mainPageOptions, BorderLayout.CENTER);
+        this.add(mainPageComands, BorderLayout.SOUTH);
 
         //gameOption panel
         mainPageOptions.setLayout(new GridLayout(3,1));
@@ -60,18 +62,11 @@ public class MenuMainPage {
         mainPageComands.add(exit);
 
         //set visible to false
-        mainPage.setVisible(false);
+        this.setVisible(false);
     }
 
 
  /* ------------------------ MAIN PAGE GETTER -------------------------*/
-
-    /**
-     * @return the mainPage
-     */
-    public JPanel getMainPage() {
-        return mainPage;
-    }
 
     /**
      * @return the mainPageOptions
