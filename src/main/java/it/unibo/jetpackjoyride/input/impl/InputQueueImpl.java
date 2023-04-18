@@ -6,6 +6,10 @@ import java.util.Objects;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 
+/**
+ * Implementation of the input queue.
+ * @author mattia.burreli@studio.unibo.it
+ */
 public class InputQueueImpl implements InputQueue {
 
     private LinkedList<Input> inputQueue;
