@@ -1,5 +1,9 @@
 package it.unibo.jetpackjoyride.core.api;
 
+import java.util.Set;
+
+import it.unibo.jetpackjoyride.model.impl.GameObject;
+
 /**
  * An interface to generate new enetitites in the game map.
  * 
@@ -12,12 +16,13 @@ public interface EntitiesGeneration {
     void generateObstacle();
 
     /**
-     * Method to generate a new power up.
+     * Method to set start time of the game to calculate laser time spawn.
      */
-    void powerUp();
+    void setStartTime();
 
     /**
-     * Method to generate new scientist.
+     * Method to get all entities to spawn.
+     * @return a set of gameobjects like electrodes, rockets, laser, powerups, ecc
      */
-    void generateScientist();
+    Set<GameObject> getEntities();
 }
