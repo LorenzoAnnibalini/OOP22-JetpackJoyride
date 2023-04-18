@@ -2,6 +2,7 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
+import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /**
  * A class to model an in-game coin.
@@ -9,8 +10,8 @@ import it.unibo.jetpackjoyride.common.Vector2d;
  */
 
 public class Coin extends GameObject{
-
-    public Coin(Type type, Point2d pos, Vector2d vel) {
-        super(type, pos, vel);
+    
+    public Coin(final Point2d pos, final Vector2d vel,final Hitbox hitbox){
+        super(pos, vel, hitbox);
     }
 }
