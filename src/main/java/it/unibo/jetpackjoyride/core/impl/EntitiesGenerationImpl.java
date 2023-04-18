@@ -4,23 +4,20 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import javax.xml.stream.events.EndElement;
-
 import it.unibo.jetpackjoyride.common.Point2d;
+import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.core.api.EntitiesGeneration;
 import it.unibo.jetpackjoyride.model.api.Direction;
-import it.unibo.jetpackjoyride.model.api.PowerUp;
-import it.unibo.jetpackjoyride.model.api.Scientist;
-import it.unibo.jetpackjoyride.model.impl.AutomaticPowerUp;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
+import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
 import it.unibo.jetpackjoyride.model.impl.LaserRay;
-import it.unibo.jetpackjoyride.model.impl.ManualPowerUp;
 import it.unibo.jetpackjoyride.model.impl.Rocket;
 import it.unibo.jetpackjoyride.model.impl.ScientistImpl;
 
 /**
- * Implementation of class EntitiesGeneration. This class create an object to spawn the entities in game.
+ * Implementation of class EntitiesGeneration. This class create an object to
+ * spawn the entities in game.
  */
 public class EntitiesGenerationImpl implements EntitiesGeneration {
 
@@ -34,8 +31,7 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     private static final int XBOUND = 600;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
-    private long startTime = 0;// System.currentTimeMillis();
-    // private static final int ROCKET = 0;
+    private long startTime = 0;
 
     @Override
     public void generateObstacle() {
@@ -47,15 +43,19 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
                 case EntitiesGenerationImpl.ROCKET:
                     entities.add(new Rocket(
                             new Point2d(EntitiesGenerationImpl.XBOUND, random.nextInt(EntitiesGenerationImpl.YBOUND)),
-                            null, null));
+                            new Vector2d(0, random.nextDouble(EntitiesGenerationImpl.YBOUND)),
+                            new HitboxImpl(50, 50, new Point2d(EntitiesGenerationImpl.XBOUND,
+                                    random.nextInt(EntitiesGenerationImpl.YBOUND)))));
                     break;
                 case EntitiesGenerationImpl.ELECTRODE:
                     int orientation = random.nextInt(2);
                     entities.add(new Electrode(
                             new Point2d(EntitiesGenerationImpl.XBOUND, random.nextInt(EntitiesGenerationImpl.YBOUND)),
-                            null, orientation == EntitiesGenerationImpl.HORIZONTAL ? Electrode.Orientation.HORIZONTAL
+                            new Vector2d(0, random.nextDouble(EntitiesGenerationImpl.YBOUND)),
+                            orientation == EntitiesGenerationImpl.HORIZONTAL ? Electrode.Orientation.HORIZONTAL
                                     : Electrode.Orientation.VERTICAL,
-                            null));
+                            new HitboxImpl(50, 50, new Point2d(EntitiesGenerationImpl.XBOUND,
+                                    random.nextInt(EntitiesGenerationImpl.YBOUND)))));
                     break;
                 case EntitiesGenerationImpl.POWERUP:
                     // entities.add(new ManualPowerUp(null, 0, 0));
