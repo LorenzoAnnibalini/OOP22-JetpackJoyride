@@ -1,6 +1,7 @@
 package it.unibo.jetpackjoyride.input.impl;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import it.unibo.jetpackjoyride.input.api.Input;
@@ -13,13 +14,13 @@ import it.unibo.jetpackjoyride.input.api.InputQueue;
  */
 public class InputQueueImpl implements InputQueue {
 
-    private LinkedList<Input> inputQueue;
+    private List<Input> inputQueue;
 
     /**
      * Constructor for the input queue.
      */
     public InputQueueImpl() {
-        this.inputQueue = new LinkedList<>();
+        this.inputQueue = new ArrayList<>();
     }
 
     @Override
@@ -28,8 +29,10 @@ public class InputQueueImpl implements InputQueue {
     }
 
     @Override
-    public LinkedList<Input> getInputQueue() {
-        return new LinkedList<>(this.inputQueue);
+    public List<Input> getInputQueue() {
+        List<Input> inputQueueCopy = new ArrayList<>(this.inputQueue);
+        this.inputQueue.clear();
+        return inputQueueCopy;
     }
 
     @Override

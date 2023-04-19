@@ -1,6 +1,6 @@
 package it.unibo.jetpackjoyride.input.api;
 
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Interface for the input queue.
@@ -19,9 +19,9 @@ public interface InputQueue {
     /**
      * Get a copy of imput queue.
      * 
-     * @return the first input
+     * @return a list of inputs.
      */
-    public LinkedList<Input> getInputQueue();
+    public List<Input> getInputQueue();
 
     /**
      * Check if the queue is empty.
