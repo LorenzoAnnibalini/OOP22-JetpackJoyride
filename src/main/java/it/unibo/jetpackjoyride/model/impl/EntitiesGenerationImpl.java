@@ -8,7 +8,6 @@ import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Direction;
 import it.unibo.jetpackjoyride.model.api.EntitiesGeneration;
-import it.unibo.jetpackjoyride.model.api.PowerUp;
 import it.unibo.jetpackjoyride.common.Pair;
 
 /**
@@ -64,10 +63,10 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
                                     random.nextInt(EntitiesGenerationImpl.YBOUND))))));
                     break;
                 case EntitiesGenerationImpl.POWERUP:
-                    int type = random.nextInt(EntitiesGenerationImpl.RANDOMSEED);
+                    /*int type = random.nextInt(EntitiesGenerationImpl.RANDOMSEED);
                     entities.add(new Pair<String, GameObject>("Powerup",
                             new ManualPowerUp(type == EntitiesGenerationImpl.SHIELD ? PowerUp.PowerUpType.SHIELD
-                                    : PowerUp.PowerUpType.SPEED, 500, 5000)));
+                                    : PowerUp.PowerUpType.SPEED, 500, 5000)));*/
                     break;
                 default:
                     break;
@@ -123,3 +122,10 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     }
 
 }
+
+
+
+
+/*public gamepanel(final EntitiesGenerationImpl eg){
+    
+}*/
