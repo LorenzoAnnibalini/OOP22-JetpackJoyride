@@ -9,7 +9,7 @@ import it.unibo.jetpackjoyride.model.api.PowerUp;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class AutomaticPowerUp implements PowerUp {
+public class PowerUpImpl extends GameObject implements PowerUp {
 
     private boolean active;
     private final PowerUpType type;
@@ -17,7 +17,7 @@ public class AutomaticPowerUp implements PowerUp {
     private long duration;
     private long startTime;
 
-    public AutomaticPowerUp(final PowerUpType type, final int cost, final long duration) {
+    public PowerUpImpl(final PowerUpType type, final int cost, final long duration) {
         if(type == null)throw new IllegalArgumentException("Type cannot be null");
         this.type = type;
         this.setCost(cost);

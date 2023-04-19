@@ -1,11 +1,6 @@
 package it.unibo.jetpackjoyride.model.api;
 
 public interface PowerUp {
-    /**
-     * Generic PowerUp interface
-     * @author: lorenzo.annibalini@studio.unibo.it
-     */
-
     public static enum PowerUpType { SHIELD, SPEED, JETPACK, LIFE }
 
     /**
