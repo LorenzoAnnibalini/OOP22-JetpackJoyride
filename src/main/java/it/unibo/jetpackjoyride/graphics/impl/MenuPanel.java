@@ -19,8 +19,8 @@ public class MenuPanel extends JPanel{
 
         //Default settings
         this.setLayout(new BorderLayout());
-        this.add(mainPage.getMainPage());
-        mainPage.getMainPage().setVisible(true);
+        this.add(mainPage);
+        mainPage.setVisible(true);
         this.setVisible(true);
 
 /* ------------------------ ACTION LISTENER -------------------------*/
@@ -31,8 +31,8 @@ public class MenuPanel extends JPanel{
 
         // if press settings button open the settings page
         mainPage.getSettings().addActionListener(e -> {
-            mainPage.getMainPage().setVisible(false);
-            this.add(settingsPage.getSettingsPage());
+            mainPage.setVisible(false);
+            this.add(settingsPage);
             settingsPage.setVisible(true);
             this.setVisible(true);
         });
@@ -40,15 +40,15 @@ public class MenuPanel extends JPanel{
         // if press return button open the main page
         settingsPage.getReturnBack().addActionListener(e -> {
             settingsPage.setVisible(false);
-            this.add(mainPage.getMainPage());
-            mainPage.getMainPage().setVisible(true);
+            this.add(mainPage);
+            mainPage.setVisible(true);
             this.setVisible(true);
         });
 
         // if press NewGame button open the game
         mainPage.getNewGame().addActionListener(e -> {
            /* TODO: implement the game
-            mainPage.getMainPage().setVisible(false);
+            mainPage.setVisible(false);
             this.add(new Game());
             this.setVisible(true);
             */
@@ -57,7 +57,7 @@ public class MenuPanel extends JPanel{
         // if press Statistics button open the statistics page
         mainPage.getStatistics().addActionListener(e -> {
            /* TODO: implement the statistics
-            mainPage.getMainPage().setVisible(false);
+            mainPage.setVisible(false);
             this.add(new MenuStatistics(), BorderLayout.CENTER);
             this.setVisible(true);
             */
@@ -66,7 +66,7 @@ public class MenuPanel extends JPanel{
         // if press Shop button open the shop page
         mainPage.getShopButton().addActionListener(e -> {
             /* TODO: implement the shop
-            mainPage.getMainPage().setVisible(false);
+            mModainPage.setVisible(false);
             this.add(new MenuShop(), BorderLayout.CENTER);
             this.setVisible(true);
             */

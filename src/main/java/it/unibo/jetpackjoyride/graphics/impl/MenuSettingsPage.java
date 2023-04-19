@@ -17,10 +17,9 @@ import javax.swing.GroupLayout.Alignment;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class MenuSettingsPage {
+public class MenuSettingsPage extends JPanel {
     
     //Settings panels
-    JPanel settingsPage = new JPanel(new BorderLayout());
     JPanel settingsPageOption = new JPanel();
     JPanel settingsPageComands = new JPanel();
 
@@ -36,6 +35,9 @@ public class MenuSettingsPage {
 
     public MenuSettingsPage(){
 
+        //Settings Page layout
+        this.setLayout(new BorderLayout());
+
         //Font of the title
         title.setEditable(false);
         title.setBackground(null);
@@ -45,11 +47,11 @@ public class MenuSettingsPage {
         title.setText(settingsPageText);
 
         //Position of the panels in the settingsPage
-        settingsPage.add(titlePanel, BorderLayout.NORTH);
-        settingsPage.add(new JPanel(), BorderLayout.EAST);
-        settingsPage.add(new JPanel(), BorderLayout.WEST);
-        settingsPage.add(settingsPageOption, BorderLayout.CENTER);
-        settingsPage.add(settingsPageComands, BorderLayout.SOUTH);
+        this.add(titlePanel, BorderLayout.NORTH);
+        this.add(new JPanel(), BorderLayout.EAST);
+        this.add(new JPanel(), BorderLayout.WEST);
+        this.add(settingsPageOption, BorderLayout.CENTER);
+        this.add(settingsPageComands, BorderLayout.SOUTH);
 
         //settingsPageOption panel
         settingsPageOption.setLayout(new GridLayout(2,1));
@@ -61,7 +63,7 @@ public class MenuSettingsPage {
         settingsPageComands.add(exit);
 
         //Set visible to false
-        settingsPage.setVisible(false);
+        this.setVisible(false);
 
         //Load the settings from the file
         loadSettings();
@@ -92,13 +94,6 @@ public class MenuSettingsPage {
     }
 
 /* ------------------------ SETTINGS PAGE GETTER -------------------------*/
-    
-        /**
-        * @return the settingsPage
-        */
-        public JPanel getSettingsPage() {
-            return settingsPage;
-        }
     
         /**
         * @return the exit
@@ -200,7 +195,7 @@ public class MenuSettingsPage {
          * @param b
          */
         public void setVisible(boolean b) {
-            settingsPage.setVisible(b);
+            this.setVisible(b);
         }
 
 }
