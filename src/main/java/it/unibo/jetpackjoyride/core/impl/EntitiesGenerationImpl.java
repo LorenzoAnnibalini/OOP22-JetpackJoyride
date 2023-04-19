@@ -8,10 +8,12 @@ import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.core.api.EntitiesGeneration;
 import it.unibo.jetpackjoyride.model.api.Direction;
+import it.unibo.jetpackjoyride.model.api.PowerUp;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
 import it.unibo.jetpackjoyride.model.impl.LaserRay;
+import it.unibo.jetpackjoyride.model.impl.ManualPowerUp;
 import it.unibo.jetpackjoyride.model.impl.Rocket;
 import it.unibo.jetpackjoyride.model.impl.ScientistImpl;
 import it.unibo.jetpackjoyride.common.Pair;
@@ -33,14 +35,23 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     private static final int XBOUND = 600;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
+    private static final int SCINETISTS = 5;
+    private static final int SHIELD = 0;
+    private static final int RANDOMSEED = 2;
+    private static final int MAXENTITIES = 4;
+    private static final long LASERTIME = 10000; // 10 seconds
     private long startTime = 0;
+
+    public EntitiesGenerationImpl() {
+        this.startTime = System.currentTimeMillis();
+    }
 
     @Override
     public void generateObstacle() {
         if (this.allowNewEntity()) {
             int entityNum = 0;
             Random random = new Random();
-            entityNum = random.nextInt(2);
+            entityNum = random.nextInt(3);
             switch (entityNum) {
                 case EntitiesGenerationImpl.ROCKET:
                     entities.add(new Pair<String, GameObject>("Rocket", new Rocket(
@@ -50,7 +61,7 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
                                     random.nextInt(EntitiesGenerationImpl.YBOUND))))));
                     break;
                 case EntitiesGenerationImpl.ELECTRODE:
-                    int orientation = random.nextInt(2);
+                    int orientation = random.nextInt(EntitiesGenerationImpl.RANDOMSEED);
                     entities.add(new Pair<String, GameObject>("Electorde", new Electrode(
                             new Point2d(EntitiesGenerationImpl.XBOUND, random.nextInt(EntitiesGenerationImpl.YBOUND)),
                             new Vector2d(0, random.nextDouble(EntitiesGenerationImpl.YBOUND)),
@@ -60,7 +71,10 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
                                     random.nextInt(EntitiesGenerationImpl.YBOUND))))));
                     break;
                 case EntitiesGenerationImpl.POWERUP:
-                    // entities.add(new ManualPowerUp(null, 0, 0));
+                    int type = random.nextInt(EntitiesGenerationImpl.RANDOMSEED);
+                    entities.add(new Pair<String, GameObject>("Powerup",
+                            new ManualPowerUp(type == EntitiesGenerationImpl.SHIELD ? PowerUp.PowerUpType.SHIELD
+                                    : PowerUp.PowerUpType.SPEED, 500, 5000)));
                     break;
                 default:
                     break;
@@ -79,12 +93,14 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     @Override
     public void generateScientists() {
         Random random = new Random();
-        int direction = random.nextInt(2);
-        this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
-                direction == EntitiesGenerationImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
-                new Point2d(direction == EntitiesGenerationImpl.LEFT ? EntitiesGenerationImpl.XBOUND : 0,
-                        EntitiesGenerationImpl.YBOUND),
-                null, null)));
+        for (int i = 0; i < EntitiesGenerationImpl.SCINETISTS; i++) {
+            int direction = random.nextInt(2);
+            this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
+                    direction == EntitiesGenerationImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
+                    new Point2d(direction == EntitiesGenerationImpl.LEFT ? EntitiesGenerationImpl.XBOUND : 0,
+                            EntitiesGenerationImpl.YBOUND),
+                    null, null)));
+        }
     }
 
     /**
@@ -94,7 +110,7 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
      *         to spawn a laser
      */
     private boolean allowNewEntity() {
-        return this.entities.size() <= 3 || !this.spawnLaser;
+        return this.entities.size() <= EntitiesGenerationImpl.MAXENTITIES || !this.spawnLaser;
     }
 
     /**
@@ -104,12 +120,7 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
      * @return true if are passed 10 seconds from last laser
      */
     private boolean isLaserSpawnTime() {
-        return System.currentTimeMillis() - this.startTime % 10000 == 0;
-    }
-
-    @Override
-    public void setStartTime() {
-        this.startTime = System.currentTimeMillis();
+        return System.currentTimeMillis() - this.startTime % EntitiesGenerationImpl.LASERTIME == 0;
     }
 
     @Override

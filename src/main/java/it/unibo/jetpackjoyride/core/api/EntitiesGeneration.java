@@ -17,14 +17,9 @@ public interface EntitiesGeneration {
     void generateObstacle();
 
     /**
-     * Method to generate new scientists.
+     * Method to generate new scientists (5 scientist per time).
      */
     void generateScientists();
-
-    /**
-     * Method to set start time of the game to calculate laser time spawn.
-     */
-    void setStartTime();
 
     /**
      * Method to get all entities to spawn.
