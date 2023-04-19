@@ -2,6 +2,7 @@ package it.unibo.jetpackjoyride.core.api;
 
 import java.util.Set;
 
+import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 
 /**
@@ -30,5 +31,5 @@ public interface EntitiesGeneration {
      * 
      * @return a set of gameobjects like electrodes, rockets, laser, powerups, ecc
      */
-    Set<GameObject> getEntities();
+    Set<Pair<String, GameObject>> getEntities();
 }

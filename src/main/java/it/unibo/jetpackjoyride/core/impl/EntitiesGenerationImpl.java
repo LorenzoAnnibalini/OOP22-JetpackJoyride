@@ -14,15 +14,17 @@ import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
 import it.unibo.jetpackjoyride.model.impl.LaserRay;
 import it.unibo.jetpackjoyride.model.impl.Rocket;
 import it.unibo.jetpackjoyride.model.impl.ScientistImpl;
+import it.unibo.jetpackjoyride.common.Pair;
 
 /**
  * Implementation of class EntitiesGeneration. This class create an object to
  * spawn the entities in game.
+ * 
+ * @author emanuele.sanchi@studio.unibo.it
  */
 public class EntitiesGenerationImpl implements EntitiesGeneration {
 
-    private Set<GameObject> entities = new HashSet<>();
-    private Set<ScientistImpl> scientists = new HashSet<>();
+    private Set<Pair<String, GameObject>> entities = new HashSet<>();
     private boolean spawnLaser = false;
     private static final int ROCKET = 0;
     private static final int ELECTRODE = 1;
@@ -41,21 +43,21 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
             entityNum = random.nextInt(2);
             switch (entityNum) {
                 case EntitiesGenerationImpl.ROCKET:
-                    entities.add(new Rocket(
+                    entities.add(new Pair<String, GameObject>("Rocket", new Rocket(
                             new Point2d(EntitiesGenerationImpl.XBOUND, random.nextInt(EntitiesGenerationImpl.YBOUND)),
                             new Vector2d(0, random.nextDouble(EntitiesGenerationImpl.YBOUND)),
                             new HitboxImpl(50, 50, new Point2d(EntitiesGenerationImpl.XBOUND,
-                                    random.nextInt(EntitiesGenerationImpl.YBOUND)))));
+                                    random.nextInt(EntitiesGenerationImpl.YBOUND))))));
                     break;
                 case EntitiesGenerationImpl.ELECTRODE:
                     int orientation = random.nextInt(2);
-                    entities.add(new Electrode(
+                    entities.add(new Pair<String, GameObject>("Electorde", new Electrode(
                             new Point2d(EntitiesGenerationImpl.XBOUND, random.nextInt(EntitiesGenerationImpl.YBOUND)),
                             new Vector2d(0, random.nextDouble(EntitiesGenerationImpl.YBOUND)),
                             orientation == EntitiesGenerationImpl.HORIZONTAL ? Electrode.Orientation.HORIZONTAL
                                     : Electrode.Orientation.VERTICAL,
                             new HitboxImpl(50, 50, new Point2d(EntitiesGenerationImpl.XBOUND,
-                                    random.nextInt(EntitiesGenerationImpl.YBOUND)))));
+                                    random.nextInt(EntitiesGenerationImpl.YBOUND))))));
                     break;
                 case EntitiesGenerationImpl.POWERUP:
                     // entities.add(new ManualPowerUp(null, 0, 0));
@@ -67,9 +69,9 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
         this.spawnLaser = this.isLaserSpawnTime();
         if (this.spawnLaser) {
             Random random = new Random();
-            this.entities.add(new LaserRay(
+            this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(
                     new Point2d(EntitiesGenerationImpl.XBOUND, random.nextInt(EntitiesGenerationImpl.YBOUND)), null,
-                    null));
+                    null)));
             this.spawnLaser = false;
         }
     }
@@ -78,11 +80,11 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     public void generateScientists() {
         Random random = new Random();
         int direction = random.nextInt(2);
-        this.scientists.add(new ScientistImpl(
+        this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
                 direction == EntitiesGenerationImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
                 new Point2d(direction == EntitiesGenerationImpl.LEFT ? EntitiesGenerationImpl.XBOUND : 0,
                         EntitiesGenerationImpl.YBOUND),
-                null, null));
+                null, null)));
     }
 
     /**
@@ -111,15 +113,8 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     }
 
     @Override
-    public Set<GameObject> getEntities() {
-        Set<GameObject> retSet = new HashSet<>();
-        for (GameObject g : this.entities) {
-            retSet.add(g);
-        }
-        for (ScientistImpl g : this.scientists) {
-            retSet.add(g);
-        }
-        return retSet;
+    public Set<Pair<String, GameObject>> getEntities() {
+        return this.entities;
     }
 
 }
