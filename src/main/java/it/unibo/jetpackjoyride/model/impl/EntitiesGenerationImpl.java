@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.core.impl;
+package it.unibo.jetpackjoyride.model.impl;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -6,16 +6,9 @@ import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
-import it.unibo.jetpackjoyride.core.api.EntitiesGeneration;
 import it.unibo.jetpackjoyride.model.api.Direction;
+import it.unibo.jetpackjoyride.model.api.EntitiesGeneration;
 import it.unibo.jetpackjoyride.model.api.PowerUp;
-import it.unibo.jetpackjoyride.model.impl.Electrode;
-import it.unibo.jetpackjoyride.model.impl.GameObject;
-import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
-import it.unibo.jetpackjoyride.model.impl.LaserRay;
-import it.unibo.jetpackjoyride.model.impl.ManualPowerUp;
-import it.unibo.jetpackjoyride.model.impl.Rocket;
-import it.unibo.jetpackjoyride.model.impl.ScientistImpl;
 import it.unibo.jetpackjoyride.common.Pair;
 
 /**
@@ -106,11 +99,12 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     /**
      * Method to check if is allow to add new entity to the game.
      * 
-     * @return true if there are less then 3 enetities in the game or if is not time
+     * @return true if there are less then 3 enetities in the game (scientists are not count) or if is not time
      *         to spawn a laser
      */
     private boolean allowNewEntity() {
-        return this.entities.size() <= EntitiesGenerationImpl.MAXENTITIES || !this.spawnLaser;
+        return this.entities.size() - this.entities.stream().filter(x -> x.getX() == "Scientist")
+                .count() <= EntitiesGenerationImpl.MAXENTITIES || !this.spawnLaser;
     }
 
     /**
