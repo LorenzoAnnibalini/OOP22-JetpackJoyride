@@ -77,13 +77,14 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 
                 case EntitiesGeneratorImpl.SHIELDPOWERUP:
                     int duration = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
+                    
                     entities.add(new Pair<String,GameObject>("ShieldPowerUp", new
-                    ShieldPowerUp(startPosition, velocity, hitbox, duration)));
+                    ShieldPowerUpImpl(duration == EntitiesGeneratorImpl.DURATION ? EntitiesGeneratorImpl.SHORTDURATION : EntitiesGeneratorImpl.LONGDURATION, startPosition, velocity, hitbox)));
                     break;
                 case EntitiesGeneratorImpl.SPEEDUPPOWERUP:
                     int distance = random.nextInt(EntitiesGeneratorImpl.XBOUND);
                     entities.add(new Pair<String, GameObject>("Powerup",
-                    new SpeedPowerUpImpl(startPosition, velocity, hitbox ,distance)));
+                    new SpeedUpPowerUpImpl(distance, startPosition, velocity, hitbox)));
                     break;
                 
                 case EntitiesGeneratorImpl.NOTHING:
