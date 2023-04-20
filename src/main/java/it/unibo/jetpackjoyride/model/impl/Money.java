@@ -9,9 +9,9 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class Coin extends GameObject{
+public class Money extends GameObject{
     
-    public Coin(final Point2d pos, final Vector2d vel,final Hitbox hitbox){
+    public Money(final Point2d pos, final Vector2d vel,final Hitbox hitbox){
         super(pos, vel, hitbox);
     }
 }
