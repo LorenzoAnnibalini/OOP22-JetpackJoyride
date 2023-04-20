@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import it.unibo.jetpackjoyride.model.impl.EntitiesGenerationImpl;
+import it.unibo.jetpackjoyride.model.impl.EntitiesGeneratorImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.Rocket;
 
@@ -23,7 +23,7 @@ import it.unibo.jetpackjoyride.model.impl.Rocket;
  */
 public class GamePanel extends JPanel {
 
-    private final EntitiesGenerationImpl entities;
+    private final EntitiesGeneratorImpl entities;
     private int posImage1;
     private int posImage2;
     private BufferedImage backgruondImage1;
