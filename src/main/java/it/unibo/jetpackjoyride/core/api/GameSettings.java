@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.core.api;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -30,7 +31,9 @@ public interface GameSettings {
 
     /**
      * Method to write the settings in a file
+     * @throws IOException
+     * @throws FileNotFoundException if the file is not found
      */
-    void writeSettings();
+    void writeSettings() throws IOException;
     
 }
