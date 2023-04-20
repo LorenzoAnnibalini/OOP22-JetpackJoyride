@@ -1,12 +1,15 @@
 package it.unibo.jetpackjoyride.model.impl;
 
+import it.unibo.jetpackjoyride.common.Point2d;
+
 public class ShieldPowerUpImpl extends GameObject {
 
     private boolean active;
     private long duration;
     private long startTime;
 
-    public ShieldPowerUpImpl(long duration) {
+    public ShieldPowerUpImpl(long duration, Point2d pos, Point2d vel, Hitbox hitbox) {
+        super(pos, vel, hitbox);
         this.duration = duration;
         this.active = false;
         this.startTime = 0;
