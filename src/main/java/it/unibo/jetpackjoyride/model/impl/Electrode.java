@@ -21,7 +21,7 @@ public class Electrode extends ObstacleImpl{
      * @param vel
      */
     public Electrode(Point2d pos, Vector2d vel, Orientation orientation,Hitbox hitbox) {
-        super(pos, vel,hitbox);
+        super(pos, vel, hitbox);
         this.orientation = orientation;
     }
 
