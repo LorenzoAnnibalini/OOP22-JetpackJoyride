@@ -2,6 +2,8 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
+import it.unibo.jetpackjoyride.model.api.Hitbox;
+
 
 /**
  * This is a class to model a generic game object.
@@ -12,16 +14,18 @@ public class GameObject {
 
 	private Point2d pos;
 	private Vector2d vel;
+    private Hitbox hitbox;
 	
     /**
      * constructor to create a game object.
-     * @param type
      * @param pos
      * @param vel
+     * @param hitbox
      */
-	public GameObject(final Point2d pos, final Vector2d vel){
+	public GameObject(final Point2d pos, final Vector2d vel,final Hitbox hitbox){
 		this.pos = pos;
 		this.vel = vel;
+        this.hitbox = hitbox;
 	}
 	
     /**
@@ -80,4 +84,12 @@ public class GameObject {
 	public Vector2d getCurrentVel(){
 		return vel;
 	}
+
+    /**
+     * get the current hitbox of the game object.
+     * @return the current hitbox of the game object
+     */
+    public Hitbox getHitbox(){
+        return this.hitbox;
+    }
 }
