@@ -5,7 +5,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /**
- * A class to model an in-game coin.
+ * A class to model an in-game money.
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
