@@ -22,13 +22,15 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     private boolean spawnLaser = false;
     private static final int ROCKET = 0;
     private static final int ELECTRODE = 1;
-    private static final int POWERUP = 2;
+    private static final int SHIELDPOWERUP = 2;
+    private static final int SPEEDUPPOWERUP = 3;
+    private static final int NOTHING = 4;
+    private static final int ENTITIESSEED = 5;
     private static final int YBOUND = 600;
     private static final int XBOUND = 600;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
     private static final int SCINETISTS = 5;
-    private static final int SHIELD = 0;
     private static final int RANDOMSEED = 2;
     private static final int MAXENTITIES = 4;
     private static final long LASERTIME = 10000; // 10 seconds
@@ -43,7 +45,7 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
         if (this.allowNewEntity()) {
             int entityNum = 0;
             Random random = new Random();
-            entityNum = random.nextInt(3);
+            entityNum = random.nextInt(EntitiesGenerationImpl.ENTITIESSEED);
             switch (entityNum) {
                 case EntitiesGenerationImpl.ROCKET:
                     entities.add(new Pair<String, GameObject>("Rocket", new Rocket(
@@ -62,12 +64,22 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
                             new HitboxImpl(50, 50, new Point2d(EntitiesGenerationImpl.XBOUND,
                                     random.nextInt(EntitiesGenerationImpl.YBOUND))))));
                     break;
-                case EntitiesGenerationImpl.POWERUP:
-                    /*int type = random.nextInt(EntitiesGenerationImpl.RANDOMSEED);
-                    entities.add(new Pair<String, GameObject>("Powerup",
-                            new ManualPowerUp(type == EntitiesGenerationImpl.SHIELD ? PowerUp.PowerUpType.SHIELD
-                                    : PowerUp.PowerUpType.SPEED, 500, 5000)));*/
+                case EntitiesGenerationImpl.SHIELDPOWERUP:
+                    /*
+                     * entities.add(new Pair<String, GameObject>("Powerup",
+                     * new ManualPowerUp(type == EntitiesGenerationImpl.SHIELD ?
+                     * PowerUp.PowerUpType.SHIELD
+                     * : PowerUp.PowerUpType.SPEED, 500, 5000)));
+                     */
+                    entities.add(new Pair<String, GameObject>("Powerup", new ShieldPowerUpImpl()));
                     break;
+                case EntitiesGenerationImpl.SPEEDUPPOWERUP:
+                    entities.add(new Pair<String, GameObject>("Powerup", new SpeedPowerUpImpl()));
+                    break;
+                case EntitiesGenerationImpl.NOTHING:
+                    entities.add(
+                            new Pair<String, GameObject>("Nothing", new GameObject(new Point2d(orientation, entityNum),
+                                    new Vector2d(null, null), new HitboxImpl(entityNum, orientation, null))));
                 default:
                     break;
             }
@@ -98,7 +110,8 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
     /**
      * Method to check if is allow to add new entity to the game.
      * 
-     * @return true if there are less then 3 enetities in the game (scientists are not count) or if is not time
+     * @return true if there are less then 3 enetities in the game (scientists are
+     *         not count) or if is not time
      *         to spawn a laser
      */
     private boolean allowNewEntity() {
@@ -123,9 +136,8 @@ public class EntitiesGenerationImpl implements EntitiesGeneration {
 
 }
 
-
-
-
-/*public gamepanel(final EntitiesGenerationImpl eg){
-    
-}*/
+/*
+ * public gamepanel(final EntitiesGenerationImpl eg){
+ * 
+ * }
+ */
