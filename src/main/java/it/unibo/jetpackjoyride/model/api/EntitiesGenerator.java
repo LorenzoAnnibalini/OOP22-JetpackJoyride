@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.model.api;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
@@ -10,11 +11,18 @@ import it.unibo.jetpackjoyride.model.impl.GameObject;
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-public interface EntitiesGeneration {
+public interface EntitiesGenerator {
     /**
      * Method to generate a new obstacle (Electrode, LaserRay or Rocket).
+     * @throws ClassNotFoundException
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
      */
-    void generateObstacle();
+    void generateEntity() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 
     /**
      * Method to generate new scientists (5 scientist per time).
