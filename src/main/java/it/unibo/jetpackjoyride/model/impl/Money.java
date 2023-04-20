@@ -5,13 +5,13 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /**
- * A class to model an in-game coin.
+ * A class to model an in-game money.
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class Coin extends GameObject{
+public class Money extends GameObject{
     
-    public Coin(final Point2d pos, final Vector2d vel,final Hitbox hitbox){
+    public Money(final Point2d pos, final Vector2d vel,final Hitbox hitbox){
         super(pos, vel, hitbox);
     }
 }
