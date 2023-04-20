@@ -7,7 +7,7 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
 public abstract class ObstacleActivable extends ObstacleImpl{
 
     private long creationTime;
-    private final long changeStateTime = 40000;
+    private final long changeStateTime = 4000;
     private long activationTime;
 
     /**
