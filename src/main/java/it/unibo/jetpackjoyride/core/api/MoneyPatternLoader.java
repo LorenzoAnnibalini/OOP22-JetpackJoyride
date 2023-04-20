@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import it.unibo.jetpackjoyride.model.impl.Money;
 
 /**
- *Interface to load money pattern from file.
- *@author lorenzo.bacchini4@studio.unibo.it
+ * Interface to load money pattern from file.
+ * @author lorenzo.bacchini4@studio.unibo.it
  */
 public interface MoneyPatternLoader {
     
