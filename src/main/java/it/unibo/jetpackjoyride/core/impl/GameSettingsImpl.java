@@ -68,7 +68,7 @@ public class GameSettingsImpl implements GameSettings {
     }
 
     @Override
-    public void writeSettings() {
+    public void writeSettings() throws IOException{
         FileWriter csvWriter;
         try{
 
