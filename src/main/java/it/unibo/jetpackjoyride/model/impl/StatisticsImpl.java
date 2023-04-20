@@ -15,10 +15,7 @@ public class StatisticsImpl implements Statistics {
 
     @Override
     public int getValue(String name) {
-        return statistics.get(statistics.keySet().stream()
-                .filter(x -> x.startsWith(name))
-                .findAny()
-                .get());
+        return statistics.get(name);
     }
 
     @Override
