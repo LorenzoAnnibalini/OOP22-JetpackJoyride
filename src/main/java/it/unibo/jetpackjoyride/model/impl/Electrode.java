@@ -3,6 +3,7 @@ package it.unibo.jetpackjoyride.model.impl;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
+import it.unibo.jetpackjoyride.model.api.Orientation;
 
 /**
  * Class to model an Electrode obstacle.
@@ -10,8 +11,6 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
  */
 
 public class Electrode extends ObstacleImpl{
-
-    public static enum Orientation { HORIZONTAL, VERTICAL }
 
     private final Orientation orientation;
     

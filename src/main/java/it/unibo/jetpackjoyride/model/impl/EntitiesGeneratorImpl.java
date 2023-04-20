@@ -9,6 +9,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Direction;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
 import it.unibo.jetpackjoyride.common.Pair;
+import it.unibo.jetpackjoyride.model.api.Orientation;
 
 /**
  * Implementation of class EntitiesGeneration. This class create an object to
@@ -69,8 +70,8 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                     int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
                     entities.add(new Pair<String, GameObject>("Electrode",
                             new Electrode(startPosition, velocity,
-                                    orientation == EntitiesGeneratorImpl.HORIZONTAL ? Electrode.Orientation.HORIZONTAL
-                                            : Electrode.Orientation.VERTICAL,
+                                    orientation == EntitiesGeneratorImpl.HORIZONTAL ? Orientation.HORIZONTAL
+                                            : Orientation.VERTICAL,
                                     hitbox)));
                     break;
 
