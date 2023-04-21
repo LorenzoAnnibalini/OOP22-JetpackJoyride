@@ -33,7 +33,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int XBOUND = 600;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
-    private static final int SCINETISTS = 5;
+    private static final int SCIENTISTS = 5;
     private static final int RANDOMSEED = 2;
     private static final int MAXENTITIES = 4;
     private static final long LASERTIME = 10000; // 10 seconds
@@ -77,7 +77,6 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 
                 case EntitiesGeneratorImpl.SHIELDPOWERUP:
                     int duration = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
-                    
                     entities.add(new Pair<String,GameObject>("ShieldPowerUp", new
                     ShieldPowerUpImpl(duration == EntitiesGeneratorImpl.DURATION ? EntitiesGeneratorImpl.SHORTDURATION : EntitiesGeneratorImpl.LONGDURATION, startPosition, velocity, hitbox)));
                     break;
@@ -109,7 +108,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     @Override
     public void generateScientists() {
         Random random = new Random();
-        for (int i = 0; i < EntitiesGeneratorImpl.SCINETISTS; i++) {
+        for (int i = 0; i < EntitiesGeneratorImpl.SCIENTISTS; i++) {
             int direction = random.nextInt(2);
             this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
                     direction == EntitiesGeneratorImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
