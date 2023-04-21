@@ -3,7 +3,7 @@ package it.unibo.jetpackjoyride.core.impl;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.model.impl.*;
 import it.unibo.jetpackjoyride.common.*;
-import it.unibo.jetpackjoyride.model.impl.Electrode.Orientation;
+import it.unibo.jetpackjoyride.model.api.Orientation;
 
 public class GameFactory {
     

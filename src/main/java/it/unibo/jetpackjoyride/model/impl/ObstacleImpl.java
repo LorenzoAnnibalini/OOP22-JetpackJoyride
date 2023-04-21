@@ -29,10 +29,12 @@ public abstract class ObstacleImpl extends GameObject implements Obstacle{
     
     public void setActiveOn(){
         this.active = true;
+        this.getHitbox().setHitboxActive();
     }
 
     public void setActiveOff(){
         this.active = false;
+        this.getHitbox().setHitboxDisable();
     }
 
     public boolean isActive(){
