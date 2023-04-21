@@ -28,6 +28,12 @@ public interface World {
     Set<Pair<String, GameObject>> getEntities();
 
     /**
+     * Method to add an entity to the world.
+     * @param entity the entity to add
+     */
+    void setEntities(Set<Pair<String, GameObject>> entities);
+
+    /**
      * Method to get the score.
      * 
      * @return the score
@@ -35,9 +41,21 @@ public interface World {
     int getMeters();
 
     /**
+     * Method to set new value of meters.
+     */
+    void setMeters(int meters);
+
+    /**
      * Method to get the money reached in the game.
      * 
      * @return the money
      */
     int getMoney();
+
+    /**
+     * Method to set new value of money.
+     * @param money the new value of money
+     */
+    void setMoney(int money);
+
 }

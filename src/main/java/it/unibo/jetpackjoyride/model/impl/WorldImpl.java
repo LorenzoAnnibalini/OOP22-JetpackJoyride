@@ -5,7 +5,7 @@ import java.util.Set;
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.api.World;
 
-public class WorldImpl implements World{
+public class WorldImpl implements World {
 
     private PlayerImpl player;
     private Set<Pair<String, GameObject>> entities;
@@ -27,13 +27,28 @@ public class WorldImpl implements World{
     }
 
     @Override
+    public void setEntities(Set<Pair<String, GameObject>> entities) {
+        this.entities = entities;
+    }
+
+    @Override
     public int getMeters() {
         return this.meters;
+    }
+
+    @Override
+    public void setMeters(int meters) {
+        this.meters = meters;
     }
 
     @Override
     public int getMoney() {
         return this.money;
     }
-    
+
+    @Override
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
 }
