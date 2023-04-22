@@ -19,7 +19,7 @@ public interface GadgetLoader {
      * @throws FileNotFoundException if the file is not found
      * @return a map of gadgets
      */
-    Map<String, Pair<Boolean, Boolean>> downloadSaves() throws FileNotFoundException;
+    Map<String, Pair<Boolean, Boolean>> downloadGadget() throws FileNotFoundException;
 
     /**
      * Method to save new gadgets in file
@@ -27,5 +27,5 @@ public interface GadgetLoader {
      * @param stats the map to get value that has to be save
      * @throws IOException
      */
-    void uploadSaves(Map<String, Pair<Boolean, Boolean>> stats) throws IOException;
+    void uploadGadget(Map<String, Pair<Boolean, Boolean>> stats) throws IOException;
 }

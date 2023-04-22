@@ -22,7 +22,7 @@ public class GadgetLoaderImpl implements GadgetLoader{
     String filename = "resources" + this.SEPARATOR + "gadget.csv";
 
     @Override
-    public Map<String, Pair<Boolean, Boolean>> downloadSaves() throws FileNotFoundException {
+    public Map<String, Pair<Boolean, Boolean>> downloadGadget() throws FileNotFoundException {
         Scanner sc = new Scanner(new File(filename));
         Map<String, Pair<Boolean, Boolean>> gadgetMap = new HashMap<>();
         while (sc.hasNextLine()) {
@@ -34,7 +34,7 @@ public class GadgetLoaderImpl implements GadgetLoader{
     }
 
     @Override
-    public void uploadSaves(Map<String, Pair<Boolean, Boolean>> gadgetMap) throws IOException {
+    public void uploadGadget(Map<String, Pair<Boolean, Boolean>> gadgetMap) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
         for (String name : gadgetMap.keySet()) {
             writer.write(name + ";" + gadgetMap.get(name).getX() + ";" + gadgetMap.get(name).getY() + "\n");
