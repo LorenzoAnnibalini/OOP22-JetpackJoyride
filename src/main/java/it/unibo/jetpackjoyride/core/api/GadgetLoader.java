@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
+import it.unibo.jetpackjoyride.common.Pair;
+
 /**
  * Interface for classes to load and write gadgets from file.
  * @author lorenzo.bacchini4@studio.unibo.it
@@ -17,7 +19,7 @@ public interface GadgetLoader {
      * @throws FileNotFoundException if the file is not found
      * @return a map of gadgets
      */
-    Map<String, Boolean> downloadSaves() throws FileNotFoundException;
+    Map<String, Pair<Boolean, Boolean>> downloadSaves() throws FileNotFoundException;
 
     /**
      * Method to save new gadgets in file
@@ -25,5 +27,5 @@ public interface GadgetLoader {
      * @param stats the map to get value that has to be save
      * @throws IOException
      */
-    void uploadSaves(Map<String, Boolean> stats) throws IOException;
+    void uploadSaves(Map<String, Pair<Boolean, Boolean>> stats) throws IOException;
 }
