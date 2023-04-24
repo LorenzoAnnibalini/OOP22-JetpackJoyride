@@ -33,7 +33,7 @@ public class ReadWriteFile<T, G> {
     /**
      * @param map the map to write in the file
      */
-    public void writeMap(final Map map){
+    public void writeMap(final Map<T,G> map){
         //TODO
     }
 
