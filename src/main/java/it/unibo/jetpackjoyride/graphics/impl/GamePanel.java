@@ -17,6 +17,7 @@ import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 //import it.unibo.jetpackjoyride.model.impl.Rocket;
+import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 
 /**
  * Class of the panel's game. Used to visualize map of game and sprites.
@@ -26,6 +27,7 @@ import it.unibo.jetpackjoyride.model.impl.GameObject;
 public class GamePanel extends JPanel {
 
     private final Set<Pair<String, GameObject>> entities;
+    private final PlayerImpl player;
     private int posImage1;
     private int posImage2;
     private BufferedImage backgruondImage1;
@@ -35,6 +37,7 @@ public class GamePanel extends JPanel {
     private Image powerup;
     private Image scientist;
     private Image laser;
+    private Image playerImage;
     private Slider slider;
     private static final String FILESEPARATOR = File.separator;
     private static final int SPRITEWIDTH = 30;
@@ -45,8 +48,9 @@ public class GamePanel extends JPanel {
      * 
      * @param entities the set of entities to draw
      */
-    public GamePanel(final Set<Pair<String, GameObject>> entities) {
+    public GamePanel(final Set<Pair<String, GameObject>> entities, PlayerImpl player) {
         this.entities = entities;
+        this.player = player;
         try {
             // loading background image
             backgruondImage1 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
@@ -58,6 +62,7 @@ public class GamePanel extends JPanel {
             powerup = this.loadImage("powerup.png");
             scientist = this.loadImage("scientist.png");
             laser = this.loadImage("laser.png");
+            playerImage = this.loadImage("player.png");
             this.posImage1 = 0;
             this.posImage2 = backgruondImage2.getWidth();
         } catch (IOException ex) {
@@ -73,8 +78,10 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         g = (Graphics2D) g;
         super.paintComponent(g);
+        // Draw background image
         g.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
         g.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
+        // Draw entities
         for (Pair<String, GameObject> el : entities) {
             String entityName = el.getX();
             GameObject entity = el.getY();
@@ -101,6 +108,8 @@ public class GamePanel extends JPanel {
             }
 
         }
+        // Draw player
+        this.drawSprite(g, playerImage, player);
     }
 
     /**
@@ -122,7 +131,7 @@ public class GamePanel extends JPanel {
      * @param sprite image to draw
      * @param entity entity object with values to draw
      */
-    private void drawSprite(Graphics g, Image sprite, GameObject entity) {
-        g.drawImage(sprite, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().x, this);
+    private void drawSprite(Graphics g, Image image, GameObject entity) {
+        g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().x, this);
     }
 }
