@@ -1,7 +1,6 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.Dimension;
@@ -12,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.impl.EntitiesGeneratorImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.Rocket;
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel {
      * 
      * @param entities model object that creates entities
      */
-    public GamePanel(final EntitiesGenerationImpl e) {
+    public GamePanel(final EntitiesGeneratorImpl e) {
         this.entities = e;
 
         try {
@@ -72,6 +72,7 @@ public class GamePanel extends JPanel {
         this.setVisible(true);
 
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         g = (Graphics2D) g;
@@ -79,28 +80,37 @@ public class GamePanel extends JPanel {
         g.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
         g.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
         for (Pair<String, GameObject> el : entities.getEntities()) {
-            switch(el.getX()){
+            String entityName = el.getX();
+            GameObject entity = el.getY();
+            switch (entityName) {
                 case "Rocket":
-                    /*g.drawImage(rocket, el.getY().getCurrentPos().x, el.getY().getCurrentPos().x, this);
-                    this.drawSprite(g, rocket, el);*/
-                    g.drawImage(rocket, el.getY().getCurrentPos().x, el.getY().getCurrentPos().x, this);
+                    this.drawSprite(g, rocket, entity);
                     break;
                 case "Electrode":
+                    this.drawSprite(g, electrode, entity);
                     break;
                 case "Scientist":
+                    this.drawSprite(g, scientist, entity);
                     break;
                 case "Powerup":
+                    this.drawSprite(g, powerup, entity);
                     break;
                 case "Laser":
+                    this.drawSprite(g, laser, entity);
+                    break;
+                default:
                     break;
             }
 
         }
-        //g.drawImage(rocket, entities.getEntities.get, 50, this);
+    }
+
+    private void drawSprite(Graphics g, Image sprite, GameObject entity) {
+        g.drawImage(sprite, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().x, this);
+    }
+
+    private int backgroundPosition() {
         
     }
 
-    /*private void drawSprite(Graphics g, Image sprite, GameObject entity) {
-        g.drawImage(sprite, entity.getCurrentPos().x, entity.getCurrentPos().x, this);
-    }*/
 }
