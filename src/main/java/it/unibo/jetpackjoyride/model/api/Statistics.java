@@ -44,4 +44,12 @@ public interface Statistics {
      * @param name the name of the statistic tant want to be increment by 1
      */
     void increment(String name);
+
+    /**
+     * Method to add a new statistic.
+     * 
+     * @param name  the name of the statistic
+     * @param value the value of the statistic
+     */
+    void addStatistic(String name, int value);
 }

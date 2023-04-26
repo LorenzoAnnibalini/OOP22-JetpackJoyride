@@ -18,6 +18,6 @@ public class Rocket extends ObstacleActivable{
      * @param vel
      */
     public Rocket(Point2d pos, Vector2d vel,Hitbox hitbox) {
-        super(pos, vel,hitbox);
+        super(pos, vel, hitbox);
     }
 }

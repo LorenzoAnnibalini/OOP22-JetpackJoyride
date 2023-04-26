@@ -2,6 +2,8 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.api.Gadget;
 
 /**
@@ -10,21 +12,21 @@ import it.unibo.jetpackjoyride.model.api.Gadget;
  */
 public class GadgetImpl implements Gadget{
 
-    private static Map<String, Boolean> gadget = new HashMap<>();
+    private static Map<String, Pair<Boolean, Boolean>> gadget = new HashMap<>();
 
     @Override
-    public Map<String, Boolean> getAll() {
+    public Map<String, Pair<Boolean, Boolean>> getAll() {
         return gadget;
     }
 
     @Override
-    public Boolean getValue(String name) {
+    public Pair<Boolean, Boolean> getValue(String name) {
         return gadget.get(name);
     }
 
     @Override
-    public void setValue(String name, Boolean state) {
-        gadget.replace(name, state);
+    public void setValue(String name, Boolean state, Boolean purchased) {
+        gadget.replace(name, new Pair<Boolean, Boolean>(state, purchased));
     }
 
     /**
@@ -32,7 +34,7 @@ public class GadgetImpl implements Gadget{
      * 
      * @param gadgetMap the map of names and values to set
      */
-    public static void setAll(Map<String, Boolean> gadgetMap) {
+    public static void setAll(Map<String, Pair<Boolean, Boolean>> gadgetMap) {
         gadget.putAll(gadgetMap);
     }
 }
