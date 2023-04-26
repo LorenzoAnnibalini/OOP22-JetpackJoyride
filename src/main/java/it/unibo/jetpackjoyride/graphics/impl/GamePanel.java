@@ -34,7 +34,8 @@ public class GamePanel extends JPanel {
     private BufferedImage backgruondImage2;
     private Image rocket;
     private Image electrode;
-    private Image powerup;
+    private Image shield;
+    private Image speedup;
     private Image scientist;
     private Image laser;
     private Image playerImage;
@@ -59,7 +60,8 @@ public class GamePanel extends JPanel {
             // loading sprite images and adjust sizes
             rocket = this.loadImage("rocket.png");
             electrode = this.loadImage("electrode.png");
-            powerup = this.loadImage("powerup.png");
+            shield = this.loadImage("shield.png");
+            speedup = this.loadImage("speedup.png");
             scientist = this.loadImage("scientist.png");
             laser = this.loadImage("laser.png");
             playerImage = this.loadImage("player.png");
@@ -95,8 +97,11 @@ public class GamePanel extends JPanel {
                 case "Scientist":
                     this.drawSprite(g, scientist, entity);
                     break;
-                case "Powerup":
-                    this.drawSprite(g, powerup, entity);
+                case "Shield":
+                    this.drawSprite(g, shield, entity);
+                    break;
+                case "Speedup":
+                    this.drawSprite(g, speedup, entity);
                     break;
                 case "Laser":
                     this.drawSprite(g, laser, entity);
