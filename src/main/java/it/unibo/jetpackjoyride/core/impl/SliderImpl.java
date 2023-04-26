@@ -10,6 +10,7 @@ public class SliderImpl extends Thread implements Slider {
 
     /**
      * Constructor of thread agent.
+     * 
      * @param limit value of max value
      */
     public SliderImpl(int limit) {
@@ -24,6 +25,11 @@ public class SliderImpl extends Thread implements Slider {
     @Override
     public void resetPos() {
         this.pos = 0;
+    }
+
+    @Override
+    public synchronized int getPos() {
+        return this.pos;
     }
 
     public void run() {
@@ -45,10 +51,4 @@ public class SliderImpl extends Thread implements Slider {
     public void interrupt() {
         this.stop = true;
     }
-
-    @Override
-    public synchronized int getPos() {
-        return this.pos;
-    }
-
 }

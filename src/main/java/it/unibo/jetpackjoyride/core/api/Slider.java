@@ -19,6 +19,7 @@ public interface Slider {
 
     /**
      * Method to get the position.
+     * 
      * @return the position
      */
     int getPos();

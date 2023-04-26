@@ -43,7 +43,7 @@ public class GamePanel extends JPanel {
      * 
      * @param entities model object that creates entities
      */
-    public GamePanel (final EntitiesGeneratorImpl e) {
+    public GamePanel(final EntitiesGeneratorImpl e) {
         this.entities = e;
         try {
             // loading background image
@@ -102,7 +102,8 @@ public class GamePanel extends JPanel {
 
     /**
      * Method to load and scale a sprite's image
-     * @param filename the name of the file 
+     * 
+     * @param filename the name of the file
      * @return a new image already scaled based on constant values of the class
      * @throws IOException if the file doesn't exists
      */
@@ -113,7 +114,8 @@ public class GamePanel extends JPanel {
 
     /**
      * Metohd to draw a sprite.
-     * @param g graphics object
+     * 
+     * @param g      graphics object
      * @param sprite image to draw
      * @param entity entity object with values to draw
      */
