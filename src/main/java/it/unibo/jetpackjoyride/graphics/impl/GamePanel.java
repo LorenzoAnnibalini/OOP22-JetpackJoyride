@@ -10,11 +10,11 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
-import it.unibo.jetpackjoyride.model.impl.EntitiesGeneratorImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 //import it.unibo.jetpackjoyride.model.impl.Rocket;
 
@@ -25,7 +25,7 @@ import it.unibo.jetpackjoyride.model.impl.GameObject;
  */
 public class GamePanel extends JPanel {
 
-    private final EntitiesGeneratorImpl entities;
+    private final Set<Pair<String, GameObject>> entities;
     private int posImage1;
     private int posImage2;
     private BufferedImage backgruondImage1;
@@ -35,16 +35,18 @@ public class GamePanel extends JPanel {
     private Image powerup;
     private Image scientist;
     private Image laser;
-    private static final String FILESEPARATOR = File.separator;
     private Slider slider;
+    private static final String FILESEPARATOR = File.separator;
+    private static final int SPRITEWIDTH = 30;
+    private static final int SPRITEHEIGHT = 30;
 
     /**
      * Constructor of the class.
      * 
-     * @param entities model object that creates entities
+     * @param entities the set of entities to draw
      */
-    public GamePanel(final EntitiesGeneratorImpl e) {
-        this.entities = e;
+    public GamePanel(final Set<Pair<String, GameObject>> entities) {
+        this.entities = entities;
         try {
             // loading background image
             backgruondImage1 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
@@ -62,7 +64,6 @@ public class GamePanel extends JPanel {
             ex.printStackTrace();
         }
         this.setPreferredSize(new Dimension(backgruondImage1.getWidth(), backgruondImage1.getHeight()));
-
         this.setSize(this.getPreferredSize());
         this.setVisible(true);
 
@@ -74,7 +75,7 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         g.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
         g.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
-        for (Pair<String, GameObject> el : entities.getEntities()) {
+        for (Pair<String, GameObject> el : entities) {
             String entityName = el.getX();
             GameObject entity = el.getY();
             switch (entityName) {
@@ -93,6 +94,8 @@ public class GamePanel extends JPanel {
                 case "Laser":
                     this.drawSprite(g, laser, entity);
                     break;
+                case "Nothing":
+                    break;
                 default:
                     break;
             }
@@ -108,8 +111,8 @@ public class GamePanel extends JPanel {
      * @throws IOException if the file doesn't exists
      */
     private Image loadImage(String filename) throws IOException {
-        BufferedImage buffImage = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + filename));
-        return buffImage.getScaledInstance(20, 30, Image.SCALE_SMOOTH);
+        BufferedImage originalImage = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + filename));
+        return originalImage.getScaledInstance(GamePanel.SPRITEWIDTH, GamePanel.SPRITEHEIGHT, Image.SCALE_SMOOTH);
     }
 
     /**
