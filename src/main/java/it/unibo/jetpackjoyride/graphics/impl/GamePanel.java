@@ -41,6 +41,7 @@ public class GamePanel extends JPanel {
     private Image scientist;
     private Image laser;
     private Image playerImage;
+    private Image moneyImage;
     private Slider slider;
     private static final String FILESEPARATOR = File.separator;
     private static final int SPRITEWIDTH = 30;
@@ -70,6 +71,7 @@ public class GamePanel extends JPanel {
             scientist = this.loadImage("scientist.png");
             laser = this.loadImage("laser.png");
             playerImage = this.loadImage("player.png");
+            moneyImage = this.loadImage("money.png");
             this.posImage1 = 0;
             this.posImage2 = backgruondImage2.getWidth();
         } catch (IOException ex) {
@@ -118,8 +120,16 @@ public class GamePanel extends JPanel {
             }
 
         }
+
         // Draw player
         this.drawSprite(g, playerImage, player);
+
+        // Draw monies if present
+        if (!money.isEmpty()) {
+            for (Money m : money) {
+                this.drawSprite(g, moneyImage, m);
+            }
+        }
     }
 
     /**
@@ -142,7 +152,12 @@ public class GamePanel extends JPanel {
      * @param entity entity object with values to draw
      */
     private void drawSprite(Graphics g, Image image, GameObject entity) {
-        g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().x, this);
+        if (entity.getClass().getName() == "Money") {
+            g.drawImage(image, (int) entity.getCurrentPos().x + this.getSize().width, (int) entity.getCurrentPos().y,
+                    this);
+        } else {
+            g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
+        }
     }
 
     /**
