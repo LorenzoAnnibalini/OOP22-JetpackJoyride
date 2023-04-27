@@ -16,5 +16,3 @@ bin/
 #ignore vscode settings
 **/.vscode/
 
-#ignore 
-GrabbedMoney.java
