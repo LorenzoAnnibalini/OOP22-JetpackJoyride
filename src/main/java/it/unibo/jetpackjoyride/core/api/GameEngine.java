@@ -7,10 +7,9 @@ package it.unibo.jetpackjoyride.core.api;
  * @author mattia.burreli@studio.unibo.it
  */
 public interface GameEngine {
-    
-    /**
-     * Method to inizialize the GameEngine.
-     */
-    public void initializeGameEngine();
 
+    /**
+     * Start the game engine.
+     */
+    public void worldGameStateStart();
 }

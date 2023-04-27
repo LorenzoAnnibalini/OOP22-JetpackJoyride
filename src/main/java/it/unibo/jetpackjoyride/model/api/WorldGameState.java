@@ -8,5 +8,5 @@ package it.unibo.jetpackjoyride.model.api;
  * @author mattia.burreli@studio.unibo.it
  */
 public interface WorldGameState {
-
+    
 }
