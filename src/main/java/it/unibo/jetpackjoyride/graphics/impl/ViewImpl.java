@@ -1,10 +1,17 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.swing.JFrame;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
 import it.unibo.jetpackjoyride.model.impl.EntitiesGeneratorImpl;
+import it.unibo.jetpackjoyride.model.impl.GameObject;
+import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
+import it.unibo.jetpackjoyride.common.Pair;
+import it.unibo.jetpackjoyride.model.impl.Money;
 
 
 /*
@@ -24,9 +31,9 @@ public class ViewImpl implements View {
     //private final ShopPanel shop;
     //private final StatisticsPanel statistics;
 
-    public ViewImpl(final EntitiesGeneratorImpl e) {
+    public ViewImpl(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
         this.frame = new JFrame("Jetpack Joyride");
-        this.game = new GamePanel(e);
+        this.game = new GamePanel(entities, player, money);
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
         //this.statistics = new StatisticsPanel();
