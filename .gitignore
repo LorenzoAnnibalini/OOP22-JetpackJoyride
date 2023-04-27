@@ -15,6 +15,7 @@ bin/
 
 #ignore vscode settings
 .vscode
+settings.json
 
 #ignore 
 GrabbedMoney.java

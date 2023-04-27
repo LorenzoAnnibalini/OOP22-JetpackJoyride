@@ -1,7 +1,6 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.Dimension;
@@ -11,10 +10,15 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
-import it.unibo.jetpackjoyride.model.impl.EntitiesGeneratorImpl;
+import it.unibo.jetpackjoyride.common.Pair;
+import it.unibo.jetpackjoyride.core.api.Slider;
+import it.unibo.jetpackjoyride.core.impl.SliderImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
-import it.unibo.jetpackjoyride.model.impl.Rocket;
+import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
+import it.unibo.jetpackjoyride.model.impl.Money;
 
 /**
  * Class of the panel's game. Used to visualize map of game and sprites.
@@ -23,84 +27,164 @@ import it.unibo.jetpackjoyride.model.impl.Rocket;
  */
 public class GamePanel extends JPanel {
 
-    private final EntitiesGeneratorImpl entities;
+    private Set<Pair<String, GameObject>> entities;
+    private PlayerImpl player;
+    private List<Money> money;// = new ArrayList<>();
     private int posImage1;
     private int posImage2;
     private BufferedImage backgruondImage1;
     private BufferedImage backgruondImage2;
     private Image rocket;
     private Image electrode;
-    private Image powerup;
+    private Image shield;
+    private Image speedup;
     private Image scientist;
     private Image laser;
+    private Image playerImage;
+    private Image moneyImage;
+    private Slider slider;
     private static final String FILESEPARATOR = File.separator;
+    private static final int SPRITEWIDTH = 30;
+    private static final int SPRITEHEIGHT = 30;
 
     /**
      * Constructor of the class.
      * 
-     * @param entities model object that creates entities
+     * @param entities the set of entities to show
+     * @param player   the object of the player
+     * @param money    the list of money that has to be shown
      */
-    public GamePanel(final EntitiesGenerationImpl e) {
-        this.entities = e;
-
+    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
+        this.entities = entities;
+        this.player = player;
+        this.money.addAll(money);
         try {
             // loading background image
             backgruondImage1 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
             backgruondImage2 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
+            slider = new SliderImpl(backgruondImage1.getWidth());
             // loading sprite images and adjust sizes
-            rocket = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "rocket.png"));
-            rocket = rocket.getScaledInstance(20, 30, Image.SCALE_SMOOTH);
-            electrode = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "electrode.png"));
-            electrode = rocket.getScaledInstance(20, 30, Image.SCALE_SMOOTH);
-            powerup = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "powerup.png"));
-            powerup = rocket.getScaledInstance(20, 30, Image.SCALE_SMOOTH);
-            scientist = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "scientist.png"));
-            scientist = rocket.getScaledInstance(20, 30, Image.SCALE_SMOOTH);
-            laser = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "laser.png"));
-            laser = rocket.getScaledInstance(20, 30, Image.SCALE_SMOOTH);
+            rocket = this.loadImage("rocket.png");
+            electrode = this.loadImage("electrode.png");
+            shield = this.loadImage("shield.png");
+            speedup = this.loadImage("speedup.png");
+            scientist = this.loadImage("scientist.png");
+            laser = this.loadImage("laser.png");
+            playerImage = this.loadImage("player.png");
+            moneyImage = this.loadImage("money.png");
             this.posImage1 = 0;
             this.posImage2 = backgruondImage2.getWidth();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         this.setPreferredSize(new Dimension(backgruondImage1.getWidth(), backgruondImage1.getHeight()));
-
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(this.getPreferredSize());
-        this.pack();
-        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         g = (Graphics2D) g;
         super.paintComponent(g);
+        // Draw background image
         g.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
         g.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
-        for (Pair<String, GameObject> el : entities.getEntities()) {
-            switch(el.getX()){
+        // Draw entities
+        for (Pair<String, GameObject> el : entities) {
+            String entityName = el.getX();
+            GameObject entity = el.getY();
+            switch (entityName) {
                 case "Rocket":
-                    /*g.drawImage(rocket, el.getY().getCurrentPos().x, el.getY().getCurrentPos().x, this);
-                    this.drawSprite(g, rocket, el);*/
-                    g.drawImage(rocket, el.getY().getCurrentPos().x, el.getY().getCurrentPos().x, this);
+                    this.drawSprite(g, rocket, entity);
                     break;
                 case "Electrode":
+                    this.drawSprite(g, electrode, entity);
                     break;
                 case "Scientist":
+                    this.drawSprite(g, scientist, entity);
                     break;
-                case "Powerup":
+                case "Shield":
+                    this.drawSprite(g, shield, entity);
+                    break;
+                case "Speedup":
+                    this.drawSprite(g, speedup, entity);
                     break;
                 case "Laser":
+                    this.drawSprite(g, laser, entity);
+                    break;
+                case "Nothing":
+                    break;
+                default:
                     break;
             }
 
         }
-        //g.drawImage(rocket, entities.getEntities.get, 50, this);
-        
+
+        // Draw player
+        this.drawSprite(g, playerImage, player);
+
+        // Draw monies if present
+        if (!money.isEmpty()) {
+            for (Money m : money) {
+                this.drawSprite(g, moneyImage, m);
+            }
+        }
     }
 
-    /*private void drawSprite(Graphics g, Image sprite, GameObject entity) {
-        g.drawImage(sprite, entity.getCurrentPos().x, entity.getCurrentPos().x, this);
-    }*/
+    /**
+     * Method to load and scale a sprite's image
+     * 
+     * @param filename the name of the file
+     * @return a new image already scaled based on constant values of the class
+     * @throws IOException if the file doesn't exists
+     */
+    private Image loadImage(String filename) throws IOException {
+        BufferedImage originalImage = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + filename));
+        return originalImage.getScaledInstance(GamePanel.SPRITEWIDTH, GamePanel.SPRITEHEIGHT, Image.SCALE_SMOOTH);
+    }
+
+    /**
+     * Metohd to draw a sprite.
+     * 
+     * @param g      graphics object
+     * @param sprite image to draw
+     * @param entity entity object with values to draw
+     */
+    private void drawSprite(Graphics g, Image image, GameObject entity) {
+        if (entity.getClass().getName() == "Money") {
+            g.drawImage(image, (int) entity.getCurrentPos().x + this.getSize().width, (int) entity.getCurrentPos().y,
+                    this);
+        } else {
+            g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
+        }
+    }
+
+    /**
+     * Method to set new values for entities.
+     * 
+     * @param entities entities to draw
+     */
+    public void setEntities(final Set<Pair<String, GameObject>> entities) {
+        this.entities = entities;
+    }
+
+    /**
+     * Method to set new value for the player.
+     * 
+     * @param player player to draw
+     */
+    public void setPlayer(final PlayerImpl player) {
+        this.player = player;
+    }
+
+    /**
+     * Method to set new value for money.
+     * 
+     * @param money money to draw
+     */
+    public void setMoney(final List<Money> money) {
+        this.money.clear();
+        this.money.addAll(money);
+    }
 }
