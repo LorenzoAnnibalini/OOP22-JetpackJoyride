@@ -7,10 +7,7 @@ import java.util.Set;
 import javax.swing.JFrame;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
-import it.unibo.jetpackjoyride.model.impl.GameObject;
-import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
-import it.unibo.jetpackjoyride.common.Pair;
-import it.unibo.jetpackjoyride.model.impl.Money;
+import it.unibo.jetpackjoyride.model.impl.WorldGameState;
 
 
 /*
@@ -30,12 +27,12 @@ public class ViewImpl implements View {
     //private final ShopPanel shop;
     private final StatisticsPanel statistics;
 
-    public ViewImpl(final Map <String,Integer> statisticsMap ,final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
+    public ViewImpl(final WorldGameState worldGameState) {
         this.frame = new JFrame("Jetpack Joyride");
-        this.game = new GamePanel(entities, player, money);
+        this.game = new GamePanel(worldGameState.getGameObjects(), worldGameState.getPlayer(), worldGameState.getMoney());
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
-        this.statistics = new StatisticsPanel(statisticsMap);
+        this.statistics = new StatisticsPanel(worldGameState.getStatistics());
        
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(this.menuPanel.getPreferredSize());
