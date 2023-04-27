@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -147,12 +148,13 @@ public class MenuSettingsPage extends JPanel {
             
             }catch(FileNotFoundException e){
                 System.out.println("File not found");
-            }
+            }    
 
         }
 
         /**
          * Save the settings to the file
+         * @throws IOException
          */
         public void saveSettings() {
             try{
@@ -162,11 +164,13 @@ public class MenuSettingsPage extends JPanel {
 
                 //Difficulty settings
                 settings.setValue("difficulty", difficulty.getText());
-
+                
                 settings.writeSettings();
             }catch(FileNotFoundException e){
                 System.out.println("File not found");
-            } 
+            }catch(IOException e){
+                System.out.println("Error while writing the file");
+            }
         }
 
 
