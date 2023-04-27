@@ -14,5 +14,10 @@ bin/
 .classpath
 
 #ignore vscode settings
+<<<<<<< HEAD
 **/.vscode/
+=======
+.vscode
+settings.json
+>>>>>>> Graphics
 
