@@ -1,13 +1,12 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JFrame;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
-import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
-import it.unibo.jetpackjoyride.model.impl.EntitiesGeneratorImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.common.Pair;
@@ -28,15 +27,15 @@ public class ViewImpl implements View {
     private final GamePanel game;
     private final MenuPanel menuPanel;
     //private final EndGamePanel endGame;
-    private final ShopPanel shop;
+    //private final ShopPanel shop;
     private final StatisticsPanel statistics;
 
-    public ViewImpl(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
+    public ViewImpl(final Map <String,Integer> statisticsMap ,final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
         this.frame = new JFrame("Jetpack Joyride");
         this.game = new GamePanel(entities, player, money);
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
-        //this.statistics = new StatisticsPanel();
+        this.statistics = new StatisticsPanel(statisticsMap);
        
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(this.menuPanel.getPreferredSize());
@@ -58,13 +57,12 @@ public class ViewImpl implements View {
 
     @Override
     public void renderShop() {
-        this.shop.repaint();
+       // this.shop.repaint();
     }
 
     @Override
     public void renderEndGame() {
         //TODO: cosa devo fare qui? Chiamo statistics ?
-        this.renderStatistics();
     }
 
     @Override
