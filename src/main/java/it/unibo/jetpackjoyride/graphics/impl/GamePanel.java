@@ -10,14 +10,15 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
-//import it.unibo.jetpackjoyride.model.impl.Rocket;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
+import it.unibo.jetpackjoyride.model.impl.Money;
 
 /**
  * Class of the panel's game. Used to visualize map of game and sprites.
@@ -26,8 +27,9 @@ import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
  */
 public class GamePanel extends JPanel {
 
-    private final Set<Pair<String, GameObject>> entities;
-    private final PlayerImpl player;
+    private Set<Pair<String, GameObject>> entities;
+    private PlayerImpl player;
+    private List<Money> money;// = new ArrayList<>();
     private int posImage1;
     private int posImage2;
     private BufferedImage backgruondImage1;
@@ -47,11 +49,14 @@ public class GamePanel extends JPanel {
     /**
      * Constructor of the class.
      * 
-     * @param entities the set of entities to draw
+     * @param entities the set of entities to show
+     * @param player   the object of the player
+     * @param money    the list of money that has to be shown
      */
-    public GamePanel(final Set<Pair<String, GameObject>> entities, PlayerImpl player) {
+    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
         this.entities = entities;
         this.player = player;
+        this.money.addAll(money);
         try {
             // loading background image
             backgruondImage1 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
@@ -138,5 +143,33 @@ public class GamePanel extends JPanel {
      */
     private void drawSprite(Graphics g, Image image, GameObject entity) {
         g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().x, this);
+    }
+
+    /**
+     * Method to set new values for entities.
+     * 
+     * @param entities entities to draw
+     */
+    public void setEntities(final Set<Pair<String, GameObject>> entities) {
+        this.entities = entities;
+    }
+
+    /**
+     * Method to set new value for the player.
+     * 
+     * @param player player to draw
+     */
+    public void setPlayer(final PlayerImpl player) {
+        this.player = player;
+    }
+
+    /**
+     * Method to set new value for money.
+     * 
+     * @param money money to draw
+     */
+    public void setMoney(final List<Money> money) {
+        this.money.clear();
+        this.money.addAll(money);
     }
 }
