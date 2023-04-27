@@ -28,8 +28,8 @@ public class ViewImpl implements View {
     private final GamePanel game;
     private final MenuPanel menuPanel;
     //private final EndGamePanel endGame;
-    //private final ShopPanel shop;
-    //private final StatisticsPanel statistics;
+    private final ShopPanel shop;
+    private final StatisticsPanel statistics;
 
     public ViewImpl(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
         this.frame = new JFrame("Jetpack Joyride");
