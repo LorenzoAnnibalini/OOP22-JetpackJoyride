@@ -12,7 +12,7 @@ public interface Input {
     /**
      * Enum for the type of the input.
      */
-    enum typeInput {
+    public enum typeInput {
         /**
          * Input type for raise the player.
          */
