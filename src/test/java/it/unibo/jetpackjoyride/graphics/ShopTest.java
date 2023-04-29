@@ -1,10 +1,14 @@
 package it.unibo.jetpackjoyride.graphics;
 
-import java.util.HashMap;
+import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
 
+import it.unibo.jetpackjoyride.core.api.GadgetLoader;
+import it.unibo.jetpackjoyride.core.impl.GadgetLoaderImpl;
 import it.unibo.jetpackjoyride.graphics.impl.ShopPanel;
+import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
 
 /**
  * Class to test the GUI of the shop.
@@ -14,14 +18,15 @@ import it.unibo.jetpackjoyride.graphics.impl.ShopPanel;
 public class ShopTest {
     
     public static void main(String[] args) {
-        HashMap<String, String> valori = new HashMap<>();
-        valori.put("Barry shoes", "prova");
-        valori.put("Barry shoes1", "prova1");
-        valori.put("Barry shoes2", "prova2");
+        GadgetLoader gadgetLoader = new GadgetLoaderImpl();
+        InputQueue queue = new InputQueueImpl();
+        try{
+            gadgetLoader.downloadGadget();
+        }catch(FileNotFoundException e){}
         JFrame frame = new JFrame();
         frame.setTitle("GUI shop test");
         frame.setSize(300, 400);
-        frame.getContentPane().add(new ShopPanel(valori));
+        frame.getContentPane().add(new ShopPanel(queue));
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

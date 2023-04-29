@@ -1,13 +1,18 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
 import javax.swing.BoxLayout;
+
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
+import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.input.api.Input.typeInput;
+import it.unibo.jetpackjoyride.input.impl.InputImpl;
 /**
  * Class that represents the panel of the shop.
  * 
@@ -15,16 +20,64 @@ import javax.swing.JPanel;
  */
 public class ShopPanel extends JPanel{
     
-    public ShopPanel(HashMap<String, String> valori) {
+    private final JButton menu;
+    private final InputQueue inputQueue;
+
+    /**
+     * Constructor for the ShopPanel.
+     * @param inputQueue
+     */
+    public ShopPanel(final InputQueue inputQueue) {
         super();
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        for (String key : valori.keySet()) {
-            JPanel panel = new JPanel(new FlowLayout());
-            panel.add(new JLabel(key));
-            panel.add(new JButton(valori.get(key)));
-            this.add(panel); 
+        this.inputQueue = inputQueue;
+        this.setLayout(new BorderLayout());
+        JPanel boxPanel = new JPanel();
+        boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
+        boxPanel.add(new JLabel("Gadget"));
+        this.add(boxPanel, BorderLayout.NORTH);
+
+        this.menu = new JButton("Menu");
+        this.menu.addActionListener(e -> {
+            this.inputQueue.addInput(new InputImpl(typeInput.MENU, null));
+        });
+        this.add(menu, BorderLayout.SOUTH);
+
+        GadgetImpl gadget = new GadgetImpl();
+        for (String key : gadget.getAll().keySet()) {
+            boolean purchased = gadget.getValue(key).getX();
+            boolean state = gadget.getValue(key).getY();
+            JPanel FlowPanel = new JPanel(new FlowLayout());
+            FlowPanel.add(new JLabel(key));
+            FlowPanel.add(createGadgetButton("Purchased", !purchased, key));
+            FlowPanel.add(createGadgetButton(state == true ? "Disable" : "Enable", true, key));
+            boxPanel.add(FlowPanel);
         }
+
+        boxPanel.add(new JLabel("Skin"));
     }
 
+    private JButton createGadgetButton(String text, boolean enabled, String name){
+        JButton button = new JButton(text);
+        button.setEnabled(enabled);
+        button.addActionListener(e -> {
+            switch (button.getText()) {
+            case "Enable":
+                button.setText("Disable");
+                this.inputQueue.addInput(new InputImpl(typeInput.ENABLE, name));
+                break;
+            case "Disable":
+                button.setText("Enable");
+                this.inputQueue.addInput(new InputImpl(typeInput.DISABLE, name));
+                break;
+            case "Purchased":
+                button.setEnabled(false);
+                this.inputQueue.addInput(new InputImpl(typeInput.BUY, null));
+                break;
+            default:
+                break;
+            }
+        });
+        return button;
+    }
 
 }
