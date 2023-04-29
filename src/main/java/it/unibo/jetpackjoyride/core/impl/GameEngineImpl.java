@@ -5,7 +5,6 @@ import java.util.List;
 import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
 import it.unibo.jetpackjoyride.model.api.WorldGameState;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
@@ -19,7 +18,7 @@ public class GameEngineImpl implements GameEngine {
     private state currentState;
 
     private enum state {
-        MENUSTATE,
+        MAIN_MENU,
         GAME,
         GAMEOVER
     }
@@ -31,7 +30,7 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void worldGameStateStart() {
-        if(this.currentState == state.MENUSTATE) {
+        if(this.currentState == state.MAIN_MENU) {
         this.worldGameState = new WorldGameStateImpl();
         }
     }
@@ -63,10 +62,10 @@ public class GameEngineImpl implements GameEngine {
                 case UP: 
                 break;
                 
-                case EXIT: 
+                case EXIT:
                 break;
                 
-                default: break;
+                default: throw new IllegalArgumentException("The type of input is NULL or is incorrect.");
 
             }
         }
@@ -74,7 +73,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
     private void updateWorldGameState(final long elapsedTime) {
-
+        
     }
 
     private void renderView() {
