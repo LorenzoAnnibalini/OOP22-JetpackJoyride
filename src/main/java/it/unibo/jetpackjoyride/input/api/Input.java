@@ -46,7 +46,17 @@ public interface Input {
         /**
          * Input type for buy the gadget.
          */
-        BUY
+        BUY,
+
+        /**
+         * Input type for select the skin.
+         */
+        SELECT_SKIN,
+
+        /**
+         * Input type for buy the skin.
+         */
+        BUY_SKIN 
     }
 
     /**
