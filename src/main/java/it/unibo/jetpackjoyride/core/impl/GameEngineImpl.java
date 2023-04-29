@@ -54,12 +54,19 @@ public class GameEngineImpl implements GameEngine {
         for (final Input inputElem: inputQueue){
             switch(inputElem.getType()){
 
-                case Input.typeInput.SHOP: break;
-                case Input.typeInput.MENU: break;
-                case Input.typeInput.UP: break;
-                case Input.typeInput.EXIT: break;
-
-
+                case SHOP: 
+                break;
+                
+                case MENU: 
+                break;
+                
+                case UP: 
+                break;
+                
+                case EXIT: 
+                break;
+                
+                default: break;
 
             }
         }
