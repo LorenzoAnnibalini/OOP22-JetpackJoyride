@@ -44,6 +44,13 @@ public class StatisticsPanel extends JPanel {
 
         this.setPreferredSize(new Dimension(backgruondImage.getWidth(), backgruondImage.getHeight()));
         this.setSize(this.getPreferredSize());
+        
+        for (String statName : this.statistics.keySet()) {
+            int value = statistics.get(statName);
+            String text = statName + "\t\t\t\t " + value;
+            JLabel label = new JLabel(text);
+            label.setFont(new Font(StatisticsPanel.FONTNAME, StatisticsPanel.FONTSTYLE, StatisticsPanel.FONTSIZE));
+        }
     }
 
     @Override
@@ -51,11 +58,5 @@ public class StatisticsPanel extends JPanel {
         this.removeAll();
         g = (Graphics2D) g;
         g.drawImage(backgruondImage, 0, 0, this);
-        for (String statName : this.statistics.keySet()) {
-            int value = statistics.get(statName);
-            String text = statName + "\t\t\t\t " + value;
-            JLabel label = new JLabel(text);
-            label.setFont(new Font(StatisticsPanel.FONTNAME, StatisticsPanel.FONTSTYLE, StatisticsPanel.FONTSIZE));
-        }
     }
 }
