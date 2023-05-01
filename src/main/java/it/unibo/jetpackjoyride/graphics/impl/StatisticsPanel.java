@@ -30,8 +30,7 @@ public class StatisticsPanel extends JPanel {
     /**
      * Constructor of the class.
      * 
-     * @param statistics a map from string (statistic name) to integer (value of the
-     *                   statistic)
+     * @param statistics a map from string (statistic name) to int (statistic value)
      */
     public StatisticsPanel(Map<String, Integer> statistics) {
         this.statistics = new HashMap<>(statistics);
