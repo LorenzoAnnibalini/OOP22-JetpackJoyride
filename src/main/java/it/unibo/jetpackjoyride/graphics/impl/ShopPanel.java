@@ -13,6 +13,7 @@ import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.typeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
+import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
 /**
  * Class that represents the panel of the shop.
  * 
@@ -44,12 +45,17 @@ public class ShopPanel extends JPanel{
 
         GadgetImpl gadget = new GadgetImpl();
         for (String key : gadget.getAll().keySet()) {
-            boolean purchased = gadget.getValue(key).getX();
-            boolean state = gadget.getValue(key).getY();
+            String state = gadget.getValue(key).get(GadgetInfoPositions.STATE.ordinal());
+            String purchased = gadget.getValue(key).get(GadgetInfoPositions.PURCHASED.ordinal());
+            String price = gadget.getValue(key).get(GadgetInfoPositions.PRICE.ordinal());
+            String description = gadget.getValue(key).get(GadgetInfoPositions.DESCRIPTION.ordinal());
+
             JPanel FlowPanel = new JPanel(new FlowLayout());
             FlowPanel.add(new JLabel(key));
-            FlowPanel.add(createGadgetButton("Purchased", !purchased, key));
-            FlowPanel.add(createGadgetButton(state == true ? "Disable" : "Enable", true, key));
+            FlowPanel.add(new JLabel(price));
+            FlowPanel.add(new JLabel(description));
+            FlowPanel.add(createGadgetButton("Purchased", !Boolean.parseBoolean(purchased), key));
+            FlowPanel.add(createGadgetButton(Boolean.parseBoolean(state) == true ? "Disable" : "Enable", true, key));
             boxPanel.add(FlowPanel);
         }
 
