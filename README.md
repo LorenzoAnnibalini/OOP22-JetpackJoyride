@@ -1,4 +1,13 @@
-# Sample Gradle Project
+#OOP22 Jetpack Joyride 
 
-This is a repository that can be used as a base to develop an OOP project.
-The tools seen in the lab are pre-integrated in the build file.
+Il gruppo si pone l’obiettivo di sviluppare un clone del famoso gioco mobile “Jetpack Joyride” ( https://it.wikipedia.org/wiki/Jetpack_Joyride ). Il videogame riprende la base del gioco originale in cui bisogna raccogliere monete e sopravvivere per più tempo possibile evitando laser e missili nella mappa di gioco. 
+
+E-mail dei componenti: 
+
+- mattia.burreli@studio.unibo.it 
+
+- emanuele.sanchi@studio.unibo.it 
+
+- lorenzo.bacchini4@studio.unibo.it 
+
+- lorenzo.annibalini@studio.unibo.it 
