@@ -14,6 +14,8 @@ import it.unibo.jetpackjoyride.model.impl.GameObject;
 public interface EntitiesGenerator {
     /**
      * Method to generate a new obstacle (Electrode, LaserRay or Rocket).
+     * 
+     * @param entities the set of entities already spwaned in game
      * @throws ClassNotFoundException
      * @throws SecurityException
      * @throws NoSuchMethodException
@@ -22,7 +24,9 @@ public interface EntitiesGenerator {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    void generateEntity() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
+    void generateEntity(Set<Pair<String, GameObject>> entities)
+            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+            NoSuchMethodException, SecurityException, ClassNotFoundException;
 
     /**
      * Method to generate new scientists (5 scientist per time).

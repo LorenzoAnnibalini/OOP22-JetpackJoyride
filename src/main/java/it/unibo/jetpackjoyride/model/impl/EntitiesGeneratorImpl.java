@@ -45,14 +45,30 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     }
 
     @Override
-    public void generateEntity() {
+    public void generateEntity(Set<Pair<String, GameObject>> entities) {
         if (this.allowNewEntity()) {
+            // Overwrite entities
+            this.entities = entities; // forse andrà spostato sopra al controllo if
             // Variable used to generate random number
             int entityNum = 0;
             Random random = new Random();
             entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
             System.out.println(entityNum);
             // Vairables for gameobject's parameters constructor
+            // Variable to check if the new enetity has a different x than others entities
+            boolean checkY = true;
+            while (checkY) {
+                Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
+                        random.nextInt(EntitiesGeneratorImpl.YBOUND));
+                for (Pair<String, GameObject> el : this.entities) {
+                    if (el.getY().getCurrentPos().y == startPosition.y) {
+                        checkY = false;
+                        break;
+                    } else {
+                        checkY = true;
+                    }
+                }
+            }
             Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
                     random.nextInt(EntitiesGeneratorImpl.YBOUND));
             Point2d finishPosition = new Point2d(0, startPosition.y);
@@ -75,18 +91,20 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                                     hitbox)));
                     break;
 
-                
                 case EntitiesGeneratorImpl.SHIELDPOWERUP:
                     int duration = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
-                    entities.add(new Pair<String,GameObject>("ShieldPowerUp", new
-                    ShieldPowerUpImpl(duration == EntitiesGeneratorImpl.DURATION ? EntitiesGeneratorImpl.SHORTDURATION : EntitiesGeneratorImpl.LONGDURATION, startPosition, velocity, hitbox)));
+                    entities.add(new Pair<String, GameObject>("ShieldPowerUp",
+                            new ShieldPowerUpImpl(
+                                    duration == EntitiesGeneratorImpl.DURATION ? EntitiesGeneratorImpl.SHORTDURATION
+                                            : EntitiesGeneratorImpl.LONGDURATION,
+                                    startPosition, velocity, hitbox)));
                     break;
                 case EntitiesGeneratorImpl.SPEEDUPPOWERUP:
                     int distance = random.nextInt(EntitiesGeneratorImpl.XBOUND);
                     entities.add(new Pair<String, GameObject>("Powerup",
-                    new SpeedUpPowerUpImpl(distance, startPosition, velocity, hitbox)));
+                            new SpeedUpPowerUpImpl(distance, startPosition, velocity, hitbox)));
                     break;
-                
+
                 case EntitiesGeneratorImpl.NOTHING:
                     entities.add(
                             new Pair<String, GameObject>("Nothing", new GameObject(startPosition, velocity, hitbox)));
@@ -129,10 +147,10 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
      * deleted.
      */
     private void entitiesGarbage() {
-        for (Pair<String, GameObject> pair : entities) {
+        for (Pair<String, GameObject> pair : this.entities) {
             if (pair.getY().getCurrentPos().x < 0
                     || (pair.getX() == "Scientist" && pair.getY().getCurrentPos().x > EntitiesGeneratorImpl.XBOUND)) {
-                entities.remove(pair);
+                this.entities.remove(pair);
             }
         }
     }
