@@ -45,7 +45,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     }
 
     @Override
-    public void generateEntity(Set<Pair<String, GameObject>> entities) {
+    public void generateEntity(final Set<Pair<String, GameObject>> entities) {
         if (this.allowNewEntity()) {
             // Overwrite entities
             this.entities = entities; // forse andrà spostato sopra al controllo if
@@ -55,22 +55,22 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
             System.out.println(entityNum);
             // Vairables for gameobject's parameters constructor
-            // Variable to check if the new enetity has a different x than others entities
+            // Check if is the new entity has y like others that are already spawned
             boolean checkY = true;
             while (checkY) {
                 Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
                         random.nextInt(EntitiesGeneratorImpl.YBOUND));
-                for (Pair<String, GameObject> el : this.entities) {
-                    if (el.getY().getCurrentPos().y == startPosition.y) {
-                        checkY = false;
-                        break;
-                    } else {
-                        checkY = true;
-                    }
+                if (this.entities.stream().filter(x -> x.getY().getCurrentPos().equals(startPosition)).count() == 0) {
+                    checkY = false;
                 }
             }
             Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
                     random.nextInt(EntitiesGeneratorImpl.YBOUND));
+            while (this.entities.stream().filter(x -> x.getY().getCurrentPos().equals(startPosition)).count() != 0) {
+                // startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
+                // random.nextInt(EntitiesGeneratorImpl.YBOUND));
+                System.out.println("ciao");
+            }
             Point2d finishPosition = new Point2d(0, startPosition.y);
             Vector2d velocity = new Vector2d(startPosition, finishPosition);
             Vector2d rocketVelocity = new Vector2d(startPosition,
