@@ -19,10 +19,6 @@ public class GadgetLoaderImpl implements GadgetLoader{
 
     private final String SEPARATOR = File.separator;
     private final int NAME = 0;
-    private final int STATE = 1;
-    private final int PURCHASED = 2;
-    private final int PRICE = 3;
-    private final int DESCRIPTION = 4;
     String filename = "resources" + this.SEPARATOR + "gadget.csv";
 
     @Override
@@ -31,12 +27,14 @@ public class GadgetLoaderImpl implements GadgetLoader{
         Map<String, List<String>> gadgetMap = new HashMap<>();
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
-            gadgetMap.put(line.split(";")[NAME], 
+            String name = line.split(";")[NAME];
+            line = line.substring(line.indexOf(";") + 1);
+            gadgetMap.put(name, 
                 new ArrayList<>(List.of(
-                    line.split(";")[STATE],
-                    line.split(";")[PURCHASED],
-                    line.split(";")[PRICE],
-                    line.split(";")[DESCRIPTION])));
+                    line.split(";")[GadgetInfoPositions.STATE.ordinal()],
+                    line.split(";")[GadgetInfoPositions.PURCHASED.ordinal()],
+                    line.split(";")[GadgetInfoPositions.PRICE.ordinal()],
+                    line.split(";")[GadgetInfoPositions.DESCRIPTION.ordinal()])));
         }
         GadgetImpl.setAll(gadgetMap);
         return gadgetMap;
