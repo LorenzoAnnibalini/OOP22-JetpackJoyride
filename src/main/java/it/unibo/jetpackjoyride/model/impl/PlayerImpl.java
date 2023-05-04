@@ -13,6 +13,7 @@ import it.unibo.jetpackjoyride.model.api.Player;
 public class PlayerImpl extends GameObject implements Player {
    
     private boolean statusPlayer;
+    private int hearts;
     
 
     /**
@@ -22,6 +23,8 @@ public class PlayerImpl extends GameObject implements Player {
      */
     public PlayerImpl(Point2d pos, Vector2d vel, Hitbox hitbox) {
         super(pos, vel, hitbox);
+        this.hearts=1;
+        this.setPlayerAlive();
     }
 
     @Override
@@ -29,14 +32,34 @@ public class PlayerImpl extends GameObject implements Player {
         return statusPlayer;
     }
 
-    @Override
-    public void setPlayerDeath() {
+    /**
+     * Function for set the status of player to false.
+     */
+    private void setPlayerDeath() {
         this.statusPlayer = false;
     }
 
-    @Override
-    public void setPlayerAlive() {
+    /**
+     * Function for set the status of player to true.
+     */
+    private void setPlayerAlive() {
         this.statusPlayer = true;
+    }
+
+    @Override
+    public void addHeart(){
+        this.hearts++;
+    }
+
+    @Override
+    public void removeHeart(){
+        if(this.hearts>0){
+        this.hearts--;
+        }
+        else{
+            this.setPlayerDeath();
+        }
+        
     }
     
 }

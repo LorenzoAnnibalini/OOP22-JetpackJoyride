@@ -14,15 +14,14 @@ public interface Player {
      */
     public boolean getStatusPlayer();
 
+    /**
+     * Function for add a heart to the player.
+     */
+    public void addHeart();
 
     /**
-     * Sets status player to false. 
+     * Function for remove a heart to the player.
      */
-    public void setPlayerDeath();
-
-    /**
-     * Sets status player to true.
-     */
-    public void setPlayerAlive();
+    public void removeHeart();
 
 }
