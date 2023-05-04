@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.swing.JFrame;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
-import it.unibo.jetpackjoyride.model.impl.WorldGameState;
+import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 
 /*
@@ -27,7 +27,7 @@ public class ViewImpl implements View {
     //private final ShopPanel shop;
     private final StatisticsPanel statistics;
 
-    public ViewImpl(final WorldGameState worldGameState) {
+    public ViewImpl(final WorldGameStateImpl worldGameState) {
         this.frame = new JFrame("Jetpack Joyride");
         this.game = new GamePanel(worldGameState.getGameObjects(), worldGameState.getPlayer(), worldGameState.getMoney());
         this.menuPanel = new MenuPanel();
