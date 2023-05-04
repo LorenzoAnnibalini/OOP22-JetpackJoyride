@@ -1,8 +1,7 @@
 package it.unibo.jetpackjoyride.model.api;
 
+import java.util.List;
 import java.util.Map;
-
-import it.unibo.jetpackjoyride.common.Pair;
 
 /**
  * Interface for Gadget information.
@@ -15,7 +14,7 @@ public interface Gadget {
      * Get map of Gadget information.
      * @return map of Gadget information
      */
-    Map<String, Pair<Boolean, Boolean>> getAll();
+    Map<String, List<String>> getAll();
 
     /**
      * Getter of a Gadget.
@@ -23,7 +22,7 @@ public interface Gadget {
      * @param name tha name of the Gadget to get the information
      * @return information of the Gadget
      */
-    Pair<Boolean, Boolean> getValue(String name);
+    List<String> getValue(String name);
 
     /**
      * Setter for a Gadget.
@@ -32,5 +31,6 @@ public interface Gadget {
      * @param state the state of the Gadget (active or not)
      * @param purchased if the gadget was purchased true otherwise false
      */
-    void setValue(String name, Boolean state, Boolean purchased);
+    void setValue(String name, String state, String purchased, 
+        String price, String description);
 }
