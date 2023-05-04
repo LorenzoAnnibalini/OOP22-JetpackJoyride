@@ -72,6 +72,13 @@ public class ShopPanel extends JPanel{
         boxPanel.add(new JLabel("Skin"));
     }
 
+    /**
+     * This method create a button for the gadget.
+     * @param text of the button
+     * @param enabled state of the gadget
+     * @param name of the gadget
+     * @return the Jbutton created
+     */
     private JButton createGadgetButton(String text, boolean enabled, String name){
         JButton button = new JButton(text);
         button.setEnabled(enabled);
@@ -79,18 +86,12 @@ public class ShopPanel extends JPanel{
             switch (button.getText()) {
             case "Enable":
                 this.inputQueue.addInput(new InputImpl(typeInput.ENABLE, name));
-                gadget.setValue(name, "true", gadget.getValue(name).get(GadgetInfoPositions.PURCHASED.ordinal()), gadget.getValue(name).get(GadgetInfoPositions.PRICE.ordinal()), gadget.getValue(name).get(GadgetInfoPositions.DESCRIPTION.ordinal()));
-                this.update();
                 break;
             case "Disable":
                 this.inputQueue.addInput(new InputImpl(typeInput.DISABLE, name));
-                gadget.setValue(name, "false", gadget.getValue(name).get(GadgetInfoPositions.PURCHASED.ordinal()), gadget.getValue(name).get(GadgetInfoPositions.PRICE.ordinal()), gadget.getValue(name).get(GadgetInfoPositions.DESCRIPTION.ordinal()));
-                this.update();
                 break;
             case "Purchased":
                 this.inputQueue.addInput(new InputImpl(typeInput.BUY, null));
-                gadget.setValue(name, gadget.getValue(name).get(GadgetInfoPositions.STATE.ordinal()), "true", gadget.getValue(name).get(GadgetInfoPositions.PRICE.ordinal()), gadget.getValue(name).get(GadgetInfoPositions.DESCRIPTION.ordinal()));
-                this.update();
                 break;
             default:
                 break;
@@ -99,6 +100,10 @@ public class ShopPanel extends JPanel{
         return button;
     }
 
+    /**
+     * This method update the panel recalulating the button state
+     * by reading new states from the gadget values.
+     */
     public void update(){
         for (String name : buttonMap.keySet()) {
             ArrayList<JButton> buttonList = buttonMap.get(name);
