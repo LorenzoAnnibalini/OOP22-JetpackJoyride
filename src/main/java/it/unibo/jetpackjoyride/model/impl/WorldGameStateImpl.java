@@ -2,7 +2,9 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Set;
 
+import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
@@ -16,6 +18,7 @@ public class WorldGameStateImpl implements WorldGameState{
     private EntitiesGenerator entitiesGenerator;
     private Player player;
     private List<Money> money;
+    private Set<Pair<String,GameObject>> entities;
 
     public WorldGameStateImpl() {
         this.runStatistics = new StatisticsImpl();
@@ -24,16 +27,6 @@ public class WorldGameStateImpl implements WorldGameState{
         this.runStatistics.addStatistic("score", 0);
         this.player=new PlayerImpl(new Point2d(50,350), new Vector2d(50, 350),new HitboxImpl(15, 10, new Point2d(50,350)));
     }
-
-
-    private void newEntitiesGeneration(){
-            try {
-                this.entitiesGenerator.generateEntity();
-            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                    | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
 
 
     public void updateState(){
