@@ -11,42 +11,48 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.api.WorldGameState;
 import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
 
-public class WorldGameStateImpl implements WorldGameState{
-    
+public class WorldGameStateImpl implements WorldGameState {
+
     private Statistics runStatistics;
     private EntitiesGenerator entitiesGenerator;
     private PlayerImpl player;
     private List<Money> money;
-    private Set<Pair<String,GameObject>> entities;
+    private Set<Pair<String, GameObject>> entities;
 
     public WorldGameStateImpl() {
         this.runStatistics = new StatisticsImpl();
-        this.entitiesGenerator=new EntitiesGeneratorImpl();
+        this.entitiesGenerator = new EntitiesGeneratorImpl();
         this.runStatistics.addStatistic("money", 0);
         this.runStatistics.addStatistic("score", 0);
-        this.player=new PlayerImpl(new Point2d(50,350), new Vector2d(50, 350),new HitboxImpl(15, 10, new Point2d(50,350)));
+        this.player = new PlayerImpl(new Point2d(50, 350), new Vector2d(50, 350),
+                new HitboxImpl(15, 10, new Point2d(50, 350)));
     }
 
-
-    public void updateState(final long elapsedTime){
+    public void updateState(final long elapsedTime) {
         this.updateEntities(elapsedTime);
-        
-        
+
     }
 
-    private void newEntities(){
-        
+    private void newEntities() {
+
     }
 
-    private void updateEntities(final long elapsedTime){
+    private void updateEntities(final long elapsedTime) {
         this.entities.stream().forEach(entity -> entity.getY().updateState(elapsedTime));
         this.player.updateState(elapsedTime);
         this.money.stream().forEach(moneyElem -> moneyElem.updateState(elapsedTime));
     }
 
+    public PlayerImpl getPlayer() {
+        return this.player;
+    }
 
+    public List<Money> getMoney() {
+        return this.money;
+    }
 
-
+    public Set<Pair<String, GameObject>> getEntities() {
+        return this.entities;
+    }
 
 }
-
