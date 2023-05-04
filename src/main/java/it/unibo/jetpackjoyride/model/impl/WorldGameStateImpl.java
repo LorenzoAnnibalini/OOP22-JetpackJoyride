@@ -1,6 +1,5 @@
 package it.unibo.jetpackjoyride.model.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Set;
 
@@ -8,15 +7,15 @@ import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
-import it.unibo.jetpackjoyride.model.api.Player;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.api.WorldGameState;
+import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
 
 public class WorldGameStateImpl implements WorldGameState{
     
     private Statistics runStatistics;
     private EntitiesGenerator entitiesGenerator;
-    private Player player;
+    private PlayerImpl player;
     private List<Money> money;
     private Set<Pair<String,GameObject>> entities;
 
@@ -29,14 +28,20 @@ public class WorldGameStateImpl implements WorldGameState{
     }
 
 
-    public void updateState(){
-
+    public void updateState(final long elapsedTime){
+        this.updateEntities(elapsedTime);
         
-
     }
 
+    private void newEntities(){
+        
+    }
 
-
+    private void updateEntities(final long elapsedTime){
+        this.entities.stream().forEach(entity -> entity.getY().updateState(elapsedTime));
+        this.player.updateState(elapsedTime);
+        this.money.stream().forEach(moneyElem -> moneyElem.updateState(elapsedTime));
+    }
 
 
 
