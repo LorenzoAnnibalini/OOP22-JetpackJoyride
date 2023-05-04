@@ -3,6 +3,8 @@ package it.unibo.jetpackjoyride.core.impl;
 import java.util.List;
 
 import it.unibo.jetpackjoyride.core.api.GameEngine;
+import it.unibo.jetpackjoyride.graphics.api.View;
+import it.unibo.jetpackjoyride.graphics.impl.ViewImpl;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
@@ -12,7 +14,7 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 public class GameEngineImpl implements GameEngine {
 
     private InputQueue inputHandler;
-    // private View view;
+    private View view;
     private long framePeriod = 20;
     private WorldGameState worldGameState;
     private state currentState;
@@ -25,7 +27,7 @@ public class GameEngineImpl implements GameEngine {
 
     public GameEngineImpl() {
         this.inputHandler = new InputQueueImpl();
-        // this.view = new ViewImpl();
+        this.view = new ViewImpl();
     }
 
     @Override
@@ -77,7 +79,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
     private void renderView() {
-        // view.render();
+        view.render();
     }
 
     private void waitNextFrame(final long cycleStartTime) {

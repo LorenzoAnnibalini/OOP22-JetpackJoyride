@@ -31,6 +31,7 @@ public class WorldGameStateImpl implements WorldGameState{
     public void updateState(final long elapsedTime){
         this.updateEntities(elapsedTime);
         
+        
     }
 
     private void newEntities(){
