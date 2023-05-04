@@ -82,4 +82,25 @@ public class HitboxImpl implements Hitbox {
     public void setHitboxDisable() {
         this.hitboxActive = false;
     }
+
+    @Override
+    public boolean checkCollision(Hitbox hitbox) {
+        return this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) ||
+                this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight()) ||
+                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().x, hitbox.getPointDownRight().y))
+                ||
+                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().x, hitbox.getPointUpLeft().y));
+    }
+
+    /**
+     * Method to check if a point is in collision with the hitbox.
+     * 
+     * @param point
+     * @return true if the point is in collision with the hitbox, false otherwise.
+     */
+    private boolean checkCollisionHitboxAndPoint(final Point2d point) {
+        return point.x >= this.upLeftPoint.x && point.x <= this.downRightPoint.x
+                && point.y >= this.upLeftPoint.y && point.y <= this.downRightPoint.y;
+    }
+
 }
