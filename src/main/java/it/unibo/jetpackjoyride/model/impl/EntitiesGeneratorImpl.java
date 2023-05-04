@@ -63,8 +63,8 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                             .count() == 0) {
                         checkY = false;
                     }*/
-                    if (this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y > -5).count() != 0 &&
-                        this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y < 5).count() != 0) {
+                    if (this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y > -5).count() == 0 &&
+                        this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y < 5).count() == 0) {
                             checkY = false;
                     }
                 }
