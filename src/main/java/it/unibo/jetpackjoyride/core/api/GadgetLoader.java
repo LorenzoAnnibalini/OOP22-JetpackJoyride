@@ -2,9 +2,9 @@ package it.unibo.jetpackjoyride.core.api;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
-import it.unibo.jetpackjoyride.common.Pair;
 
 /**
  * Interface for classes to load and write gadgets from file.
@@ -19,7 +19,7 @@ public interface GadgetLoader {
      * @throws FileNotFoundException if the file is not found
      * @return a map of gadgets
      */
-    Map<String, Pair<Boolean, Boolean>> downloadGadget() throws FileNotFoundException;
+    Map<String, List<String>> downloadGadget() throws FileNotFoundException;
 
     /**
      * Method to save new gadgets in file
@@ -27,5 +27,5 @@ public interface GadgetLoader {
      * @param stats the map to get value that has to be save
      * @throws IOException
      */
-    void uploadGadget(Map<String, Pair<Boolean, Boolean>> stats) throws IOException;
+    void uploadGadget(Map<String, List<String>> stats) throws IOException;
 }
