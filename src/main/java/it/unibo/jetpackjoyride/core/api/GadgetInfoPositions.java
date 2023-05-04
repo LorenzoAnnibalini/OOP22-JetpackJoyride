@@ -5,8 +5,8 @@ package it.unibo.jetpackjoyride.core.api;
  *@author lorenzo.bacchini4@studio.unibo.it
  */
 public enum GadgetInfoPositions {
-    PURCHASED,
     STATE,
+    PURCHASED,
     PRICE,
     DESCRIPTION
 }
