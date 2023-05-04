@@ -34,7 +34,6 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int XBOUND = 600;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
-    private static final int SCIENTISTS = 5;
     private static final int RANDOMSEED = 2;
     private static final int MAXENTITIES = 4;
     private static final long LASERTIME = 10000; // 10 seconds
@@ -45,74 +44,77 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     }
 
     @Override
-    public void generateEntity(final Set<Pair<String, GameObject>> entities) {
-        if (this.allowNewEntity()) {
-            // Overwrite entities
-            this.entities = entities; // forse andrà spostato sopra al controllo if
-            // Variable used to generate random number
-            int entityNum = 0;
-            Random random = new Random();
-            entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
-            System.out.println(entityNum);
-            // Vairables for gameobject's parameters constructor
-            // Check if is the new entity has y like others that are already spawned
-            boolean checkY = true;
-            while (checkY) {
+    public void generateEntity(final Set<Pair<String, GameObject>> entities, int num) {
+        for (int i = 0; i < num; i++) {
+            if (this.allowNewEntity()) {
+                // Overwrite entities
+                this.entities = entities; // forse andrà spostato sopra al controllo if
+                // Variable used to generate random number
+                int entityNum = 0;
+                Random random = new Random();
+                entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
+                System.out.println(entityNum);
+                // Vairables for gameobject's parameters constructor
+                // Check if is the new entity has y like others that are already spawned
+                boolean checkY = true;
+                while (checkY) {
+                    Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
+                            random.nextInt(EntitiesGeneratorImpl.YBOUND));
+                    if (this.entities.stream().filter(x -> x.getY().getCurrentPos().equals(startPosition))
+                            .count() == 0) {
+                        checkY = false;
+                    }
+                }
                 Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
                         random.nextInt(EntitiesGeneratorImpl.YBOUND));
-                if (this.entities.stream().filter(x -> x.getY().getCurrentPos().equals(startPosition)).count() == 0) {
-                    checkY = false;
+                while (this.entities.stream().filter(x -> x.getY().getCurrentPos().equals(startPosition))
+                        .count() != 0) {
+                    System.out.println("ciao");
+                }
+                Point2d finishPosition = new Point2d(0, startPosition.y);
+                Vector2d velocity = new Vector2d(startPosition, finishPosition);
+                Vector2d rocketVelocity = new Vector2d(startPosition,
+                        new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)));
+                HitboxImpl hitbox = new HitboxImpl(50, 50, startPosition);
+                // Switch on types of entities based on random result
+                switch (entityNum) {
+                    case EntitiesGeneratorImpl.ROCKET:
+                        entities.add(
+                                new Pair<String, GameObject>("Rocket",
+                                        new Rocket(startPosition, rocketVelocity, hitbox)));
+                        break;
+                    case EntitiesGeneratorImpl.ELECTRODE:
+                        int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
+                        entities.add(new Pair<String, GameObject>("Electrode",
+                                new Electrode(startPosition, velocity,
+                                        orientation == EntitiesGeneratorImpl.HORIZONTAL ? Orientation.HORIZONTAL
+                                                : Orientation.VERTICAL,
+                                        hitbox)));
+                        break;
+
+                    case EntitiesGeneratorImpl.SHIELDPOWERUP:
+                        int duration = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
+                        entities.add(new Pair<String, GameObject>("ShieldPowerUp",
+                                new ShieldPowerUpImpl(
+                                        duration == EntitiesGeneratorImpl.DURATION ? EntitiesGeneratorImpl.SHORTDURATION
+                                                : EntitiesGeneratorImpl.LONGDURATION,
+                                        startPosition, velocity, hitbox)));
+                        break;
+                    case EntitiesGeneratorImpl.SPEEDUPPOWERUP:
+                        int distance = random.nextInt(EntitiesGeneratorImpl.XBOUND);
+                        entities.add(new Pair<String, GameObject>("Powerup",
+                                new SpeedUpPowerUpImpl(distance, startPosition, velocity, hitbox)));
+                        break;
+
+                    case EntitiesGeneratorImpl.NOTHING:
+                        entities.add(
+                                new Pair<String, GameObject>("Nothing",
+                                        new GameObject(startPosition, velocity, hitbox)));
+                        break;
+                    default:
+                        break;
                 }
             }
-            Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
-                    random.nextInt(EntitiesGeneratorImpl.YBOUND));
-            while (this.entities.stream().filter(x -> x.getY().getCurrentPos().equals(startPosition)).count() != 0) {
-                // startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
-                // random.nextInt(EntitiesGeneratorImpl.YBOUND));
-                System.out.println("ciao");
-            }
-            Point2d finishPosition = new Point2d(0, startPosition.y);
-            Vector2d velocity = new Vector2d(startPosition, finishPosition);
-            Vector2d rocketVelocity = new Vector2d(startPosition,
-                    new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)));
-            HitboxImpl hitbox = new HitboxImpl(50, 50, startPosition);
-            // Switch on types of entities based on random result
-            switch (entityNum) {
-                case EntitiesGeneratorImpl.ROCKET:
-                    entities.add(
-                            new Pair<String, GameObject>("Rocket", new Rocket(startPosition, rocketVelocity, hitbox)));
-                    break;
-                case EntitiesGeneratorImpl.ELECTRODE:
-                    int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
-                    entities.add(new Pair<String, GameObject>("Electrode",
-                            new Electrode(startPosition, velocity,
-                                    orientation == EntitiesGeneratorImpl.HORIZONTAL ? Orientation.HORIZONTAL
-                                            : Orientation.VERTICAL,
-                                    hitbox)));
-                    break;
-
-                case EntitiesGeneratorImpl.SHIELDPOWERUP:
-                    int duration = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
-                    entities.add(new Pair<String, GameObject>("ShieldPowerUp",
-                            new ShieldPowerUpImpl(
-                                    duration == EntitiesGeneratorImpl.DURATION ? EntitiesGeneratorImpl.SHORTDURATION
-                                            : EntitiesGeneratorImpl.LONGDURATION,
-                                    startPosition, velocity, hitbox)));
-                    break;
-                case EntitiesGeneratorImpl.SPEEDUPPOWERUP:
-                    int distance = random.nextInt(EntitiesGeneratorImpl.XBOUND);
-                    entities.add(new Pair<String, GameObject>("Powerup",
-                            new SpeedUpPowerUpImpl(distance, startPosition, velocity, hitbox)));
-                    break;
-
-                case EntitiesGeneratorImpl.NOTHING:
-                    entities.add(
-                            new Pair<String, GameObject>("Nothing", new GameObject(startPosition, velocity, hitbox)));
-                    break;
-                default:
-                    break;
-            }
-            this.entitiesGarbage();
         }
         this.spawnLaser = this.isLaserSpawnTime();
         if (this.spawnLaser) {
@@ -125,9 +127,9 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     }
 
     @Override
-    public void generateScientists() {
+    public void generateScientists(int num) {
         Random random = new Random();
-        for (int i = 0; i < EntitiesGeneratorImpl.SCIENTISTS; i++) {
+        for (int i = 0; i < num; i++) {
             int direction = random.nextInt(2);
             this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
                     direction == EntitiesGeneratorImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
@@ -142,12 +144,9 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
         return this.entities;
     }
 
-    /**
-     * Method to check if an entity is out of visible range and so has to be
-     * deleted.
-     */
-    private void entitiesGarbage() {
-        for (Pair<String, GameObject> pair : this.entities) {
+    @Override
+    public void entitiesGarbage(Set<Pair<String, GameObject>> entities) {
+        for (Pair<String, GameObject> pair : entities) {
             if (pair.getY().getCurrentPos().x < 0
                     || (pair.getX() == "Scientist" && pair.getY().getCurrentPos().x > EntitiesGeneratorImpl.XBOUND)) {
                 this.entities.remove(pair);
