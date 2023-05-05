@@ -82,7 +82,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
     private void renderView() {
-        view.repaint();
+        view.renderGame();
     }
 
     private void waitNextFrame(final long cycleStartTime) {
