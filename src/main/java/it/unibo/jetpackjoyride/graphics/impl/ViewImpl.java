@@ -28,10 +28,10 @@ public class ViewImpl extends JFrame implements View {
 
     public ViewImpl(final WorldGameStateImpl worldGameState) {
         this.setTitle("Jetpack Joyride");
-        this.game = new GamePanel(worldGameState.getGameObjects(), worldGameState.getPlayer(), worldGameState.getMoney());
+        this.game = new GamePanel(worldGameState.getWorldEntities(), worldGameState.getPlayer(), worldGameState.getMoney());
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
-        this.statistics = new StatisticsPanel(worldGameState.getStatistics());
+        this.statistics = new StatisticsPanel(worldGameState.getWorldStatistics());
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(this.menuPanel.getPreferredSize());
