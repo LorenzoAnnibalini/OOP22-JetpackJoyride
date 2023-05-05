@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JFrame;
+import javax.swing.plaf.DimensionUIResource;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
@@ -34,8 +35,7 @@ public class ViewImpl extends JFrame implements View {
         this.statistics = new StatisticsPanel(worldGameState.getWorldStatistics());
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(this.menuPanel.getPreferredSize());
-        this.setMinimumSize(this.menuPanel.getPreferredSize());
+        this.setSize(new DimensionUIResource(500, 500));
         this.pack();
         this.getContentPane().add(this.menuPanel);
         this.setVisible(true);
