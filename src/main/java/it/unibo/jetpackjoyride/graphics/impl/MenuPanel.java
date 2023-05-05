@@ -21,7 +21,7 @@ public class MenuPanel extends JPanel{
         this.setLayout(new BorderLayout());
         this.add(mainPage);
         mainPage.setVisible(true);
-        this.setVisible(true);
+        this.setVisible(false);
 
 /* ------------------------ ACTION LISTENER -------------------------*/
 

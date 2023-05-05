@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class GamePanel extends JPanel {
 
     private Set<Pair<String, GameObject>> entities;
     private PlayerImpl player;
-    private List<Money> money;// = new ArrayList<>();
+    private List<Money> money = new ArrayList<>();
     private int posImage1;
     private int posImage2;
     private BufferedImage backgruondImage1;
@@ -42,7 +43,7 @@ public class GamePanel extends JPanel {
     private Image laser;
     private Image playerImage;
     private Image moneyImage;
-    private Slider slider;
+    private SliderImpl slider;
     private static final String FILESEPARATOR = File.separator;
     private static final int SPRITEWIDTH = 30;
     private static final int SPRITEHEIGHT = 30;
@@ -57,6 +58,7 @@ public class GamePanel extends JPanel {
     public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
         this.entities = entities;
         this.player = player;
+
         //this.money.addAll(money);
         try {
             
@@ -64,12 +66,13 @@ public class GamePanel extends JPanel {
             // loading background image
             /*backgruondImage1 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
             backgruondImage2 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));*/
-            backgruondImage1 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo.jpg"));
-            backgruondImage2 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo.jpg"));
+            backgruondImage1 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo2.jpg"));
+            backgruondImage2 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo2.jpg"));
             
             String percorso = "C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\";
             
             slider = new SliderImpl(backgruondImage1.getWidth());
+            this.slider.start();
             // loading sprite images and adjust sizes
             rocket = this.loadImage("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\rocket.png");
             electrode = this.loadImage(percorso+"electrode.png");
@@ -132,7 +135,7 @@ public class GamePanel extends JPanel {
         this.drawSprite(g, playerImage, player);
 
         // Draw monies if present
-        if (!money.isEmpty()) {
+        if (!this.money.isEmpty()) {
             for (Money m : money) {
                 this.drawSprite(g, moneyImage, m);
             }

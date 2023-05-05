@@ -10,10 +10,7 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 public class JetpackJoyride {
     public static void main(String[] args) {
         WorldGameStateImpl world = new WorldGameStateImpl();
-        System.out.println("a");
         ViewImpl view = new ViewImpl(world);
-        System.out.println("b");
         GameEngine gameEngine = new GameEngineImpl(view, world);
-        System.out.println("c");
     }
 }

@@ -34,7 +34,7 @@ public class GameEngineImpl implements GameEngine {
 
     public GameEngineImpl(ViewImpl view, WorldGameStateImpl world) {
         this.inputHandler = new InputQueueImpl();
-        this.currentState = State.MAIN_MENU;
+        this.currentState = State.GAME;
         this.worldGameState = world;
         this.view = view;
         this.loopState();

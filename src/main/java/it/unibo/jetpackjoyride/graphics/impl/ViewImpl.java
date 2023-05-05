@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
+import java.awt.Dimension;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,13 +30,13 @@ public class ViewImpl extends JFrame implements View {
     public ViewImpl(final WorldGameStateImpl worldGameState) {
         this.setTitle("Jetpack Joyride");
         this.game = new GamePanel(worldGameState.getWorldEntities(), worldGameState.getPlayer(), worldGameState.getMoney());
-        System.out.println("Ci sono");
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
         //this.statistics = new StatisticsPanel(worldGameState.getWorldStatistics());
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(this.menuPanel.getPreferredSize());
+        this.setPreferredSize(game.getPreferredSize());
+        this.setSize(game.getPreferredSize());
         this.setMinimumSize(this.menuPanel.getPreferredSize());
         this.pack();
         //this.getContentPane().add(this.menuPanel);

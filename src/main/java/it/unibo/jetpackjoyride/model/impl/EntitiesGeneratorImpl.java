@@ -30,7 +30,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int DURATION = 0;
     private static final long SHORTDURATION = 5000;
     private static final long LONGDURATION = 8000;
-    private static final int YBOUND = 600;
+    private static final int YBOUND = 200;
     private static final int XBOUND = 600;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
@@ -150,12 +150,14 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
 
     @Override
     public void entitiesGarbage(Set<Pair<String, GameObject>> entities) {
+        Set<Pair<String, GameObject>> good = new HashSet<>();
         for (Pair<String, GameObject> pair : entities) {
-            if (pair.getY().getCurrentPos().x < 0
-                    || (pair.getX() == "Scientist" && pair.getY().getCurrentPos().x > EntitiesGeneratorImpl.XBOUND)) {
-                this.entities.remove(pair);
+            if (!(pair.getY().getCurrentPos().x < 0
+                    || (pair.getX() == "Scientist" && pair.getY().getCurrentPos().x > EntitiesGeneratorImpl.XBOUND))) {
+                good.add(pair);
             }
         }
+        this.entities = good;
     }
 
     /**
