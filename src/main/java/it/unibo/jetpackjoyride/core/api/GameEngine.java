@@ -11,12 +11,7 @@ import it.unibo.jetpackjoyride.input.api.Input;
 public interface GameEngine {
 
     /**
-     * Start the game engine.
-     */
-    public void worldGameStateStart();
-
-    /**
      * Notify an intup event to the game engine, it will be processed in the next game loop.
      */
-    public void notifyInput(final Input input);
+    void notifyInput(Input input);
 }

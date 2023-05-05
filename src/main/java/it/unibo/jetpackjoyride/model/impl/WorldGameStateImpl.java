@@ -1,5 +1,7 @@
 package it.unibo.jetpackjoyride.model.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +22,8 @@ public class WorldGameStateImpl implements WorldGameState {
     private Set<Pair<String, GameObject>> entities;
 
     public WorldGameStateImpl() {
+        this.entities = new HashSet<>();
+        this.money = new ArrayList<>();
         this.runStatistics = new StatisticsImpl();
         this.entitiesGenerator = new EntitiesGeneratorImpl();
         this.runStatistics.addStatistic("money", 0);

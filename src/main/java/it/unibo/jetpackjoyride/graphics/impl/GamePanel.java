@@ -57,21 +57,28 @@ public class GamePanel extends JPanel {
     public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
         this.entities = entities;
         this.player = player;
-        this.money.addAll(money);
+        //this.money.addAll(money);
         try {
+            
+            
             // loading background image
-            backgruondImage1 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
-            backgruondImage2 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
+            /*backgruondImage1 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
+            backgruondImage2 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));*/
+            backgruondImage1 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo.jpg"));
+            backgruondImage2 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo.jpg"));
+            
+            String percorso = "C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\";
+            
             slider = new SliderImpl(backgruondImage1.getWidth());
             // loading sprite images and adjust sizes
-            rocket = this.loadImage("rocket.png");
-            electrode = this.loadImage("electrode.png");
-            shield = this.loadImage("shield.png");
-            speedup = this.loadImage("speedup.png");
-            scientist = this.loadImage("scientist.png");
-            laser = this.loadImage("laser.png");
-            playerImage = this.loadImage("player.png");
-            moneyImage = this.loadImage("money.png");
+            rocket = this.loadImage("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\rocket.png");
+            electrode = this.loadImage(percorso+"electrode.png");
+            shield = this.loadImage(percorso+"shield.png");
+            speedup = this.loadImage(percorso+"speedup.png");
+            scientist = this.loadImage(percorso+"scientist.png");
+            laser = this.loadImage(percorso+"laser.png");
+            playerImage = this.loadImage(percorso+"player.png");
+            moneyImage = this.loadImage(percorso+"money.png");
             this.posImage1 = 0;
             this.posImage2 = backgruondImage2.getWidth();
         } catch (IOException ex) {
@@ -140,7 +147,7 @@ public class GamePanel extends JPanel {
      * @throws IOException if the file doesn't exists
      */
     private Image loadImage(String filename) throws IOException {
-        BufferedImage originalImage = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + filename));
+        BufferedImage originalImage = ImageIO.read(new File(/*"resources" + GamePanel.FILESEPARATOR + */filename));
         return originalImage.getScaledInstance(GamePanel.SPRITEWIDTH, GamePanel.SPRITEHEIGHT, Image.SCALE_SMOOTH);
     }
 

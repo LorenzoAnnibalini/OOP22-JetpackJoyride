@@ -17,27 +17,27 @@ public class GameEngineImpl implements GameEngine {
     private View view;
     private final long framePeriod = 20;
     private WorldGameStateImpl worldGameState;
-    private state currentState;
+    private State currentState;
 
-    private enum state {
+    /*private enum state {
+        MAIN_MENU,
+        GAME,
+        GAMEOVER
+    }*/
+
+    private enum State {
         MAIN_MENU,
         GAME,
         GAMEOVER
     }
 
-    public GameEngineImpl() {
-        this.inputHandler = new InputQueueImpl();
-        this.currentState=state.MAIN_MENU;
-        this.worldGameStateStart();
-        this.view = new ViewImpl(this.worldGameState);
-        this.loopState();
-    }
 
-    @Override
-    public void worldGameStateStart() {
-        if(this.currentState == state.MAIN_MENU) {
-        this.worldGameState = new WorldGameStateImpl();
-        }
+    public GameEngineImpl(ViewImpl view, WorldGameStateImpl world) {
+        this.inputHandler = new InputQueueImpl();
+        this.currentState = State.MAIN_MENU;
+        this.worldGameState = world;
+        this.view = view;
+        this.loopState();
     }
 
     private void loopState() {
@@ -45,7 +45,7 @@ public class GameEngineImpl implements GameEngine {
         while (true) {
             long currentCycleStartTime = System.currentTimeMillis();
             long elapsedTime = currentCycleStartTime - previousCycleStartTime;
-            //this.processInput();
+            // this.processInput();
             this.updateWorldGameState(elapsedTime);
             this.renderView();
             this.waitNextFrame(currentCycleStartTime);
@@ -55,26 +55,27 @@ public class GameEngineImpl implements GameEngine {
 
     private void processInput() {
         List<Input> inputQueue = this.inputHandler.getInputQueue();
-        for (final Input inputElem: inputQueue){
-            switch(inputElem.getType()){
+        for (final Input inputElem : inputQueue) {
+            switch (inputElem.getType()) {
 
-                case SHOP: 
-                break;
-                
-                case MENU: 
-                break;
-                
-                case UP: 
-                break;
-                
+                case SHOP:
+                    break;
+
+                case MENU:
+                    break;
+
+                case UP:
+                    break;
+
                 case EXIT:
-                break;
-                
-                default: throw new IllegalArgumentException("The type of input is NULL or is incorrect.");
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("The type of input is NULL or is incorrect.");
 
             }
         }
-        
+
     }
 
     private void updateWorldGameState(final long elapsedTime) {

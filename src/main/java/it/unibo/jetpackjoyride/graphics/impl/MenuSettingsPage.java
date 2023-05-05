@@ -64,7 +64,7 @@ public class MenuSettingsPage extends JPanel {
         settingsPageComands.add(exit);
 
         //Set visible to false
-        this.setVisible(false);
+        this.setVisible(true);
 
         //Load the settings from the file
         loadSettings();

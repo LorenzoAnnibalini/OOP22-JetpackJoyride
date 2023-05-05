@@ -62,7 +62,7 @@ public class MenuMainPage extends JPanel {
         mainPageComands.add(exit);
 
         //set visible to false
-        this.setVisible(false);
+        this.setVisible(true);
     }
 
 

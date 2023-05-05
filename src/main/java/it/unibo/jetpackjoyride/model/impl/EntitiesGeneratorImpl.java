@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.model.impl;
 
+import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -44,10 +45,11 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
 
     @Override
     public void generateEntity(final Set<Pair<String, GameObject>> entities, int num) {
+        this.entities = entities; // forse andrà spostato sopra al controllo if
         for (int i = 0; i < num; i++) {
             if (this.allowNewEntity()) {
                 // Overwrite entities
-                this.entities = entities; // forse andrà spostato sopra al controllo if
+
                 // Variable used to generate random number
                 int entityNum = 0;
                 Random random = new Random();
@@ -56,23 +58,16 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 // Vairables for gameobject's parameters constructor
                 // Check if is the new entity has y like others that are already spawned
                 boolean checkY = true;
-                while (checkY) {
+                /*while (checkY) {
                     Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
                             random.nextInt(EntitiesGeneratorImpl.YBOUND));
-                    /*
-                     * if (this.entities.stream().filter(x ->
-                     * x.getY().getCurrentPos().equals(startPosition))
-                     * .count() == 0) {
-                     * checkY = false;
-                     * }
-                     */
-                    if (this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y > -5)
-                            .count() == 0 &&
-                            this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y < 5)
-                                    .count() == 0) {
+
+                    if (this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y > -5).count() == 0 &&
+                    this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y < 5).count() == 0) {
                         checkY = false;
                     }
-                }
+
+                }*/
                 Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
                         random.nextInt(EntitiesGeneratorImpl.YBOUND));
                 while (this.entities.stream().filter(x -> x.getY().getCurrentPos().equals(startPosition))
@@ -139,11 +134,12 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
         Random random = new Random();
         for (int i = 0; i < num; i++) {
             int direction = random.nextInt(2);
+            Point2d startPosition = new Point2d(direction == EntitiesGeneratorImpl.LEFT ? EntitiesGeneratorImpl.XBOUND : 0,
+            EntitiesGeneratorImpl.YBOUND);
             this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
                     direction == EntitiesGeneratorImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
-                    new Point2d(direction == EntitiesGeneratorImpl.LEFT ? EntitiesGeneratorImpl.XBOUND : 0,
-                            EntitiesGeneratorImpl.YBOUND),
-                    new Vector2d(new Point2d(i, direction), null), new HitboxImpl(50, 50, null))));
+                    startPosition,
+                    new Vector2d(new Point2d(i, direction), startPosition), new HitboxImpl(50, 50, startPosition))));
         }
     }
 
