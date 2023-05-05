@@ -2,6 +2,7 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
+import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.model.api.Obstacle;
 
 /**
@@ -21,17 +22,19 @@ public abstract class ObstacleImpl extends GameObject implements Obstacle{
      * @param pos
      * @param vel
      */
-    public ObstacleImpl(Point2d pos, Vector2d vel) {
-        super(pos, vel);
+    public ObstacleImpl(Point2d pos, Vector2d vel, Hitbox hitbox) {
+        super(pos, vel, hitbox);
         this.setActiveOn();
     }
     
     public void setActiveOn(){
         this.active = true;
+        this.getHitbox().setHitboxActive();
     }
 
     public void setActiveOff(){
         this.active = false;
+        this.getHitbox().setHitboxDisable();
     }
 
     public boolean isActive(){

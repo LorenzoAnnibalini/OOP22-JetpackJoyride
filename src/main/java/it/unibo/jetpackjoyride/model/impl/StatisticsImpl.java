@@ -38,6 +38,11 @@ public class StatisticsImpl implements Statistics {
         return statistics;
     }
 
+    @Override
+    public void addStatistic(String name, int value) {
+        statistics.put(name, value);
+    }
+
     /**
      * Method to set all the values of the statistics.
      * 

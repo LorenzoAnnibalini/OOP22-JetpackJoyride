@@ -5,19 +5,13 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /**
- * Class to model a Rocket obstacle.
+ * A class to model an in-game money.
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class Rocket extends ObstacleActivable{
-
-    /**
-     * Constructor to create a Rocket obstacle.
-     * @param type
-     * @param pos
-     * @param vel
-     */
-    public Rocket(Point2d pos, Vector2d vel,Hitbox hitbox) {
+public class Money extends GameObject{
+    
+    public Money(final Point2d pos, final Vector2d vel,final Hitbox hitbox){
         super(pos, vel, hitbox);
     }
 }

@@ -2,11 +2,12 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
+import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 public abstract class ObstacleActivable extends ObstacleImpl{
 
     private long creationTime;
-    private final long changeStateTime = 40000;
+    private final long changeStateTime = 4000;
     private long activationTime;
 
     /**
@@ -18,8 +19,8 @@ public abstract class ObstacleActivable extends ObstacleImpl{
      * @param pos
      * @param vel
      */
-    public ObstacleActivable(Point2d pos, Vector2d vel) {
-        super(pos, vel);
+    public ObstacleActivable(Point2d pos, Vector2d vel,Hitbox hitbox) {
+        super(pos, vel,hitbox);
         this.setActiveOff();
         this.creationTime = System.currentTimeMillis();
     }
