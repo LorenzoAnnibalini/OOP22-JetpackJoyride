@@ -59,13 +59,18 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 while (checkY) {
                     Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
                             random.nextInt(EntitiesGeneratorImpl.YBOUND));
-                    /*if (this.entities.stream().filter(x -> x.getY().getCurrentPos().equals(startPosition))
-                            .count() == 0) {
+                    /*
+                     * if (this.entities.stream().filter(x ->
+                     * x.getY().getCurrentPos().equals(startPosition))
+                     * .count() == 0) {
+                     * checkY = false;
+                     * }
+                     */
+                    if (this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y > -5)
+                            .count() == 0 &&
+                            this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y < 5)
+                                    .count() == 0) {
                         checkY = false;
-                    }*/
-                    if (this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y > -5).count() == 0 &&
-                        this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y < 5).count() == 0) {
-                            checkY = false;
                     }
                 }
                 Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,

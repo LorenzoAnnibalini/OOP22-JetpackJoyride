@@ -1,6 +1,5 @@
 package it.unibo.jetpackjoyride.model.api;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
@@ -17,17 +16,8 @@ public interface EntitiesGenerator {
      * 
      * @param entities the set of entities already spwaned in game
      * @num number of entities to generate
-     * @throws ClassNotFoundException
-     * @throws SecurityException
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
      */
-    void generateEntity(Set<Pair<String, GameObject>> entities, int num)
-            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-            NoSuchMethodException, SecurityException, ClassNotFoundException;
+    void generateEntity(Set<Pair<String, GameObject>> entities, int num);
 
     /**
      * Method to generate new scientists (5 scientist per time).
