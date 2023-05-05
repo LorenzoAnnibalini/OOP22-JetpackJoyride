@@ -16,7 +16,7 @@ public class GameEngineImpl implements GameEngine {
     private InputQueue inputHandler;
     private View view;
     private final long framePeriod = 20;
-    private WorldGameState worldGameState;
+    private WorldGameStateImpl worldGameState;
     private state currentState;
 
     private enum state {
