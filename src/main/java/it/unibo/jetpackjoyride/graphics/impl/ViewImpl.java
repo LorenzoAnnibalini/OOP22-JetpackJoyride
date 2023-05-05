@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.swing.JFrame;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
-import it.unibo.jetpackjoyride.model.impl.WorldGameState;
+import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 
 /*
@@ -16,30 +16,29 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameState;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class ViewImpl implements View {
+public class ViewImpl extends JFrame implements View {
 
     //TODO: Add Shop, Game and Statistics panels
-    
-    private final JFrame frame;
+
     private final GamePanel game;
     private final MenuPanel menuPanel;
     //private final EndGamePanel endGame;
     //private final ShopPanel shop;
     private final StatisticsPanel statistics;
 
-    public ViewImpl(final WorldGameState worldGameState) {
-        this.frame = new JFrame("Jetpack Joyride");
+    public ViewImpl(final WorldGameStateImpl worldGameState) {
+        this.setTitle("Jetpack Joyride");
         this.game = new GamePanel(worldGameState.getGameObjects(), worldGameState.getPlayer(), worldGameState.getMoney());
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
         this.statistics = new StatisticsPanel(worldGameState.getStatistics());
        
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(this.menuPanel.getPreferredSize());
-        this.frame.setMinimumSize(this.menuPanel.getPreferredSize());
-        this.frame.pack();
-        this.frame.getContentPane().add(this.menuPanel);
-        this.frame.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(this.menuPanel.getPreferredSize());
+        this.setMinimumSize(this.menuPanel.getPreferredSize());
+        this.pack();
+        this.getContentPane().add(this.menuPanel);
+        this.setVisible(true);
     }
 
     @Override
