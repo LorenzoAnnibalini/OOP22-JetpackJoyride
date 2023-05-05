@@ -26,11 +26,15 @@ public class WorldGameStateImpl implements WorldGameState {
         this.runStatistics.addStatistic("score", 0);
         this.player = new PlayerImpl(new Point2d(50, 350), new Vector2d(50, 350),
                 new HitboxImpl(15, 10, new Point2d(50, 350)));
+        this.entitiesGenerator.generateEntity(entities, 3);
+        this.entitiesGenerator.generateScientists(2);
+        this.entities=this.entitiesGenerator.getEntities();
     }
 
     public void updateState(final long elapsedTime) {
         this.updateEntities(elapsedTime);
-
+        this.entitiesGenerator.entitiesGarbage(entities);
+        this.entities=this.entitiesGenerator.getEntities();
     }
 
     private void newEntities() {
@@ -51,8 +55,12 @@ public class WorldGameStateImpl implements WorldGameState {
         return this.money;
     }
 
-    public Set<Pair<String, GameObject>> getEntities() {
+    public Set<Pair<String, GameObject>> getWorldEntities() {
         return this.entities;
+    }
+
+    public Statistics getWorldStatistics() {
+        return this.runStatistics;
     }
 
 }
