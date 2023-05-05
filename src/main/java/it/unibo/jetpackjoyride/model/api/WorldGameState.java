@@ -36,5 +36,19 @@ public interface WorldGameState {
      * 
      * @return all entities;
      */
-    public Set<Pair<String, GameObject>> getEntities();
+    public Set<Pair<String, GameObject>> getWorldEntities();
+
+    /**
+     * Get the statistics of the current run.
+     * 
+     * @return statistics of run
+     */
+    public Statistics getWorldStatistics();
+
+    /**
+     * Update the status of the world and its entities.
+     * 
+     * @param elapsedTime
+     */
+    public void updateState(final long elapsedTime);
 }

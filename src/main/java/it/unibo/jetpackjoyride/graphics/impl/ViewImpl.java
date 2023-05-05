@@ -16,30 +16,29 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class ViewImpl implements View {
+public class ViewImpl extends JFrame implements View {
 
     //TODO: Add Shop, Game and Statistics panels
-    
-    private final JFrame frame;
+
     private final GamePanel game;
     private final MenuPanel menuPanel;
     //private final EndGamePanel endGame;
     //private final ShopPanel shop;
-    private final StatisticsPanel statistics;
+    //private final StatisticsPanel statistics;
 
     public ViewImpl(final WorldGameStateImpl worldGameState) {
-        this.frame = new JFrame("Jetpack Joyride");
-        this.game = new GamePanel(worldGameState.getGameObjects(), worldGameState.getPlayer(), worldGameState.getMoney());
+        this.setTitle("Jetpack Joyride");
+        this.game = new GamePanel(worldGameState.getWorldEntities(), worldGameState.getPlayer(), worldGameState.getMoney());
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
-        this.statistics = new StatisticsPanel(worldGameState.getStatistics());
+        //this.statistics = new StatisticsPanel(worldGameState.getWorldStatistics());
        
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(this.menuPanel.getPreferredSize());
-        this.frame.setMinimumSize(this.menuPanel.getPreferredSize());
-        this.frame.pack();
-        this.frame.getContentPane().add(this.menuPanel);
-        this.frame.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(this.menuPanel.getPreferredSize());
+        this.setMinimumSize(this.menuPanel.getPreferredSize());
+        this.pack();
+        this.getContentPane().add(this.menuPanel);
+        this.setVisible(true);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class ViewImpl implements View {
 
     @Override
     public void renderStatistics() {
-        this.statistics.repaint();
+        //this.statistics.repaint();
     }
     
 }

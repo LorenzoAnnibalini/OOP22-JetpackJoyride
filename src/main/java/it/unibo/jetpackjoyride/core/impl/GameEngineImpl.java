@@ -15,8 +15,8 @@ public class GameEngineImpl implements GameEngine {
 
     private InputQueue inputHandler;
     private View view;
-    private long framePeriod = 20;
-    private WorldGameState worldGameState;
+    private final long framePeriod = 20;
+    private WorldGameStateImpl worldGameState;
     private state currentState;
 
     private enum state {
@@ -27,7 +27,10 @@ public class GameEngineImpl implements GameEngine {
 
     public GameEngineImpl() {
         this.inputHandler = new InputQueueImpl();
-        this.view = new ViewImpl();
+        this.currentState=state.MAIN_MENU;
+        this.worldGameStateStart();
+        this.view = new ViewImpl(this.worldGameState);
+        this.loopState();
     }
 
     @Override
@@ -42,7 +45,7 @@ public class GameEngineImpl implements GameEngine {
         while (true) {
             long currentCycleStartTime = System.currentTimeMillis();
             long elapsedTime = currentCycleStartTime - previousCycleStartTime;
-            this.processInput();
+            //this.processInput();
             this.updateWorldGameState(elapsedTime);
             this.renderView();
             this.waitNextFrame(currentCycleStartTime);
@@ -75,11 +78,11 @@ public class GameEngineImpl implements GameEngine {
     }
 
     private void updateWorldGameState(final long elapsedTime) {
-        
+        this.worldGameState.updateState(elapsedTime);
     }
 
     private void renderView() {
-        view.render();
+        view.renderGame();
     }
 
     private void waitNextFrame(final long cycleStartTime) {
