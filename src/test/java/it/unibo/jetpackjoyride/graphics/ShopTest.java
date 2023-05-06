@@ -5,7 +5,9 @@ import java.io.FileNotFoundException;
 import javax.swing.JFrame;
 
 import it.unibo.jetpackjoyride.core.api.GadgetLoader;
+import it.unibo.jetpackjoyride.core.api.SkinInfoLoader;
 import it.unibo.jetpackjoyride.core.impl.GadgetLoaderImpl;
+import it.unibo.jetpackjoyride.core.impl.SkinInfoLoaderImpl;
 import it.unibo.jetpackjoyride.graphics.impl.ShopPanel;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
@@ -19,10 +21,15 @@ public class ShopTest {
     
     public static void main(String[] args) {
         GadgetLoader gadgetLoader = new GadgetLoaderImpl();
+        SkinInfoLoader skinInfoLoader = new SkinInfoLoaderImpl();
         InputQueue queue = new InputQueueImpl();
         try{
             gadgetLoader.downloadGadget();
         }catch(FileNotFoundException e){}
+        try{
+            skinInfoLoader.downloadSkin();
+        }catch(FileNotFoundException e){}
+        
         JFrame frame = new JFrame();
         frame.setTitle("GUI shop test");
         frame.setSize(300, 400);
