@@ -15,6 +15,7 @@ import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
 
 public class WorldGameStateImpl implements WorldGameState {
 
+    private static final int FRAME_HEIGHT = 1800;
     private Statistics runStatistics;
     private EntitiesGenerator entitiesGenerator;
     private PlayerImpl player;
@@ -27,10 +28,12 @@ public class WorldGameStateImpl implements WorldGameState {
 
     @Override
     public void updateState(final long elapsedTime) {
+        this.checkBoardPlayerCollision();
         this.updateEntities(elapsedTime);
         this.entitiesGenerator.entitiesGarbage(entities);
         this.entities = this.entitiesGenerator.getEntities();
         this.checkPlayerCollision();
+        this.newEntities();
     }
 
     /**
@@ -58,7 +61,7 @@ public class WorldGameStateImpl implements WorldGameState {
                         this.player.removeHeart();
                         break;
                     case "SpeedPowerUp":
-                    
+
                         break;
                     case "ShieldPowerUp":
                         this.player.addHeart();
@@ -80,6 +83,19 @@ public class WorldGameStateImpl implements WorldGameState {
             }
         });
         this.entities = tmpEntities;
+    }
+
+    /**
+     * Check if the player is colliding with the upper board or with the lower board.
+     */
+    private void checkBoardPlayerCollision(){
+        if(this.player.getHitbox().getPointUpLeft().y <= 0){
+            
+        }
+        if(this.player.getHitbox().getPointUpLeft().y >= FRAME_HEIGHT){
+
+        }
+        
     }
 
     /**
