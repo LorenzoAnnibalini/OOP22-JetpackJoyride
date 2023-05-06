@@ -9,7 +9,7 @@ import java.util.Map;
  * Interface for classes to load and write skins from file.
  * @author lorenzo.bacchini4@studio.unibo.it
  */
-public interface SkinLoader {
+public interface SkinInfoLoader {
     /**
      * Method to get the value from file and save them into HashMap in class
      * Skin.

@@ -12,10 +12,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
-import it.unibo.jetpackjoyride.core.api.SkinLoader;
+import it.unibo.jetpackjoyride.core.api.SkinInfoLoader;
 import it.unibo.jetpackjoyride.model.impl.SkinImpl;
 
-public class SkinLoaderImpl implements SkinLoader{
+public class SkinInfoLoaderImpl implements SkinInfoLoader{
     
     private final String SEPARATOR = File.separator;
     private final int NAME = 0;
