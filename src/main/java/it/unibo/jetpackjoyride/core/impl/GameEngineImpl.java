@@ -27,15 +27,16 @@ public class GameEngineImpl implements GameEngine {
 
     public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState) {
         this.inputHandler = new InputQueueImpl();
-        this.currentState=GameState.MAIN_MENU;
+        this.currentState = GameState.MAIN_MENU;
         this.view = view;
         this.worldGameState = worldGameState;
     }
 
     @Override
     public void worldGameStateStart() {
-        if(this.currentState == GameState.MAIN_MENU) {
-        this.worldGameState = new WorldGameStateImpl();
+        if (this.currentState == GameState.MAIN_MENU) {
+            this.worldGameState.newGame();
+            this.currentState = GameState.GAME;
         }
     }
 
@@ -44,7 +45,7 @@ public class GameEngineImpl implements GameEngine {
         while (true) {
             long currentCycleStartTime = System.currentTimeMillis();
             long elapsedTime = currentCycleStartTime - previousCycleStartTime;
-            //this.processInput();
+            this.processInput();
             this.updateWorldGameState(elapsedTime);
             this.renderView();
             this.waitNextFrame(currentCycleStartTime);
@@ -54,26 +55,27 @@ public class GameEngineImpl implements GameEngine {
 
     private void processInput() {
         List<Input> inputQueue = this.inputHandler.getInputQueue();
-        for (final Input inputElem: inputQueue){
-            switch(inputElem.getType()){
+        for (final Input inputElem : inputQueue) {
+            switch (inputElem.getType()) {
 
-                case SHOP: 
-                break;
-                
-                case MENU: 
-                break;
-                
-                case UP: 
-                break;
-                
+                case SHOP:
+                    break;
+
+                case MENU:
+                    break;
+
+                case UP:
+                    break;
+
                 case EXIT:
-                break;
-                
-                default: throw new IllegalArgumentException("The type of input is NULL or is incorrect.");
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("The type of input is NULL or is incorrect.");
 
             }
         }
-        
+
     }
 
     private void updateWorldGameState(final long elapsedTime) {

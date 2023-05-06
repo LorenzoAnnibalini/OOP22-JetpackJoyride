@@ -110,7 +110,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                         break;
                     case EntitiesGeneratorImpl.SPEEDUPPOWERUP:
                         int distance = random.nextInt(EntitiesGeneratorImpl.XBOUND);
-                        entities.add(new Pair<String, GameObject>("Powerup",
+                        entities.add(new Pair<String, GameObject>("SpeedPowerUp",
                                 new SpeedUpPowerUpImpl(distance, startPosition, velocity, hitbox)));
                         break;
 
