@@ -39,4 +39,10 @@ public interface Player {
      */
     public void setDirectionSTATIC();
 
+    /**
+     * Function for get the direction of the player.
+     * @return the direction of the player.
+     */
+    public Direction getDirection();
+
 }

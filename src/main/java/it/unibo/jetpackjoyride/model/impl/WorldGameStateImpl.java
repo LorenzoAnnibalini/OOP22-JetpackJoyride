@@ -89,7 +89,7 @@ public class WorldGameStateImpl implements WorldGameState {
      * Check if the player is colliding with the upper board or with the lower board.
      */
     private void checkBoardPlayerCollision(){
-        if(this.player.getHitbox().getPointUpLeft().y <= 0){
+        if(this.player.getHitbox().getPointUpLeft().y <= 0 && this.pl){
             
         }
         if(this.player.getHitbox().getPointUpLeft().y >= FRAME_HEIGHT){
