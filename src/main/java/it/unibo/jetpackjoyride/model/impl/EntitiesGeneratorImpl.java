@@ -48,7 +48,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     @Override
     public void generateEntity(final Set<Pair<String, GameObject>> entities, int num) {
         // Overwrite entities
-        this.entities = entities; //forse poi andrà sotto
+        this.entities = entities; // forse poi andrà sotto
         for (int i = 0; i < num; i++) {
             if (this.allowNewEntity()) {
                 // Variable used to generate random number
@@ -66,7 +66,8 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
                 Point2d finishPosition = new Point2d(0, startPosition.y);
                 Vector2d velocity = new Vector2d(finishPosition, startPosition);
-                Vector2d rocketVelocity = new Vector2d(new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)), startPosition);
+                Vector2d rocketVelocity = new Vector2d(new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
+                        startPosition);
                 HitboxImpl hitbox = new HitboxImpl(50, 50, startPosition);
                 // Switch on types of entities based on random result
                 switch (entityNum) {
@@ -123,8 +124,9 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
         Random random = new Random();
         for (int i = 0; i < num; i++) {
             int direction = random.nextInt(2);
-            Point2d startPosition = new Point2d(direction == EntitiesGeneratorImpl.LEFT ? EntitiesGeneratorImpl.XBOUND : 0,
-            EntitiesGeneratorImpl.YBOUND);
+            Point2d startPosition = new Point2d(
+                    direction == EntitiesGeneratorImpl.LEFT ? EntitiesGeneratorImpl.XBOUND : 0,
+                    EntitiesGeneratorImpl.YBOUND);
             this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
                     direction == EntitiesGeneratorImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
                     startPosition,
@@ -140,7 +142,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     @Override
     public void entitiesGarbage(Set<Pair<String, GameObject>> entities) {
         Iterator<Pair<String, GameObject>> iterator = this.entities.iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Pair<String, GameObject> pair = iterator.next();
             if (pair.getY().getCurrentPos().x < 0
                     || pair.getX() == "Scientist" && pair.getY().getCurrentPos().x > EntitiesGeneratorImpl.XBOUND) {
@@ -151,13 +153,14 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
 
     /**
      * Method to check if new entities has y like others already spawned
+     * 
      * @param y the y value of new entitiy
      * @return true if y is like someone's else, false otherwise
      */
     private boolean checkY(int y) {
-        return this.entities.stream().filter(x -> x.getY().getCurrentPos().y - y > -5 && x.getY().getCurrentPos().y - y < 5).count() != 0; 
+        return this.entities.stream()
+                .filter(x -> x.getY().getCurrentPos().y - y > -5 && x.getY().getCurrentPos().y - y < 5).count() != 0;
     }
-
 
     /**
      * Method to check if is allow to add new entity to the game.
