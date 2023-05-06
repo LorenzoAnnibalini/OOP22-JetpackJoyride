@@ -14,12 +14,13 @@ public class Sprite {
     private Pair<Integer, Integer> scaledDimension;
     private Image originalImage;
     private Image scaledImage;
-    
+
     /**
      * Constructor of the class.
-     * @param width width of the sprite
+     * 
+     * @param width  width of the sprite
      * @param height height of the sprite
-     * @param img image of the sprite
+     * @param img    image of the sprite
      */
     public Sprite(int width, int height, Image img) {
         this.originalDimension = new Pair<>(width, height);
@@ -30,16 +31,19 @@ public class Sprite {
 
     /**
      * Method to scale the sprite.
+     * 
      * @param x x scale
      * @param y y scale
      */
     public void scale(double x, double y) {
         this.scaledDimension = new Pair<>((int) (originalDimension.getX() * x), (int) (originalDimension.getY() * y));
-        this.scaledImage = originalImage.getScaledInstance(this.scaledDimension.getX(), this.scaledDimension.getY(), Image.SCALE_SMOOTH);
+        this.scaledImage = originalImage.getScaledInstance(this.scaledDimension.getX(), this.scaledDimension.getY(),
+                Image.SCALE_SMOOTH);
     }
 
     /**
      * Getter of original image
+     * 
      * @return the image with original dimension
      */
     public Image getOriginal() {
@@ -48,6 +52,7 @@ public class Sprite {
 
     /**
      * Getter of original dimension
+     * 
      * @return a pair with original dimension
      */
     public Pair<Integer, Integer> getOriginalDim() {
@@ -56,6 +61,7 @@ public class Sprite {
 
     /**
      * Getter of scaked image
+     * 
      * @return the image with scaled dimension
      */
     public Image getScaled() {
@@ -64,6 +70,7 @@ public class Sprite {
 
     /**
      * Getter of scaled dimension
+     * 
      * @return a pair with scaled dimension
      */
     public Pair<Integer, Integer> getScaledlDim() {
