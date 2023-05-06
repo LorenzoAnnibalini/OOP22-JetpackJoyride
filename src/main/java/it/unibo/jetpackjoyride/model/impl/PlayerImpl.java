@@ -14,13 +14,7 @@ public class PlayerImpl extends GameObject implements Player {
 
     private boolean statusPlayer;
     private int hearts;
-    private Direction direction;
-
-    private enum Direction {
-        UP,
-        DOWN,
-        STATIC
-    }
+    private PlayerDirection direction;
 
     /**
      * constructor to create a player.
@@ -32,7 +26,7 @@ public class PlayerImpl extends GameObject implements Player {
         super(pos, vel, hitbox);
         this.hearts = 1;
         this.setPlayerAlive();
-        this.direction = Direction.STATIC;
+        this.direction = PlayerDirection.STATIC;
     }
 
     @Override
@@ -71,17 +65,22 @@ public class PlayerImpl extends GameObject implements Player {
 
     @Override
     public void setDirectionUP() {
-        this.direction = Direction.UP;
+        this.direction = PlayerDirection.UP;
     }
 
     @Override
     public void setDirectionDOWN() {
-        this.direction = Direction.DOWN;
+        this.direction = PlayerDirection.DOWN;
     }
 
     @Override
     public void setDirectionSTATIC() {
-        this.direction = Direction.STATIC;
+        this.direction = PlayerDirection.STATIC;
+    }
+
+    @Override
+    public PlayerDirection getDirection() {
+        return this.direction;
     }
 
 }

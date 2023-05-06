@@ -11,6 +11,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.api.WorldGameState;
+import it.unibo.jetpackjoyride.model.api.Player.PlayerDirection;
 import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
 
 public class WorldGameStateImpl implements WorldGameState {
@@ -86,16 +87,20 @@ public class WorldGameStateImpl implements WorldGameState {
     }
 
     /**
-     * Check if the player is colliding with the upper board or with the lower board.
+     * Check if the player is colliding with the upper board or with the lower
+     * board.
      */
-    private void checkBoardPlayerCollision(){
-        if(this.player.getHitbox().getPointUpLeft().y <= 0 && this.pl){
-            
+    private void checkBoardPlayerCollision() {
+        if (this.player.getHitbox().getPointUpLeft().y <= 0 && this.player.getDirection() == PlayerDirection.UP) {
+            this.player.setDirectionSTATIC();
+            this.player.setVel(new Vector2d(this.player.getCurrentPos().x, this.player.getCurrentPos().y));
         }
-        if(this.player.getHitbox().getPointUpLeft().y >= FRAME_HEIGHT){
+        if (this.player.getHitbox().getPointUpLeft().y >= FRAME_HEIGHT
+                && this.player.getDirection() == PlayerDirection.DOWN) {
+            this.player.setDirectionSTATIC();
+            this.player.setVel(new Vector2d(this.player.getCurrentPos().x, this.player.getCurrentPos().y));
+        }
 
-        }
-        
     }
 
     /**
