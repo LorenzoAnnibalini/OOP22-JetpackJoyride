@@ -22,6 +22,14 @@ public class SpriteLoader {
     private Map<String, Sprite> sprites = new HashMap<>();
 
     /**
+     * Getter of sprites.
+     * @return the map of sprites
+     */
+    public Map<String, Sprite> getSprites() {
+        return sprites;
+    }
+
+    /**
      * Method to load sprites from file.
      * 
      * @param filename the name of the file
