@@ -4,6 +4,9 @@ import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+
+import java.util.Iterator;
+
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Direction;
@@ -150,14 +153,14 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
 
     @Override
     public void entitiesGarbage(Set<Pair<String, GameObject>> entities) {
-        Set<Pair<String, GameObject>> good = new HashSet<>();
-        for (Pair<String, GameObject> pair : entities) {
-            if (!(pair.getY().getCurrentPos().x < 0
-                    || (pair.getX() == "Scientist" && pair.getY().getCurrentPos().x > EntitiesGeneratorImpl.XBOUND))) {
-                good.add(pair);
+        Iterator<Pair<String, GameObject>> iterator = this.entities.iterator();
+        while(iterator.hasNext()) {
+            Pair<String, GameObject> pair = iterator.next();
+            if (pair.getY().getCurrentPos().x < 0
+                    || pair.getX() == "Scientist" && pair.getY().getCurrentPos().x > EntitiesGeneratorImpl.XBOUND) {
+                iterator.remove();
             }
         }
-        this.entities = good;
     }
 
     /**

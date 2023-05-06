@@ -62,10 +62,7 @@ public class GamePanel extends JPanel {
         //this.money.addAll(money);
         try {
             
-            
             // loading background image
-            /*backgruondImage1 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
-            backgruondImage2 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));*/
             backgruondImage1 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo2.jpg"));
             backgruondImage2 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo2.jpg"));
             
