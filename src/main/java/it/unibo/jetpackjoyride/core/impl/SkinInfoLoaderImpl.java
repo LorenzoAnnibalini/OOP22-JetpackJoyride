@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.core.api.SkinInfoLoader;
-import it.unibo.jetpackjoyride.model.impl.SkinImpl;
+import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 
 public class SkinInfoLoaderImpl implements SkinInfoLoader{
     
@@ -34,7 +34,7 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader{
                     line.split(";")[SkinInfoPositions.STATE.ordinal()],
                     line.split(";")[SkinInfoPositions.PURCHASED.ordinal()])));
         }
-        SkinImpl.setAll(skinMap);
+        SkinInfoImpl.setAll(skinMap);
         return skinMap;
     }
 

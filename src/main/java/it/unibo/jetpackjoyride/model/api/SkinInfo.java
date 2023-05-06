@@ -8,7 +8,7 @@ import java.util.Map;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public interface Skin {
+public interface SkinInfo {
     /**
      * Get map of Skin information.
      * @return map of Skin information

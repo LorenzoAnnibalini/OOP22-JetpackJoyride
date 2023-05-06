@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.unibo.jetpackjoyride.model.api.Skin;
+import it.unibo.jetpackjoyride.model.api.SkinInfo;
 
-public class SkinImpl implements Skin{
+public class SkinInfoImpl implements SkinInfo{
 
     private static Map<String, List<String>> skin = new HashMap<>();
 
