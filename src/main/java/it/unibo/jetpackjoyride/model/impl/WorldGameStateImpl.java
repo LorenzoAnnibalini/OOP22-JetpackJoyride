@@ -1,5 +1,7 @@
 package it.unibo.jetpackjoyride.model.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,10 +30,57 @@ public class WorldGameStateImpl implements WorldGameState {
         this.updateEntities(elapsedTime);
         this.entitiesGenerator.entitiesGarbage(entities);
         this.entities = this.entitiesGenerator.getEntities();
+        this.checkPlayerCollision();
     }
 
+    /**
+     * Create new entities in the world.
+     */
     private void newEntities() {
 
+    }
+
+    /**
+     * Check if the player is colliding with an entity, with the roof or with the
+     * floor.
+     * If collide with an entity check the type of the entity and do the right
+     * action.
+     */
+    private void checkPlayerCollision() {
+        Set<Pair<String, GameObject>> tmpEntities = new HashSet<>();
+        this.entities.stream().forEach(entity -> {
+            if (this.player.getHitbox().checkCollision(entity.getY().getHitbox())) {
+                switch (entity.getX()) {
+                    case "Rocket":
+                        this.player.removeHeart();
+                        break;
+                    case "Electrode":
+                        this.player.removeHeart();
+                        break;
+                    case "SpeedPowerUp":
+
+                        break;
+                    case "ShieldPowerUp":
+
+                        break;
+                    case "Laser":
+                        this.player.removeHeart();
+                        break;
+                    case "Scientist":
+
+                        break;
+                    case "Nothing":
+                        tmpEntities.add(entity);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("The type of Entity is NULL or is incorrect.");
+                }
+
+            } else {
+                tmpEntities.add(entity);
+            }
+        });
+        this.entities = tmpEntities;
     }
 
     /**
@@ -43,6 +92,7 @@ public class WorldGameStateImpl implements WorldGameState {
         this.entitiesGenerator = new EntitiesGeneratorImpl();
         this.runStatistics.addStatistic("money", 0);
         this.runStatistics.addStatistic("score", 0);
+        this.money = new ArrayList<>();
         this.player = new PlayerImpl(new Point2d(50, 350), new Vector2d(50, 350),
                 new HitboxImpl(15, 10, new Point2d(50, 350)));
         this.entitiesGenerator.generateEntity(entities, 3);
