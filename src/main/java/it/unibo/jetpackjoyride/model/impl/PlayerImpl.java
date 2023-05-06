@@ -14,6 +14,13 @@ public class PlayerImpl extends GameObject implements Player {
    
     private boolean statusPlayer;
     private int hearts;
+    private Direction direction;
+    
+    private enum Direction {
+        UP,
+        DOWN,
+        STATIC
+    }
     
 
     /**

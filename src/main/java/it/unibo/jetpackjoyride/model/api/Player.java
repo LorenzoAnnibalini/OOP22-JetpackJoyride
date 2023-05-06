@@ -24,4 +24,19 @@ public interface Player {
      */
     public void removeHeart();
 
+    /**
+     * Function for set the direction of the player to UP.
+     */
+    public void setDirectionUP();
+
+    /**
+     * Function for set the direction of the player to DOWN.
+     */
+    public void setDirectionDOWN();
+
+    /**
+     * Function for set the direction of the player to STATIC.
+     */
+    public void setDirectionSTATIC();
+
 }

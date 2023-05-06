@@ -58,16 +58,15 @@ public class WorldGameStateImpl implements WorldGameState {
                         this.player.removeHeart();
                         break;
                     case "SpeedPowerUp":
-
+                    
                         break;
                     case "ShieldPowerUp":
-
+                        this.player.addHeart();
                         break;
                     case "Laser":
                         this.player.removeHeart();
                         break;
                     case "Scientist":
-
                         break;
                     case "Nothing":
                         tmpEntities.add(entity);
