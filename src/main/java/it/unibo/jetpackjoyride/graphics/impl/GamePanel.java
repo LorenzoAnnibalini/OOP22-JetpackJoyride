@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
-import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
@@ -44,7 +43,7 @@ public class GamePanel extends JPanel {
     private Image playerImage;
     private Image moneyImage;
     private SliderImpl slider;
-    private static final String FILESEPARATOR = File.separator;
+    //private static final String FILESEPARATOR = File.separator;
     private static final int SPRITEWIDTH = 30;
     private static final int SPRITEHEIGHT = 30;
 
@@ -59,15 +58,16 @@ public class GamePanel extends JPanel {
         this.entities = entities;
         this.player = player;
 
-        //this.money.addAll(money);
+        this.money.addAll(money);
         try {
-            
-            // loading background image
-            backgruondImage1 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo2.jpg"));
-            backgruondImage2 = ImageIO.read(new File("C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\sfondo2.jpg"));
             
             String percorso = "C:\\Users\\manus\\Desktop\\Manu\\Scuola\\UNI\\2_anno\\OOP\\00PROGETTO\\OOP22-JetpackJoyride\\src\\main\\resources\\";
             
+            //File bgFile = new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg");
+            File bgFile = new File(percorso, "sfondo2.jpg");
+            // loading background image
+            backgruondImage1 = ImageIO.read(bgFile);
+            backgruondImage2 = ImageIO.read(bgFile);
             slider = new SliderImpl(backgruondImage1.getWidth());
             this.slider.start();
             // loading sprite images and adjust sizes
