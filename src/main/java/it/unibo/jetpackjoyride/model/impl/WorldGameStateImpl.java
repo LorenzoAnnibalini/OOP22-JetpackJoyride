@@ -41,6 +41,10 @@ public class WorldGameStateImpl implements WorldGameState {
 
     }
 
+    /**
+     * Update the state of all the entities in the world.
+     * @param elapsedTime
+     */
     private void updateEntities(final long elapsedTime) {
         this.entities.stream().forEach(entity -> entity.getY().updateState(elapsedTime));
         this.player.updateState(elapsedTime);

@@ -25,12 +25,10 @@ public class GameEngineImpl implements GameEngine {
         GAMEOVER
     }
 
-    public GameEngineImpl() {
+    public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState) {
         this.inputHandler = new InputQueueImpl();
         this.currentState=state.MAIN_MENU;
-        this.worldGameStateStart();
-        this.view = new ViewImpl(this.worldGameState);
-        this.loopState();
+        this.view = view;
     }
 
     @Override
@@ -40,7 +38,7 @@ public class GameEngineImpl implements GameEngine {
         }
     }
 
-    private void loopState() {
+    public void loopState() {
         long previousCycleStartTime = System.currentTimeMillis();
         while (true) {
             long currentCycleStartTime = System.currentTimeMillis();
