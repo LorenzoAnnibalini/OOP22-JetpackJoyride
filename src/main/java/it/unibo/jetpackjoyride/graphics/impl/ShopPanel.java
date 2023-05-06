@@ -121,6 +121,13 @@ public class ShopPanel extends JPanel{
         return button;
     }
 
+    /**
+     * This method create a button for the gadget.
+     * @param text of the button
+     * @param enabled state of the gadget
+     * @param name of the gadget
+     * @return the JButton created
+     */
     private JButton createSkinButton(String text, boolean enabled, String name){
         JButton button = new JButton(text);
         button.setEnabled(enabled);
@@ -128,14 +135,9 @@ public class ShopPanel extends JPanel{
             switch (button.getText()) {
             case "Enable":
                 this.inputQueue.addInput(new InputImpl(typeInput.SELECT_SKIN, name));
-                skinInfo.getAll().values().forEach(list -> list.set(SkinInfoPositions.STATE.ordinal(), "false"));
-                skinInfo.setValue(name, "true", skinInfo.getValue(name).get(SkinInfoPositions.PURCHASED.ordinal()));
-                this.update();
                 break;
             case "Purchased":
                 this.inputQueue.addInput(new InputImpl(typeInput.BUY_SKIN, name));
-                skinInfo.setValue(name, skinInfo.getValue(name).get(SkinInfoPositions.STATE.ordinal()), "true");
-                this.update();
                 break;
             default:
                 break;
@@ -146,7 +148,7 @@ public class ShopPanel extends JPanel{
 
     /**
      * This method update the panel recalulating the button state
-     * by reading new states from the gadget values.
+     * by reading new states from the gadget values and skin values.
      */
     public void update(){
         for (String name : buttonMapGadget.keySet()) {
@@ -160,8 +162,8 @@ public class ShopPanel extends JPanel{
             ArrayList<JButton> buttonList = buttonMapSkin.get(name);
             String purchased = skinInfo.getValue(name).get(SkinInfoPositions.PURCHASED.ordinal());
             String state = skinInfo.getValue(name).get(SkinInfoPositions.STATE.ordinal());
-            buttonList.get(GadgetInfoPositions.PURCHASED.ordinal()).setEnabled(!Boolean.parseBoolean(purchased));
-            buttonList.get(GadgetInfoPositions.STATE.ordinal()).setEnabled(!Boolean.parseBoolean(state));
+            buttonList.get(SkinInfoPositions.PURCHASED.ordinal()).setEnabled(!Boolean.parseBoolean(purchased));
+            buttonList.get(SkinInfoPositions.STATE.ordinal()).setEnabled(!Boolean.parseBoolean(state));
         }
     }
 
