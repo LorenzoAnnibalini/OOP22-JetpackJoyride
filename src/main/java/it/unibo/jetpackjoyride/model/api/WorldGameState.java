@@ -51,4 +51,9 @@ public interface WorldGameState {
      * @param elapsedTime
      */
     public void updateState(final long elapsedTime);
+
+    /**
+     * Start a new game.
+     */
+    public void newGame();
 }

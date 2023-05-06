@@ -6,6 +6,11 @@ import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.graphics.impl.ViewImpl;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
+/**
+ * Classe principale del gioco. All'avvio dell'applicazione verrà chiamato questo
+ * metodo per inizializzare e avviare il gioco.
+ * @author mattia.burreli@studio.unibo.it
+ */
 public class JetpackJoyride {
 
     /**

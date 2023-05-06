@@ -17,9 +17,9 @@ public class GameEngineImpl implements GameEngine {
     private View view;
     private final long framePeriod = 20;
     private WorldGameStateImpl worldGameState;
-    private state currentState;
+    private GameState currentState;
 
-    private enum state {
+    private enum GameState {
         MAIN_MENU,
         GAME,
         GAMEOVER
@@ -27,13 +27,14 @@ public class GameEngineImpl implements GameEngine {
 
     public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState) {
         this.inputHandler = new InputQueueImpl();
-        this.currentState=state.MAIN_MENU;
+        this.currentState=GameState.MAIN_MENU;
         this.view = view;
+        this.worldGameState = worldGameState;
     }
 
     @Override
     public void worldGameStateStart() {
-        if(this.currentState == state.MAIN_MENU) {
+        if(this.currentState == GameState.MAIN_MENU) {
         this.worldGameState = new WorldGameStateImpl();
         }
     }

@@ -56,7 +56,12 @@ public interface Input {
         /**
          * Input type for buy the skin.
          */
-        BUY_SKIN 
+        BUY_SKIN,
+
+        /**
+         * Input type for start the game.
+         */
+        START_GAME
     }
 
     /**
