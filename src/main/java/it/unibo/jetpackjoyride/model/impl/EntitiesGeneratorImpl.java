@@ -1,6 +1,5 @@
 package it.unibo.jetpackjoyride.model.impl;
 
-import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -48,35 +47,23 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
 
     @Override
     public void generateEntity(final Set<Pair<String, GameObject>> entities, int num) {
-        this.entities = entities; // forse andrà spostato sopra al controllo if
+        // Overwrite entities
+        this.entities = entities; //forse poi andrà sotto
         for (int i = 0; i < num; i++) {
             if (this.allowNewEntity()) {
-                // Overwrite entities
-
                 // Variable used to generate random number
                 int entityNum = 0;
                 Random random = new Random();
                 entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
                 System.out.println(entityNum);
+
                 // Vairables for gameobject's parameters constructor
-                // Check if is the new entity has y like others that are already spawned
-                boolean checkY = true;
-                /*while (checkY) {
-                    Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
-                            random.nextInt(EntitiesGeneratorImpl.YBOUND));
-
-                    if (this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y > -5).count() == 0 &&
-                    this.entities.stream().filter(x -> x.getY().getCurrentPos().y - startPosition.y < 5).count() == 0) {
-                        checkY = false;
-                    }
-
-                }*/
-                Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND,
-                        random.nextInt(EntitiesGeneratorImpl.YBOUND));
-                while (this.entities.stream().filter(x -> x.getY().getCurrentPos().equals(startPosition))
-                        .count() != 0) {
-                    System.out.println("ciao");
+                // Check if the new entity has y like others that are already spawned
+                int y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
+                while (checkY(y)) {
+                    y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
                 }
+                Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
                 Point2d finishPosition = new Point2d(0, startPosition.y);
                 Vector2d velocity = new Vector2d(startPosition, finishPosition);
                 Vector2d rocketVelocity = new Vector2d(startPosition,
@@ -162,6 +149,16 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             }
         }
     }
+
+    /**
+     * Method to check if new entities has y like others already spawned
+     * @param y the y value of new entitiy
+     * @return true if y is like someone's else, false otherwise
+     */
+    private boolean checkY(int y) {
+        return this.entities.stream().filter(x -> x.getY().getCurrentPos().y - y > -5 && x.getY().getCurrentPos().y - y < 5).count() != 0; 
+    }
+
 
     /**
      * Method to check if is allow to add new entity to the game.
