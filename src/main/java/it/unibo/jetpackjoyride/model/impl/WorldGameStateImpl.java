@@ -32,6 +32,7 @@ public class WorldGameStateImpl implements WorldGameState {
         this.checkBoardPlayerCollision();
         this.updateEntities(elapsedTime);
         this.entitiesGenerator.entitiesGarbage(entities);
+        /*TODO: sistemare la questione dell'eliminazione delle entità */
         this.entities = this.entitiesGenerator.getEntities();
         this.checkPlayerCollision();
         this.newEntities();
@@ -45,13 +46,14 @@ public class WorldGameStateImpl implements WorldGameState {
     }
 
     /**
-     * Check if the player is colliding with an entity, with the roof or with the
-     * floor.
+     * Check if the player is colliding with an entity or a money.
      * If collide with an entity check the type of the entity and do the right
-     * action.
+     * action. If collide with a money add the money to the player's money.
+     * For all the entities that are not colliding with the player they are eliminated.
      */
     private void checkPlayerCollision() {
         Set<Pair<String, GameObject>> tmpEntities = new HashSet<>();
+        List<Money> tmpMoney = new ArrayList<>();
         this.entities.stream().forEach(entity -> {
             if (this.player.getHitbox().checkCollision(entity.getY().getHitbox())) {
                 switch (entity.getX()) {
@@ -83,6 +85,16 @@ public class WorldGameStateImpl implements WorldGameState {
                 tmpEntities.add(entity);
             }
         });
+        if (!this.money.isEmpty()) {
+            this.money.stream().forEach(moneyElem -> {
+                if (this.player.getHitbox().checkCollision(moneyElem.getHitbox())) {
+                    this.runStatistics.increment("money");
+                } else {
+                    tmpMoney.add(moneyElem);
+                }
+            });
+        }
+        this.money = tmpMoney;
         this.entities = tmpEntities;
     }
 
@@ -91,11 +103,13 @@ public class WorldGameStateImpl implements WorldGameState {
      * board.
      */
     private void checkBoardPlayerCollision() {
-        if (Math.abs((this.player.getHitbox().getHeigthHitbox()/2)-this.player.getHitbox().getPointUpLeft().y) <=0 && this.player.getDirection() == PlayerDirection.UP) {
+        if (Math.abs((this.player.getHitbox().getHeigthHitbox() / 2) - this.player.getHitbox().getPointUpLeft().y) <= 0
+                && this.player.getDirection() == PlayerDirection.UP) {
             this.player.setDirectionSTATIC();
             this.player.setVel(new Vector2d(this.player.getCurrentPos().x, this.player.getCurrentPos().y));
         }
-        if (Math.abs((this.player.getHitbox().getHeigthHitbox()/2)+this.player.getHitbox().getPointUpLeft().y) >= FRAME_HEIGHT
+        if (Math.abs((this.player.getHitbox().getHeigthHitbox() / 2)
+                + this.player.getHitbox().getPointUpLeft().y) >= FRAME_HEIGHT
                 && this.player.getDirection() == PlayerDirection.DOWN) {
             this.player.setDirectionSTATIC();
             this.player.setVel(new Vector2d(this.player.getCurrentPos().x, this.player.getCurrentPos().y));
