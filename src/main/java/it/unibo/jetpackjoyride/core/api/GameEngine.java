@@ -10,7 +10,6 @@ import it.unibo.jetpackjoyride.input.api.Input;
  * @author mattia.burreli@studio.unibo.it
  */
 public interface GameEngine {
-
     public enum GameState {
         MAIN_MENU,
         GAME,
