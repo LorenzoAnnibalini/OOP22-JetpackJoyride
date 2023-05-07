@@ -91,11 +91,11 @@ public class WorldGameStateImpl implements WorldGameState {
      * board.
      */
     private void checkBoardPlayerCollision() {
-        if (this.player.getHitbox().getPointUpLeft().y <= 0 && this.player.getDirection() == PlayerDirection.UP) {
+        if (Math.abs((this.player.getHitbox().getHeigthHitbox()/2)-this.player.getHitbox().getPointUpLeft().y) <=0 && this.player.getDirection() == PlayerDirection.UP) {
             this.player.setDirectionSTATIC();
             this.player.setVel(new Vector2d(this.player.getCurrentPos().x, this.player.getCurrentPos().y));
         }
-        if (this.player.getHitbox().getPointUpLeft().y >= FRAME_HEIGHT
+        if (Math.abs((this.player.getHitbox().getHeigthHitbox()/2)+this.player.getHitbox().getPointUpLeft().y) >= FRAME_HEIGHT
                 && this.player.getDirection() == PlayerDirection.DOWN) {
             this.player.setDirectionSTATIC();
             this.player.setVel(new Vector2d(this.player.getCurrentPos().x, this.player.getCurrentPos().y));
