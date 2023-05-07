@@ -19,12 +19,6 @@ public class GameEngineImpl implements GameEngine {
     private WorldGameStateImpl worldGameState;
     private GameState currentState;
 
-    private enum GameState {
-        MAIN_MENU,
-        GAME,
-        GAMEOVER
-    }
-
     public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState) {
         this.inputHandler = new InputQueueImpl();
         this.currentState = GameState.MAIN_MENU;
@@ -68,6 +62,24 @@ public class GameEngineImpl implements GameEngine {
                     break;
 
                 case EXIT:
+                    break;
+
+                case ENABLE:
+                    break;
+                
+                case DISABLE:
+                    break;
+                
+                case BUY:
+                    break;
+                
+                case BUY_SKIN:
+                    break;
+                
+                case SELECT_SKIN:
+                    break;
+                
+                case START_GAME:
                     break;
 
                 default:

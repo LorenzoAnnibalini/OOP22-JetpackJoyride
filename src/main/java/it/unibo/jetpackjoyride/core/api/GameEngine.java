@@ -11,6 +11,12 @@ import it.unibo.jetpackjoyride.input.api.Input;
  */
 public interface GameEngine {
 
+    public enum GameState {
+        MAIN_MENU,
+        GAME,
+        GAMEOVER
+    }
+
     /**
      * Start the game engine.
      */
