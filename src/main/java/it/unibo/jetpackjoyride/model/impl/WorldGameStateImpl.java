@@ -41,7 +41,7 @@ public class WorldGameStateImpl implements WorldGameState {
      * Create new entities in the world.
      */
     private void newEntities() {
-
+        
     }
 
     /**
@@ -68,6 +68,7 @@ public class WorldGameStateImpl implements WorldGameState {
                         break;
                     case "SpeedPowerUp":
                         this.entities.remove(entity);
+                        /*TODO */
                         break;
                     case "ShieldPowerUp":
                         this.player.addHeart();

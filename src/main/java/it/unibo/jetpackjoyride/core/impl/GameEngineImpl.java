@@ -86,8 +86,7 @@ public class GameEngineImpl implements GameEngine {
                     throw new IllegalArgumentException("The type of input is NULL or is incorrect.");
 
             }
-        }
-
+        };
     }
 
     private void updateWorldGameState(final long elapsedTime) {

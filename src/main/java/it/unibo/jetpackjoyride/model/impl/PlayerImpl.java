@@ -66,16 +66,19 @@ public class PlayerImpl extends GameObject implements Player {
     @Override
     public void setDirectionUP() {
         this.direction = PlayerDirection.UP;
+        this.setVel(new Vector2d(this.getCurrentPos().x, this.getCurrentPos().y-2));
     }
 
     @Override
     public void setDirectionDOWN() {
         this.direction = PlayerDirection.DOWN;
+        this.setVel(new Vector2d(this.getCurrentPos().x, this.getCurrentPos().y+2));
     }
 
     @Override
     public void setDirectionSTATIC() {
         this.direction = PlayerDirection.STATIC;
+        this.setVel(new Vector2d(this.getCurrentPos().x, this.getCurrentPos().y));
     }
 
     @Override
