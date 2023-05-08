@@ -58,6 +58,7 @@ public class SpriteLoader {
         try {
             Object obj = parser.parse(new FileReader(filename));
             JSONObject jsonObj = (JSONObject) obj;
+            // load sprites
             JSONArray jSprites = (JSONArray) jsonObj.get("sprites");
             for (Object sprite : jSprites) {
                 JSONObject spriteObj = (JSONObject) sprite;
@@ -65,13 +66,25 @@ public class SpriteLoader {
                 String path = (String) spriteObj.get("path");
                 int width = ((Long) spriteObj.get("width")).intValue();
                 int height = ((Long) spriteObj.get("height")).intValue();
-                // Image img = ImageIO.read(null)
                 BufferedImage originalImage = ImageIO
                         .read(new File("resources" + SpriteLoader.FILESEPARATOR + path));
                 Image img = originalImage.getScaledInstance(SpriteLoader.SPRITEWIDTH, SpriteLoader.SPRITEHEIGHT,
                         Image.SCALE_SMOOTH);
                 this.sprites.put(name, new Sprite(width, height, img));
             }
+            // load map
+            jsonObj = (JSONObject) jsonObj.get("map");
+            JSONArray jMap = (JSONArray) jsonObj.get("map");
+            JSONObject mapObj = (JSONObject) jMap.get(0);
+            String name = (String) mapObj.get("name");
+            String path = (String) mapObj.get("path");
+            int width = ((Long) mapObj.get("width")).intValue();
+            int height = ((Long) mapObj.get("height")).intValue();
+            BufferedImage originalImage = ImageIO
+                    .read(new File("resources" + SpriteLoader.FILESEPARATOR + path));
+            Image img = originalImage.getScaledInstance(width, height,
+                    Image.SCALE_SMOOTH);
+            this.sprites.put(name, new Sprite(width, height, img));
         } catch (IOException e) {
             e.printStackTrace();
         }
