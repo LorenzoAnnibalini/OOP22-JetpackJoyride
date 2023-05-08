@@ -19,7 +19,7 @@
             "height": 10
         },
         {
-            "name": "shield", 
+            "name": "shield",
             "path": "assets/shield.png",
             "width": 10,
             "height": 10
@@ -58,8 +58,8 @@
     "map": [
         {
             "name": "background",
-            "path": "assets/backgroundimage.png",
-            "width": 400 ,
+            "path": "assets/background.jpg",
+            "width": 400,
             "height": 200
         }
     ]
