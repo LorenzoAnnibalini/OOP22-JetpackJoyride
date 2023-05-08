@@ -2,6 +2,8 @@ package it.unibo.jetpackjoyride.graphics.impl;
 
 import javax.swing.JPanel;
 
+import org.json.simple.parser.ParseException;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -41,6 +43,7 @@ public class GamePanel extends JPanel {
     private Image playerImage;
     private Image moneyImage;
     private Slider slider;
+    private static final String filename = "src/main/resources/sprites.json";
 
     /**
      * Constructor of the class.
@@ -48,12 +51,15 @@ public class GamePanel extends JPanel {
      * @param entities the set of entities to show
      * @param player   the object of the player
      * @param money    the list of money that has to be shown
+     * @throws ParseException
      */
-    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
+    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) throws ParseException {
         this.entities = entities;
         this.player = player;
         this.money.addAll(money);
-        Map<String, Sprite> sprites = new SpriteLoader().getSprites();
+        SpriteLoader spriteLoader = new SpriteLoader();
+        spriteLoader.loadSprites(filename);
+        Map<String, Sprite> sprites = spriteLoader.getSprites();
         // loading background image
         backgruondImage1 = (BufferedImage) sprites.get("background").getScaled();
         backgruondImage2 = (BufferedImage) sprites.get("background").getScaled();
