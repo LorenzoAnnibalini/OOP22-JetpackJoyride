@@ -7,11 +7,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
+import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
