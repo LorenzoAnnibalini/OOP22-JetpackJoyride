@@ -21,9 +21,8 @@ import org.json.simple.parser.ParseException;
  * @author emanuele.sanchi@studio.unibo.it
  */
 public class SpriteLoader {
+    private static final String ASSETS_FOLDER = "";
     private static final String FILESEPARATOR = File.separator;
-    private static final int SPRITEWIDTH = 30;
-    private static final int SPRITEHEIGHT = 30;
 
     private Map<String, Sprite> sprites = new HashMap<>();
 
@@ -51,14 +50,11 @@ public class SpriteLoader {
             JSONArray jSprites = (JSONArray) jsonObj.get("sprites");
             for (Object sprite : jSprites) {
                 JSONObject spriteObj = (JSONObject) sprite;
-                String name = (String) spriteObj.get("name");
-                String path = (String) spriteObj.get("path");
+                String name = spriteObj.get("name").toString();
+                String path = spriteObj.get("path").toString();
                 int width = ((Long) spriteObj.get("width")).intValue();
                 int height = ((Long) spriteObj.get("height")).intValue();
-                BufferedImage originalImage = ImageIO
-                        .read(new File("resources" + SpriteLoader.FILESEPARATOR + path));
-                Image img = originalImage.getScaledInstance(SpriteLoader.SPRITEWIDTH, SpriteLoader.SPRITEHEIGHT,
-                        Image.SCALE_SMOOTH);
+                Image img = ImageIO.read(this.getClass().getResourceAsStream(SpriteLoader.ASSETS_FOLDER + path));
                 this.sprites.put(name, new Sprite(width, height, img));
             }
             // load map
