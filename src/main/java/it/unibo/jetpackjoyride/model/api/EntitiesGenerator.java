@@ -33,11 +33,4 @@ public interface EntitiesGenerator {
      */
     Set<Pair<String, GameObject>> getEntities();
 
-    /**
-     * Method to check if an entity is out of visible range and so has to be
-     * deleted.
-     * 
-     * @param entities the set of entities already in game
-     */
-    void entitiesGarbage(Set<Pair<String, GameObject>> entities);
 }

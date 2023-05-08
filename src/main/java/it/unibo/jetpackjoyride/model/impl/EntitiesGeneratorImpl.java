@@ -152,16 +152,6 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
         return this.entities;
     }
 
-    @Override
-    public void entitiesGarbage(Set<Pair<String, GameObject>> entities) {
-        for (Pair<String, GameObject> pair : entities) {
-            if (pair.getY().getCurrentPos().x < 0
-                    || (pair.getX() == "Scientist" && pair.getY().getCurrentPos().x > EntitiesGeneratorImpl.XBOUND)) {
-                this.entities.remove(pair);
-            }
-        }
-    }
-
     /**
      * Method to check if is allow to add new entity to the game.
      * 
