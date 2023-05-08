@@ -3,6 +3,7 @@ package it.unibo.jetpackjoyride.core.impl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -62,9 +63,23 @@ public class ReadWriteFile<T, G> {
 
     /**
      * @return the file read as a map
+     * @throws FileNotFoundException
      */
-    public <T, G> Map<T, G> readMap(){
-        //TODO
+    public <T, G> Map<T, G> readMap() throws FileNotFoundException{
+        Map<T, G> map = new HashMap<T, G>();
+        Scanner sc = new Scanner(new File(this.path + this.name));  
+        sc.useDelimiter(";"); 
+        try{ 
+            while (sc.hasNext()) { 
+                    T key = (T)sc.next();
+                    G value = (G)sc.next();  
+                    map.put(key, value);
+                    System.out.println("Reading Game Settings : " + key + " " + value);
+            }
+        }catch(Exception e){
+            System.out.println("Reading Map : Error");
+        }
+        sc.close();  
         return null;
     }
 
