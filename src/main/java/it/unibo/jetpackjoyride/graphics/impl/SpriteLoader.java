@@ -21,17 +21,6 @@ import org.json.simple.parser.ParseException;
  * @author emanuele.sanchi@studio.unibo.it
  */
 public class SpriteLoader {
-    // sprites files names
-    /*
-     * private final static String ROCKET = "rocket";
-     * private final static String ELECTRODE = "electrode";
-     * private final static String SHIELD = "shield";
-     * private final static String SPEEDUP = "speedup";
-     * private final static String SCIENTIST = "scientist";
-     * private final static String LASER = "laser";
-     * private final static String PLAYER = "player";
-     * private final static String MONEY = "money";
-     */
     private static final String FILESEPARATOR = File.separator;
     private static final int SPRITEWIDTH = 30;
     private static final int SPRITEHEIGHT = 30;
@@ -44,7 +33,7 @@ public class SpriteLoader {
      * @return the map of sprites
      */
     public Map<String, Sprite> getSprites() {
-        return sprites;
+        return this.sprites;
     }
 
     /**
