@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JFrame;
+import javax.swing.plaf.DimensionUIResource;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
