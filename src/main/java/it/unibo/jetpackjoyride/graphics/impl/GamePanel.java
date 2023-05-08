@@ -53,7 +53,8 @@ public class GamePanel extends JPanel {
      * @param money    the list of money that has to be shown
      * @throws ParseException
      */
-    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) throws ParseException {
+    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money)
+            throws ParseException {
         this.entities = entities;
         this.player = player;
         this.money.addAll(money);
