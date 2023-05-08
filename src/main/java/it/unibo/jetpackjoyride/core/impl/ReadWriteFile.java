@@ -1,7 +1,10 @@
 package it.unibo.jetpackjoyride.core.impl;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * A simple class to read and write different tipe of files.
@@ -13,8 +16,14 @@ import java.util.Map;
 public class ReadWriteFile<T, G> {
 
     private String path;
+    private String name;
     private Map<T, G> map;
     private ArrayList<T> list;
+
+   public ReadWriteFile(final String path, final String name) {
+        this.path = path;
+        this.name = name;
+    }
 
     /**
      * @param path the path of the file to read or write
@@ -31,10 +40,24 @@ public class ReadWriteFile<T, G> {
     }
 
     /**
+     * @param name the name of the file to read or write
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * @param name the name of the file to read or write
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * @param map the map to write in the file
      */
     public void writeMap(final Map<T,G> map){
-        //TODO
+        
     }
 
     /**
@@ -49,9 +72,14 @@ public class ReadWriteFile<T, G> {
         //TODO
     }
 
-    public <T> ArrayList<T> readArrayList(){
-        //TODO
-        return null;
+    public <T> ArrayList<T> readArrayList() throws FileNotFoundException{
+        Scanner file = new Scanner(new File(this.path + this.name));
+        ArrayList<T> list = new ArrayList<T>();
+        while (file.hasNextLine()) {
+            String line = file.nextLine();
+            list.add((T) line);
+        }
+        return list;
     }
 
 
