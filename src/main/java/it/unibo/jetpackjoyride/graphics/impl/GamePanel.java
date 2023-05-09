@@ -44,7 +44,7 @@ public class GamePanel extends JPanel {
     private Image playerImage;
     private Image moneyImage;
     private Slider slider;
-    private static final String filename = "src/main/resources/sprites.json";
+    private static final String filename = "/config/sprites.json";
 
     /**
      * Constructor of the class.
