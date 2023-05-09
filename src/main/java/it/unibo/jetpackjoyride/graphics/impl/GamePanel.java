@@ -83,6 +83,7 @@ public class GamePanel extends JPanel {
         slider.start();
         this.setSize(this.getPreferredSize());
         this.setVisible(true);
+        this.slider.start();
     }
 
     @Override
