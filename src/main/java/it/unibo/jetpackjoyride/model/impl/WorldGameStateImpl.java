@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.model.impl;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.api.WorldGameState;
 import it.unibo.jetpackjoyride.model.api.Player.PlayerDirection;
 import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
+import it.unibo.jetpackjoyride.core.impl.MoneyPatternLoaderImpl;
 
 public class WorldGameStateImpl implements WorldGameState {
 
@@ -25,7 +27,9 @@ public class WorldGameStateImpl implements WorldGameState {
     private List<Money> money;
     private Set<Pair<String, GameObject>> entities;
     private long previousCycleStartTime;
+    private MoneyPatternLoader moneyPatternLoader;
     private Random random;
+    private int deciderEntitiesGenerator; // 0-2 = entities, 3 = money, 4 = laser
 
     public WorldGameStateImpl() {
         this.inizializeWorldState();
@@ -37,7 +41,10 @@ public class WorldGameStateImpl implements WorldGameState {
         this.updateEntities(elapsedTime);
         this.entitiesGarbage();
         this.checkPlayerCollision();
-        this.newEntities();
+        if (!this.verifyEndGame()) {
+            this.newEntities();
+        }
+
     }
 
     /**
@@ -47,10 +54,28 @@ public class WorldGameStateImpl implements WorldGameState {
         long currentCycleStartTime = System.currentTimeMillis();
         if (this.entities.size() - this.entities.stream()
                 .filter(entity -> entity.getX().matches("Scientist") || entity.getX().matches("Nothing"))
-                .count() <= 3 && currentCycleStartTime - this.previousCycleStartTime >= 5000) {
+                .count() <= 3 && currentCycleStartTime - this.previousCycleStartTime >= 5000
+                && this.deciderEntitiesGenerator >= 0 && this.deciderEntitiesGenerator <= 2) {
             this.entitiesGenerator.generateEntity(this.entities, random.nextInt(2) + 3);
             this.entities.addAll(this.entitiesGenerator.getEntities());
             this.previousCycleStartTime = currentCycleStartTime;
+            this.deciderEntitiesGenerator = random.nextInt(5);
+        } else if (currentCycleStartTime - this.previousCycleStartTime >= 5000
+                && this.deciderEntitiesGenerator == 3) {
+            try {
+                this.money = moneyPatternLoader.getMoneyPattern();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            this.previousCycleStartTime = currentCycleStartTime;
+            this.deciderEntitiesGenerator = random.nextInt(5);
+        }
+        else if (currentCycleStartTime - this.previousCycleStartTime >= 5000
+                && this.deciderEntitiesGenerator == 4 && this.entities.size()==0) {
+            //this.entitiesGenerator.generateLaser();
+            this.entities.addAll(this.entitiesGenerator.getEntities());
+            this.previousCycleStartTime = currentCycleStartTime;
+            this.deciderEntitiesGenerator = random.nextInt(5);
         }
 
     }
@@ -166,8 +191,10 @@ public class WorldGameStateImpl implements WorldGameState {
         this.entitiesGenerator.generateEntity(entities, 3);
         this.entitiesGenerator.generateScientists(2);
         this.entities = this.entitiesGenerator.getEntities();
+        this.moneyPatternLoader = new MoneyPatternLoaderImpl();
         this.previousCycleStartTime = System.currentTimeMillis();
         this.random = new Random();
+        this.deciderEntitiesGenerator = 1;
     }
 
     /**
@@ -204,6 +231,20 @@ public class WorldGameStateImpl implements WorldGameState {
     @Override
     public void newGame() {
         this.inizializeWorldState();
+    }
+
+    /**
+     * Verify if the game is ended. The game is ended when the player is dead. This
+     * function notify the gameEngine that the game is ended.
+     * 
+     * @return true if the game is ended, false otherwise.
+     */
+    private boolean verifyEndGame() {
+        if (!this.player.getStatusPlayer()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

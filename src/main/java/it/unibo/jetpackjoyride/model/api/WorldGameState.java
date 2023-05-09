@@ -56,4 +56,5 @@ public interface WorldGameState {
      * Start a new game.
      */
     public void newGame();
+
 }
