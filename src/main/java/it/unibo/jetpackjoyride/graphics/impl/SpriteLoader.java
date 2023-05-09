@@ -48,7 +48,6 @@ public class SpriteLoader {
             fileContent = new String(stream.readAllBytes(),
                     StandardCharsets.UTF_8);
             stream.close();
-            System.out.println(fileContent);
             jsonObj = (JSONObject) parser.parse(fileContent);
         } catch (ParseException | IOException e) {
             e.printStackTrace();
