@@ -61,6 +61,7 @@ public class GameSettingsImpl implements GameSettings {
             reader.writeMap(settings);
         }catch(Exception e){
             System.out.println("Writing Game Settings : Error");
+            System.out.println(e.toString());
         }
     }
 
