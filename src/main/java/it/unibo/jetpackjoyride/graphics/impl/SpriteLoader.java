@@ -33,6 +33,18 @@ public class SpriteLoader {
     }
 
     /**
+     * Method to get all sprites sclaed
+     */
+    public Map<String, Sprite> getSpritesScaled() {
+        Map<String, Sprite> scaledSprites = new HashMap<>();
+        for (Map.Entry<String, Sprite> s : this.sprites.entrySet()) {
+            s.getValue().scale();
+            scaledSprites.put(s.getKey(), s.getValue());
+        }
+        return scaledSprites;
+    }
+
+    /**
      * Method to load sprites from file.
      * 
      * @param filename the name of the file

@@ -44,7 +44,7 @@ public class GamePanel extends JPanel {
     private Image playerImage;
     private Image moneyImage;
     private Slider slider;
-    private static final String filename = "src/main/resources/sprites.json";
+    private static final String filename = "/config/sprites.json";
 
     /**
      * Constructor of the class.
@@ -61,7 +61,7 @@ public class GamePanel extends JPanel {
         this.money.addAll(money);
         SpriteLoader spriteLoader = new SpriteLoader();
         spriteLoader.loadSprites(filename);
-        Map<String, Sprite> sprites = spriteLoader.getSprites();
+        Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
         backgruondImage1 = (BufferedImage) sprites.get("background").getScaled();
         backgruondImage2 = (BufferedImage) sprites.get("background").getScaled();
