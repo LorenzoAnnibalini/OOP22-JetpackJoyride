@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ import org.json.simple.parser.ParseException;
  * @author emanuele.sanchi@studio.unibo.it
  */
 public class SpriteLoader {
-    private static final String ASSETS_FOLDER = "";
+    private static final String ASSETS_FOLDER = "/assets/";
     private static final String FILESEPARATOR = File.separator;
 
     private Map<String, Sprite> sprites = new HashMap<>();
@@ -42,10 +44,21 @@ public class SpriteLoader {
      * @throws ParseException
      */
     public void loadSprites(String filename) throws ParseException {
-        JSONParser parser = new JSONParser();
+        final JSONParser parser = new JSONParser();
+        String fileContent;
+        JSONObject jsonObj = new JSONObject();
+
         try {
-            Object obj = parser.parse(new FileReader(filename));
-            JSONObject jsonObj = (JSONObject) obj;
+            final InputStream stream = this.getClass().getResourceAsStream(filename);
+            fileContent = new String(stream.readAllBytes(),
+                    StandardCharsets.UTF_8);
+            stream.close();
+            System.out.println(fileContent);
+            jsonObj = (JSONObject) parser.parse(fileContent);
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        try {
             // load sprites
             JSONArray jSprites = (JSONArray) jsonObj.get("sprites");
             for (Object sprite : jSprites) {
