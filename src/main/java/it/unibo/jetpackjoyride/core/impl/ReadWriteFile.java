@@ -24,7 +24,7 @@ public class ReadWriteFile<T, G> {
     private ArrayList<T> list;
 
    public ReadWriteFile(final String path, final String name) {
-        this.path = path;
+        this.path = this.getClass().getResourceAsStream(path).toString();
         this.name = name;
     }
 
