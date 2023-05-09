@@ -23,10 +23,9 @@ public class Sprite {
      * @param img    image of the sprite
      */
     public Sprite(int width, int height, Image img) {
-        this.originalDimension = new Pair<>(width, height);
-        this.scaledDimension = this.originalDimension;
+        this.originalDimension = new Pair<>(img.getWidth(null), img.getHeight(null));
+        this.scaledDimension = new Pair<>(width, height);
         this.originalImage = img;
-        this.scaledImage = this.originalImage;
     }
 
     /**
@@ -35,8 +34,8 @@ public class Sprite {
      * @param x x scale
      * @param y y scale
      */
-    public void scale(double x, double y) {
-        this.scaledDimension = new Pair<>((int) (originalDimension.getX() * x), (int) (originalDimension.getY() * y));
+    public void scale() {
+        //this.scaledDimension = new Pair<>((int) (originalDimension.getX() * x), (int) (originalDimension.getY() * y));
         this.scaledImage = originalImage.getScaledInstance(this.scaledDimension.getX(), this.scaledDimension.getY(),
                 Image.SCALE_SMOOTH);
     }
