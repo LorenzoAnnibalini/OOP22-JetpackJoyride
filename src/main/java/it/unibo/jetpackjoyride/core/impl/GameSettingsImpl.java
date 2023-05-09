@@ -32,7 +32,8 @@ public class GameSettingsImpl implements GameSettings {
             ReadWriteFile<String,String> reader = new ReadWriteFile("resources"+File.separator,"game_settings.csv");
             settings.putAll(reader.readMap());
         }catch(Exception e){
-            System.out.println("Reading Game Settings : Error");
+            System.out.println("Reading Game Settings : File Not Found");
+            System.out.println(e.toString());
         }
         if(settings.isEmpty()){
             System.out.println("Reading Game Settings : Empty File -> Default Settings");
