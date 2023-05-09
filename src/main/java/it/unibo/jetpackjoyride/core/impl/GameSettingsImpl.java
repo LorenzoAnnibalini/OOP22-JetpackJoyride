@@ -3,12 +3,8 @@ package it.unibo.jetpackjoyride.core.impl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-
-import javax.swing.JPopupMenu.Separator;
 
 import it.unibo.jetpackjoyride.core.api.GameSettings;
 
