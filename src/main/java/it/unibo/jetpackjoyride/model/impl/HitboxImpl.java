@@ -85,11 +85,12 @@ public class HitboxImpl implements Hitbox {
 
     @Override
     public boolean checkCollision(Hitbox hitbox) {
-        return this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) ||
+        return (this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) ||
                 this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight()) ||
                 this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().x, hitbox.getPointDownRight().y))
                 ||
-                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().x, hitbox.getPointUpLeft().y));
+                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().x, hitbox.getPointUpLeft().y)))
+                && hitbox.isHitboxActive() && this.hitboxActive;
     }
 
     /**

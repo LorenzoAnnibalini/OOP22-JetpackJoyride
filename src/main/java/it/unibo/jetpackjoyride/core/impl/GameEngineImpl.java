@@ -4,11 +4,9 @@ import java.util.List;
 
 import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.graphics.api.View;
-import it.unibo.jetpackjoyride.graphics.impl.ViewImpl;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
-import it.unibo.jetpackjoyride.model.api.WorldGameState;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 public class GameEngineImpl implements GameEngine {
