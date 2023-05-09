@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,8 +60,9 @@ public class ReadWriteFile<T, G> {
 
     /**
      * @param map the map to write in the file
+     * @throws IOException
      */
-    public void writeMap(final Map<T,G> map) throws Exception{
+    public void writeMap(final Map<T,G> map) throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(this.path + this.name));
         for (T key : map.keySet()) {
             writer.write(key + ";" + map.get(key) + "\n");
@@ -77,21 +79,17 @@ public class ReadWriteFile<T, G> {
         Map<T, G> map = new HashMap<T, G>();
         Scanner sc = new Scanner(new File(this.path + this.name));  
         sc.useDelimiter(";"); 
-        try{ 
             while (sc.hasNext()) { 
                     T key = (T)sc.next();
                     G value = (G)sc.next();  
                     map.put(key, value);
                     System.out.println("Reading Game Settings : " + key + " " + value);
             }
-        }catch(Exception e){
-            System.out.println("Reading Map : Error");
-        }
         sc.close();  
         return null;
     }
 
-    public void writeArrayList(final ArrayList<T> list) throws Exception{
+    public void writeArrayList(final ArrayList<T> list) throws IOException{
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.path + this.name));
             for (T element : list) {
                 writer.write(element + "\n");
