@@ -43,7 +43,7 @@ public class GamePanel extends JPanel {
     private Image laserOff;
     private Image playerImage;
     private Image moneyImage;
-    private Slider slider;
+    private SliderImpl slider;
     private static final String filename = "/config/sprites.json";
 
     /**
@@ -81,6 +81,7 @@ public class GamePanel extends JPanel {
         this.setPreferredSize(new Dimension(backgruondImage1.getWidth(), backgruondImage1.getHeight()));
         this.setSize(this.getPreferredSize());
         this.setVisible(true);
+        this.slider.start();
     }
 
     @Override
