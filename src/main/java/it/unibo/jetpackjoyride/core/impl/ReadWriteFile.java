@@ -1,7 +1,9 @@
 package it.unibo.jetpackjoyride.core.impl;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +59,12 @@ public class ReadWriteFile<T, G> {
     /**
      * @param map the map to write in the file
      */
-    public void writeMap(final Map<T,G> map){
+    public void writeMap(final Map<T,G> map) throws Exception{
+        BufferedWriter writer = new BufferedWriter(new FileWriter(this.path + this.name));
+        for (T key : map.keySet()) {
+            writer.write(key + ";" + map.get(key) + "\n");
+        }
+        writer.close();
         
     }
 
@@ -83,8 +90,12 @@ public class ReadWriteFile<T, G> {
         return null;
     }
 
-    public void writeArrayList(final ArrayList<T> list){
-        //TODO
+    public void writeArrayList(final ArrayList<T> list) throws Exception{
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.path + this.name));
+            for (T element : list) {
+                writer.write(element + "\n");
+            }
+            writer.close();
     }
 
     public <T> ArrayList<T> readArrayList() throws FileNotFoundException{
