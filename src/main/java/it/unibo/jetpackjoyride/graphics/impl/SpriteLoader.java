@@ -1,8 +1,6 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -23,8 +21,6 @@ import org.json.simple.parser.ParseException;
  */
 public class SpriteLoader {
     private static final String ASSETS_FOLDER = "/assets/";
-    private static final String FILESEPARATOR = File.separator;
-
     private Map<String, Sprite> sprites = new HashMap<>();
 
     /**
@@ -72,23 +68,20 @@ public class SpriteLoader {
                 this.sprites.put(name, new Sprite(width, height, img));
             }
             // load map
-            JSONArray mapArr = (JSONArray) jsonObj.get("map");
-            for (Object map : mapArr) {
-                JSONObject mapObj = (JSONObject) map;
+            JSONArray jMap = (JSONArray) jsonObj.get("map");
+            for (Object object : jMap) {
+                JSONObject mapObj = (JSONObject) object;
                 String name = (String) mapObj.get("name");
                 String path = (String) mapObj.get("path");
                 int width = ((Long) mapObj.get("width")).intValue();
                 int height = ((Long) mapObj.get("height")).intValue();
-                path = SpriteLoader.ASSETS_FOLDER + path;
-                System.out.println(path);
-                Image img = ImageIO.read(this.getClass().getResourceAsStream(path));
+                Image img = ImageIO.read(this.getClass().getResourceAsStream(SpriteLoader.ASSETS_FOLDER + path));
                 this.sprites.put(name, new Sprite(width, height, img));
             }
             
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 }
