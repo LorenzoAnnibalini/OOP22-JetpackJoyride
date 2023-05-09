@@ -58,9 +58,9 @@
     "map": [
         {
             "name": "background",
-            "path": "background.jpg",
-            "width": 400,
-            "height": 200
+            "path": "background.png",
+            "width": 1200,
+            "height": 850
         }
     ]
 }

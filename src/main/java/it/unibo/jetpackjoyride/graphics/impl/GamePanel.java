@@ -80,7 +80,6 @@ public class GamePanel extends JPanel {
         this.posImage1 = 0;
         this.posImage2 = sprites.get("background").getScaledlDim().getX();
         this.setPreferredSize(new Dimension(sprites.get("background").getScaledlDim().getX(), sprites.get("background").getScaledlDim().getY()));
-        slider.start();
         this.setSize(this.getPreferredSize());
         this.setVisible(true);
         this.slider.start();
