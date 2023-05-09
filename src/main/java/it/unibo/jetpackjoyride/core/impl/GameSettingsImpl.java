@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.JPopupMenu.Separator;
 
 import it.unibo.jetpackjoyride.core.api.GameSettings;
 
@@ -28,7 +29,7 @@ public class GameSettingsImpl implements GameSettings {
      */
     public GameSettingsImpl() throws FileNotFoundException {
         
-        ReadWriteFile<String,String> reader = new ReadWriteFile("resources","game_settings.csv");
+        ReadWriteFile<String,String> reader = new ReadWriteFile("resources"+File.separator,"game_settings.csv");
         try{ 
             settings.putAll(reader.readMap());
         }catch(Exception e){
