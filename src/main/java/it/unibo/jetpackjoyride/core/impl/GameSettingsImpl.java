@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.JPopupMenu.Separator;
 
 import it.unibo.jetpackjoyride.core.api.GameSettings;
 
@@ -27,23 +28,13 @@ public class GameSettingsImpl implements GameSettings {
      * @throws FileNotFoundException if the file is not found
      */
     public GameSettingsImpl() throws FileNotFoundException {
-
-
-        //TODO : USARE CLASSE GENERALE READ WRITE FILES
         
-        Scanner sc = new Scanner(new File(getClass().getProtectionDomain().getCodeSource().getLocation()+"game_settings.csv"));  
-        sc.useDelimiter(";"); 
+        ReadWriteFile<String,String> reader = new ReadWriteFile("resources"+File.separator,"game_settings.csv");
         try{ 
-            while (sc.hasNext()) { 
-                    String key = sc.next();
-                    String value = sc.next();  
-                    settings.put(key, value);
-                    System.out.println("Reading Game Settings : " + key + " " + value);
-            }
+            settings.putAll(reader.readMap());
         }catch(Exception e){
             System.out.println("Reading Game Settings : Error");
         }
-        sc.close();  
         if(settings.isEmpty()){
             System.out.println("Reading Game Settings : Empty File -> Default Settings");
             settings.put("audio", "Audio OFF");
@@ -70,18 +61,9 @@ public class GameSettingsImpl implements GameSettings {
     public void writeSettings() throws IOException{
         FileWriter csvWriter;
         try{
-
-            //TODO : USARE CLASSE GENERALE READ WRITE FILES
-
-            csvWriter = new FileWriter(getClass().getProtectionDomain().getCodeSource().getLocation()+"game_settings.csv");
-            for (Map.Entry<String, String> entry : settings.entrySet()) {
-                csvWriter.append(entry.getKey());
-                csvWriter.append(";");
-                csvWriter.append(entry.getValue());
-                csvWriter.append(";");
-            }
-            csvWriter.close();
-        }catch(IOException e){
+            ReadWriteFile<String,String> reader = new ReadWriteFile("resources","game_settings.csv");
+            reader.writeMap(settings);
+        }catch(Exception e){
             System.out.println("Writing Game Settings : Error");
         }
     }
