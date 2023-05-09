@@ -17,6 +17,11 @@ public class Money extends GameObject{
         super(pos, vel, hitbox);
     }
 
+    /**
+     * Static method to create a list of money from a list of string.
+     * @param moneyString, the list of string to convert
+     * @return moneyList, the list of money
+     */
     public static ArrayList<Money> getMoneyFromStringList(final ArrayList<String> moneyString){
         final int X = 0;
         final int Y = 1;
