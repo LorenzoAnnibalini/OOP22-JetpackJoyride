@@ -5,27 +5,25 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * Interface for classes to load and write gadgets from file.
+ * Interface for classes to load and write skins from file.
  * @author lorenzo.bacchini4@studio.unibo.it
  */
-
-public interface GadgetLoader {
+public interface SkinInfoLoader {
     /**
      * Method to get the value from file and save them into HashMap in class
-     * Gadget.
+     * Skin.
      * 
      * @throws FileNotFoundException if the file is not found
-     * @return a map of gadgets
+     * @return a map of skins
      */
-    Map<String, List<String>> downloadGadget() throws FileNotFoundException;
+    Map<String, List<String>> downloadSkin() throws FileNotFoundException;
 
     /**
-     * Method to save new gadgets in file
+     * Method to save new skin information in file
      * 
-     * @param stats the map to get value that has to be save
+     * @param skinMap the map to get value that has to be saved
      * @throws IOException
      */
-    void uploadGadget(Map<String, List<String>> stats) throws IOException;
+    void uploadSkin(Map<String, List<String>> skinMap) throws IOException;
 }
