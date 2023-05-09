@@ -33,8 +33,8 @@ public class GamePanel extends JPanel {
     private List<Money> money = new ArrayList<>();
     private int posImage1;
     private int posImage2;
-    private BufferedImage backgruondImage1;
-    private BufferedImage backgruondImage2;
+    private Image backgruondImage1;
+    private Image backgruondImage2;
     private Image rocket;
     private Image electrode;
     private Image shield;
@@ -44,7 +44,7 @@ public class GamePanel extends JPanel {
     private Image laserOff;
     private Image playerImage;
     private Image moneyImage;
-    private Slider slider;
+    private SliderImpl slider;
     private static final String filename = "/config/sprites.json";
 
     /**
@@ -59,28 +59,28 @@ public class GamePanel extends JPanel {
             throws ParseException {
         this.entities = entities;
         this.player = player;
-
         this.money.addAll(money);
         SpriteLoader spriteLoader = new SpriteLoader();
         spriteLoader.loadSprites(filename);
         Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
-        backgruondImage1 = (BufferedImage) sprites.get("background").getScaled();
-        backgruondImage2 = (BufferedImage) sprites.get("background").getScaled();
-        slider = new SliderImpl(backgruondImage1.getWidth());
+        backgruondImage1 = sprites.get("background").getScaled();
+        backgruondImage2 = sprites.get("background").getScaled();
+        slider = new SliderImpl(sprites.get("background").getScaledlDim().getX());
         // loading sprite images and adjust sizes
-        rocket = sprites.get("rocket").getOriginal();
-        electrode = sprites.get("electrode").getOriginal();
-        shield = sprites.get("shield").getOriginal();
-        speedup = sprites.get("speedup").getOriginal();
-        scientist = sprites.get("scientist").getOriginal();
-        laserOn = sprites.get("laserOn").getOriginal();
-        laserOff = sprites.get("laserOff").getOriginal();
-        playerImage = sprites.get("player").getOriginal();
-        moneyImage = sprites.get("money").getOriginal();
+        rocket = sprites.get("rocket").getScaled();
+        electrode = sprites.get("electrode").getScaled();
+        shield = sprites.get("shield").getScaled();
+        speedup = sprites.get("speedup").getScaled();
+        scientist = sprites.get("scientist").getScaled();
+        laserOn = sprites.get("laserOn").getScaled();
+        laserOff = sprites.get("laserOff").getScaled();
+        playerImage = sprites.get("player").getScaled();
+        moneyImage = sprites.get("money").getScaled();
         this.posImage1 = 0;
-        this.posImage2 = backgruondImage2.getWidth();
-        this.setPreferredSize(new Dimension(backgruondImage1.getWidth(), backgruondImage1.getHeight()));
+        this.posImage2 = sprites.get("background").getScaledlDim().getX();
+        this.setPreferredSize(new Dimension(sprites.get("background").getScaledlDim().getX(), sprites.get("background").getScaledlDim().getY()));
+        slider.start();
         this.setSize(this.getPreferredSize());
         this.setVisible(true);
     }

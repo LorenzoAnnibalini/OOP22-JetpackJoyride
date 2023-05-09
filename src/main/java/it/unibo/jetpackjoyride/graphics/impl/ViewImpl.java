@@ -49,6 +49,7 @@ public class ViewImpl extends JFrame implements View {
 
 
         this.setVisible(true);
+        this.setAlwaysOnTop(true);
     }
 
     @Override
