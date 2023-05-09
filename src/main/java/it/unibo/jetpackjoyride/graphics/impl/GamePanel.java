@@ -114,6 +114,7 @@ public class GamePanel extends JPanel {
                     break;
                 case "Laser":
                     this.drawSprite(g, laserOn, entity);
+                    this.drawSprite(g, laserOn, entity);
                     break;
                 case "Nothing":
                     break;
