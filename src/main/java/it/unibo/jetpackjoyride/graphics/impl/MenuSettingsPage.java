@@ -135,7 +135,7 @@ public class MenuSettingsPage extends JPanel {
          * @throws FileNotFoundException
          */
         public void loadSettings(){
-                try{
+            
                 GameSettingsImpl settings = new GameSettingsImpl();
                 //Audio settings
                 audio.setText(settings.getValue("audio"));
@@ -146,18 +146,15 @@ public class MenuSettingsPage extends JPanel {
 
                 //TODO: add more settings
             
-            }catch(FileNotFoundException e){
-                System.out.println("File not found");
             }    
 
-        }
+        
 
         /**
          * Save the settings to the file
          * @throws IOException
          */
         public void saveSettings() {
-            try{
                 GameSettingsImpl settings = new GameSettingsImpl();
                 //Audio settings
                 settings.setValue("audio", audio.getText());
@@ -166,11 +163,7 @@ public class MenuSettingsPage extends JPanel {
                 settings.setValue("difficulty", difficulty.getText());
                 
                 settings.writeSettings();
-            }catch(FileNotFoundException e){
-                System.out.println("File not found");
-            }catch(IOException e){
-                System.out.println("Error while writing the file");
-            }
+            
         }
 
 

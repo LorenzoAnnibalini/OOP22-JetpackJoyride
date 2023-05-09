@@ -27,10 +27,9 @@ public class GameSettingsImpl implements GameSettings {
      * Read the file and put the values in the map
      * @throws FileNotFoundException if the file is not found
      */
-    public GameSettingsImpl() throws FileNotFoundException {
-        
-        ReadWriteFile<String,String> reader = new ReadWriteFile("resources"+File.separator,"game_settings.csv");
-        try{ 
+    public GameSettingsImpl() {
+        try{
+            ReadWriteFile<String,String> reader = new ReadWriteFile("resources"+File.separator,"game_settings.csv");
             settings.putAll(reader.readMap());
         }catch(Exception e){
             System.out.println("Reading Game Settings : Error");
@@ -58,7 +57,7 @@ public class GameSettingsImpl implements GameSettings {
     }
 
     @Override
-    public void writeSettings() throws IOException{
+    public void writeSettings(){
         FileWriter csvWriter;
         try{
             ReadWriteFile<String,String> reader = new ReadWriteFile("resources","game_settings.csv");
