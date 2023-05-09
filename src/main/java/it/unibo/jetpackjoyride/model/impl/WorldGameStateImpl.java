@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
@@ -23,6 +24,8 @@ public class WorldGameStateImpl implements WorldGameState {
     private PlayerImpl player;
     private List<Money> money;
     private Set<Pair<String, GameObject>> entities;
+    private long previousCycleStartTime;
+    private Random random;
 
     public WorldGameStateImpl() {
         this.inizializeWorldState();
@@ -41,7 +44,15 @@ public class WorldGameStateImpl implements WorldGameState {
      * Create new entities in the world.
      */
     private void newEntities() {
-        
+        long currentCycleStartTime = System.currentTimeMillis();
+        if (this.entities.size() - this.entities.stream()
+                .filter(entity -> entity.getX().matches("Scientist") || entity.getX().matches("Nothing"))
+                .count() <= 3 && currentCycleStartTime - this.previousCycleStartTime >= 5000) {
+            this.entitiesGenerator.generateEntity(this.entities, random.nextInt(2) + 3);
+            this.entities.addAll(this.entitiesGenerator.getEntities());
+            this.previousCycleStartTime = currentCycleStartTime;
+        }
+
     }
 
     /**
@@ -68,7 +79,7 @@ public class WorldGameStateImpl implements WorldGameState {
                         break;
                     case "SpeedPowerUp":
                         this.entities.remove(entity);
-                        /*TODO */
+                        /* TODO */
                         break;
                     case "ShieldPowerUp":
                         this.player.addHeart();
@@ -155,6 +166,8 @@ public class WorldGameStateImpl implements WorldGameState {
         this.entitiesGenerator.generateEntity(entities, 3);
         this.entitiesGenerator.generateScientists(2);
         this.entities = this.entitiesGenerator.getEntities();
+        this.previousCycleStartTime = System.currentTimeMillis();
+        this.random = new Random();
     }
 
     /**
