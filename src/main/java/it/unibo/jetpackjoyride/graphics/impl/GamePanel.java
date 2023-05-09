@@ -40,7 +40,8 @@ public class GamePanel extends JPanel {
     private Image shield;
     private Image speedup;
     private Image scientist;
-    private Image laser;
+    private Image laserOn;
+    private Image laserOff;
     private Image playerImage;
     private Image moneyImage;
     private Slider slider;
@@ -68,14 +69,15 @@ public class GamePanel extends JPanel {
         backgruondImage2 = (BufferedImage) sprites.get("background").getScaled();
         slider = new SliderImpl(backgruondImage1.getWidth());
         // loading sprite images and adjust sizes
-        rocket = sprites.get("rocket").getScaled();
-        electrode = sprites.get("electrode").getScaled();
-        shield = sprites.get("shield").getScaled();
-        speedup = sprites.get("speedup").getScaled();
-        scientist = sprites.get("scientist").getScaled();
-        laser = sprites.get("laser").getScaled();
-        playerImage = sprites.get("player").getScaled();
-        moneyImage = sprites.get("money").getScaled();
+        rocket = sprites.get("rocket").getOriginal();
+        electrode = sprites.get("electrode").getOriginal();
+        shield = sprites.get("shield").getOriginal();
+        speedup = sprites.get("speedup").getOriginal();
+        scientist = sprites.get("scientist").getOriginal();
+        laserOn = sprites.get("laserOn").getOriginal();
+        laserOff = sprites.get("laserOff").getOriginal();
+        playerImage = sprites.get("player").getOriginal();
+        moneyImage = sprites.get("money").getOriginal();
         this.posImage1 = 0;
         this.posImage2 = backgruondImage2.getWidth();
         this.setPreferredSize(new Dimension(backgruondImage1.getWidth(), backgruondImage1.getHeight()));
@@ -111,7 +113,7 @@ public class GamePanel extends JPanel {
                     this.drawSprite(g, speedup, entity);
                     break;
                 case "Laser":
-                    this.drawSprite(g, laser, entity);
+                    this.drawSprite(g, laserOn, entity);
                     break;
                 case "Nothing":
                     break;

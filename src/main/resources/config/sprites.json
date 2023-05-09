@@ -2,55 +2,55 @@
     "sprites": [
         {
             "name": "player",
-            "path": "assets/player.png",
+            "path": "player.png",
             "width": 10,
             "height": 10
         },
         {
             "name": "rocket",
-            "path": "assets/rocket.png",
+            "path": "rocket.png",
             "width": 10,
             "height": 10
         },
         {
             "name": "electrode",
-            "path": "assets/electrode.png",
+            "path": "electrode.png",
             "width": 20,
             "height": 10
         },
         {
             "name": "shield",
-            "path": "assets/shield.png",
+            "path": "shield.png",
             "width": 10,
             "height": 10
         },
         {
             "name": "speedup",
-            "path": "assets/speedup.png",
+            "path": "speedup.png",
             "width": 10,
             "height": 10
         },
         {
             "name": "scientist",
-            "path": "assets/scientist.png",
+            "path": "scientist.png",
             "width": 10,
             "height": 10
         },
         {
             "name": "laserOff",
-            "path": "assets/laserOff.png",
+            "path": "laserOff.png",
             "width": 400,
             "height": 5
         },
         {
             "name": "laserOn",
-            "path": "assets/laserOn.png",
+            "path": "laserOn.png",
             "width": 400,
             "height": 5
         },
         {
             "name": "money",
-            "path": "assets/money.png",
+            "path": "money.png",
             "width": 5,
             "height": 5
         }
@@ -58,7 +58,7 @@
     "map": [
         {
             "name": "background",
-            "path": "assets/background.jpg",
+            "path": "background.jpg",
             "width": 400,
             "height": 200
         }

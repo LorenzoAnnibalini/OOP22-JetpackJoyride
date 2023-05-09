@@ -22,7 +22,7 @@ import org.json.simple.parser.ParseException;
  * @author emanuele.sanchi@studio.unibo.it
  */
 public class SpriteLoader {
-    private static final String ASSETS_FOLDER = "";// "/assets/";
+    private static final String ASSETS_FOLDER = "/assets/";
     private static final String FILESEPARATOR = File.separator;
 
     private Map<String, Sprite> sprites = new HashMap<>();
@@ -72,18 +72,19 @@ public class SpriteLoader {
                 this.sprites.put(name, new Sprite(width, height, img));
             }
             // load map
-            jsonObj = (JSONObject) jsonObj.get("map");
-            JSONArray jMap = (JSONArray) jsonObj.get("map");
-            JSONObject mapObj = (JSONObject) jMap.get(0);
-            String name = (String) mapObj.get("name");
-            String path = (String) mapObj.get("path");
-            int width = ((Long) mapObj.get("width")).intValue();
-            int height = ((Long) mapObj.get("height")).intValue();
-            BufferedImage originalImage = ImageIO
-                    .read(new File("resources" + SpriteLoader.FILESEPARATOR + path));
-            Image img = originalImage.getScaledInstance(width, height,
-                    Image.SCALE_SMOOTH);
-            this.sprites.put(name, new Sprite(width, height, img));
+            JSONArray mapArr = (JSONArray) jsonObj.get("map");
+            for (Object map : mapArr) {
+                JSONObject mapObj = (JSONObject) map;
+                String name = (String) mapObj.get("name");
+                String path = (String) mapObj.get("path");
+                int width = ((Long) mapObj.get("width")).intValue();
+                int height = ((Long) mapObj.get("height")).intValue();
+                path = SpriteLoader.ASSETS_FOLDER + path;
+                System.out.println(path);
+                Image img = ImageIO.read(this.getClass().getResourceAsStream(path));
+                this.sprites.put(name, new Sprite(width, height, img));
+            }
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
