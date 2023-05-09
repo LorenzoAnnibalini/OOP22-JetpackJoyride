@@ -25,6 +25,7 @@ public class ReadWriteFile<T, G> {
 
    public ReadWriteFile(final String path, final String name) {
         this.path = this.getClass().getResourceAsStream(path).toString();
+        System.out.println(this.path);
         this.name = name;
     }
 
