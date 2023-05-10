@@ -28,12 +28,9 @@ public abstract class ObstacleActivable extends ObstacleImpl{
     /**
      * Update the state of an ObstacleActivable by
      * activating/deactivating the obstacle if a
-     * changeStateTime is elapsed and
-     * change the position calling back the superclass
-     * GameObject method updateState().
+     * changeStateTime is elapsed.
      */
     public void updateState(long dt){
-        super.updateState(dt);
         if((System.currentTimeMillis() - this.creationTime > this.changeStateTime) 
             && !this.isActive()){
             this.activationTime = System.currentTimeMillis();
