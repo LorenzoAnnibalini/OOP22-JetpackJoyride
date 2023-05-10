@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import org.w3c.dom.Entity;
+
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
@@ -37,7 +39,7 @@ public class WorldGameStateImpl implements WorldGameState {
     private MoneyPatternLoader moneyPatternLoader;
     private Random random;
     private int deciderEntitiesGenerator; // 0-2 = entities, 3 = money, 4 = laser
-    private long powerUpStartTime;
+    private long speedPowerUpStartTime;
 
     public WorldGameStateImpl() {
         this.inizializeWorldGameState();
@@ -46,11 +48,13 @@ public class WorldGameStateImpl implements WorldGameState {
     @Override
     public void updateState(final long elapsedTime) {
         this.checkBoardPlayerCollision();
+        this.updateTimeLaser();
         this.updateEntities(elapsedTime);
         this.entitiesGarbage();
         this.checkPlayerCollision();
         if (this.verifyEndGame()) {
             this.newEntities();
+            this.runStatistics.increment("score");
         } else {
             /* TODO */
         }
@@ -66,7 +70,7 @@ public class WorldGameStateImpl implements WorldGameState {
                 .filter(entity -> entity.getX().matches("Scientist") || entity.getX().matches("Nothing"))
                 .count() <= ENTITIES_NUMBER && currentCycleStartTime - this.previousCycleStartTime >= TIME_TO_WAIT
                 && this.deciderEntitiesGenerator >= 0 && this.deciderEntitiesGenerator <= 2) {
-            this.entitiesGenerator.generateEntity(this.entities, random.nextInt(2) + 3);
+            this.entitiesGenerator.generateEntity(this.entities, random.nextInt(2) + 2);
             this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
             this.deciderEntitiesGenerator = random.nextInt(5);
@@ -84,12 +88,11 @@ public class WorldGameStateImpl implements WorldGameState {
             this.entitiesGenerator.generateLaser(this.entities, random.nextInt(4));
             this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
-            this.deciderEntitiesGenerator = random.nextInt(5);
         }
 
         if (this.entities.stream()
                 .filter(entity -> entity.getX().matches("Scientist"))
-                .count() == 0) {
+                .count() == 0 && this.deciderEntitiesGenerator != 4) {
             this.entitiesGenerator.generateScientists(entities, SCIENTIST_NUMBER);
             this.entities = this.entitiesGenerator.getEntities();
         }
@@ -124,7 +127,7 @@ public class WorldGameStateImpl implements WorldGameState {
                             entity.getY().setVel(entityObject.getY().getCurrentVel().mul(SPEED_MOLTIPLICATOR));
                         });
                         this.player.getCurrentVel().mul(SPEED_MOLTIPLICATOR);
-                        powerUpStartTime = System.currentTimeMillis();
+                        speedPowerUpStartTime = System.currentTimeMillis();
                         break;
                     case "ShieldPowerUp":
                         this.player.addHeart();
@@ -217,8 +220,7 @@ public class WorldGameStateImpl implements WorldGameState {
     }
 
     /**
-     * Update the state of all the entities in the world and check the status of
-     * active power-up and time entities.
+     * Update the state of all the entities in the world.
      * 
      * @param elapsedTime
      */
@@ -229,10 +231,33 @@ public class WorldGameStateImpl implements WorldGameState {
     }
 
     /**
+     * Verify if the game is ended. The game is ended when the player is dead. This
+     * function notify the gameEngine that the game is ended.
+     * 
+     * @return true if the game is not ended, false otherwise.
+     */
+    private boolean verifyEndGame() {
+        return this.player.getStatusPlayer();
+    }
+
+    /**
      * Update the time entities. If the time of the entity is ended the entity will
      * change its state or doing something related to the entity.
      */
-    private void updateTimeEntities() {
+    private void updateTimeLaser() {
+        Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
+        if (this.deciderEntitiesGenerator == 4
+                && this.entities.stream().filter(entity -> entity.getX().equals("Laser")).count() != 0) {
+            while (entityIterator.hasNext()) {
+                LaserRay laserRay = (LaserRay) entityIterator.next().getY();
+                laserRay.updateState(ENTITIES_NUMBER);
+                if (laserRay.isEnded()) {
+                    this.entities.remove(laserRay);
+                    this.deciderEntitiesGenerator = random.nextInt(5);
+                }
+
+            }
+        }
 
     }
 
@@ -259,16 +284,6 @@ public class WorldGameStateImpl implements WorldGameState {
     @Override
     public void newGame() {
         this.inizializeWorldGameState();
-    }
-
-    /**
-     * Verify if the game is ended. The game is ended when the player is dead. This
-     * function notify the gameEngine that the game is ended.
-     * 
-     * @return true if the game is not ended, false otherwise.
-     */
-    private boolean verifyEndGame() {
-        return this.player.getStatusPlayer();
     }
 
 }
