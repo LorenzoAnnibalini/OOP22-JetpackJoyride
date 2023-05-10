@@ -21,7 +21,13 @@ import it.unibo.jetpackjoyride.core.impl.MoneyPatternLoaderImpl;
 public class WorldGameStateImpl implements WorldGameState {
 
     private static final int FRAME_HEIGHT = 1800;
+    private static final int ENTITIES_NUMBER = 3;
+    private static final int SCIENTIST_NUMBER = 2;
+    private static final int START_NUMBER_DECIDER = 0;
     private static final int SPEED_MOLTIPLICATOR = 2;
+    private static final int TIME_TO_WAIT = 5000;
+    private static final int TIME_TO_WAIT_POWER_UP = 4000;
+    private static final int TIME_TO_WAIT_LASER = 6000;
     private Statistics runStatistics;
     private EntitiesGenerator entitiesGenerator;
     private PlayerImpl player;
@@ -31,9 +37,10 @@ public class WorldGameStateImpl implements WorldGameState {
     private MoneyPatternLoader moneyPatternLoader;
     private Random random;
     private int deciderEntitiesGenerator; // 0-2 = entities, 3 = money, 4 = laser
+    private long powerUpStartTime;
 
     public WorldGameStateImpl() {
-        this.inizializeWorldState();
+        this.inizializeWorldGameState();
     }
 
     @Override
@@ -57,13 +64,13 @@ public class WorldGameStateImpl implements WorldGameState {
         long currentCycleStartTime = System.currentTimeMillis();
         if (this.entities.size() - this.entities.stream()
                 .filter(entity -> entity.getX().matches("Scientist") || entity.getX().matches("Nothing"))
-                .count() <= 3 && currentCycleStartTime - this.previousCycleStartTime >= 5000
+                .count() <= ENTITIES_NUMBER && currentCycleStartTime - this.previousCycleStartTime >= TIME_TO_WAIT
                 && this.deciderEntitiesGenerator >= 0 && this.deciderEntitiesGenerator <= 2) {
             this.entitiesGenerator.generateEntity(this.entities, random.nextInt(2) + 3);
-            this.entities.addAll(this.entitiesGenerator.getEntities());
+            this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
             this.deciderEntitiesGenerator = random.nextInt(5);
-        } else if (currentCycleStartTime - this.previousCycleStartTime >= 5000
+        } else if (currentCycleStartTime - this.previousCycleStartTime >= TIME_TO_WAIT
                 && this.deciderEntitiesGenerator == 3) {
             try {
                 this.money = moneyPatternLoader.getMoneyPattern();
@@ -72,14 +79,20 @@ public class WorldGameStateImpl implements WorldGameState {
             }
             this.previousCycleStartTime = currentCycleStartTime;
             this.deciderEntitiesGenerator = random.nextInt(5);
-        } else if (currentCycleStartTime - this.previousCycleStartTime >= 5000
+        } else if (currentCycleStartTime - this.previousCycleStartTime >= TIME_TO_WAIT
                 && this.deciderEntitiesGenerator == 4 && this.entities.size() == 0) {
-            // this.entitiesGenerator.generateLaser();
-            this.entities.addAll(this.entitiesGenerator.getEntities());
+            this.entitiesGenerator.generateLaser(this.entities, random.nextInt(4));
+            this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
             this.deciderEntitiesGenerator = random.nextInt(5);
         }
 
+        if (this.entities.stream()
+                .filter(entity -> entity.getX().matches("Scientist"))
+                .count() == 0) {
+            this.entitiesGenerator.generateScientists(entities, SCIENTIST_NUMBER);
+            this.entities = this.entitiesGenerator.getEntities();
+        }
     }
 
     /**
@@ -110,7 +123,8 @@ public class WorldGameStateImpl implements WorldGameState {
                         this.entities.stream().forEach(entityObject -> {
                             entity.getY().setVel(entityObject.getY().getCurrentVel().mul(SPEED_MOLTIPLICATOR));
                         });
-
+                        this.player.getCurrentVel().mul(SPEED_MOLTIPLICATOR);
+                        powerUpStartTime = System.currentTimeMillis();
                         break;
                     case "ShieldPowerUp":
                         this.player.addHeart();
@@ -124,7 +138,6 @@ public class WorldGameStateImpl implements WorldGameState {
                         this.entities.remove(entity);
                         break;
                     case "Nothing":
-
                         break;
                     default:
                         throw new IllegalArgumentException("The type of Entity is NULL or is incorrect.");
@@ -185,7 +198,7 @@ public class WorldGameStateImpl implements WorldGameState {
      * Initialize the world state, setting the player, the statistics and the
      * entities.
      */
-    private void inizializeWorldState() {
+    private void inizializeWorldGameState() {
         this.runStatistics = new StatisticsImpl();
         this.entitiesGenerator = new EntitiesGeneratorImpl();
         this.entities = new HashSet<>();
@@ -196,11 +209,11 @@ public class WorldGameStateImpl implements WorldGameState {
         this.runStatistics.addStatistic("score", 0);
         this.player = new PlayerImpl(new Point2d(50, 350), new Vector2d(50, 350),
                 new HitboxImpl(15, 10, new Point2d(50, 350)));
-        this.entitiesGenerator.generateEntity(entities, 3);
-        this.entitiesGenerator.generateScientists(2);
+        this.entitiesGenerator.generateEntity(this.entities, ENTITIES_NUMBER);
+        this.entitiesGenerator.generateScientists(this.entities, SCIENTIST_NUMBER);
         this.entities = this.entitiesGenerator.getEntities();
         this.previousCycleStartTime = System.currentTimeMillis();
-        this.deciderEntitiesGenerator = 1;
+        this.deciderEntitiesGenerator = START_NUMBER_DECIDER;
     }
 
     /**
@@ -213,6 +226,14 @@ public class WorldGameStateImpl implements WorldGameState {
         this.entities.stream().forEach(entity -> entity.getY().updateState(elapsedTime));
         this.player.updateState(elapsedTime);
         this.money.stream().forEach(moneyElem -> moneyElem.updateState(elapsedTime));
+    }
+
+    /**
+     * Update the time entities. If the time of the entity is ended the entity will
+     * change its state or doing something related to the entity.
+     */
+    private void updateTimeEntities() {
+
     }
 
     @Override
@@ -237,7 +258,7 @@ public class WorldGameStateImpl implements WorldGameState {
 
     @Override
     public void newGame() {
-        this.inizializeWorldState();
+        this.inizializeWorldGameState();
     }
 
     /**
