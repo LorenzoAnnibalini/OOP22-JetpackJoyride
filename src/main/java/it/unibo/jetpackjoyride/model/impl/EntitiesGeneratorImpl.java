@@ -102,7 +102,9 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     }
 
     @Override
-    public void generateScientists(int num) {
+    public void generateScientists(final Set<Pair<String, GameObject>> entities, int num) {
+        // Overwrite entities
+        this.entities = entities;
         Random random = new Random();
         for (int i = 0; i < num; i++) {
             int direction = random.nextInt(2);
@@ -116,7 +118,10 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
         }
     }
 
+    @Override
     public void generateLaser(final Set<Pair<String, GameObject>> entities, int num) {
+        // Overwrite entities
+        this.entities = entities;
         Random random = new Random();
             this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(
                     new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)), null,
