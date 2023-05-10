@@ -38,9 +38,9 @@ public class ViewImpl extends JFrame implements View {
         //this.statistics = new StatisticsPanel(worldGameState.getWorldStatistics());
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setPreferredSize(game.getSize());
         this.setSize(game.getPreferredSize());
-        this.setMinimumSize(this.menuPanel.getPreferredSize());
+        this.setLocationRelativeTo(null);
+        this.setMinimumSize(this.game.getPreferredSize());
         this.pack();
         //this.getContentPane().add(this.menuPanel);
 
