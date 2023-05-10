@@ -30,6 +30,7 @@ public class WorldGameStateImpl implements WorldGameState {
     private static final int TIME_TO_WAIT = 5000;
     private static final int TIME_TO_WAIT_POWER_UP = 4000;
     private static final int TIME_TO_WAIT_LASER = 6000;
+    private static final int SPEED_POWERUP_DISTANCE = 1000;
     private Statistics runStatistics;
     private EntitiesGenerator entitiesGenerator;
     private PlayerImpl player;
@@ -39,7 +40,6 @@ public class WorldGameStateImpl implements WorldGameState {
     private MoneyPatternLoader moneyPatternLoader;
     private Random random;
     private int deciderEntitiesGenerator; // 0-2 = entities, 3 = money, 4 = laser
-    private long speedPowerUpStartTime;
 
     public WorldGameStateImpl() {
         this.inizializeWorldGameState();
@@ -52,11 +52,11 @@ public class WorldGameStateImpl implements WorldGameState {
         this.updateEntities(elapsedTime);
         this.entitiesGarbage();
         this.checkPlayerCollision();
-        if (this.verifyEndGame()) {
+        if (this.player.getStatusPlayer()) {
             this.newEntities();
             this.runStatistics.increment("score");
         } else {
-            /* TODO */
+            this.notifyEndGame();
         }
 
     }
@@ -121,13 +121,8 @@ public class WorldGameStateImpl implements WorldGameState {
                         this.entities.remove(entity);
                         break;
                     case "SpeedPowerUp":
+                        this.runStatistics.increment("score", SPEED_POWERUP_DISTANCE);
                         this.entities.remove(entity);
-                        this.player.getHitbox().setHitboxDisable();
-                        this.entities.stream().forEach(entityObject -> {
-                            entity.getY().setVel(entityObject.getY().getCurrentVel().mul(SPEED_MOLTIPLICATOR));
-                        });
-                        this.player.getCurrentVel().mul(SPEED_MOLTIPLICATOR);
-                        speedPowerUpStartTime = System.currentTimeMillis();
                         break;
                     case "ShieldPowerUp":
                         this.player.addHeart();
@@ -215,7 +210,6 @@ public class WorldGameStateImpl implements WorldGameState {
         this.entitiesGenerator.generateEntity(this.entities, ENTITIES_NUMBER);
         this.entitiesGenerator.generateScientists(this.entities, SCIENTIST_NUMBER);
         this.entities = this.entitiesGenerator.getEntities();
-        this.previousCycleStartTime = System.currentTimeMillis();
         this.deciderEntitiesGenerator = START_NUMBER_DECIDER;
     }
 
@@ -231,13 +225,10 @@ public class WorldGameStateImpl implements WorldGameState {
     }
 
     /**
-     * Verify if the game is ended. The game is ended when the player is dead. This
-     * function notify the gameEngine that the game is ended.
-     * 
-     * @return true if the game is not ended, false otherwise.
+     * Notify that the game is ended at the game engine.
      */
-    private boolean verifyEndGame() {
-        return this.player.getStatusPlayer();
+    private void notifyEndGame() {
+
     }
 
     /**
