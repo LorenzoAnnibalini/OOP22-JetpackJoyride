@@ -30,7 +30,7 @@ public abstract class ObstacleActivable extends ObstacleImpl{
      * activating/deactivating the obstacle if a
      * changeStateTime is elapsed.
      */
-    public void updateState(long dt){
+    public void checkState(long dt){
         if((System.currentTimeMillis() - this.creationTime > this.changeStateTime) 
             && !this.isActive()){
             this.activationTime = System.currentTimeMillis();
