@@ -9,6 +9,7 @@ public abstract class ObstacleActivable extends ObstacleImpl{
     private long creationTime;
     private final long changeStateTime = 4000;
     private long activationTime;
+    private boolean end;
 
     /**
      * Constructor of the ObstacleActivable
@@ -22,6 +23,7 @@ public abstract class ObstacleActivable extends ObstacleImpl{
     public ObstacleActivable(Point2d pos, Vector2d vel,Hitbox hitbox) {
         super(pos, vel,hitbox);
         this.setActiveOff();
+        this.end = false;
         this.creationTime = System.currentTimeMillis();
     }
     
@@ -39,6 +41,22 @@ public abstract class ObstacleActivable extends ObstacleImpl{
         if(this.isActive()
             && (System.currentTimeMillis() - this.activationTime > this.changeStateTime)){
             this.setActiveOff();
+            this.setEndOn();     
         }
+    }
+
+    /**
+     * Set the end state of the ObstacleActivable to true.
+     */
+    private void setEndOn(){
+        this.end = true;
+    }
+
+    /**
+     * Get the end state of the ObstacleActivable.
+     * @return this.end
+     */
+    public boolean isEnd(){
+        return this.end;
     }
 }
