@@ -3,6 +3,11 @@ package it.unibo.jetpackjoyride.model.impl;
 import it.unibo.jetpackjoyride.common.*;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 
+/*
+ * Class that represents a shield power up
+ * @author lorenzo.annibalini@studio.unibo.it
+ */
+
 public class ShieldPowerUpImpl extends GameObject {
 
     private boolean active;
