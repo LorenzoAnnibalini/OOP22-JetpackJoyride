@@ -1,13 +1,12 @@
 package it.unibo.jetpackjoyride.core.impl;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.model.api.Statistics;
-import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 public class GameEngineImpl implements GameEngine {
@@ -17,12 +16,28 @@ public class GameEngineImpl implements GameEngine {
     private final long framePeriod = 20;
     private WorldGameStateImpl worldGameState;
     private GameState currentState;
+    private SkinInfoLoaderImpl skinInfoLoader;
+    private GadgetLoaderImpl gadgetLoader;
 
     public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState, final InputQueue inputHandler) {
         this.inputHandler = inputHandler;
         this.currentState = GameState.MAIN_MENU;
         this.view = view;
         this.worldGameState = worldGameState;
+        this.skinInfoLoader=new SkinInfoLoaderImpl();
+        this.gadgetLoader=new GadgetLoaderImpl();
+        try {
+            this.skinInfoLoader.downloadSkin();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.gadgetLoader.downloadGadget();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override

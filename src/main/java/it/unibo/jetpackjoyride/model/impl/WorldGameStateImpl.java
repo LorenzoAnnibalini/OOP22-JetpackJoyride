@@ -19,6 +19,7 @@ import it.unibo.jetpackjoyride.model.api.WorldGameState;
 import it.unibo.jetpackjoyride.model.api.Player.PlayerDirection;
 import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
 import it.unibo.jetpackjoyride.core.impl.MoneyPatternLoaderImpl;
+import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
@@ -42,6 +43,7 @@ public class WorldGameStateImpl implements WorldGameState {
     private Set<Pair<String, GameObject>> entities;
     private long previousCycleStartTime;
     private MoneyPatternLoader moneyPatternLoader;
+    private SavesImpl saves;
     private Random random;
     private int deciderEntitiesGenerator; // 0-2 = entities, 3 = money, 4 = laser
     private InputQueue inputHandler;

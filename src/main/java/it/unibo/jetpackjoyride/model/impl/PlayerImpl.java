@@ -15,7 +15,7 @@ public class PlayerImpl extends GameObject implements Player {
     private boolean statusPlayer;
     private int hearts;
     private PlayerDirection direction;
-
+    
     /**
      * constructor to create a player.
      * 
