@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,11 +30,11 @@ public class GamePanel extends JPanel {
 
     private Set<Pair<String, GameObject>> entities;
     private PlayerImpl player;
-    private List<Money> money;// = new ArrayList<>();
+    private List<Money> money = new ArrayList<>();
     private int posImage1;
     private int posImage2;
-    private BufferedImage backgruondImage1;
-    private BufferedImage backgruondImage2;
+    private Image backgruondImage1;
+    private Image backgruondImage2;
     private Image rocket;
     private Image electrode;
     private Image shield;
@@ -44,6 +45,8 @@ public class GamePanel extends JPanel {
     private Image playerImage;
     private Image moneyImage;
     private SliderImpl slider;
+    private int width;
+    private int height;
     private static final String filename = "/config/sprites.json";
 
     /**
@@ -63,9 +66,11 @@ public class GamePanel extends JPanel {
         spriteLoader.loadSprites(filename);
         Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
-        backgruondImage1 = (BufferedImage) sprites.get("background").getScaled();
-        backgruondImage2 = (BufferedImage) sprites.get("background").getScaled();
-        slider = new SliderImpl(backgruondImage1.getWidth());
+        backgruondImage1 = sprites.get("background").getScaled();
+        backgruondImage2 = sprites.get("background").getScaled();
+        this.width = sprites.get("background").getScaledlDim().getX();
+        this.height = sprites.get("background").getScaledlDim().getY();
+        slider = new SliderImpl(this.width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
         electrode = sprites.get("electrode").getScaled();
@@ -77,8 +82,8 @@ public class GamePanel extends JPanel {
         playerImage = sprites.get("player").getScaled();
         moneyImage = sprites.get("money").getScaled();
         this.posImage1 = 0;
-        this.posImage2 = backgruondImage2.getWidth();
-        this.setPreferredSize(new Dimension(backgruondImage1.getWidth(), backgruondImage1.getHeight()));
+        this.posImage2 = this.width;
+        this.setPreferredSize(new Dimension(this.width, this.height));
         this.setSize(this.getPreferredSize());
         this.setVisible(true);
         this.slider.start();
@@ -111,8 +116,11 @@ public class GamePanel extends JPanel {
                 case "Speedup":
                     this.drawSprite(g, speedup, entity);
                     break;
-                case "Laser":
+                case "LaserOn":
                     this.drawSprite(g, laserOn, entity);
+                    break;
+                case "LaserOff":
+                    this.drawSprite(g, laserOff, entity);
                     break;
                 case "Nothing":
                     break;
