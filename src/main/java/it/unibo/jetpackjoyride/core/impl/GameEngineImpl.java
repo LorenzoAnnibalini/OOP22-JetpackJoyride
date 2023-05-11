@@ -17,14 +17,12 @@ public class GameEngineImpl implements GameEngine {
     private final long framePeriod = 20;
     private WorldGameStateImpl worldGameState;
     private GameState currentState;
-    private Statistics statistics;
 
     public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState, final InputQueue inputHandler) {
         this.inputHandler = inputHandler;
         this.currentState = GameState.MAIN_MENU;
         this.view = view;
         this.worldGameState = worldGameState;
-        this.statistics = new StatisticsImpl();
     }
 
     @Override

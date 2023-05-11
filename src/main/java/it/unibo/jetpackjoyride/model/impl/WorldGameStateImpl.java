@@ -45,10 +45,12 @@ public class WorldGameStateImpl implements WorldGameState {
     private Random random;
     private int deciderEntitiesGenerator; // 0-2 = entities, 3 = money, 4 = laser
     private InputQueue inputHandler;
+    private Statistics generalStatistics;
 
     public WorldGameStateImpl(final InputQueue inputHandler) {
         this.inizializeWorldGameState();
         this.inputHandler = inputHandler;
+        this.generalStatistics=new StatisticsImpl();
     }
 
     @Override
