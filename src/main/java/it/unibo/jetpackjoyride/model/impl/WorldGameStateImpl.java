@@ -19,6 +19,10 @@ import it.unibo.jetpackjoyride.model.api.WorldGameState;
 import it.unibo.jetpackjoyride.model.api.Player.PlayerDirection;
 import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
 import it.unibo.jetpackjoyride.core.impl.MoneyPatternLoaderImpl;
+import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.input.impl.InputImpl;
+import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
+import it.unibo.jetpackjoyride.input.api.Input;
 
 public class WorldGameStateImpl implements WorldGameState {
 
@@ -40,13 +44,18 @@ public class WorldGameStateImpl implements WorldGameState {
     private MoneyPatternLoader moneyPatternLoader;
     private Random random;
     private int deciderEntitiesGenerator; // 0-2 = entities, 3 = money, 4 = laser
+    private InputQueue inputHandler;
 
-    public WorldGameStateImpl() {
+    public WorldGameStateImpl(final InputQueue inputHandler) {
         this.inizializeWorldGameState();
+        this.inputHandler = inputHandler;
     }
 
     @Override
     public void updateState(final long elapsedTime) {
+        if (this.player.getDirection() == PlayerDirection.STATIC) {
+            this.player.setDirectionDOWN();
+        }
         this.checkBoardPlayerCollision();
         this.updateTimeLaser();
         this.updateEntities(elapsedTime);
@@ -58,7 +67,7 @@ public class WorldGameStateImpl implements WorldGameState {
         } else {
             this.notifyEndGame();
         }
-
+        this.player.setDirectionSTATIC();
     }
 
     /**
@@ -69,7 +78,7 @@ public class WorldGameStateImpl implements WorldGameState {
         if (this.entities.size() - this.entities.stream()
                 .filter(entity -> entity.getX().matches("Scientist") || entity.getX().matches("Nothing"))
                 .count() <= ENTITIES_NUMBER && currentCycleStartTime - this.previousCycleStartTime >= TIME_TO_WAIT
-                && this.deciderEntitiesGenerator >= 0 && this.deciderEntitiesGenerator <= 2) {
+                && this.deciderEntitiesGenerator <= 2) {
             this.entitiesGenerator.generateEntity(this.entities, random.nextInt(2) + 2);
             this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
@@ -228,7 +237,7 @@ public class WorldGameStateImpl implements WorldGameState {
      * Notify that the game is ended at the game engine.
      */
     private void notifyEndGame() {
-
+        this.inputHandler.addInput(new InputImpl(Input.typeInput.END_GAME,"endGame"));
     }
 
     /**
@@ -275,6 +284,11 @@ public class WorldGameStateImpl implements WorldGameState {
     @Override
     public void newGame() {
         this.inizializeWorldGameState();
+    }
+
+    @Override
+    public void moveUp() {
+        this.player.setDirectionUP();
     }
 
 }

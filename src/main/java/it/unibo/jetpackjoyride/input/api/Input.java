@@ -34,6 +34,11 @@ public interface Input {
         EXIT,
 
         /**
+         * Input type for end the game.
+         */
+        END_GAME,
+
+        /**
          * Input type for select the gadget.
          */
         ENABLE,

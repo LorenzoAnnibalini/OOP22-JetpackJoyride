@@ -17,8 +17,8 @@ public class GameEngineImpl implements GameEngine {
     private WorldGameStateImpl worldGameState;
     private GameState currentState;
 
-    public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState) {
-        this.inputHandler = new InputQueueImpl();
+    public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState, final InputQueue inputHandler) {
+        this.inputHandler = inputHandler;
         this.currentState = GameState.MAIN_MENU;
         this.view = view;
         this.worldGameState = worldGameState;
@@ -57,6 +57,7 @@ public class GameEngineImpl implements GameEngine {
                     break;
 
                 case UP:
+                    this.worldGameState.moveUp();
                     break;
 
                 case EXIT:

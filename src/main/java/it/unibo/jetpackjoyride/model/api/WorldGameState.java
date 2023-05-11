@@ -57,4 +57,9 @@ public interface WorldGameState {
      */
     public void newGame();
 
+    /**
+     * Move the player up.
+     */
+    public void moveUp();
+
 }
