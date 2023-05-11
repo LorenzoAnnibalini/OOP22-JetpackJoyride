@@ -29,6 +29,11 @@ public interface Input {
         SHOP,
 
         /**
+         * Input type for open the statistics.
+         */
+        STATISTICS,
+
+        /**
          * Input type for close the game.
          */
         EXIT,
