@@ -11,9 +11,31 @@ import it.unibo.jetpackjoyride.input.api.Input;
  */
 public interface GameEngine {
     public enum GameState {
+
+        /**
+         * The gameEngine is in the main menu.
+         */
         MAIN_MENU,
+        
+        /**
+         * The gameEngine is in the game.
+         */
         GAME,
-        GAMEOVER
+        
+        /**
+         * The gameEngine is in the game over menu.
+         */
+        GAMEOVER,
+        
+        /**
+         * The gameEngine is in the shop menu.
+         */
+        SHOP_MENU,
+        
+        /**
+         * The gameEngine is in the statistics menu.
+         */
+        STATISTICS_MENU
     }
 
     /**

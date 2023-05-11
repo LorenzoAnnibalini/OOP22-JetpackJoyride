@@ -4,6 +4,8 @@ import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.core.impl.GameEngineImpl;
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.graphics.impl.ViewImpl;
+import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 /**
@@ -19,9 +21,10 @@ public class JetpackJoyride {
      */
     public static void main() {
 
-        WorldGameStateImpl worldGameStateImpl = new WorldGameStateImpl();
-        View view = new ViewImpl(worldGameStateImpl);
-        GameEngine gameEngine = new GameEngineImpl(view, worldGameStateImpl);
+        InputQueue inputHandler=new InputQueueImpl();
+        WorldGameStateImpl worldGameStateImpl = new WorldGameStateImpl(inputHandler);
+        View view = new ViewImpl(worldGameStateImpl/*,inputHandler */);
+        GameEngine gameEngine = new GameEngineImpl(view, worldGameStateImpl,inputHandler);
         gameEngine.loopState();
 
     }

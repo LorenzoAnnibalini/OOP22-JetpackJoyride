@@ -29,9 +29,19 @@ public interface Input {
         SHOP,
 
         /**
+         * Input type for open the statistics.
+         */
+        STATISTICS,
+
+        /**
          * Input type for close the game.
          */
         EXIT,
+
+        /**
+         * Input type for end the game.
+         */
+        END_GAME,
 
         /**
          * Input type for select the gadget.
