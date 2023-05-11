@@ -1,65 +1,55 @@
 package it.unibo.jetpackjoyride.model.impl;
 
+import java.util.HashMap;
+import java.util.Map;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 
 /**
- * This is the abstract class for the statistics.
+ * Class to modelize the statisstics of the game.
  * 
  * @author emanuele.sanchi@studio.unibo.it
- * 
  */
-public abstract class StatisticsImpl implements Statistics {
-    protected int value;
-    private String name;
+public class StatisticsImpl implements Statistics {
 
-    /**
-     * Class constructor
-     * @param value initial value of this statstic
-     * @param name statistic's name
-     */
-    public StatisticsImpl(final int value, final String name) {
-        this.value = value;
-        this.name = name;
-    }
+    private static Map<String, Integer> statistics = new HashMap<>();
 
-    /**
-     * Method to get the value of the statistic.
-     * 
-     * @return the value
-     */
-    public int getValue() {
-        return this.value;
-    }
-
-    /**
-     * Method to set a new value for the statistic
-     * 
-     * @param amount new value to set
-     */
-    public abstract void setValue(final int amount);
-
-    /**
-     * Abstract method to increment
-     */
-    public abstract void increment();
-
-    /**
-     * Method to get statistic's name.
-     * 
-     * @return name of statistic
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Method toString of the abstract class.
-     * 
-     * @return toString
-     */
     @Override
-    public String toString() {
-        return "Name: " + this.name + "\t Value: " + this.value;
+    public int getValue(String name) {
+        return statistics.get(name);
+    }
+
+    @Override
+    public void setValue(String name, int value) {
+        statistics.replace(name, value);
+    }
+
+    @Override
+    public void increment(String name, int value) {
+        statistics.replace(name, statistics.get(name) + value);
+    }
+
+    @Override
+    public void increment(String name) {
+        statistics.replace(name, statistics.get(name) + 1);
+    }
+
+    @Override
+    public Map<String, Integer> getAll() {
+        return statistics;
+    }
+
+    @Override
+    public void addStatistic(String name, int value) {
+        statistics.put(name, value);
+    }
+
+    /**
+     * Method to set all the values of the statistics.
+     * 
+     * @param stats the map of names and values to set
+     */
+    public static void setAll(Map<String, Integer> stats) {
+        statistics.putAll(stats);
     }
 
 }

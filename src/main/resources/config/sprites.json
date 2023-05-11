@@ -1,0 +1,66 @@
+{
+    "sprites": [
+        {
+            "name": "player",
+            "path": "player.png",
+            "width": 10,
+            "height": 10
+        },
+        {
+            "name": "rocket",
+            "path": "rocket.png",
+            "width": 10,
+            "height": 10
+        },
+        {
+            "name": "electrode",
+            "path": "electrode.png",
+            "width": 20,
+            "height": 10
+        },
+        {
+            "name": "shield",
+            "path": "shield.png",
+            "width": 10,
+            "height": 10
+        },
+        {
+            "name": "speedup",
+            "path": "speedup.png",
+            "width": 10,
+            "height": 10
+        },
+        {
+            "name": "scientist",
+            "path": "scientist.png",
+            "width": 10,
+            "height": 10
+        },
+        {
+            "name": "laserOff",
+            "path": "laserOff.png",
+            "width": 400,
+            "height": 5
+        },
+        {
+            "name": "laserOn",
+            "path": "laserOn.png",
+            "width": 400,
+            "height": 5
+        },
+        {
+            "name": "money",
+            "path": "money.png",
+            "width": 5,
+            "height": 5
+        }
+    ],
+    "map": [
+        {
+            "name": "background",
+            "path": "background.jpg",
+            "width": 1200,
+            "height": 950
+        }
+    ]
+}

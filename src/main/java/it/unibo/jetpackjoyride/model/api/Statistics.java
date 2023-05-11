@@ -1,32 +1,55 @@
 package it.unibo.jetpackjoyride.model.api;
 
+import java.util.Map;
+
 /**
- * Interface of class to get, set and increment statistics.
+ * Interface for game statistics.
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
 public interface Statistics {
 
     /**
-     * Getter method to take value of the statistic.
-     * @return value of statistic
+     * Method to get map of statistcs.
      */
-    int getValue();
+    Map<String, Integer> getAll();
 
     /**
-     * Setter method to set name of the statistic.
-     * @param amount value to set/add
+     * Getter of a statistic.
+     * 
+     * @param name tha name of the statistic to get the value
+     * @return value of the statistic requested
      */
-    void setValue(final int amount);
+    int getValue(String name);
 
     /**
-     * Method to increment value of statistic.
+     * Setter for a statistic.
+     * 
+     * @param name  the name of the statistic that want to be set
+     * @param value the new value of the statistic
      */
-    void increment();    
+    void setValue(String name, int value);
 
     /**
-     * Getter method to take statistic's name.
-     * @return the name of the statistic
+     * Method to increment a statistic.
+     * 
+     * @param name  the name of the statistic tant want to be increment
+     * @param value the value that we want to add to that statistic
      */
-    String getName();
+    void increment(String name, int value);
+
+    /**
+     * Method to increment a statistic.
+     * 
+     * @param name the name of the statistic tant want to be increment by 1
+     */
+    void increment(String name);
+
+    /**
+     * Method to add a new statistic.
+     * 
+     * @param name  the name of the statistic
+     * @param value the value of the statistic
+     */
+    void addStatistic(String name, int value);
 }
