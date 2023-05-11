@@ -279,7 +279,7 @@ public class WorldGameStateImpl implements WorldGameState {
     }
 
     @Override
-    public Statistics getWorldStatistics() {
+    public Statistics getWorldRunStatistics() {
         return this.runStatistics;
     }
 
@@ -291,6 +291,11 @@ public class WorldGameStateImpl implements WorldGameState {
     @Override
     public void moveUp() {
         this.player.setDirectionUP();
+    }
+
+    @Override
+    public Statistics getGeneralStatistics() {
+        return this.generalStatistics;
     }
 
 }

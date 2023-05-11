@@ -43,7 +43,14 @@ public interface WorldGameState {
      * 
      * @return statistics of run
      */
-    public Statistics getWorldStatistics();
+    public Statistics getWorldRunStatistics();
+
+    /**
+     * Get the general statistics of the game.
+     * 
+     * @return general statistics
+     */
+    public Statistics getGeneralStatistics();
 
     /**
      * Update the status of the world and its entities.
