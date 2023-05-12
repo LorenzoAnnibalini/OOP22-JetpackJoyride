@@ -8,7 +8,6 @@ import java.util.Map;
  * @author emanuele.sanchi@studio.unibo.it
  */
 public interface Statistics {
-
     /**
      * Method to get map of statistcs.
      */
@@ -52,4 +51,17 @@ public interface Statistics {
      * @param value the value of the statistic
      */
     void addStatistic(String name, int value);
+
+    /**
+     * Method to set all the values of the statistics.
+     * 
+     * @param stats the map of names and values to set
+     */
+    void setAll(Map<String, Integer> stats);
+
+    /**
+     * Method use to update general statistcs with ones of current play.
+     * @param stats statistics of current game
+     */
+    void updateGeneralStats(Statistics stats);
 }
