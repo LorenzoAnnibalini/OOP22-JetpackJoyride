@@ -1,14 +1,13 @@
 package it.unibo.jetpackjoyride.model.impl;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
-import org.w3c.dom.Entity;
 
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.common.Point2d;
@@ -22,7 +21,6 @@ import it.unibo.jetpackjoyride.core.impl.MoneyPatternLoaderImpl;
 import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
-import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
 import it.unibo.jetpackjoyride.input.api.Input;
 
 public class WorldGameStateImpl implements WorldGameState {
@@ -31,10 +29,7 @@ public class WorldGameStateImpl implements WorldGameState {
     private static final int ENTITIES_NUMBER = 3;
     private static final int SCIENTIST_NUMBER = 2;
     private static final int START_NUMBER_DECIDER = 0;
-    private static final int SPEED_MOLTIPLICATOR = 2;
     private static final int TIME_TO_WAIT = 5000;
-    private static final int TIME_TO_WAIT_POWER_UP = 4000;
-    private static final int TIME_TO_WAIT_LASER = 6000;
     private static final int SPEED_POWERUP_DISTANCE = 1000;
     private Statistics runStatistics;
     private EntitiesGenerator entitiesGenerator;
@@ -52,7 +47,8 @@ public class WorldGameStateImpl implements WorldGameState {
     public WorldGameStateImpl(final InputQueue inputHandler) {
         this.inizializeWorldGameState();
         this.inputHandler = inputHandler;
-        this.generalStatistics=new StatisticsImpl();
+        this.generalStatistics = new StatisticsImpl();
+        // this.generalStatistics.setAll(this.saves.downloadSaves());
     }
 
     @Override
@@ -67,7 +63,7 @@ public class WorldGameStateImpl implements WorldGameState {
         this.checkPlayerCollision();
         if (this.player.getStatusPlayer()) {
             this.newEntities();
-            this.runStatistics.increment("score");
+            this.runStatistics.increment("Meters");
         } else {
             this.notifyEndGame();
         }
@@ -159,7 +155,7 @@ public class WorldGameStateImpl implements WorldGameState {
         while (moneyIterator.hasNext()) {
             Money moneyElem = moneyIterator.next();
             if (this.player.getHitbox().checkCollision(moneyElem.getHitbox())) {
-                this.runStatistics.increment("money");
+                this.runStatistics.increment("Money");
                 this.money.remove(moneyElem);
             }
         }
@@ -171,11 +167,11 @@ public class WorldGameStateImpl implements WorldGameState {
      * board.
      */
     private void checkBoardPlayerCollision() {
-        if (Math.abs((this.player.getHitbox().getHeigthHitbox() / 2) - this.player.getHitbox().getPointUpLeft().y) <= 0
+        if (Math.abs((this.player.getHitbox().getHeigthHitbox() / 2) - this.player.getHitbox().getPointUpLeft().y) == 0
                 && this.player.getDirection() == PlayerDirection.UP) {
             this.player.setDirectionSTATIC();
         } else if (Math.abs((this.player.getHitbox().getHeigthHitbox() / 2)
-                + this.player.getHitbox().getPointUpLeft().y) >= FRAME_HEIGHT
+                + this.player.getHitbox().getPointUpLeft().y) == FRAME_HEIGHT
                 && this.player.getDirection() == PlayerDirection.DOWN) {
             this.player.setDirectionSTATIC();
         }
@@ -216,8 +212,8 @@ public class WorldGameStateImpl implements WorldGameState {
         this.money = new ArrayList<>();
         this.moneyPatternLoader = new MoneyPatternLoaderImpl();
         this.random = new Random();
-        this.runStatistics.addStatistic("money", 0);
-        this.runStatistics.addStatistic("score", 0);
+        this.runStatistics.addStatistic("Money", 0);
+        this.runStatistics.addStatistic("Meters", 0);
         this.player = new PlayerImpl(new Point2d(50, 350), new Vector2d(50, 350),
                 new HitboxImpl(15, 10, new Point2d(50, 350)));
         this.entitiesGenerator.generateEntity(this.entities, ENTITIES_NUMBER);
@@ -241,7 +237,14 @@ public class WorldGameStateImpl implements WorldGameState {
      * Notify that the game is ended at the game engine.
      */
     private void notifyEndGame() {
-        this.inputHandler.addInput(new InputImpl(Input.typeInput.END_GAME,"endGame"));
+        this.inputHandler.addInput(new InputImpl(Input.typeInput.END_GAME, "endGame"));
+        // this.generalStatistics.addAll(this.runStatistics);
+        try {
+            this.saves.uploadSaves(this.generalStatistics.getAll());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -253,9 +256,9 @@ public class WorldGameStateImpl implements WorldGameState {
         if (this.deciderEntitiesGenerator == 4
                 && this.entities.stream().filter(entity -> entity.getX().equals("Laser")).count() != 0) {
             while (entityIterator.hasNext()) {
-                LaserRay laserRay = (LaserRay) entityIterator.next().getY();
-                laserRay.updateState(ENTITIES_NUMBER);
-                if (laserRay.isEnded()) {
+                Pair<String,GameObject> laserRay = entityIterator.next();
+                laserRay.getY().updateState(ENTITIES_NUMBER);
+                if (true/* laserRay.getY().isEnded() */) {
                     this.entities.remove(laserRay);
                     this.deciderEntitiesGenerator = random.nextInt(5);
                 }

@@ -24,8 +24,8 @@ public class GameEngineImpl implements GameEngine {
         this.currentState = GameState.MAIN_MENU;
         this.view = view;
         this.worldGameState = worldGameState;
-        this.skinInfoLoader=new SkinInfoLoaderImpl();
-        this.gadgetLoader=new GadgetLoaderImpl();
+        this.skinInfoLoader = new SkinInfoLoaderImpl();
+        this.gadgetLoader = new GadgetLoaderImpl();
         try {
             this.skinInfoLoader.downloadSkin();
         } catch (FileNotFoundException e) {
@@ -36,7 +36,6 @@ public class GameEngineImpl implements GameEngine {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -82,6 +81,12 @@ public class GameEngineImpl implements GameEngine {
                     }
                     break;
 
+                case SETTINGS:
+                    if (this.currentState == GameState.MAIN_MENU) {
+                        this.currentState = GameState.SETTINGS_MENU;
+                    }
+                    break;
+
                 case UP:
                     if (this.currentState == GameState.GAME) {
                         this.worldGameState.moveUp();
@@ -96,7 +101,6 @@ public class GameEngineImpl implements GameEngine {
 
                 case END_GAME:
                     if (this.currentState == GameState.GAME) {
-                        // this.statistics.addAll(this.worldGameState.getStatistics());
                         this.currentState = GameState.GAMEOVER;
                     }
                     break;
@@ -117,7 +121,7 @@ public class GameEngineImpl implements GameEngine {
                     break;
 
                 case START_GAME:
-                    if (this.currentState == GameState.MAIN_MENU) {
+                    if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
                         this.worldGameState.newGame();
                     }
                     break;
@@ -153,6 +157,9 @@ public class GameEngineImpl implements GameEngine {
             case GAMEOVER:
                 this.view.renderEndGame();
                 break;
+            case SETTINGS_MENU:
+                //this.view.renderSettings();
+                break;
             default:
                 throw new IllegalArgumentException("The type of input is NULL or is incorrect.");
         }
@@ -167,11 +174,6 @@ public class GameEngineImpl implements GameEngine {
             } catch (Exception ex) {
             }
         }
-    }
-
-    @Override
-    public void notifyInput(final Input input) {
-        this.inputHandler.addInput(input);
     }
 
 }

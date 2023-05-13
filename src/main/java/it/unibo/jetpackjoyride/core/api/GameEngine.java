@@ -16,38 +16,37 @@ public interface GameEngine {
          * The gameEngine is in the main menu.
          */
         MAIN_MENU,
-        
+
         /**
          * The gameEngine is in the game.
          */
         GAME,
-        
+
         /**
          * The gameEngine is in the game over menu.
          */
         GAMEOVER,
-        
+
         /**
          * The gameEngine is in the shop menu.
          */
         SHOP_MENU,
-        
+
         /**
          * The gameEngine is in the statistics menu.
          */
-        STATISTICS_MENU
+        STATISTICS_MENU,
+
+        /**
+         * The gameEngine is in the settings menu.
+         */
+        SETTINGS_MENU
     }
 
     /**
      * Start the game engine.
      */
     public void worldGameStateStart();
-
-    /**
-     * Notify an intup event to the game engine, it will be processed in the next
-     * game loop.
-     */
-    public void notifyInput(final Input input);
 
     /**
      * Start the game loop of the game engine.
