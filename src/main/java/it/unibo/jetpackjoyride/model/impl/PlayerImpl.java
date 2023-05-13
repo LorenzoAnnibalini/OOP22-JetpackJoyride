@@ -95,6 +95,11 @@ public class PlayerImpl extends GameObject implements Player {
         return this.direction;
     }
 
+    /**
+     * Method to apply gadget effects to the player.
+     * @param direction
+     * @return a multiplier to apply to the velocity
+     */
     private double applyGadget(PlayerDirection direction){
         Gadget gadget = new GadgetImpl();
         Map<String, List<String>> gadgets = gadget.getAll();
