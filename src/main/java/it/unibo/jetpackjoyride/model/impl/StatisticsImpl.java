@@ -50,18 +50,6 @@ public class StatisticsImpl implements Statistics {
 
     @Override
     public void updateGeneralStats(Statistics stats) {
-        /*for (String el : this.statistics.keySet()) {
-            if (!"MaxMeters".equals(el) || !"MaxMoney".equals(el)) {
-                this.increment(el, stats.getValue(el));
-            } else {
-                int value = statistics.get(el);
-                if (stats.getValue(el) > value) {
-                    this.setValue(el, value);
-                }
-            }
-        }*/
-        //if (stats.getValue("Money"))
-        // matti mi passa un oggetto con solo le statistiche di metri e monete (massimo in entrambi i casi)
         if(stats.getAll().get("Money") > statistics.get("MaxMoney")) {
             this.setValue("MaxMoney", stats.getAll().get("Money"));
         }
