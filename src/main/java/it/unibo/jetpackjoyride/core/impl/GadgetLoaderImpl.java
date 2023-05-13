@@ -19,7 +19,11 @@ public class GadgetLoaderImpl implements GadgetLoader{
 
     private final String SEPARATOR = File.separator;
     private final int NAME = 0;
-    String filename = "resources" + this.SEPARATOR + "gadget.csv";
+    String filename =
+        "src" + this.SEPARATOR + 
+        "main" + this.SEPARATOR + 
+        "resources" + this.SEPARATOR + 
+        "gadget.csv";
 
     @Override
     public Map<String, List<String>> downloadGadget() throws FileNotFoundException {
