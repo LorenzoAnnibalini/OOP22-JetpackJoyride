@@ -257,8 +257,9 @@ public class WorldGameStateImpl implements WorldGameState {
                 && this.entities.stream().filter(entity -> entity.getX().equals("Laser")).count() != 0) {
             while (entityIterator.hasNext()) {
                 Pair<String,GameObject> laserRay = entityIterator.next();
-                laserRay.getY().updateState(ENTITIES_NUMBER);
-                if (true/* laserRay.getY().isEnded() */) {
+                LaserRay laserRayObj = (LaserRay) laserRay.getY();
+                laserRayObj.checkState(1);
+                if (laserRayObj.isEnd()) {
                     this.entities.remove(laserRay);
                     this.deciderEntitiesGenerator = random.nextInt(5);
                 }
