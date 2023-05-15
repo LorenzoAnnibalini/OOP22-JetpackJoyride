@@ -62,9 +62,9 @@ public class ReadWriteFile<T, G> {
         Map<T, G> mappaTmp = new HashMap<T, G>();
         Scanner sc = new Scanner(new File(this.path));
         sc.useDelimiter(";"); 
-            while (sc.hasNextLine()) { 
-                    T key = (T)sc.nextLine();
-                    G value = (G)sc.nextLine(); 
+            while (sc.hasNext()) { 
+                    T key = (T)sc.next();
+                    G value = (G)sc.next(); 
                     mappaTmp.put(key, value);
                     System.out.println(mappaTmp.get(key));
                     System.out.println("Reading Game Settings : " + key + " " + value);
