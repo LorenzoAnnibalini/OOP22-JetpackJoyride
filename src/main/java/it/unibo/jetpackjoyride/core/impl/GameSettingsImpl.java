@@ -25,7 +25,7 @@ public class GameSettingsImpl implements GameSettings {
      */
     public GameSettingsImpl() {
         try{
-            ReadWriteFile<String,String> reader = new ReadWriteFile("resources"+File.separator,"game_settings.csv");
+            ReadWriteFile<String,String> reader = new ReadWriteFile("game_settings.csv");
             settings.putAll(reader.readMap());
         }catch(Exception e){
             System.out.println("Reading Game Settings : File Not Found");
@@ -57,7 +57,7 @@ public class GameSettingsImpl implements GameSettings {
     public void writeSettings(){
         FileWriter csvWriter;
         try{
-            ReadWriteFile<String,String> reader = new ReadWriteFile("resources","game_settings.csv");
+            ReadWriteFile<String,String> reader = new ReadWriteFile(game_settings.csv");
             reader.writeMap(settings);
         }catch(Exception e){
             System.out.println("Writing Game Settings : Error");
