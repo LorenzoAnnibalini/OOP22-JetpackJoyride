@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,14 +20,13 @@ import java.util.Scanner;
 public class ReadWriteFile<T, G> {
 
     private String path;
-    private String name;
     private Map<T, G> map;
     private ArrayList<T> list;
 
-   public ReadWriteFile(final String path, final String name) {
-        this.path = this.getClass().getResourceAsStream(path).toString();
+   public ReadWriteFile(final String path) {
         System.out.println(this.path);
-        this.name = name;
+        this.path = getClass().getClassLoader().getResourceAsStream(path).toString();
+        System.out.println(this.path);
     }
 
     /**
@@ -44,24 +44,11 @@ public class ReadWriteFile<T, G> {
     }
 
     /**
-     * @param name the name of the file to read or write
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * @param name the name of the file to read or write
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * @param map the map to write in the file
+     * @throws IOException
      */
-    public void writeMap(final Map<T,G> map) throws Exception{
-        BufferedWriter writer = new BufferedWriter(new FileWriter(this.path + this.name));
+    public void writeMap(final Map<T,G> map) throws IOException{
+        BufferedWriter writer = new BufferedWriter(new FileWriter(this.path));
         for (T key : map.keySet()) {
             writer.write(key + ";" + map.get(key) + "\n");
         }
@@ -75,24 +62,20 @@ public class ReadWriteFile<T, G> {
      */
     public <T, G> Map<T, G> readMap() throws FileNotFoundException{
         Map<T, G> map = new HashMap<T, G>();
-        Scanner sc = new Scanner(new File(this.path + this.name));  
+        Scanner sc = new Scanner(new File(this.path));  
         sc.useDelimiter(";"); 
-        try{ 
             while (sc.hasNext()) { 
                     T key = (T)sc.next();
                     G value = (G)sc.next();  
                     map.put(key, value);
                     System.out.println("Reading Game Settings : " + key + " " + value);
             }
-        }catch(Exception e){
-            System.out.println("Reading Map : Error");
-        }
         sc.close();  
         return null;
     }
 
-    public void writeArrayList(final ArrayList<T> list) throws Exception{
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.path + this.name));
+    public void writeArrayList(final ArrayList<T> list) throws IOException{
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.path));
             for (T element : list) {
                 writer.write(element + "\n");
             }
@@ -100,7 +83,7 @@ public class ReadWriteFile<T, G> {
     }
 
     public <T> ArrayList<T> readArrayList() throws FileNotFoundException{
-        Scanner file = new Scanner(new File(this.path + this.name));
+        Scanner file = new Scanner(new File(this.path));
         ArrayList<T> list = new ArrayList<T>();
         while (file.hasNextLine()) {
             String line = file.nextLine();
