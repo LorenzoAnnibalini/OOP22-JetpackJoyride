@@ -24,8 +24,8 @@ public class ReadWriteFile<T, G> {
     private ArrayList<T> list;
 
    public ReadWriteFile(final String path) {
-        System.out.println(this.path);
-        this.path = getClass().getClassLoader().getResourceAsStream(path).toString();
+        System.out.println(path);
+        this.path = getClass().getClassLoader().getResource(path).toString();
         System.out.println(this.path);
     }
 
@@ -62,7 +62,7 @@ public class ReadWriteFile<T, G> {
      */
     public <T, G> Map<T, G> readMap() throws FileNotFoundException{
         Map<T, G> map = new HashMap<T, G>();
-        Scanner sc = new Scanner(new File(this.path));  
+        Scanner sc = new Scanner(new File(this.path));
         sc.useDelimiter(";"); 
             while (sc.hasNext()) { 
                     T key = (T)sc.next();
