@@ -39,7 +39,8 @@ public class GamePanel extends JPanel {
     private Image electrode;
     private Image shield;
     private Image speedup;
-    private Image scientist;
+    private Image rightScientist;
+    private Image leftScientist;
     private Image laserOn;
     private Image laserOff;
     private Image playerImage;
@@ -76,7 +77,8 @@ public class GamePanel extends JPanel {
         electrode = sprites.get("electrode").getScaled();
         shield = sprites.get("shield").getScaled();
         speedup = sprites.get("speedup").getScaled();
-        scientist = sprites.get("scientist").getScaled();
+        rightScientist = sprites.get("rightScientist").getScaled();
+        leftScientist = sprites.get("leftScientist").getScaled();
         laserOn = sprites.get("laserOn").getScaled();
         laserOff = sprites.get("laserOff").getScaled();
         playerImage = sprites.get("player").getScaled();
@@ -107,8 +109,11 @@ public class GamePanel extends JPanel {
                 case "Electrode":
                     this.drawSprite(g, electrode, entity);
                     break;
-                case "Scientist":
-                    this.drawSprite(g, scientist, entity);
+                case "rightScientist":
+                    this.drawSprite(g, rightScientist, entity);
+                    break;
+                case "leftScientist":
+                    this.drawSprite(g, leftScientist, entity);
                     break;
                 case "Shield":
                     this.drawSprite(g, shield, entity);

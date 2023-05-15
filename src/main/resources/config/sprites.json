@@ -31,8 +31,14 @@
             "height": 10
         },
         {
-            "name": "scientist",
-            "path": "scientist.png",
+            "name": "rightScientist",
+            "path": "rightScientist.png",
+            "width": 10,
+            "height": 10
+        },
+        {
+            "name": "leftScientist",
+            "path": "leftScientist.png",
             "width": 10,
             "height": 10
         },
