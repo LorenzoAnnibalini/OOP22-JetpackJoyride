@@ -48,11 +48,17 @@ public class WorldGameStateImpl implements WorldGameState {
     private InputQueue inputHandler;
     private Statistics generalStatistics;
 
+    /**
+     * Constructor for the world game state. It inzialize the world with his
+     * entities, the general statistics and the load the saves.
+     * 
+     * @param inputHandler
+     */
     public WorldGameStateImpl(final InputQueue inputHandler) {
         this.inizializeWorldGameState();
         this.inputHandler = inputHandler;
         this.generalStatistics = new StatisticsImpl();
-        this.saves=new SavesImpl();
+        this.saves = new SavesImpl();
         this.moneyPatternLoader = new MoneyPatternLoaderImpl();
         this.random = new Random();
         try {
