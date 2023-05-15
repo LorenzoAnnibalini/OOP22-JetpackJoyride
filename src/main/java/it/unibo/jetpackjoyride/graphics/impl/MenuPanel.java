@@ -1,6 +1,11 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
 import javax.swing.JPanel;
+
+import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.input.api.Input.typeInput;
+import it.unibo.jetpackjoyride.input.impl.InputImpl;
+
 import java.awt.BorderLayout;
 
 /**
@@ -11,7 +16,7 @@ import java.awt.BorderLayout;
 
 public class MenuPanel extends JPanel{
 
-    public MenuPanel() {
+    public MenuPanel(final InputQueue inputHandler) {
 
         //Component of the menu
         MenuMainPage mainPage = new MenuMainPage();
@@ -26,8 +31,8 @@ public class MenuPanel extends JPanel{
 /* ------------------------ ACTION LISTENER -------------------------*/
 
         // if press exit button close the programm
-        mainPage.getExit().addActionListener(e -> System.exit(0));
-        settingsPage.getExit().addActionListener(e -> System.exit(0));
+        mainPage.getExit().addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.EXIT, "Exit")));
+        settingsPage.getExit().addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.EXIT, "Exit")));
 
         // if press settings button open the settings page
         mainPage.getSettings().addActionListener(e -> {
@@ -46,31 +51,13 @@ public class MenuPanel extends JPanel{
         });
 
         // if press NewGame button open the game
-        mainPage.getNewGame().addActionListener(e -> {
-           /* TODO: implement the game
-            mainPage.setVisible(false);
-            this.add(new Game());
-            this.setVisible(true);
-            */
-        });
+        mainPage.getNewGame().addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.START_GAME, "New Game")));
 
         // if press Statistics button open the statistics page
-        mainPage.getStatistics().addActionListener(e -> {
-           /* TODO: implement the statistics
-            mainPage.setVisible(false);
-            this.add(new MenuStatistics(), BorderLayout.CENTER);
-            this.setVisible(true);
-            */
-        });
+        mainPage.getStatistics().addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.STATISTICS, "Statistics")));
 
         // if press Shop button open the shop page
-        mainPage.getShopButton().addActionListener(e -> {
-            /* TODO: implement the shop
-            mModainPage.setVisible(false);
-            this.add(new MenuShop(), BorderLayout.CENTER);
-            this.setVisible(true);
-            */
-        });  
+        mainPage.getShopButton().addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.SHOP, "Shop")));  
     }
     
 }
