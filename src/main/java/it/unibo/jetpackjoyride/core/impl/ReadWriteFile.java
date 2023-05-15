@@ -22,9 +22,9 @@ public class ReadWriteFile<T, G> {
     private String path;
 
    public ReadWriteFile(final String path) {
-        System.out.println(path);
+        //System.out.println(path);
         this.path = getClass().getClassLoader().getResource(path).getPath();
-        System.out.println(this.path);
+        //System.out.println(this.path);
     }
 
     /**
@@ -65,8 +65,7 @@ public class ReadWriteFile<T, G> {
             while (sc.hasNext()) { 
                     T key = (T)sc.next();
                     G value = (G)sc.next(); 
-                    mappaTmp.put(key, value);
-                    System.out.println(mappaTmp.get(key));
+                    mappaTmp.put(key, value);sc.nextLine();
                     System.out.println("Reading Game Settings : " + key + " " + value);
             }
         sc.close();  
