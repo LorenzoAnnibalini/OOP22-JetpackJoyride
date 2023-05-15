@@ -1,5 +1,7 @@
 package it.unibo.jetpackjoyride;
 
+import org.json.simple.parser.ParseException;
+
 import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.core.impl.GameEngineImpl;
 import it.unibo.jetpackjoyride.graphics.api.View;
@@ -18,8 +20,9 @@ public class JetpackJoyride {
     /**
      * Main principale del gioco. All'avvio dell'applicazione verrà chiamato questo
      * metodo per inizializzare e avviare il gioco.
+     * @throws ParseException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
         InputQueue inputHandler=new InputQueueImpl();
         WorldGameStateImpl worldGameStateImpl = new WorldGameStateImpl(inputHandler);
