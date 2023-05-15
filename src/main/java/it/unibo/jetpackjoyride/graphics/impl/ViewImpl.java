@@ -79,5 +79,9 @@ public class ViewImpl extends JFrame implements View {
     public void renderStatistics() {
         //this.statistics.repaint();
     }
+
+    public void close() {
+        this.dispose();
+    }
     
 }
