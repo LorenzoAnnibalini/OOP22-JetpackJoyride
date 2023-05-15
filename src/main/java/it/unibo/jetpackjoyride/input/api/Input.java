@@ -71,7 +71,12 @@ public interface Input {
         /**
          * Input type for start the game.
          */
-        START_GAME
+        START_GAME,
+
+        /**
+         * Input type for open the settings.
+         */
+        SETTINGS
     }
 
     /**

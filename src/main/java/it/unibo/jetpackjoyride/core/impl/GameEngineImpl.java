@@ -1,15 +1,22 @@
 package it.unibo.jetpackjoyride.core.impl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.model.api.Statistics;
-import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
+import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
+import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
+/**
+ * This is a class to implemate the game engine interface.
+ * 
+ * @author mattia.burreli@studio.unibo.it
+ */
 public class GameEngineImpl implements GameEngine {
 
     private InputQueue inputHandler;
@@ -17,22 +24,47 @@ public class GameEngineImpl implements GameEngine {
     private final long framePeriod = 20;
     private WorldGameStateImpl worldGameState;
     private GameState currentState;
+    private SkinInfoLoaderImpl skinInfoLoader;
+    private GadgetLoaderImpl gadgetLoader;
 
+    /**
+     * Constructor for the game engine. It needs a view, a worldGameState and an
+     * inputHandler. It set the current state to MAIN_MENU
+     * and download the skin and the gadget.
+     * 
+     * @param view
+     * @param worldGameState
+     * @param inputHandler
+     */
     public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState, final InputQueue inputHandler) {
         this.inputHandler = inputHandler;
         this.currentState = GameState.MAIN_MENU;
         this.view = view;
         this.worldGameState = worldGameState;
+        this.skinInfoLoader = new SkinInfoLoaderImpl();
+        this.gadgetLoader = new GadgetLoaderImpl();
+        try {
+            this.skinInfoLoader.downloadSkin();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.gadgetLoader.downloadGadget();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void worldGameStateStart() {
-        if (this.currentState == GameState.MAIN_MENU) {
+        if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
             this.worldGameState.newGame();
             this.currentState = GameState.GAME;
         }
     }
 
+    @Override
     public void loopState() {
         long previousCycleStartTime = System.currentTimeMillis();
         while (true) {
@@ -46,6 +78,10 @@ public class GameEngineImpl implements GameEngine {
         }
     }
 
+    /**
+     * process the input from the input handler. It will do different things based
+     * on the input type.
+     */
     private void processInput() {
         List<Input> inputQueue = this.inputHandler.getInputQueue();
         for (final Input inputElem : inputQueue) {
@@ -67,6 +103,12 @@ public class GameEngineImpl implements GameEngine {
                     }
                     break;
 
+                case SETTINGS:
+                    if (this.currentState == GameState.MAIN_MENU) {
+                        this.currentState = GameState.SETTINGS_MENU;
+                    }
+                    break;
+
                 case UP:
                     if (this.currentState == GameState.GAME) {
                         this.worldGameState.moveUp();
@@ -75,13 +117,22 @@ public class GameEngineImpl implements GameEngine {
 
                 case EXIT:
                     if (this.currentState == GameState.MAIN_MENU) {
+                        try {
+                            this.gadgetLoader.uploadGadget(new GadgetImpl().getAll());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            this.skinInfoLoader.uploadSkin(new SkinInfoImpl().getAll());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         // this.view.close();
                     }
                     break;
 
                 case END_GAME:
                     if (this.currentState == GameState.GAME) {
-                        // this.statistics.addAll(this.worldGameState.getStatistics());
                         this.currentState = GameState.GAMEOVER;
                     }
                     break;
@@ -102,7 +153,7 @@ public class GameEngineImpl implements GameEngine {
                     break;
 
                 case START_GAME:
-                    if (this.currentState == GameState.MAIN_MENU) {
+                    if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
                         this.worldGameState.newGame();
                     }
                     break;
@@ -115,12 +166,20 @@ public class GameEngineImpl implements GameEngine {
         ;
     }
 
+    /**
+     * update the world game state.
+     * 
+     * @param elapsedTime
+     */
     private void updateWorldGameState(final long elapsedTime) {
         if (this.currentState == GameState.GAME) {
             this.worldGameState.updateState(elapsedTime);
         }
     }
 
+    /**
+     * render the view. It will render things based on the current state.
+     */
     private void renderView() {
         switch (this.currentState) {
             case MAIN_MENU:
@@ -138,12 +197,20 @@ public class GameEngineImpl implements GameEngine {
             case GAMEOVER:
                 this.view.renderEndGame();
                 break;
+            case SETTINGS_MENU:
+                // this.view.renderSettings();
+                break;
             default:
                 throw new IllegalArgumentException("The type of input is NULL or is incorrect.");
         }
 
     }
 
+    /**
+     * wait the next frame.
+     * 
+     * @param cycleStartTime
+     */
     private void waitNextFrame(final long cycleStartTime) {
         long dt = System.currentTimeMillis() - cycleStartTime;
         if (dt < this.framePeriod) {
@@ -152,11 +219,6 @@ public class GameEngineImpl implements GameEngine {
             } catch (Exception ex) {
             }
         }
-    }
-
-    @Override
-    public void notifyInput(final Input input) {
-        this.inputHandler.addInput(input);
     }
 
 }

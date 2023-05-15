@@ -70,10 +70,11 @@ public class SpriteLoader {
             for (Object sprite : jSprites) {
                 JSONObject spriteObj = (JSONObject) sprite;
                 String name = spriteObj.get("name").toString();
-                String path = spriteObj.get("path").toString();
+                String path = SpriteLoader.ASSETS_FOLDER + spriteObj.get("path").toString();
                 int width = ((Long) spriteObj.get("width")).intValue();
                 int height = ((Long) spriteObj.get("height")).intValue();
-                Image img = ImageIO.read(this.getClass().getResourceAsStream(SpriteLoader.ASSETS_FOLDER + path));
+                System.out.println(path);
+                Image img = ImageIO.read(this.getClass().getResourceAsStream(path));
                 this.sprites.put(name, new Sprite(width, height, img));
             }
             // load map

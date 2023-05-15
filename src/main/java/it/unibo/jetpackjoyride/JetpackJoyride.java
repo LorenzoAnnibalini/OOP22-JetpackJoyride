@@ -19,11 +19,11 @@ public class JetpackJoyride {
      * Main principale del gioco. All'avvio dell'applicazione verrà chiamato questo
      * metodo per inizializzare e avviare il gioco.
      */
-    public static void main() {
+    public static void main(String[] args) {
 
         InputQueue inputHandler=new InputQueueImpl();
         WorldGameStateImpl worldGameStateImpl = new WorldGameStateImpl(inputHandler);
-        View view = new ViewImpl(worldGameStateImpl/*,inputHandler */);
+        View view = new ViewImpl(worldGameStateImpl,inputHandler);
         GameEngine gameEngine = new GameEngineImpl(view, worldGameStateImpl,inputHandler);
         gameEngine.loopState();
 
