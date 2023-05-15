@@ -22,7 +22,6 @@ import it.unibo.jetpackjoyride.model.api.Orientation;
 public class EntitiesGeneratorImpl implements EntitiesGenerator {
 
     private Set<Pair<String, GameObject>> entities = new HashSet<>();
-    private boolean spawnLaser = false;
     private static final int ROCKET = 0;
     private static final int ELECTRODE = 1;
     private static final int SHIELDPOWERUP = 2;
@@ -37,45 +36,73 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
     private static final int RANDOMSEED = 2;
-    private static final int MAXENTITIES = 4;
-    private static final long LASERTIME = 10000; // 10 seconds
-    private long startTime = 0;
-
-    public EntitiesGeneratorImpl() {
-        this.startTime = System.currentTimeMillis();
-    }
 
     @Override
     public void generateEntity(final Set<Pair<String, GameObject>> entities, int num) {
         // Overwrite entities
-        this.entities = entities; // forse poi andrà sotto
+        this.entities = entities;
         for (int i = 0; i < num; i++) {
-            if (this.allowNewEntity()) {
-                // Variable used to generate random number
-                int entityNum = 0;
-                Random random = new Random();
-                entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
-                System.out.println(entityNum);
+            // Variable used to generate random number
+            int entityNum = 0;
+            Random random = new Random();
+            entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
+            System.out.println(entityNum);
+
+            // Vairables for gameobject's parameters constructor
+            // Check if the new entity has y like others that are already spawned
+            int y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
+            while (checkY(y)) {
+                y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
+            }
+            Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
+            Point2d finishPosition = new Point2d(0, startPosition.y);
+            Vector2d velocity = new Vector2d(finishPosition, startPosition);
+            Vector2d rocketVelocity = new Vector2d(new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
+                    startPosition);
+            HitboxImpl hitbox = new HitboxImpl(50, 50, startPosition);
+            // Switch on types of entities based on random result
+            switch (entityNum) {
+                case EntitiesGeneratorImpl.ROCKET:
+                    entities.add(
+                            new Pair<String, GameObject>("Rocket",
+                                    new Rocket(startPosition, rocketVelocity, hitbox)));
+                    break;
+                case EntitiesGeneratorImpl.ELECTRODE:
+                    int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
+                    entities.add(new Pair<String, GameObject>("Electrode",
+                            new Electrode(startPosition, velocity,
+                                    orientation == EntitiesGeneratorImpl.HORIZONTAL ? Orientation.HORIZONTAL
+                                            : Orientation.VERTICAL,
+                                    hitbox)));
+                    break;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 
+=======
+>>>>>>> master
                 case EntitiesGeneratorImpl.SHIELDPOWERUP:
                     int duration = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
-                    entities.add(new Pair<String,GameObject>("Shield", new
-                    ShieldPowerUpImpl(duration == EntitiesGeneratorImpl.DURATION ? EntitiesGeneratorImpl.SHORTDURATION : EntitiesGeneratorImpl.LONGDURATION, startPosition, velocity, hitbox)));
+                    entities.add(new Pair<String, GameObject>("ShieldPowerUp",
+                            new ShieldPowerUpImpl(
+                                    duration == EntitiesGeneratorImpl.DURATION ? EntitiesGeneratorImpl.SHORTDURATION
+                                            : EntitiesGeneratorImpl.LONGDURATION,
+                                    startPosition, velocity, hitbox)));
                     break;
                 case EntitiesGeneratorImpl.SPEEDUPPOWERUP:
                     int distance = random.nextInt(EntitiesGeneratorImpl.XBOUND);
-                    entities.add(new Pair<String, GameObject>("SpeedUp",
-                    new SpeedUpPowerUpImpl(distance, startPosition, velocity, hitbox)));
+                    entities.add(new Pair<String, GameObject>("SpeedUpPowerup",
+                            new SpeedUpPowerUpImpl(distance, startPosition, velocity, hitbox)));
                     break;
-                
+
                 case EntitiesGeneratorImpl.NOTHING:
                     entities.add(
-                            new Pair<String, GameObject>("Nothing", new GameObject(startPosition, velocity, hitbox)));
+                            new Pair<String, GameObject>("Nothing",
+                                    new GameObject(startPosition, velocity, hitbox)));
                     break;
                 default:
                     break;
+<<<<<<< HEAD
 =======
                 // Vairables for gameobject's parameters constructor
                 // Check if the new entity has y like others that are already spawned
@@ -128,20 +155,16 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                         break;
                 }
 >>>>>>> readwritefiles
+=======
+>>>>>>> master
             }
-        }
-        this.spawnLaser = this.isLaserSpawnTime();
-        if (this.spawnLaser) {
-            Random random = new Random();
-            this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(
-                    new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)), null,
-                    null)));
-            this.spawnLaser = false;
         }
     }
 
     @Override
-    public void generateScientists(int num) {
+    public void generateScientists(final Set<Pair<String, GameObject>> entities, int num) {
+        // Overwrite entities
+        this.entities = entities;
         Random random = new Random();
         for (int i = 0; i < num; i++) {
             int direction = random.nextInt(2);
@@ -153,6 +176,16 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                     startPosition,
                     new Vector2d(new Point2d(i, direction), startPosition), new HitboxImpl(50, 50, startPosition))));
         }
+    }
+
+    @Override
+    public void generateLaser(final Set<Pair<String, GameObject>> entities, int num) {
+        // Overwrite entities
+        this.entities = entities;
+        Random random = new Random();
+            this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(
+                    new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)), null,
+                    null)));
     }
 
     @Override
@@ -181,27 +214,5 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private boolean checkY(int y) {
         return this.entities.stream()
                 .filter(x -> x.getY().getCurrentPos().y - y > -5 && x.getY().getCurrentPos().y - y < 5).count() != 0;
-    }
-
-    /**
-     * Method to check if is allow to add new entity to the game.
-     * 
-     * @return true if there are less then 3 enetities in the game (scientists are
-     *         not count) or if is not time
-     *         to spawn a laser
-     */
-    private boolean allowNewEntity() {
-        return this.entities.size() - this.entities.stream().filter(x -> x.getX() == "Scientist")
-                .count() <= EntitiesGeneratorImpl.MAXENTITIES || !this.spawnLaser;
-    }
-
-    /**
-     * Method to check if is time to spawn a new entity or if is time for a new
-     * laser
-     * 
-     * @return true if are passed 10 seconds from last laser
-     */
-    private boolean isLaserSpawnTime() {
-        return System.currentTimeMillis() - this.startTime % EntitiesGeneratorImpl.LASERTIME == 0;
     }
 }

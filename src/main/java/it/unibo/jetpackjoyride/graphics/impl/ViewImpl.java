@@ -25,14 +25,14 @@ public class ViewImpl extends JFrame implements View {
     private final MenuPanel menuPanel;
     //private final EndGamePanel endGame;
     //private final ShopPanel shop;
-    private final StatisticsPanel statistics;
+    //private final StatisticsPanel statistics;
 
     public ViewImpl(final WorldGameStateImpl worldGameState) {
         this.setTitle("Jetpack Joyride");
-        this.game = new GamePanel(worldGameState.getGameObjects(), worldGameState.getPlayer(), worldGameState.getMoney());
+        this.game = new GamePanel(worldGameState.getWorldEntities(), worldGameState.getPlayer(), worldGameState.getMoney());
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
-        this.statistics = new StatisticsPanel(worldGameState.getStatistics());
+        //this.statistics = new StatisticsPanel(worldGameState.getWorldStatistics());
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new DimensionUIResource(500, 500));
@@ -63,7 +63,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void renderStatistics() {
-        this.statistics.repaint();
+        //this.statistics.repaint();
     }
     
 }

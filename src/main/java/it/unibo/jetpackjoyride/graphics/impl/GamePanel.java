@@ -1,16 +1,17 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import org.json.simple.parser.ParseException;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
@@ -29,23 +30,24 @@ public class GamePanel extends JPanel {
 
     private Set<Pair<String, GameObject>> entities;
     private PlayerImpl player;
-    private List<Money> money;// = new ArrayList<>();
+    private List<Money> money = new ArrayList<>();
     private int posImage1;
     private int posImage2;
-    private BufferedImage backgruondImage1;
-    private BufferedImage backgruondImage2;
+    private Image backgruondImage1;
+    private Image backgruondImage2;
     private Image rocket;
     private Image electrode;
     private Image shield;
     private Image speedup;
     private Image scientist;
-    private Image laser;
+    private Image laserOn;
+    private Image laserOff;
     private Image playerImage;
     private Image moneyImage;
-    private Slider slider;
-    private static final String FILESEPARATOR = File.separator;
-    private static final int SPRITEWIDTH = 30;
-    private static final int SPRITEHEIGHT = 30;
+    private SliderImpl slider;
+    private int width;
+    private int height;
+    private static final String filename = "/config/sprites.json";
 
     /**
      * Constructor of the class.
@@ -53,34 +55,38 @@ public class GamePanel extends JPanel {
      * @param entities the set of entities to show
      * @param player   the object of the player
      * @param money    the list of money that has to be shown
+     * @throws ParseException
      */
-    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money) {
+    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money)
+            throws ParseException {
         this.entities = entities;
         this.player = player;
         this.money.addAll(money);
-        try {
-            // loading background image
-            backgruondImage1 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
-            backgruondImage2 = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + "sfondo.jpg"));
-            slider = new SliderImpl(backgruondImage1.getWidth());
-            // loading sprite images and adjust sizes
-            rocket = this.loadImage("rocket.png");
-            electrode = this.loadImage("electrode.png");
-            shield = this.loadImage("shield.png");
-            speedup = this.loadImage("speedup.png");
-            scientist = this.loadImage("scientist.png");
-            laser = this.loadImage("laser.png");
-            playerImage = this.loadImage("player.png");
-            moneyImage = this.loadImage("money.png");
-            this.posImage1 = 0;
-            this.posImage2 = backgruondImage2.getWidth();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        this.setPreferredSize(new Dimension(backgruondImage1.getWidth(), backgruondImage1.getHeight()));
+        SpriteLoader spriteLoader = new SpriteLoader();
+        spriteLoader.loadSprites(filename);
+        Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
+        // loading background image
+        backgruondImage1 = sprites.get("background").getScaled();
+        backgruondImage2 = sprites.get("background").getScaled();
+        this.width = sprites.get("background").getScaledlDim().getX();
+        this.height = sprites.get("background").getScaledlDim().getY();
+        slider = new SliderImpl(this.width);
+        // loading sprite images and adjust sizes
+        rocket = sprites.get("rocket").getScaled();
+        electrode = sprites.get("electrode").getScaled();
+        shield = sprites.get("shield").getScaled();
+        speedup = sprites.get("speedup").getScaled();
+        scientist = sprites.get("scientist").getScaled();
+        laserOn = sprites.get("laserOn").getScaled();
+        laserOff = sprites.get("laserOff").getScaled();
+        playerImage = sprites.get("player").getScaled();
+        moneyImage = sprites.get("money").getScaled();
+        this.posImage1 = 0;
+        this.posImage2 = this.width;
+        this.setPreferredSize(new Dimension(this.width, this.height));
         this.setSize(this.getPreferredSize());
         this.setVisible(true);
-
+        this.slider.start();
     }
 
     @Override
@@ -110,8 +116,11 @@ public class GamePanel extends JPanel {
                 case "Speedup":
                     this.drawSprite(g, speedup, entity);
                     break;
-                case "Laser":
-                    this.drawSprite(g, laser, entity);
+                case "LaserOn":
+                    this.drawSprite(g, laserOn, entity);
+                    break;
+                case "LaserOff":
+                    this.drawSprite(g, laserOff, entity);
                     break;
                 case "Nothing":
                     break;
@@ -130,18 +139,6 @@ public class GamePanel extends JPanel {
                 this.drawSprite(g, moneyImage, m);
             }
         }
-    }
-
-    /**
-     * Method to load and scale a sprite's image
-     * 
-     * @param filename the name of the file
-     * @return a new image already scaled based on constant values of the class
-     * @throws IOException if the file doesn't exists
-     */
-    private Image loadImage(String filename) throws IOException {
-        BufferedImage originalImage = ImageIO.read(new File("resources" + GamePanel.FILESEPARATOR + filename));
-        return originalImage.getScaledInstance(GamePanel.SPRITEWIDTH, GamePanel.SPRITEHEIGHT, Image.SCALE_SMOOTH);
     }
 
     /**
