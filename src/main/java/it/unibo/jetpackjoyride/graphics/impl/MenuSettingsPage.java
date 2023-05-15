@@ -193,13 +193,4 @@ public class MenuSettingsPage extends JPanel {
             this.difficulty.setText(difficulty);
             this.saveSettings();
         }
-
-        /**
-         * Set the JPanel visible or not
-         * @param b
-         */
-        public void setVisible(boolean b) {
-            this.setVisible(b);
-        }
-
 }
