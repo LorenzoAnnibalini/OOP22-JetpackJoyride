@@ -19,7 +19,11 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader{
     
     private final String SEPARATOR = File.separator;
     private final int NAME = 0;
-    String filename = "resources" + this.SEPARATOR + "skin.csv";
+    String filename = 
+        "src" + this.SEPARATOR + 
+        "main" + this.SEPARATOR + 
+        "resources" + this.SEPARATOR + 
+        "skin.csv";
 
     @Override
     public Map<String, List<String>> downloadSkin() throws FileNotFoundException {
