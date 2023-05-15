@@ -14,8 +14,7 @@ bin/
 .classpath
 
 #ignore vscode settings
-.vscode
-settings.json
+**/.vscode/
 
-#ignore 
-GrabbedMoney.java
+*.class
+

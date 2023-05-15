@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import it.unibo.jetpackjoyride.core.api.Saves;
+import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 public class SavesImpl implements Saves {
@@ -18,6 +19,7 @@ public class SavesImpl implements Saves {
     private final int NAME = 0;
     private final int VALUE = 1;
     String filename = "resources" + this.SEPARATOR + "saves.csv";
+    Statistics statistics = new StatisticsImpl();
 
     @Override
     public Map<String, Integer> downloadSaves() throws FileNotFoundException {
@@ -27,7 +29,8 @@ public class SavesImpl implements Saves {
             String line = sc.nextLine();
             stats.put(line.split(";")[NAME], Integer.parseInt(line.split(";")[VALUE]));
         }
-        StatisticsImpl.setAll(stats);
+        this.statistics.setAll(stats);
+        sc.close();
         return stats;
     }
 

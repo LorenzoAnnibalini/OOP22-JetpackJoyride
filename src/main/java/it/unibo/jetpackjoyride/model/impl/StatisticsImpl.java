@@ -11,45 +11,51 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
  */
 public class StatisticsImpl implements Statistics {
 
-    private static Map<String, Integer> statistics = new HashMap<>();
+    private Map<String, Integer> statistics = new HashMap<>();
 
     @Override
     public int getValue(String name) {
-        return statistics.get(name);
+        return this.statistics.get(name);
     }
 
     @Override
     public void setValue(String name, int value) {
-        statistics.replace(name, value);
+        this.statistics.replace(name, value);
     }
 
     @Override
     public void increment(String name, int value) {
-        statistics.replace(name, statistics.get(name) + value);
+        this.statistics.replace(name, this.statistics.get(name) + value);
     }
 
     @Override
     public void increment(String name) {
-        statistics.replace(name, statistics.get(name) + 1);
+        this.statistics.replace(name, this.statistics.get(name) + 1);
     }
 
     @Override
     public Map<String, Integer> getAll() {
-        return statistics;
+        return this.statistics;
     }
 
     @Override
     public void addStatistic(String name, int value) {
-        statistics.put(name, value);
+        this.statistics.put(name, value);
     }
 
-    /**
-     * Method to set all the values of the statistics.
-     * 
-     * @param stats the map of names and values to set
-     */
-    public static void setAll(Map<String, Integer> stats) {
-        statistics.putAll(stats);
+    @Override
+    public void setAll(Map<String, Integer> stats) {
+        this.statistics.putAll(stats);
+    }
+
+    @Override
+    public void updateGeneralStats(Statistics stats) {
+        if(stats.getAll().get("Money") > statistics.get("MaxMoney")) {
+            this.setValue("MaxMoney", stats.getAll().get("Money"));
+        }
+        if(stats.getAll().get("Meters") > statistics.get("MaxMeters")) {
+            this.setValue("MaxMeters", stats.getAll().get("Meters"));
+        }
     }
 
 }

@@ -41,11 +41,14 @@ dependencies {
     // when dependencies share the same version, grouping in a val helps to keep them in sync
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
+
+    // Json class used to read configuration files
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
 }
 
 application {
     // Define the main class for the application.
-    mainClass.set("it.unibo.sampleapp.RateAMovie")
+    mainClass.set("it.unibo.jetpackjoyride.JetpackJoyride")
 }
 
 tasks.test {

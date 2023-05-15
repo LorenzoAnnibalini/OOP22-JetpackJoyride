@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Class to visualize the statistics of the game
+ * Class to visualize the statistics of the game.
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
@@ -27,12 +27,10 @@ public class StatisticsPanel extends JPanel {
     private static final int FONTSTYLE = 0;
     private static final int FONTSIZE = 15;
 
-
     /**
      * Constructor of the class.
      * 
-     * @param statistics a map from string (statistic name) to integer (value of the
-     *                   statistic)
+     * @param statistics a map from string (statistic name) to int (statistic value)
      */
     public StatisticsPanel(Map<String, Integer> statistics) {
         this.statistics = new HashMap<>(statistics);
@@ -44,6 +42,13 @@ public class StatisticsPanel extends JPanel {
 
         this.setPreferredSize(new Dimension(backgruondImage.getWidth(), backgruondImage.getHeight()));
         this.setSize(this.getPreferredSize());
+
+        for (String statName : this.statistics.keySet()) {
+            int value = statistics.get(statName);
+            String text = statName + "\t\t\t\t " + value;
+            JLabel label = new JLabel(text);
+            label.setFont(new Font(StatisticsPanel.FONTNAME, StatisticsPanel.FONTSTYLE, StatisticsPanel.FONTSIZE));
+        }
     }
 
     @Override
@@ -51,11 +56,5 @@ public class StatisticsPanel extends JPanel {
         this.removeAll();
         g = (Graphics2D) g;
         g.drawImage(backgruondImage, 0, 0, this);
-        for (String statName : this.statistics.keySet()) {
-            int value = statistics.get(statName);
-            String text = statName + "\t\t\t\t " + value;
-            JLabel label = new JLabel(text);
-            label.setFont(new Font(StatisticsPanel.FONTNAME, StatisticsPanel.FONTSTYLE, StatisticsPanel.FONTSIZE));
-        }
     }
 }

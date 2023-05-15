@@ -1,11 +1,14 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
+import java.awt.Dimension;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.plaf.DimensionUIResource;
+
+import org.json.simple.parser.ParseException;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
@@ -25,19 +28,26 @@ public class ViewImpl extends JFrame implements View {
     private final MenuPanel menuPanel;
     //private final EndGamePanel endGame;
     //private final ShopPanel shop;
-    private final StatisticsPanel statistics;
+    //private final StatisticsPanel statistics;
 
     public ViewImpl(final WorldGameStateImpl worldGameState) throws ParseException{
         this.setTitle("Jetpack Joyride");
-        this.game = new GamePanel(worldGameState.getGameObjects(), worldGameState.getPlayer(), worldGameState.getMoney());
+        this.game = new GamePanel(worldGameState.getWorldEntities(), worldGameState.getPlayer(), worldGameState.getMoney());
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
-        this.statistics = new StatisticsPanel(worldGameState.getStatistics());
+        //this.statistics = new StatisticsPanel(worldGameState.getWorldStatistics());
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(new DimensionUIResource(500, 500));
+        this.setSize(game.getPreferredSize());
+        this.setLocationRelativeTo(null);
+        this.setMinimumSize(this.game.getPreferredSize());
         this.pack();
-        this.getContentPane().add(this.menuPanel);
+        //this.getContentPane().add(this.menuPanel);
+
+        this.add(game);
+        this.add(menuPanel);
+
+
         this.setVisible(true);
     }
 
@@ -63,7 +73,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void renderStatistics() {
-        this.statistics.repaint();
+        //this.statistics.repaint();
     }
     
 }

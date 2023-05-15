@@ -12,7 +12,7 @@ public interface Input {
     /**
      * Enum for the type of the input.
      */
-    enum typeInput {
+    public enum typeInput {
         /**
          * Input type for raise the player.
          */
@@ -29,10 +29,49 @@ public interface Input {
         SHOP,
 
         /**
+         * Input type for open the statistics.
+         */
+        STATISTICS,
+
+        /**
          * Input type for close the game.
          */
-        EXIT
+        EXIT,
 
+        /**
+         * Input type for end the game.
+         */
+        END_GAME,
+
+        /**
+         * Input type for select the gadget.
+         */
+        ENABLE,
+
+        /**
+         * Input type for deselect the gadget.
+         */
+        DISABLE,
+
+        /**
+         * Input type for buy the gadget.
+         */
+        BUY,
+
+        /**
+         * Input type for select the skin.
+         */
+        SELECT_SKIN,
+
+        /**
+         * Input type for buy the skin.
+         */
+        BUY_SKIN,
+
+        /**
+         * Input type for start the game.
+         */
+        START_GAME
     }
 
     /**
