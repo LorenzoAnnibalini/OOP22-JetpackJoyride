@@ -1,7 +1,5 @@
 package it.unibo.jetpackjoyride.core.api;
 
-import it.unibo.jetpackjoyride.input.api.Input;
-
 /**
  * Interface for the game engine.
  * It is the core of the game, it manages the game loop and the game state.
@@ -10,6 +8,10 @@ import it.unibo.jetpackjoyride.input.api.Input;
  * @author mattia.burreli@studio.unibo.it
  */
 public interface GameEngine {
+
+    /**
+     * Enum for the game state of the game engine.
+     */
     public enum GameState {
 
         /**

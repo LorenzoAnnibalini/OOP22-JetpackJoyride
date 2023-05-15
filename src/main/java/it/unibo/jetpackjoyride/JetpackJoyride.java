@@ -23,7 +23,7 @@ public class JetpackJoyride {
 
         InputQueue inputHandler=new InputQueueImpl();
         WorldGameStateImpl worldGameStateImpl = new WorldGameStateImpl(inputHandler);
-        View view = new ViewImpl(worldGameStateImpl/*,inputHandler */);
+        View view = new ViewImpl(worldGameStateImpl,inputHandler);
         GameEngine gameEngine = new GameEngineImpl(view, worldGameStateImpl,inputHandler);
         gameEngine.loopState();
 

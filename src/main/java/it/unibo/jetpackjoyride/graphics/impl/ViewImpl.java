@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.swing.JFrame;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
+import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 
@@ -22,12 +23,14 @@ public class ViewImpl extends JFrame implements View {
 
     private final GamePanel game;
     private final MenuPanel menuPanel;
+    private InputQueue inputHandler;
     //private final EndGamePanel endGame;
     //private final ShopPanel shop;
     //private final StatisticsPanel statistics;
 
-    public ViewImpl(final WorldGameStateImpl worldGameState) {
+    public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) {
         this.setTitle("Jetpack Joyride");
+        this.inputHandler = inputHandler;
         this.game = new GamePanel(worldGameState.getWorldEntities(), worldGameState.getPlayer(), worldGameState.getMoney());
         this.menuPanel = new MenuPanel();
         //this.shop = new ShopPanel();
