@@ -20,12 +20,10 @@ import java.util.Scanner;
 public class ReadWriteFile<T, G> {
 
     private String path;
-    private Map<T, G> map;
-    private ArrayList<T> list;
 
    public ReadWriteFile(final String path) {
         System.out.println(path);
-        this.path = getClass().getClassLoader().getResource(path).toString();
+        this.path = getClass().getClassLoader().getResource(path).getPath();
         System.out.println(this.path);
     }
 
@@ -61,17 +59,18 @@ public class ReadWriteFile<T, G> {
      * @throws FileNotFoundException
      */
     public <T, G> Map<T, G> readMap() throws FileNotFoundException{
-        Map<T, G> map = new HashMap<T, G>();
+        Map<T, G> mappaTmp = new HashMap<T, G>();
         Scanner sc = new Scanner(new File(this.path));
         sc.useDelimiter(";"); 
-            while (sc.hasNext()) { 
-                    T key = (T)sc.next();
-                    G value = (G)sc.next();  
-                    map.put(key, value);
+            while (sc.hasNextLine()) { 
+                    T key = (T)sc.nextLine();
+                    G value = (G)sc.nextLine(); 
+                    mappaTmp.put(key, value);
+                    System.out.println(mappaTmp.get(key));
                     System.out.println("Reading Game Settings : " + key + " " + value);
             }
         sc.close();  
-        return null;
+        return mappaTmp;
     }
 
     public void writeArrayList(final ArrayList<T> list) throws IOException{
