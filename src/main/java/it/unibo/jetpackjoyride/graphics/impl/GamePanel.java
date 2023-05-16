@@ -47,8 +47,7 @@ public class GamePanel extends JPanel {
     private Image speedup;
     private Image rightScientist;
     private Image leftScientist;
-    private Image laserOn;
-    private Image laserOff;
+    private Image laser;
     private Image playerImage;
     private Image moneyImage;
     private SliderImpl slider;
@@ -86,8 +85,7 @@ public class GamePanel extends JPanel {
         speedup = sprites.get("speedup").getScaled();
         rightScientist = sprites.get("rightScientist").getScaled();
         leftScientist = sprites.get("leftScientist").getScaled();
-        laserOn = sprites.get("laserOn").getScaled();
-        laserOff = sprites.get("laserOff").getScaled();
+        laser = sprites.get("laser").getScaled();
         playerImage = sprites.get("player").getScaled();
         moneyImage = sprites.get("money").getScaled();
         this.posImage1 = 0;
@@ -133,11 +131,12 @@ public class GamePanel extends JPanel {
                 case "Speedup":
                     this.drawSprite(g, speedup, entity);
                     break;
-                case "LaserOn":
-                    this.drawSprite(g, laserOn, entity);
-                    break;
                 case "LaserOff":
-                    this.drawSprite(g, laserOff, entity);
+                    this.drawSprite(g, laser, entity);
+                    break;
+                case "LaserOn":
+                    this.drawSprite(g, laser, entity);
+                    g.drawLine(0, (int)entity.getCurrentPos().y, this.getWidth(), (int)entity.getCurrentPos().y);
                     break;
                 case "Nothing":
                     break;
@@ -170,7 +169,13 @@ public class GamePanel extends JPanel {
             g.drawImage(image, (int) entity.getCurrentPos().x + this.getSize().width, (int) entity.getCurrentPos().y,
                     this);
         } else {
-            g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
+            if (entity.getClass().getName() == "Laser") {
+                g.drawImage(image, 0, (int)entity.getCurrentPos().y, this);
+                g.drawImage(image, this.getWidth(), (int)entity.getCurrentPos().y, this);
+            } else {
+                g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
+            }
+
         }
     }
 
