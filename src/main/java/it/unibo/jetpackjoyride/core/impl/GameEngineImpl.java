@@ -109,9 +109,15 @@ public class GameEngineImpl implements GameEngine {
                     }
                     break;
 
-                case UP:
+                case UP_PRESSED:
                     if (this.currentState == GameState.GAME) {
                         this.worldGameState.moveUp();
+                    }
+                    break;
+
+                case UP_RELEASED:
+                    if (this.currentState == GameState.GAME) {
+                        this.worldGameState.moveStatic();
                     }
                     break;
 

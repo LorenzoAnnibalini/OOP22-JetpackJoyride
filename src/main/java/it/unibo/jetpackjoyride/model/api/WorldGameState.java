@@ -69,4 +69,9 @@ public interface WorldGameState {
      */
     public void moveUp();
 
+    /**
+     * Stop the player and set his direction to static.
+     */
+    public void moveStatic();
+
 }

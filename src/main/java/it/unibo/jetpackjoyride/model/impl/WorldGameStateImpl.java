@@ -338,6 +338,11 @@ public class WorldGameStateImpl implements WorldGameState {
     }
 
     @Override
+    public void moveStatic(){
+        this.player.setDirectionSTATIC();
+    }
+
+    @Override
     public Statistics getGeneralStatistics() {
         return this.generalStatistics;
     }
