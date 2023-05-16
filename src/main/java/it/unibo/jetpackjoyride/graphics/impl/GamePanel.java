@@ -17,9 +17,14 @@ import java.util.Set;
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
+import it.unibo.jetpackjoyride.model.api.Direction;
+import it.unibo.jetpackjoyride.model.api.Orientation;
+import it.unibo.jetpackjoyride.model.api.Scientist;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.Money;
+import it.unibo.jetpackjoyride.model.impl.Electrode;
+
 
 /**
  * Class of the panel's game. Used to visualize map of game and sprites.
@@ -36,7 +41,8 @@ public class GamePanel extends JPanel {
     private Image backgruondImage1;
     private Image backgruondImage2;
     private Image rocket;
-    private Image electrode;
+    private Image vertElectrode;
+    private Image horElectrode;
     private Image shield;
     private Image speedup;
     private Image rightScientist;
@@ -74,7 +80,8 @@ public class GamePanel extends JPanel {
         slider = new SliderImpl(this.width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
-        electrode = sprites.get("electrode").getScaled();
+        vertElectrode = sprites.get("vElectrode").getScaled();
+        horElectrode = sprites.get("hElectrode").getScaled();
         shield = sprites.get("shield").getScaled();
         speedup = sprites.get("speedup").getScaled();
         rightScientist = sprites.get("rightScientist").getScaled();
@@ -107,13 +114,18 @@ public class GamePanel extends JPanel {
                     this.drawSprite(g, rocket, entity);
                     break;
                 case "Electrode":
-                    this.drawSprite(g, electrode, entity);
+                    if(((Electrode)entity).getOrientation() == Orientation.HORIZONTAL) {
+                        this.drawSprite(g, vertElectrode, entity);
+                    } else {
+                        this.drawSprite(g, horElectrode, entity);
+                    }
                     break;
-                case "rightScientist":
-                    this.drawSprite(g, rightScientist, entity);
-                    break;
-                case "leftScientist":
-                    this.drawSprite(g, leftScientist, entity);
+                case "Scientist":
+                    if(((Scientist) entity).getDirection() == Direction.RIGHT) {
+                        this.drawSprite(g, rightScientist, entity);
+                    } else {
+                        this.drawSprite(g, leftScientist, entity);
+                    }
                     break;
                 case "Shield":
                     this.drawSprite(g, shield, entity);
