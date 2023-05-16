@@ -30,7 +30,18 @@ public interface Gadget {
      * @param name  the name of the Gadget
      * @param state the state of the Gadget (active or not)
      * @param purchased if the gadget was purchased true otherwise false
+     * @param price the price of the gadget
+     * @param description the description of the gadget
      */
     void setValue(String name, String state, String purchased, 
         String price, String description);
+
+    
+    /**
+     * Setter for a Gadget.
+     * @param name the name of the gadget
+     * @param value the List of strings that contains the information of the gadget
+     */
+    void setValue(String name, List<String> value);
+
 }
