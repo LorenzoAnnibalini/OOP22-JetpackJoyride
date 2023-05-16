@@ -49,16 +49,10 @@
             "height": 50
         },
         {
-            "name": "laserOff",
-            "path": "laserOff.png",
-            "width": 400,
-            "height": 5
-        },
-        {
-            "name": "laserOn",
-            "path": "laserOn.png",
-            "width": 400,
-            "height": 5
+            "name": "laser",
+            "path": "laser.png",
+            "width": 30,
+            "height": 30
         },
         {
             "name": "money",
