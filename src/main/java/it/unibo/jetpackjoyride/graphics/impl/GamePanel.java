@@ -19,12 +19,17 @@ import java.util.Set;
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
+import it.unibo.jetpackjoyride.model.api.Direction;
+import it.unibo.jetpackjoyride.model.api.Orientation;
+import it.unibo.jetpackjoyride.model.api.Scientist;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.Money;
+import it.unibo.jetpackjoyride.model.impl.Electrode;
+
 
 /**
  * Class of the panel's game. Used to visualize map of game and sprites.
@@ -43,13 +48,13 @@ public class GamePanel extends JPanel implements KeyListener {
     private Image backgruondImage1;
     private Image backgruondImage2;
     private Image rocket;
-    private Image electrode;
+    private Image vertElectrode;
+    private Image horElectrode;
     private Image shield;
     private Image speedup;
     private Image rightScientist;
     private Image leftScientist;
-    private Image laserOn;
-    private Image laserOff;
+    private Image laser;
     private Image playerImage;
     private Image moneyImage;
     private SliderImpl slider;
@@ -84,13 +89,13 @@ public class GamePanel extends JPanel implements KeyListener {
         slider = new SliderImpl(this.width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
-        electrode = sprites.get("electrode").getScaled();
+        vertElectrode = sprites.get("vElectrode").getScaled();
+        horElectrode = sprites.get("hElectrode").getScaled();
         shield = sprites.get("shield").getScaled();
         speedup = sprites.get("speedup").getScaled();
         rightScientist = sprites.get("rightScientist").getScaled();
         leftScientist = sprites.get("leftScientist").getScaled();
-        laserOn = sprites.get("laserOn").getScaled();
-        laserOff = sprites.get("laserOff").getScaled();
+        laser = sprites.get("laser").getScaled();
         playerImage = sprites.get("player").getScaled();
         moneyImage = sprites.get("money").getScaled();
         this.posImage1 = 0;
@@ -117,13 +122,18 @@ public class GamePanel extends JPanel implements KeyListener {
                     this.drawSprite(g, rocket, entity);
                     break;
                 case "Electrode":
-                    this.drawSprite(g, electrode, entity);
+                    if(((Electrode)entity).getOrientation() == Orientation.HORIZONTAL) {
+                        this.drawSprite(g, vertElectrode, entity);
+                    } else {
+                        this.drawSprite(g, horElectrode, entity);
+                    }
                     break;
-                case "rightScientist":
-                    this.drawSprite(g, rightScientist, entity);
-                    break;
-                case "leftScientist":
-                    this.drawSprite(g, leftScientist, entity);
+                case "Scientist":
+                    if(((Scientist) entity).getDirection() == Direction.RIGHT) {
+                        this.drawSprite(g, rightScientist, entity);
+                    } else {
+                        this.drawSprite(g, leftScientist, entity);
+                    }
                     break;
                 case "Shield":
                     this.drawSprite(g, shield, entity);
@@ -131,11 +141,12 @@ public class GamePanel extends JPanel implements KeyListener {
                 case "Speedup":
                     this.drawSprite(g, speedup, entity);
                     break;
-                case "LaserOn":
-                    this.drawSprite(g, laserOn, entity);
-                    break;
                 case "LaserOff":
-                    this.drawSprite(g, laserOff, entity);
+                    this.drawSprite(g, laser, entity);
+                    break;
+                case "LaserOn":
+                    this.drawSprite(g, laser, entity);
+                    g.drawLine(0, (int)entity.getCurrentPos().y, this.getWidth(), (int)entity.getCurrentPos().y);
                     break;
                 case "Nothing":
                     break;
@@ -168,7 +179,13 @@ public class GamePanel extends JPanel implements KeyListener {
             g.drawImage(image, (int) entity.getCurrentPos().x + this.getSize().width, (int) entity.getCurrentPos().y,
                     this);
         } else {
-            g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
+            if (entity.getClass().getName() == "Laser") {
+                g.drawImage(image, 0, (int)entity.getCurrentPos().y, this);
+                g.drawImage(image, this.getWidth(), (int)entity.getCurrentPos().y, this);
+            } else {
+                g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
+            }
+
         }
     }
 
