@@ -16,7 +16,12 @@ public interface Input {
         /**
          * Input type for raise the player.
          */
-        UP,
+        UP_PRESSED,
+
+        /**
+         * Input type for stop raise the player.
+         */
+        UP_RELEASED,
 
         /**
          * Input type for open the menu.

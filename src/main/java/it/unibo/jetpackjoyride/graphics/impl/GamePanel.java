@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,9 @@ import java.util.Set;
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
+import it.unibo.jetpackjoyride.input.api.Input;
+import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.Money;
@@ -26,11 +31,13 @@ import it.unibo.jetpackjoyride.model.impl.Money;
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements KeyListener {
 
     private Set<Pair<String, GameObject>> entities;
     private PlayerImpl player;
     private List<Money> money = new ArrayList<>();
+    private InputQueue inputHandler;
+    private boolean isPressed;
     private int posImage1;
     private int posImage2;
     private Image backgruondImage1;
@@ -58,12 +65,15 @@ public class GamePanel extends JPanel {
      * @param money    the list of money that has to be shown
      * @throws ParseException
      */
-    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money)
+    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money,final InputQueue inputHandler)
             throws ParseException {
         this.entities = entities;
         this.player = player;
         this.money.addAll(money);
+        this.inputHandler = inputHandler;
+        this.isPressed = false;
         SpriteLoader spriteLoader = new SpriteLoader();
+        addKeyListener(this);
         spriteLoader.loadSprites(filename);
         Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
@@ -188,5 +198,26 @@ public class GamePanel extends JPanel {
     public void setMoney(final List<Money> money) {
         this.money.clear();
         this.money.addAll(money);
+    }
+
+    @Override
+    public void keyPressed(final KeyEvent e) {
+
+        if (e.getKeyCode() == 32 && this.isPressed!=true) {
+            this.isPressed = true;
+            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_PRESSED,"UP_PRESSED"));
+        }
+    }
+
+    @Override
+    public void keyTyped(final KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(final KeyEvent e) {
+        if (e.getKeyCode() == 32 && this.isPressed!=false) {
+            this.isPressed = false;
+            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_RELEASED,"UP_RELEASED"));
+        }
     }
 }
