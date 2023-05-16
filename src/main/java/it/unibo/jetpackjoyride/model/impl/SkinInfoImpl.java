@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
 
 public class SkinInfoImpl implements SkinInfo{
@@ -25,6 +26,13 @@ public class SkinInfoImpl implements SkinInfo{
     public void setValue(String name, String state, String purchased) {
         skin.replace(name, 
             new ArrayList<>(List.of(state, purchased)));
+    }
+
+    @Override
+    public void setValue(String name, List<String> value) {
+        String state = value.get(SkinInfoPositions.STATE.ordinal());
+        String purchased = value.get(SkinInfoPositions.PURCHASED.ordinal());
+        this.setValue(name, state, purchased);
     }
     
     /**
