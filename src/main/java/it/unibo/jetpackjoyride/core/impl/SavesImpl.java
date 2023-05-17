@@ -7,7 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -19,11 +21,11 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 public class SavesImpl implements Saves {
 
-    //private final String SEPARATOR = File.separator;
+    // private final String SEPARATOR = File.separator;
     private final static int NAME = 0;
     private final static int VALUE = 1;
-    String filename = "/saves.csv";
-    Statistics statistics = new StatisticsImpl();
+    private final String filename = "/saves.csv";
+    private Statistics statistics = new StatisticsImpl();
 
     @Override
     public Map<String, Integer> downloadSaves() throws IOException {
@@ -44,7 +46,8 @@ public class SavesImpl implements Saves {
 
     @Override
     public void uploadSaves(Map<String, Integer> stats) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+        PrintWriter writer = new PrintWriter(
+                new File(this.getClass().getResource(filename).getPath()));
         for (String name : stats.keySet()) {
             writer.write(name + ";" + stats.get(name) + "\n");
         }
