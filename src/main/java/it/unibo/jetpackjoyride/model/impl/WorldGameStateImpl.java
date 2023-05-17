@@ -53,8 +53,9 @@ public class WorldGameStateImpl implements WorldGameState {
      * entities, the general statistics and the load the saves.
      * 
      * @param inputHandler
+     * @throws IOException
      */
-    public WorldGameStateImpl(final InputQueue inputHandler) {
+    public WorldGameStateImpl(final InputQueue inputHandler) throws IOException {
         this.inizializeWorldGameState();
         this.inputHandler = inputHandler;
         this.generalStatistics = new StatisticsImpl();
