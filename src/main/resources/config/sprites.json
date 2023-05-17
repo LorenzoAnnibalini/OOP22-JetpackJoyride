@@ -2,13 +2,13 @@
     "sprites": [
         {
             "name": "barry",
-            "path": "player.png",
+            "path": "barry.png",
             "width": 30,
             "height": 30
         },
         {
             "name": "barryWoman",
-            "path": "player2.png",
+            "path": "barryWoman.png",
             "width": 30,
             "height": 30
         },
