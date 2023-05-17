@@ -17,19 +17,21 @@ import java.util.Map;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
+import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
 import it.unibo.jetpackjoyride.model.api.Direction;
 import it.unibo.jetpackjoyride.model.api.Orientation;
 import it.unibo.jetpackjoyride.model.api.Scientist;
+import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
+import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 import it.unibo.jetpackjoyride.model.impl.Money;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
-
 
 /**
  * Class of the panel's game. Used to visualize map of game and sprites.
@@ -55,6 +57,8 @@ public class GamePanel extends JPanel implements KeyListener {
     private Image rightScientist;
     private Image leftScientist;
     private Image laser;
+    private Image barry;
+    private Image barryWoman;
     private Image playerImage;
     private Image moneyImage;
     private SliderImpl slider;
@@ -70,7 +74,8 @@ public class GamePanel extends JPanel implements KeyListener {
      * @param money    the list of money that has to be shown
      * @throws ParseException
      */
-    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money,final InputQueue inputHandler)
+    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money,
+            final InputQueue inputHandler)
             throws ParseException {
         this.entities = entities;
         this.player = player;
@@ -96,8 +101,16 @@ public class GamePanel extends JPanel implements KeyListener {
         rightScientist = sprites.get("rightScientist").getScaled();
         leftScientist = sprites.get("leftScientist").getScaled();
         laser = sprites.get("laser").getScaled();
-        playerImage = sprites.get("barry").getScaled();
+        barry = sprites.get("barry").getScaled();
+        barryWoman = sprites.get("barryWoman").getScaled();
         moneyImage = sprites.get("money").getScaled();
+        SkinInfo skinInfo = new SkinInfoImpl();
+        String skin = skinInfo.getAll().entrySet().stream()
+                .filter(x -> x.getValue().get(SkinInfoPositions.STATE.ordinal()) == "true")
+                .findFirst()
+                .get()
+                .getKey();
+        playerImage = skin == "barry" ? barry : barryWoman;
         this.posImage1 = 0;
         this.posImage2 = this.width;
         this.setPreferredSize(new Dimension(this.width, this.height));
@@ -122,14 +135,14 @@ public class GamePanel extends JPanel implements KeyListener {
                     this.drawSprite(g, rocket, entity);
                     break;
                 case "Electrode":
-                    if(((Electrode)entity).getOrientation() == Orientation.HORIZONTAL) {
+                    if (((Electrode) entity).getOrientation() == Orientation.HORIZONTAL) {
                         this.drawSprite(g, vertElectrode, entity);
                     } else {
                         this.drawSprite(g, horElectrode, entity);
                     }
                     break;
                 case "Scientist":
-                    if(((Scientist) entity).getDirection() == Direction.RIGHT) {
+                    if (((Scientist) entity).getDirection() == Direction.RIGHT) {
                         this.drawSprite(g, rightScientist, entity);
                     } else {
                         this.drawSprite(g, leftScientist, entity);
@@ -146,7 +159,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     break;
                 case "LaserOn":
                     this.drawSprite(g, laser, entity);
-                    g.drawLine(0, (int)entity.getCurrentPos().y, this.getWidth(), (int)entity.getCurrentPos().y);
+                    g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
                     break;
                 case "Nothing":
                     break;
@@ -180,8 +193,8 @@ public class GamePanel extends JPanel implements KeyListener {
                     this);
         } else {
             if (entity.getClass().getName() == "Laser") {
-                g.drawImage(image, 0, (int)entity.getCurrentPos().y, this);
-                g.drawImage(image, this.getWidth(), (int)entity.getCurrentPos().y, this);
+                g.drawImage(image, 0, (int) entity.getCurrentPos().y, this);
+                g.drawImage(image, this.getWidth(), (int) entity.getCurrentPos().y, this);
             } else {
                 g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
             }
@@ -220,9 +233,9 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     public void keyPressed(final KeyEvent e) {
 
-        if (e.getKeyCode() == 32 && this.isPressed!=true) {
+        if (e.getKeyCode() == 32 && this.isPressed != true) {
             this.isPressed = true;
-            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_PRESSED,"UP_PRESSED"));
+            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_PRESSED, "UP_PRESSED"));
         }
     }
 
@@ -232,9 +245,9 @@ public class GamePanel extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(final KeyEvent e) {
-        if (e.getKeyCode() == 32 && this.isPressed!=false) {
+        if (e.getKeyCode() == 32 && this.isPressed != false) {
             this.isPressed = false;
-            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_RELEASED,"UP_RELEASED"));
+            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_RELEASED, "UP_RELEASED"));
         }
     }
 }
