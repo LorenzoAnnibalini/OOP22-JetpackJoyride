@@ -71,8 +71,8 @@
         {
             "name": "background",
             "path": "background.png",
-            "width": 1200,
-            "height": 950
+            "width": 1180,
+            "height": 600
         }
     ]
 }
