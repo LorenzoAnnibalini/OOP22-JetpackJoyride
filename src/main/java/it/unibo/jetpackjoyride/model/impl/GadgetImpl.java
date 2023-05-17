@@ -18,12 +18,12 @@ public class GadgetImpl implements Gadget{
 
     @Override
     public Map<String, List<String>> getAll() {
-        return gadget;
+        return new HashMap<>(gadget);
     }
 
     @Override
     public List<String> getValue(String name) {
-        return gadget.get(name);
+        return new ArrayList<>(gadget.get(name));
     }
 
     @Override
