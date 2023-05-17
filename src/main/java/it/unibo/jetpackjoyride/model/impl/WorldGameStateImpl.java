@@ -59,7 +59,7 @@ public class WorldGameStateImpl implements WorldGameState {
      * @param inputHandler
      * @throws IOException
      */
-    public WorldGameStateImpl(final InputQueue inputHandler) throws IOException {
+    public WorldGameStateImpl(final InputQueue inputHandler) {
         this.inputHandler = inputHandler;
         this.generalStatistics = new StatisticsImpl();
         this.saves = new SavesImpl();
@@ -74,11 +74,6 @@ public class WorldGameStateImpl implements WorldGameState {
         }
         try {
             this.gadgetLoader.downloadGadget();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -241,8 +236,10 @@ public class WorldGameStateImpl implements WorldGameState {
     /**
      * Initialize the world state, setting the player, the statistics and the
      * entities.
+     * 
+     * @throws IOException
      */
-    private void inizializeWorldGameState() {
+    private void inizializeWorldGameState() throws IOException {
         this.runStatistics = new StatisticsImpl();
         this.entitiesGenerator = new EntitiesGeneratorImpl();
         this.entities = new HashSet<>();
@@ -251,6 +248,11 @@ public class WorldGameStateImpl implements WorldGameState {
         this.runStatistics.addStatistic("Meters", 0);
         this.player = new PlayerImpl(new Point2d(50, 350), new Vector2d(50, 350),
                 new HitboxImpl(15, 10, new Point2d(50, 350)));
+        try {
+            this.generalStatistics.setAll(this.saves.downloadSaves());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         this.entitiesGenerator.generateEntity(this.entities, ENTITIES_NUMBER);
         this.entitiesGenerator.generateScientists(this.entities, SCIENTIST_NUMBER);
         this.entities = this.entitiesGenerator.getEntities();
@@ -345,7 +347,11 @@ public class WorldGameStateImpl implements WorldGameState {
 
     @Override
     public void newGame() {
-        this.inizializeWorldGameState();
+        try {
+            this.inizializeWorldGameState();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
