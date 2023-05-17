@@ -100,7 +100,9 @@ public class GamePanel extends JPanel implements KeyListener {
         barryWoman = sprites.get("barryWoman").getScaled();
         moneyImage = sprites.get("money").getScaled();
         SkinInfo skinInfo = new SkinInfoImpl();
-        String skin = skinInfo.getAll().entrySet().stream().filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get().getKey();
+        String skin = skinInfo.getAll().entrySet().stream()
+                .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
+                .getKey();
         System.out.println(skin);
         playerImage = "Barry".equals(skin) ? barry : barryWoman;
         this.posImage1 = 0;
