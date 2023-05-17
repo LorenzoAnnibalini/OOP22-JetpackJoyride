@@ -146,8 +146,8 @@ public class MenuSettingsPage extends JPanel {
 
                 //TODO: add more settings
             
-            }catch(FileNotFoundException e){
-                System.out.println("File not found");
+            }catch(Exception e){
+                System.out.println(e.toString());
             }    
 
         }
@@ -166,10 +166,8 @@ public class MenuSettingsPage extends JPanel {
                 settings.setValue("difficulty", difficulty.getText());
                 
                 settings.writeSettings();
-            }catch(FileNotFoundException e){
-                System.out.println("File not found");
-            }catch(IOException e){
-                System.out.println("Error while writing the file");
+            }catch(Exception e){
+                System.out.println(e.toString());
             }
         }
 

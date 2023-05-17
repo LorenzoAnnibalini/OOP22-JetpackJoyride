@@ -1,9 +1,11 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +13,8 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.json.simple.parser.ParseException;
 
 import it.unibo.jetpackjoyride.model.api.Gadget;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
@@ -35,6 +39,7 @@ public class ShopPanel extends JPanel{
     private final SkinInfo skinInfo;
     private HashMap<String, ArrayList<JButton>> buttonMapGadget;
     private HashMap<String, ArrayList<JButton>> buttonMapSkin;
+    SpriteLoader spriteLoader;
 
     /**
      * Constructor for the ShopPanel.
@@ -76,6 +81,12 @@ public class ShopPanel extends JPanel{
             boxPanel.add(flowPanel);
         }
         
+        spriteLoader = new SpriteLoader();
+        try {
+            spriteLoader.loadSprites("/config/sprites.json");
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
         boxPanel.add(new JLabel("Skin"));
         skinInfo = new SkinInfoImpl();
         for (String name : skinInfo.getAll().keySet()) {
@@ -87,12 +98,21 @@ public class ShopPanel extends JPanel{
             JButton enableButton = createSkinButton("Enable", !Boolean.parseBoolean(state), name);
             JButton purchasedButton = createSkinButton("Purchased", !Boolean.parseBoolean(purchased), name);
             buttonMapSkin.put(name, new ArrayList<>(List.of(enableButton, purchasedButton)));
+            
+            flowPanel.add(loadSpriteImage(name));
             flowPanel.add(purchasedButton);
             flowPanel.add(enableButton);
             boxPanel.add(flowPanel);
         }
     }
 
+    private JLabel loadSpriteImage(String name){
+        Sprite skinSprite = spriteLoader.getSprites().get(name);
+        skinSprite.scale();
+        Image skinImage = skinSprite.getScaled();
+        JLabel skinLabel = new JLabel(new ImageIcon(skinImage));
+        return skinLabel;
+    }
     /**
      * This method create a button for the gadget.
      * @param text of the button

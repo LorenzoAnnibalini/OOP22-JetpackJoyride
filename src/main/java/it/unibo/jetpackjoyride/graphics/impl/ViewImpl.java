@@ -29,7 +29,7 @@ public class ViewImpl extends JFrame implements View {
     private final MenuPanel menuPanel;
     private InputQueue inputHandler;
     //private final EndGamePanel endGame;
-    //private final ShopPanel shop;
+    private final ShopPanel shop;
     //private final StatisticsPanel statistics;
 
     public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException {
@@ -38,8 +38,8 @@ public class ViewImpl extends JFrame implements View {
         this.game = new GamePanel(worldGameState.getWorldEntities(), worldGameState.getPlayer(), worldGameState.getMoney(),this.inputHandler);
         this.menuPanel = new MenuPanel(inputHandler);
 
-        //this.shop = new ShopPanel();
-        //this.statistics = new StatisticsPanel(worldGameState.getWorldStatistics());
+        this.shop = new ShopPanel(inputHandler);
+        //this.statistics = new StatisticsPanel(worldGameState.getStatistics());
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(game.getPreferredSize());
@@ -48,8 +48,9 @@ public class ViewImpl extends JFrame implements View {
         this.pack();
         //this.getContentPane().add(this.menuPanel);
 
-        this.add(game);
-        this.add(menuPanel);
+        this.add(this.game);
+        this.add(this.menuPanel);
+        this.add(this.shop);
 
 
         this.setVisible(true);
@@ -68,7 +69,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void renderShop() {
-       // this.shop.repaint();
+       this.shop.repaint();
     }
 
     @Override
