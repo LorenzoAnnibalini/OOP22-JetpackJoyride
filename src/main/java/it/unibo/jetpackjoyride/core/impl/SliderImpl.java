@@ -38,7 +38,7 @@ public class SliderImpl extends Thread implements Slider {
                 Thread.sleep(25);
                 if (this.pos < this.limit) {
                     this.updatePos();
-                    System.out.println(pos);
+                    //System.out.println(pos);
                 } else {
                     this.resetPos();
                 }

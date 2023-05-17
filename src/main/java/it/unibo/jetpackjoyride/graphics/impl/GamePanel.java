@@ -96,7 +96,7 @@ public class GamePanel extends JPanel implements KeyListener {
         rightScientist = sprites.get("rightScientist").getScaled();
         leftScientist = sprites.get("leftScientist").getScaled();
         laser = sprites.get("laser").getScaled();
-        playerImage = sprites.get("player").getScaled();
+        playerImage = sprites.get("barry").getScaled();
         moneyImage = sprites.get("money").getScaled();
         this.posImage1 = 0;
         this.posImage2 = this.width;
