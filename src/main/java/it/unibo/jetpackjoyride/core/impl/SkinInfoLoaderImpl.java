@@ -36,7 +36,8 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader{
             skinMap.put(name, 
                 new ArrayList<>(List.of(
                     line.split(";")[SkinInfoPositions.STATE.ordinal()],
-                    line.split(";")[SkinInfoPositions.PURCHASED.ordinal()])));
+                    line.split(";")[SkinInfoPositions.PURCHASED.ordinal()],
+                    line.split(";")[SkinInfoPositions.PRICE.ordinal()])));
         }
         SkinInfoImpl.setAll(skinMap);
         return skinMap;
@@ -48,7 +49,8 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader{
         for (String name : skinMap.keySet()) {
             writer.write(name + ";" + 
                 skinMap.get(name).get(SkinInfoPositions.STATE.ordinal()) + ";" + 
-                skinMap.get(name).get(SkinInfoPositions.PURCHASED.ordinal()) + "\n");
+                skinMap.get(name).get(SkinInfoPositions.PURCHASED.ordinal()) + ";" +
+                skinMap.get(name).get(SkinInfoPositions.PRICE.ordinal()) + "\n");
         }
         writer.close();
     }
