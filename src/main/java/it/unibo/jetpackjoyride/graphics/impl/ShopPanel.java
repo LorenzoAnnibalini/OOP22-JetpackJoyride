@@ -92,9 +92,11 @@ public class ShopPanel extends JPanel{
         for (String name : skinInfo.getAll().keySet()) {
             String state = skinInfo.getValue(name).get(SkinInfoPositions.STATE.ordinal());
             String purchased = skinInfo.getValue(name).get(SkinInfoPositions.PURCHASED.ordinal());
+            String price = skinInfo.getValue(name).get(SkinInfoPositions.PRICE.ordinal());
 
             JPanel flowPanel = new JPanel(new FlowLayout());
             flowPanel.add(new JLabel(name));
+            flowPanel.add(new JLabel(price));
             JButton enableButton = createSkinButton("Enable", !Boolean.parseBoolean(state), name);
             JButton purchasedButton = createSkinButton("Purchased", !Boolean.parseBoolean(purchased), name);
             buttonMapSkin.put(name, new ArrayList<>(List.of(enableButton, purchasedButton)));
