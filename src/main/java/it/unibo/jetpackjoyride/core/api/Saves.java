@@ -16,8 +16,9 @@ public interface Saves {
      * 
      * @throws FileNotFoundException if the file is not found
      * @return a map of statistics
+     * @throws IOException
      */
-    Map<String, Integer> downloadSaves() throws FileNotFoundException;
+    Map<String, Integer> downloadSaves() throws FileNotFoundException, IOException;
 
     /**
      * Method to save newstatistcs in file

@@ -5,9 +5,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.prefs.Preferences;
 
 import it.unibo.jetpackjoyride.core.api.Saves;
 import it.unibo.jetpackjoyride.model.api.Statistics;
@@ -15,19 +19,23 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 public class SavesImpl implements Saves {
 
-    private final String SEPARATOR = File.separator;
-    private final int NAME = 0;
-    private final int VALUE = 1;
-    String filename = "resources" + this.SEPARATOR + "saves.csv";
+    //private final String SEPARATOR = File.separator;
+    private final static int NAME = 0;
+    private final static int VALUE = 1;
+    String filename = "/saves.csv";
     Statistics statistics = new StatisticsImpl();
 
     @Override
-    public Map<String, Integer> downloadSaves() throws FileNotFoundException {
-        Scanner sc = new Scanner(new File(filename));
+    public Map<String, Integer> downloadSaves() throws IOException {
+        final InputStream stream = this.getClass().getResourceAsStream(filename);
+        String fileContent = new String(stream.readAllBytes(),
+                StandardCharsets.UTF_8);
+        stream.close();
+        Scanner sc = new Scanner(fileContent);
         Map<String, Integer> stats = new HashMap<>();
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
-            stats.put(line.split(";")[NAME], Integer.parseInt(line.split(";")[VALUE]));
+            stats.put(line.split(";")[SavesImpl.NAME], Integer.parseInt(line.split(";")[SavesImpl.VALUE]));
         }
         this.statistics.setAll(stats);
         sc.close();
