@@ -29,8 +29,15 @@ public interface SkinInfo {
      * @param name  the name of the Skin
      * @param state the state of the Skin (active or not)
      * @param purchased if the Skin was purchased true otherwise false
-     * @param path the path of the Skin image
+     * @param price the price of the skin
      */
-    void setValue(String name, String state, String purchased);
+    void setValue(String name, String state, String purchased, String price);
+
+    /**
+     * Setter for a Skin.
+     * @param name of the skin
+     * @param value list of strings that contains the information of the skin
+     */
+    void setValue(String name, List<String> value);
 
 }

@@ -6,5 +6,6 @@ package it.unibo.jetpackjoyride.core.api;
  */
 public enum SkinInfoPositions {
     STATE,
-    PURCHASED
+    PURCHASED,
+    PRICE
 }

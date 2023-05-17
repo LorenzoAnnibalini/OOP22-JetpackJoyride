@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
 import it.unibo.jetpackjoyride.model.api.Gadget;
 
 /**
@@ -17,12 +18,12 @@ public class GadgetImpl implements Gadget{
 
     @Override
     public Map<String, List<String>> getAll() {
-        return gadget;
+        return new HashMap<>(gadget);
     }
 
     @Override
     public List<String> getValue(String name) {
-        return gadget.get(name);
+        return new ArrayList<>(gadget.get(name));
     }
 
     @Override
@@ -30,6 +31,15 @@ public class GadgetImpl implements Gadget{
         String price, String description) {
         gadget.replace(name, 
             new ArrayList<>(List.of(state, purchased, price, description)));
+    }
+
+    @Override
+    public void setValue(String name, List<String> value) {
+        String state = value.get(GadgetInfoPositions.STATE.ordinal());
+        String purchased = value.get(GadgetInfoPositions.PURCHASED.ordinal());
+        String price = value.get(GadgetInfoPositions.PRICE.ordinal());
+        String description = value.get(GadgetInfoPositions.DESCRIPTION.ordinal());
+        this.setValue(name, state, purchased, price, description);
     }
 
     /**

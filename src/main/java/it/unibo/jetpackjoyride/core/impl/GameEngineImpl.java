@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import it.unibo.jetpackjoyride.core.api.GameEconomy;
 import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.Input;
@@ -26,6 +27,7 @@ public class GameEngineImpl implements GameEngine {
     private GameState currentState;
     private SkinInfoLoaderImpl skinInfoLoader;
     private GadgetLoaderImpl gadgetLoader;
+    private GameEconomy gameEconomy;
 
     /**
      * Constructor for the game engine. It needs a view, a worldGameState and an
@@ -43,7 +45,7 @@ public class GameEngineImpl implements GameEngine {
         this.worldGameState = worldGameState;
         this.skinInfoLoader = new SkinInfoLoaderImpl();
         this.gadgetLoader = new GadgetLoaderImpl();
-
+        this.gameEconomy = new GameEconomyImpl();
     }
 
     @Override
@@ -137,18 +139,23 @@ public class GameEngineImpl implements GameEngine {
                     break;
 
                 case ENABLE:
+                    this.gameEconomy.enableGadget(inputElem.getName().get());
                     break;
 
                 case DISABLE:
+                    this.gameEconomy.disableGadget(inputElem.getName().get());
                     break;
 
                 case BUY:
+                    this.gameEconomy.buyGadget(inputElem.getName().get());
                     break;
 
                 case BUY_SKIN:
+                    this.gameEconomy.buySkin(inputElem.getName().get());
                     break;
 
                 case SELECT_SKIN:
+                    this.gameEconomy.selectSkin(inputElem.getName().get());
                     break;
 
                 case START_GAME:
