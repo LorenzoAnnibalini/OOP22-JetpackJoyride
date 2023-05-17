@@ -14,25 +14,26 @@ public class SkinInfoImpl implements SkinInfo{
 
     @Override
     public Map<String, List<String>> getAll() {
-        return skin;
+        return new HashMap<>(skin);
     }
 
     @Override
     public List<String> getValue(String name) {
-        return skin.get(name);
+        return new ArrayList<>(skin.get(name));
     }
 
     @Override
-    public void setValue(String name, String state, String purchased) {
+    public void setValue(String name, String state, String purchased, String price) {
         skin.replace(name, 
-            new ArrayList<>(List.of(state, purchased)));
+            new ArrayList<>(List.of(state, purchased, price)));
     }
 
     @Override
     public void setValue(String name, List<String> value) {
         String state = value.get(SkinInfoPositions.STATE.ordinal());
         String purchased = value.get(SkinInfoPositions.PURCHASED.ordinal());
-        this.setValue(name, state, purchased);
+        String price = value.get(SkinInfoPositions.PRICE.ordinal());
+        this.setValue(name, state, purchased, price);
     }
     
     /**
