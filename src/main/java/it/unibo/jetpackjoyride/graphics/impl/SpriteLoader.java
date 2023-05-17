@@ -73,7 +73,6 @@ public class SpriteLoader {
                 String path = SpriteLoader.ASSETS_FOLDER + spriteObj.get("path").toString();
                 int width = ((Long) spriteObj.get("width")).intValue();
                 int height = ((Long) spriteObj.get("height")).intValue();
-                System.out.println(path);
                 Image img = ImageIO.read(this.getClass().getResourceAsStream(path));
                 this.sprites.put(name, new Sprite(width, height, img));
             }
@@ -88,7 +87,7 @@ public class SpriteLoader {
                 Image img = ImageIO.read(this.getClass().getResourceAsStream(SpriteLoader.ASSETS_FOLDER + path));
                 this.sprites.put(name, new Sprite(width, height, img));
             }
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
