@@ -43,16 +43,6 @@ public class GameEngineImpl implements GameEngine {
         this.worldGameState = worldGameState;
         this.skinInfoLoader = new SkinInfoLoaderImpl();
         this.gadgetLoader = new GadgetLoaderImpl();
-        try {
-            this.skinInfoLoader.downloadSkin();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.gadgetLoader.downloadGadget();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -60,6 +50,9 @@ public class GameEngineImpl implements GameEngine {
     public void worldGameStateStart() {
         if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
             this.worldGameState.newGame();
+            this.view.getGamePanel().setMoney(this.worldGameState.getMoney());
+            this.view.getGamePanel().setEntities(this.worldGameState.getWorldEntities());
+            this.view.getGamePanel().setPlayer(this.worldGameState.getPlayer());
             this.currentState = GameState.GAME;
         }
     }

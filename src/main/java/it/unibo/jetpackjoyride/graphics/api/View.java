@@ -1,5 +1,9 @@
 package it.unibo.jetpackjoyride.graphics.api;
 
+import javax.swing.JPanel;
+
+import it.unibo.jetpackjoyride.graphics.impl.GamePanel;
+
 public interface View {
     /**
      * Method to render the start of the game.
@@ -25,5 +29,10 @@ public interface View {
      * Method to render statistics.
      */
     void renderStatistics();
+
+    /**
+     * Method to get the game panel.
+     */
+    GamePanel getGamePanel();
 
 }

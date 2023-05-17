@@ -17,8 +17,10 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.api.WorldGameState;
 import it.unibo.jetpackjoyride.model.api.Player.PlayerDirection;
 import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
+import it.unibo.jetpackjoyride.core.impl.GadgetLoaderImpl;
 import it.unibo.jetpackjoyride.core.impl.MoneyPatternLoaderImpl;
 import it.unibo.jetpackjoyride.core.impl.SavesImpl;
+import it.unibo.jetpackjoyride.core.impl.SkinInfoLoaderImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.input.api.Input;
@@ -47,6 +49,8 @@ public class WorldGameStateImpl implements WorldGameState {
     private int deciderEntitiesGenerator; // 0 = entities, 1 = money, 2 = laser
     private InputQueue inputHandler;
     private Statistics generalStatistics;
+    private SkinInfoLoaderImpl skinInfoLoader;
+    private GadgetLoaderImpl gadgetLoader;
 
     /**
      * Constructor for the world game state. It inzialize the world with his
@@ -56,12 +60,23 @@ public class WorldGameStateImpl implements WorldGameState {
      * @throws IOException
      */
     public WorldGameStateImpl(final InputQueue inputHandler) throws IOException {
-        this.inizializeWorldGameState();
         this.inputHandler = inputHandler;
         this.generalStatistics = new StatisticsImpl();
         this.saves = new SavesImpl();
         this.moneyPatternLoader = new MoneyPatternLoaderImpl();
         this.random = new Random();
+        this.skinInfoLoader = new SkinInfoLoaderImpl();
+        this.gadgetLoader = new GadgetLoaderImpl();
+        try {
+            this.skinInfoLoader.downloadSkin();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.gadgetLoader.downloadGadget();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
@@ -339,7 +354,7 @@ public class WorldGameStateImpl implements WorldGameState {
     }
 
     @Override
-    public void moveStatic(){
+    public void moveStatic() {
         this.player.setDirectionSTATIC();
     }
 

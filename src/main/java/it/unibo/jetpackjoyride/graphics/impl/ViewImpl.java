@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.plaf.DimensionUIResource;
 
 import org.json.simple.parser.ParseException;
@@ -35,8 +37,8 @@ public class ViewImpl extends JFrame implements View {
     public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException {
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
-        this.game = new GamePanel(worldGameState.getWorldEntities(), worldGameState.getPlayer(), worldGameState.getMoney(),this.inputHandler);
-        this.menuPanel = new MenuPanel(inputHandler);
+        this.game = new GamePanel(this.inputHandler);
+        this.menuPanel = new MenuPanel(this.inputHandler);
 
         this.shop = new ShopPanel(inputHandler);
         //this.statistics = new StatisticsPanel(worldGameState.getStatistics());
@@ -84,6 +86,11 @@ public class ViewImpl extends JFrame implements View {
 
     public void close() {
         this.dispose();
+    }
+
+    @Override
+    public GamePanel getGamePanel() {
+        return this.game;
     }
     
 }
