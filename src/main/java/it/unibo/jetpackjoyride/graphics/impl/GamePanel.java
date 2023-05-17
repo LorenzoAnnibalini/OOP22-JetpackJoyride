@@ -57,8 +57,6 @@ public class GamePanel extends JPanel implements KeyListener {
     private Image rightScientist;
     private Image leftScientist;
     private Image laser;
-    private Image barry;
-    private Image barryWoman;
     private Image playerImage;
     private Image moneyImage;
     private SliderImpl slider;
@@ -74,12 +72,7 @@ public class GamePanel extends JPanel implements KeyListener {
      * @param money    the list of money that has to be shown
      * @throws ParseException
      */
-    public GamePanel(final Set<Pair<String, GameObject>> entities, final PlayerImpl player, final List<Money> money,
-            final InputQueue inputHandler)
-            throws ParseException {
-        this.entities = entities;
-        this.player = player;
-        this.money.addAll(money);
+    public GamePanel(final InputQueue inputHandler) throws ParseException {
         this.inputHandler = inputHandler;
         this.isPressed = false;
         SpriteLoader spriteLoader = new SpriteLoader();
@@ -93,6 +86,8 @@ public class GamePanel extends JPanel implements KeyListener {
         this.height = sprites.get("background").getScaledlDim().getY();
         slider = new SliderImpl(this.width);
         // loading sprite images and adjust sizes
+        Image barry;
+        Image barryWoman;
         rocket = sprites.get("rocket").getScaled();
         vertElectrode = sprites.get("vElectrode").getScaled();
         horElectrode = sprites.get("hElectrode").getScaled();
@@ -110,7 +105,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 .findFirst()
                 .get()
                 .getKey();
-        playerImage = skin == "barry" ? barry : barryWoman;
+        playerImage = "barry".equals(skin) ? barry : barryWoman;
         this.posImage1 = 0;
         this.posImage2 = this.width;
         this.setPreferredSize(new Dimension(this.width, this.height));
