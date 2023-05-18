@@ -27,7 +27,8 @@ import it.unibo.jetpackjoyride.input.api.Input;
 
 public class WorldGameStateImpl implements WorldGameState {
 
-    private static final int FRAME_HEIGHT = 1800;
+    private static final int FRAME_HEIGHT = 600;
+    private static final int FRAME_WIDTH = 1180;
     private static final int ENTITIES_NUMBER = 3;
     private static final int SCIENTIST_NUMBER = 2;
     private static final int START_NUMBER_DECIDER = 0;
@@ -46,6 +47,7 @@ public class WorldGameStateImpl implements WorldGameState {
     private MoneyPatternLoader moneyPatternLoader;
     private SavesImpl saves;
     private Random random;
+    private boolean isFlying;
     private int deciderEntitiesGenerator; // 0 = entities, 1 = money, 2 = laser
     private InputQueue inputHandler;
     private Statistics generalStatistics;
@@ -81,8 +83,10 @@ public class WorldGameStateImpl implements WorldGameState {
 
     @Override
     public void updateState(final long elapsedTime) {
-        if (this.player.getDirection() == PlayerDirection.STATIC) {
+        if (!this.isFlying) {
             this.player.setDirectionDOWN();
+        } else {
+            this.player.setDirectionUP();
         }
         this.checkBoardPlayerCollision();
         this.updateTimeLaser();
@@ -95,7 +99,6 @@ public class WorldGameStateImpl implements WorldGameState {
         } else {
             this.notifyEndGame();
         }
-        this.player.setDirectionSTATIC();
     }
 
     /**
@@ -199,12 +202,11 @@ public class WorldGameStateImpl implements WorldGameState {
      * board.
      */
     private void checkBoardPlayerCollision() {
-        if (Math.abs((this.player.getHitbox().getHeigthHitbox() / 2) - this.player.getHitbox().getPointUpLeft().y) == 0
-                && this.player.getDirection() == PlayerDirection.UP) {
+        if (Math.abs(
+                (this.player.getHitbox().getHeigthHitbox() / 2) - this.player.getHitbox().getPointUpLeft().y) <= 0) {
             this.player.setDirectionSTATIC();
         } else if (Math.abs((this.player.getHitbox().getHeigthHitbox() / 2)
-                + this.player.getHitbox().getPointUpLeft().y) == FRAME_HEIGHT
-                && this.player.getDirection() == PlayerDirection.DOWN) {
+                + this.player.getHitbox().getPointUpLeft().y) == FRAME_HEIGHT) {
             this.player.setDirectionSTATIC();
         }
 
@@ -246,8 +248,9 @@ public class WorldGameStateImpl implements WorldGameState {
         this.money = new ArrayList<>();
         this.runStatistics.addStatistic("Money", 0);
         this.runStatistics.addStatistic("Meters", 0);
-        this.player = new PlayerImpl(new Point2d(50, 350), new Vector2d(50, 350),
-                new HitboxImpl(15, 10, new Point2d(50, 350)));
+        this.isFlying = false;
+        this.player = new PlayerImpl(new Point2d(200, 200), new Vector2d(new Point2d(200, 200), new Point2d(200, 200)),
+                new HitboxImpl(15, 10, new Point2d(0, 0)));
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
@@ -356,11 +359,13 @@ public class WorldGameStateImpl implements WorldGameState {
 
     @Override
     public void moveUp() {
+        this.isFlying = true;
         this.player.setDirectionUP();
     }
 
     @Override
     public void moveStatic() {
+        this.isFlying = false;
         this.player.setDirectionSTATIC();
     }
 
