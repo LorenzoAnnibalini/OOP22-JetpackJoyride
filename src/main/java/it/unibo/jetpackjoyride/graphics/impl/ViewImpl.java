@@ -38,20 +38,22 @@ public class ViewImpl extends JFrame implements View {
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
         this.menuPanel = new MenuPanel(this.inputHandler);
-
+        this.game = new GamePanel(inputHandler); 
         this.shop = new ShopPanel(inputHandler);
         //this.statistics = new StatisticsPanel(worldGameState.getStatistics());
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(menuPanel.getPreferredSize());
+        this.setSize(this.game.getPreferredSize());
         this.setLocationRelativeTo(null);
-        this.setMinimumSize(this.menuPanel.getPreferredSize());
+        this.setMinimumSize(this.game.getPreferredSize());
         this.pack();
         //this.getContentPane().add(this.menuPanel);
 
         //this.add(this.game);
         this.add(this.shop);
         this.shop.setVisible(false);
+        this.add(this.game);
+        this.game.setVisible(false);
         this.add(this.menuPanel);
         this.menuPanel.setVisible(true);
 
@@ -64,9 +66,7 @@ public class ViewImpl extends JFrame implements View {
     public void renderGame() throws ParseException {
         this.menuPanel.setVisible(false);
         this.shop.setVisible(false);
-        this.game=new GamePanel(inputHandler);
-        this.setSize(game.getPreferredSize());
-        this.add(this.game);
+        this.game.setVisible(true);
     }
 
     @Override
@@ -99,8 +99,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public GamePanel getGamePanel() {
-      //  return this.game;
-      return null;
+      return this.game;
     }
     
 }
