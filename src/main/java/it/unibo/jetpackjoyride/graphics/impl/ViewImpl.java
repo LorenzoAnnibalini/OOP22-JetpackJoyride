@@ -1,14 +1,6 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
-import java.awt.Dimension;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.plaf.DimensionUIResource;
 
 import org.json.simple.parser.ParseException;
 
