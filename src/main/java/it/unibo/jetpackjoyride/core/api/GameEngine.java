@@ -1,5 +1,7 @@
 package it.unibo.jetpackjoyride.core.api;
 
+import org.json.simple.parser.ParseException;
+
 /**
  * Interface for the game engine.
  * It is the core of the game, it manages the game loop and the game state.
@@ -54,6 +56,7 @@ public interface GameEngine {
      * Start the game loop of the game engine.
      * It will process inputs, update the game state, render the view and wait for
      * the next frame.
+     * @throws ParseException
      */
-    public void loopState();
+    public void loopState() throws ParseException;
 }
