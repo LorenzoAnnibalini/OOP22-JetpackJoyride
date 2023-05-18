@@ -104,7 +104,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
                 .getKey();
         System.out.println(skin);
-        playerImage = "Barry".equals(skin) ? barry : barryWoman;
+        playerImage = "barry".equals(skin) ? barry : barryWoman;
         this.posImage1 = 0;
         this.posImage2 = this.width;
         this.setPreferredSize(new Dimension(this.width, this.height));
