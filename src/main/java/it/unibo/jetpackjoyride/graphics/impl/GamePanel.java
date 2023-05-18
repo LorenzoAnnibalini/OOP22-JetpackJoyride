@@ -93,7 +93,6 @@ public class GamePanel extends JPanel {
         String skin = skinInfo.getAll().entrySet().stream()
                 .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
                 .getKey();
-        System.out.println(skin);
         playerImage = "barry".equals(skin) ? barry : barryWoman;
         this.posImage1 = 0;
         this.posImage2 = this.width;
@@ -158,12 +157,10 @@ public class GamePanel extends JPanel {
 
         // Draw monies if present
         if (!money.isEmpty()) {
-            this.drawSprite(g, moneyImage, money.get(0));
-            System.out.println(money.get(0).getCurrentPos());
-            /*for (Money m : money) {
+            for (Money m : money) {
                 this.drawSprite(g, moneyImage, m);
                 System.out.println(m.getCurrentPos());
-            }*/
+            }
         }
     }
 

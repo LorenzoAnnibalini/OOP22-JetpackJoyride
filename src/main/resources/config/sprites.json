@@ -3,14 +3,14 @@
         {
             "name": "barry",
             "path": "barry.png",
-            "width": 30,
-            "height": 30
+            "width": 50,
+            "height": 50
         },
         {
             "name": "barryWoman",
             "path": "barryWoman.png",
-            "width": 30,
-            "height": 30
+            "width": 50,
+            "height": 50
         },
         {
             "name": "rocket",
