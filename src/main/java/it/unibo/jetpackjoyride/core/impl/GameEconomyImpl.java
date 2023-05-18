@@ -1,6 +1,5 @@
 package it.unibo.jetpackjoyride.core.impl;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +55,7 @@ public class GameEconomyImpl implements GameEconomy {
         this.gadgetInfo = gadget.getValue(name);
         try {
             this.statistics.setAll(saves.downloadSaves());
-        }catch(FileNotFoundException e) {
+        }catch(IOException e) {
             e.printStackTrace();
         }
         int gadgetPrice = Integer.parseInt(
@@ -96,7 +95,7 @@ public class GameEconomyImpl implements GameEconomy {
         this.skinInfo = skin.getValue(name);
         try {
             this.statistics.setAll(saves.downloadSaves());
-        }catch(FileNotFoundException e) {
+        }catch(IOException e) {
             e.printStackTrace();
         }
         int skinPrice = Integer.parseInt(
