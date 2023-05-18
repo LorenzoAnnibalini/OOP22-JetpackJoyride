@@ -30,6 +30,7 @@ public class ViewImpl extends JFrame implements View {
     private GamePanel game;
     private final MenuPanel menuPanel;
     private InputQueue inputHandler;
+    private final InputPanel inputPanel;
     //private final EndGamePanel endGame;
     private final ShopPanel shop;
     //private final StatisticsPanel statistics;
@@ -38,7 +39,8 @@ public class ViewImpl extends JFrame implements View {
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
         this.menuPanel = new MenuPanel(this.inputHandler);
-        this.game = new GamePanel(inputHandler); 
+        this.game = new GamePanel();
+        this.inputPanel = new InputPanel(inputHandler);
         this.shop = new ShopPanel(inputHandler);
         //this.statistics = new StatisticsPanel(worldGameState.getStatistics());
        
@@ -54,6 +56,7 @@ public class ViewImpl extends JFrame implements View {
         this.shop.setVisible(false);
         this.add(this.game);
         this.game.setVisible(false);
+        this.add(this.inputPanel);
         this.add(this.menuPanel);
         this.menuPanel.setVisible(true);
 

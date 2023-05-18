@@ -66,7 +66,6 @@ public class GameEngineImpl implements GameEngine {
         while (true) {
             long currentCycleStartTime = System.currentTimeMillis();
             long elapsedTime = currentCycleStartTime - previousCycleStartTime;
-            System.out.println(this.currentState);
             this.processInput();
             this.updateWorldGameState(elapsedTime);
             this.renderView();
@@ -82,7 +81,6 @@ public class GameEngineImpl implements GameEngine {
     private void processInput() {
         List<Input> inputQueue = this.inputHandler.getInputQueue();
         for (final Input inputElem : inputQueue) {
-            System.out.println(inputElem.getType());
             switch (inputElem.getType()) {
 
                 case SHOP:
@@ -188,10 +186,10 @@ public class GameEngineImpl implements GameEngine {
 
     /**
      * render the view. It will render things based on the current state.
+     * 
      * @throws ParseException
      */
     private void renderView() throws ParseException {
-        System.out.println(this.currentState);
         switch (this.currentState) {
             case MAIN_MENU:
                 this.view.renderMenu();
@@ -200,7 +198,6 @@ public class GameEngineImpl implements GameEngine {
                 this.view.renderGame();
                 break;
             case SHOP_MENU:
-            System.out.println("--------"+this.currentState);
                 this.view.renderShop();
                 break;
             case STATISTICS_MENU:
