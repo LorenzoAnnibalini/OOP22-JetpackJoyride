@@ -8,8 +8,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +22,6 @@ import it.unibo.jetpackjoyride.model.api.Direction;
 import it.unibo.jetpackjoyride.model.api.Orientation;
 import it.unibo.jetpackjoyride.model.api.Scientist;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
-import it.unibo.jetpackjoyride.input.api.Input;
-import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
@@ -38,13 +33,11 @@ import it.unibo.jetpackjoyride.model.impl.Electrode;
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-public class GamePanel extends JPanel implements KeyListener {
+public class GamePanel extends JPanel {
 
     private Set<Pair<String, GameObject>> entities;
     private PlayerImpl player;
-    private List<Money> money;
-    private InputQueue inputHandler;
-    private boolean isPressed;
+    private List<Money> money = new ArrayList<>();
     private int posImage1;
     private int posImage2;
     private Image backgruondImage1;
@@ -72,11 +65,8 @@ public class GamePanel extends JPanel implements KeyListener {
      * @param money    the list of money that has to be shown
      * @throws ParseException
      */
-    public GamePanel(final InputQueue inputHandler) throws ParseException {
-        this.inputHandler = inputHandler;
-        this.isPressed = false;
+    public GamePanel() throws ParseException {
         SpriteLoader spriteLoader = new SpriteLoader();
-        addKeyListener(this);
         spriteLoader.loadSprites(filename);
         Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
@@ -227,24 +217,4 @@ public class GamePanel extends JPanel implements KeyListener {
         this.money = money;
     }
 
-    @Override
-    public void keyPressed(final KeyEvent e) {
-
-        if (e.getKeyCode() == 32 && this.isPressed != true) {
-            this.isPressed = true;
-            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_PRESSED, "UP_PRESSED"));
-        }
-    }
-
-    @Override
-    public void keyTyped(final KeyEvent e) {
-    }
-
-    @Override
-    public void keyReleased(final KeyEvent e) {
-        if (e.getKeyCode() == 32 && this.isPressed != false) {
-            this.isPressed = false;
-            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_RELEASED, "UP_RELEASED"));
-        }
-    }
 }

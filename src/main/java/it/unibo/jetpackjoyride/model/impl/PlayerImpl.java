@@ -20,8 +20,8 @@ public class PlayerImpl extends GameObject implements Player {
     private boolean statusPlayer;
     private int hearts;
     private PlayerDirection direction;
-    private final int UP_VELOCITY = -4;
-    private final int DOWN_VELOCITY = 4;
+    private final int UP_VELOCITY = 145;
+    private final int DOWN_VELOCITY = -160;
 
     /**
      * constructor to create a player.
@@ -74,20 +74,20 @@ public class PlayerImpl extends GameObject implements Player {
     public void setDirectionUP() {
         this.direction = PlayerDirection.UP;
         double multiplier = this.applyGadget(direction);
-        this.setVel(new Vector2d(this.getCurrentPos().x, this.getCurrentPos().y+UP_VELOCITY*multiplier));
+        this.setVel(new Vector2d(this.getCurrentPos(), new Point2d(this.getCurrentPos().x, this.getCurrentPos().y+UP_VELOCITY*multiplier)));
     }
 
     @Override
     public void setDirectionDOWN() {
         this.direction = PlayerDirection.DOWN;
         double multiplier = this.applyGadget(direction);
-        this.setVel(new Vector2d(this.getCurrentPos().x, this.getCurrentPos().y+DOWN_VELOCITY*multiplier));
+        this.setVel(new Vector2d(this.getCurrentPos(), new Point2d(this.getCurrentPos().x, this.getCurrentPos().y+DOWN_VELOCITY*multiplier)));
     }
 
     @Override
     public void setDirectionSTATIC() {
         this.direction = PlayerDirection.STATIC;
-        this.setVel(new Vector2d(this.getCurrentPos().x, this.getCurrentPos().y));
+        this.setVel(new Vector2d(this.getCurrentPos(), this.getCurrentPos()));
     }
 
     @Override
