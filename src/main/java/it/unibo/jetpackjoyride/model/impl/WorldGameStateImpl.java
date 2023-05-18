@@ -122,7 +122,7 @@ public class WorldGameStateImpl implements WorldGameState {
                 && this.deciderEntitiesGenerator == 1) {
             try {
                 this.money = moneyPatternLoader.getMoneyPattern();
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             this.previousCycleStartTime = currentCycleStartTime;

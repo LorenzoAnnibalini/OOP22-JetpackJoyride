@@ -1,7 +1,8 @@
 package it.unibo.jetpackjoyride.core.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +20,6 @@ import it.unibo.jetpackjoyride.model.impl.Money;
 
 public class MoneyPatternLoaderImpl implements MoneyPatternLoader{
     
-    private final String SEPARATOR = File.separator;
     /*Order to read data from nextLine().*/
     private final int X = 0;
     private final int Y = 1;
@@ -30,7 +30,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader{
     private int availableFile = 1;
     private int minAvailableFile = 1;
     private String fileNumber;
-    String filename = "resources" + this.SEPARATOR + "money";
+    private final String filename = "/money";
 
     /**
      * Constructor of the class MoneyPatternLoader.
@@ -55,12 +55,18 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader{
         this.minAvailableFile = this.availableFile = num;
     }
 
-    public ArrayList<Money> getMoneyPattern() throws FileNotFoundException{
+    public ArrayList<Money> getMoneyPattern() throws IOException{
         this.fileNumber = Integer.toString((int) Math.floor(Math.random()
-                    * (this.availableFile - this.minAvailableFile + 1)
-                    + this.minAvailableFile));
+            * (this.availableFile - this.minAvailableFile + 1)
+            + this.minAvailableFile));
+
+        final InputStream stream = this.getClass().getResourceAsStream(filename + fileNumber + ".txt");
+        String fileContent = new String(stream.readAllBytes(),
+                StandardCharsets.UTF_8);
+        stream.close();
+
         ArrayList<Money> moneyList = new ArrayList<>();
-        Scanner filePattern = new Scanner(new File(this.filename + this.fileNumber + ".txt"));
+        Scanner filePattern = new Scanner(fileContent);
         while (filePattern.hasNextLine()) {
             String line = filePattern.nextLine();
             int x =  Integer.parseInt(line.split(",")[X]);
