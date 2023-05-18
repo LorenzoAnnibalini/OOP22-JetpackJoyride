@@ -76,6 +76,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void renderShop() {
+        this.shopPanel.update();
         this.card.show(this.cardPanel, "shopPanel");
     }
 
