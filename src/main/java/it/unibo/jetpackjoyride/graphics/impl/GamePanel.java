@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
     private Set<Pair<String, GameObject>> entities;
     private PlayerImpl player;
-    private List<Money> money = new ArrayList<>();
+    private List<Money> money;
     private InputQueue inputHandler;
     private boolean isPressed;
     private int posImage1;
@@ -168,9 +168,12 @@ public class GamePanel extends JPanel implements KeyListener {
 
         // Draw monies if present
         if (!money.isEmpty()) {
-            for (Money m : money) {
+            this.drawSprite(g, moneyImage, money.get(0));
+            System.out.println(money.get(0).getCurrentPos());
+            /*for (Money m : money) {
                 this.drawSprite(g, moneyImage, m);
-            }
+                System.out.println(m.getCurrentPos());
+            }*/
         }
     }
 
@@ -182,11 +185,11 @@ public class GamePanel extends JPanel implements KeyListener {
      * @param entity entity object with values to draw
      */
     private void drawSprite(Graphics g, Image image, GameObject entity) {
-        if (entity.getClass().getName() == "Money") {
+        if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
             g.drawImage(image, (int) entity.getCurrentPos().x + this.getSize().width, (int) entity.getCurrentPos().y,
                     this);
         } else {
-            if (entity.getClass().getName() == "Laser") {
+            if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Laser") {
                 g.drawImage(image, 0, (int) entity.getCurrentPos().y, this);
                 g.drawImage(image, this.getWidth(), (int) entity.getCurrentPos().y, this);
             } else {
@@ -220,8 +223,8 @@ public class GamePanel extends JPanel implements KeyListener {
      * @param money money to draw
      */
     public void setMoney(final List<Money> money) {
-        this.money.clear();
-        this.money.addAll(money);
+        //this.money.clear();
+        this.money = money;
     }
 
     @Override

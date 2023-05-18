@@ -118,7 +118,7 @@ public class WorldGameStateImpl implements WorldGameState {
         } else if (currentCycleStartTime - this.previousCycleStartTime >= TIME_TO_WAIT
                 && this.deciderEntitiesGenerator == 1) {
             try {
-                this.money = moneyPatternLoader.getMoneyPattern();
+                this.money.addAll(moneyPatternLoader.getMoneyPattern());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -317,6 +317,7 @@ public class WorldGameStateImpl implements WorldGameState {
         if (valueRandom < ENTITY_PROBABILITY) {
             return 0;
         } else if (valueRandom < ENTITY_PROBABILITY + MONEY_PROBABILITY) {
+            System.out.println("money");
             return 1;
         } else if (valueRandom < ENTITY_PROBABILITY + MONEY_PROBABILITY + LASER_PROBABILITY) {
             return 2;
