@@ -155,26 +155,26 @@ public class WorldGameStateImpl implements WorldGameState {
                 switch (entity.getX()) {
                     case "Rocket":
                         this.player.removeHeart();
-                        this.entities.remove(entity);
+                        entityIterator.remove();
                         break;
                     case "Electrode":
                         this.player.removeHeart();
-                        this.entities.remove(entity);
+                        entityIterator.remove();
                         break;
                     case "SpeedPowerUp":
                         this.runStatistics.increment("score", SPEED_POWERUP_DISTANCE);
-                        this.entities.remove(entity);
+                        entityIterator.remove();
                         break;
                     case "ShieldPowerUp":
                         this.player.addHeart();
-                        this.entities.remove(entity);
+                        entityIterator.remove();
                         break;
                     case "Laser":
                         this.player.removeHeart();
-                        this.entities.remove(entity);
+                        entityIterator.remove();
                         break;
                     case "Scientist":
-                        this.entities.remove(entity);
+                        entityIterator.remove();
                         break;
                     case "Nothing":
                         break;
@@ -188,7 +188,7 @@ public class WorldGameStateImpl implements WorldGameState {
             Money moneyElem = moneyIterator.next();
             if (this.player.getHitbox().checkCollision(moneyElem.getHitbox())) {
                 this.runStatistics.increment("Money");
-                this.money.remove(moneyElem);
+                moneyIterator.remove();
             }
         }
 
@@ -220,14 +220,14 @@ public class WorldGameStateImpl implements WorldGameState {
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
             if (entity.getY().getCurrentPos().x < 0) {
-                this.entities.remove(entity);
+                entityIterator.remove();
             }
         }
 
         while (moneyIterator.hasNext()) {
             Money moneyElem = moneyIterator.next();
             if (moneyElem.getCurrentPos().x < 0) {
-                this.money.remove(moneyElem);
+                moneyIterator.remove();
             }
         }
 
@@ -297,7 +297,7 @@ public class WorldGameStateImpl implements WorldGameState {
                 LaserRay laserRayObj = (LaserRay) laserRay.getY();
                 laserRayObj.checkState(1);
                 if (laserRayObj.isEnd()) {
-                    this.entities.remove(laserRay);
+                    entityIterator.remove();
                     this.deciderEntitiesGenerator = random.nextInt(5);
                 }
 
