@@ -2,13 +2,16 @@ package it.unibo.jetpackjoyride.graphics.api;
 
 import javax.swing.JPanel;
 
+import org.json.simple.parser.ParseException;
+
 import it.unibo.jetpackjoyride.graphics.impl.GamePanel;
 
 public interface View {
     /**
      * Method to render the start of the game.
+     * @throws ParseException
      */
-    void renderGame();
+    void renderGame() throws ParseException;
 
     /**
      * Method to render the start menu.

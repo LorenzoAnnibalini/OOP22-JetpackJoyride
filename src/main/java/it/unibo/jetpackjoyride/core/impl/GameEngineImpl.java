@@ -3,6 +3,8 @@ package it.unibo.jetpackjoyride.core.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
+
 import it.unibo.jetpackjoyride.core.api.GameEconomy;
 import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.graphics.api.View;
@@ -59,7 +61,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
     @Override
-    public void loopState() {
+    public void loopState() throws ParseException {
         long previousCycleStartTime = System.currentTimeMillis();
         while (true) {
             long currentCycleStartTime = System.currentTimeMillis();
@@ -79,6 +81,7 @@ public class GameEngineImpl implements GameEngine {
     private void processInput() {
         List<Input> inputQueue = this.inputHandler.getInputQueue();
         for (final Input inputElem : inputQueue) {
+            System.out.println(inputElem.getType());
             switch (inputElem.getType()) {
 
                 case SHOP:
@@ -184,8 +187,10 @@ public class GameEngineImpl implements GameEngine {
 
     /**
      * render the view. It will render things based on the current state.
+     * @throws ParseException
      */
-    private void renderView() {
+    private void renderView() throws ParseException {
+        System.out.println(this.currentState);
         switch (this.currentState) {
             case MAIN_MENU:
                 this.view.renderMenu();
@@ -194,6 +199,7 @@ public class GameEngineImpl implements GameEngine {
                 this.view.renderGame();
                 break;
             case SHOP_MENU:
+            System.out.println("--------"+this.currentState);
                 this.view.renderShop();
                 break;
             case STATISTICS_MENU:
