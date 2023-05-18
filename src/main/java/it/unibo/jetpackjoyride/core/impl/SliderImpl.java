@@ -19,7 +19,7 @@ public class SliderImpl extends Thread implements Slider {
 
     @Override
     public void updatePos() {
-        this.pos++;
+        this.pos+=5;
     }
 
     @Override
