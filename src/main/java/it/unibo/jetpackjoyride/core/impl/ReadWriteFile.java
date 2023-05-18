@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 /**
  * A simple class to read and write different tipe of files.
+ * ONLY WITH SIMPLE TYPES (STRING,INTEGER,DOUBLE,BOOLEAN,ECC)
+ * NO OBJECTS
  * @author lorenzo.annibalini@studio.unibo.it
  * @param <T>
  * @param <G>
