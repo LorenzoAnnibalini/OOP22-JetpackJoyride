@@ -64,6 +64,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void renderGame() throws ParseException {
+        this.game.repaint();
         this.menuPanel.setVisible(false);
         this.shop.setVisible(false);
         this.game.setVisible(true);
