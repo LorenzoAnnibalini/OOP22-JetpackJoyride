@@ -64,6 +64,7 @@ public class GameEngineImpl implements GameEngine {
         while (true) {
             long currentCycleStartTime = System.currentTimeMillis();
             long elapsedTime = currentCycleStartTime - previousCycleStartTime;
+            System.out.println(this.currentState);
             this.processInput();
             this.updateWorldGameState(elapsedTime);
             this.renderView();
@@ -159,7 +160,7 @@ public class GameEngineImpl implements GameEngine {
 
                 case START_GAME:
                     if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
-                        this.worldGameState.newGame();
+                        this.worldGameStateStart();
                     }
                     break;
 
