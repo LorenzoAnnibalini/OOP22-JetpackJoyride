@@ -1,6 +1,6 @@
 package it.unibo.jetpackjoyride.core.api;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import it.unibo.jetpackjoyride.model.impl.Money;
 
@@ -14,5 +14,5 @@ public interface MoneyPatternLoader {
      * Method to get the money pattern from file.
      * @return an array list of Money
      */
-    public ArrayList<Money> getMoneyPattern() throws FileNotFoundException;
+    public ArrayList<Money> getMoneyPattern() throws IOException;
 }
