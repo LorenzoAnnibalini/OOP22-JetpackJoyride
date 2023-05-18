@@ -31,10 +31,11 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int DURATION = 0;
     private static final long SHORTDURATION = 5000;
     private static final long LONGDURATION = 8000;
-    private static final int YBOUND = 200;
-    private static final int XBOUND = 600;
+    private static final int YBOUND = 500;
+    private static final int XBOUND = 1180;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
+    private static final int RIGHT = 1;
     private static final int RANDOMSEED = 2;
 
     @Override
@@ -111,10 +112,14 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             Point2d startPosition = new Point2d(
                     direction == EntitiesGeneratorImpl.LEFT ? EntitiesGeneratorImpl.XBOUND : 0,
                     EntitiesGeneratorImpl.YBOUND);
+            Point2d finishPosition = new Point2d(
+                    direction == EntitiesGeneratorImpl.RIGHT ? EntitiesGeneratorImpl.XBOUND : 0,
+                    EntitiesGeneratorImpl.YBOUND);
+            Vector2d velocity = new Vector2d(finishPosition, startPosition);
             this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
                     direction == EntitiesGeneratorImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
                     startPosition,
-                    new Vector2d(new Point2d(i, direction), startPosition), new HitboxImpl(50, 50, startPosition))));
+                    velocity, new HitboxImpl(50, 50, startPosition))));
         }
     }
 
@@ -123,9 +128,9 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
         // Overwrite entities
         this.entities = entities;
         Random random = new Random();
-            this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(
-                    new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)), null,
-                    null)));
+        this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(
+                new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)), null,
+                null)));
     }
 
     @Override
