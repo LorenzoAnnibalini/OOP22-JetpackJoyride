@@ -159,7 +159,6 @@ public class GamePanel extends JPanel {
         if (!money.isEmpty()) {
             for (Money m : money) {
                 this.drawSprite(g, moneyImage, m);
-                System.out.println(m.getCurrentPos());
             }
         }
     }
@@ -175,12 +174,14 @@ public class GamePanel extends JPanel {
         if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
             g.drawImage(image, (int) entity.getCurrentPos().x + this.getSize().width, (int) entity.getCurrentPos().y,
                     this);
+            System.out.println((int) money.get(0).getCurrentPos().x + " " + (int) money.get(0).getCurrentPos().y);
         } else {
             if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Laser") {
                 g.drawImage(image, 0, (int) entity.getCurrentPos().y, this);
                 g.drawImage(image, this.getWidth(), (int) entity.getCurrentPos().y, this);
             } else {
                 g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
+                
             }
 
         }
