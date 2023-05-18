@@ -228,7 +228,6 @@ public class GamePanel extends JPanel implements KeyListener {
     public void keyPressed(final KeyEvent e) {
 
         if (e.getKeyCode() == 32 && this.isPressed != true) {
-            System.out.println("pressed");
             this.isPressed = true;
             this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_PRESSED, "UP_PRESSED"));
         }
@@ -241,7 +240,6 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     public void keyReleased(final KeyEvent e) {
         if (e.getKeyCode() == 32 && this.isPressed != false) {
-            System.out.println("released");
             this.isPressed = false;
             this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_RELEASED, "UP_RELEASED"));
         }
