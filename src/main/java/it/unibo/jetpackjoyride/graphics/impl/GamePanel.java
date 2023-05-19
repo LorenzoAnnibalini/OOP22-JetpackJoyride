@@ -95,8 +95,8 @@ public class GamePanel extends JPanel {
         // Stats labels
         JLabel score = new JLabel("Score: " + 0);
         JLabel monies = new JLabel("Monies: " + 0);
-        //score.setLocation(0, 0);
-        //monies.setLocation(0, 20);
+        // score.setLocation(0, 0);
+        // monies.setLocation(0, 20);
         this.posImage1 = 0;
         this.posImage2 = this.width;
         this.setPreferredSize(new Dimension(this.width, this.height));
@@ -112,6 +112,7 @@ public class GamePanel extends JPanel {
         // Draw background image
         g.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
         g.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
+        System.out.println("entità: " + entities.size());
         // Draw entities
         for (Pair<String, GameObject> el : entities) {
             String entityName = el.getX();
@@ -149,8 +150,6 @@ public class GamePanel extends JPanel {
                         g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
                     }
                     break;
-                case "LaserOn":
-                    break;
                 case "Nothing":
                     break;
                 default:
@@ -187,7 +186,7 @@ public class GamePanel extends JPanel {
                 g.drawImage(image, this.getWidth(), (int) entity.getCurrentPos().y, this);
             } else {
                 g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
-                
+
             }
 
         }
@@ -209,7 +208,7 @@ public class GamePanel extends JPanel {
      */
     public void setPlayer(final PlayerImpl player) {
         this.player = player;
-        //Load the right image for the player based on the skin
+        // Load the right image for the player based on the skin
         SkinInfo skinInfo = new SkinInfoImpl();
         String skin = skinInfo.getAll().entrySet().stream()
                 .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
@@ -223,7 +222,7 @@ public class GamePanel extends JPanel {
      * @param money money to draw
      */
     public void setMoney(final List<Money> money) {
-        //this.money.clear();
+        // this.money.clear();
         this.money = money;
     }
 

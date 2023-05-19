@@ -59,7 +59,8 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
             Point2d finishPosition = new Point2d((EntitiesGeneratorImpl.LIMIT), startPosition.y);
             Vector2d velocity = new Vector2d(finishPosition, startPosition);
-            Vector2d rocketVelocity = new Vector2d(new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
+            Vector2d rocketVelocity = new Vector2d(
+                    new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
                     startPosition);
             HitboxImpl hitbox = new HitboxImpl(46, 46, startPosition);
             // Switch on types of entities based on random result
