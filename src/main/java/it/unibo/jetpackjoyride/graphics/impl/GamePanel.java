@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.json.simple.parser.ParseException;
@@ -91,7 +92,11 @@ public class GamePanel extends JPanel {
         barry = sprites.get("barry").getScaled();
         barryWoman = sprites.get("barryWoman").getScaled();
         moneyImage = sprites.get("money").getScaled();
-        
+        // Stats labels
+        JLabel score = new JLabel("Score: " + 0);
+        JLabel monies = new JLabel("Monies: " + 0);
+        //score.setLocation(0, 0);
+        //monies.setLocation(0, 20);
         this.posImage1 = 0;
         this.posImage2 = this.width;
         this.setPreferredSize(new Dimension(this.width, this.height));
