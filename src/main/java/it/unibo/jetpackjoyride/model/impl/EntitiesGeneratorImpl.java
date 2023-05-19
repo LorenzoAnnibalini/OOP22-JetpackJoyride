@@ -95,7 +95,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 case EntitiesGeneratorImpl.NOTHING:
                     entities.add(
                             new Pair<String, GameObject>("Nothing",
-                                    new GameObject(startPosition, velocity, hitbox)));
+                                    new GameObject(startPosition, velocity, new HitboxImpl(0, 0, startPosition))));
                     break;
                 default:
                     break;

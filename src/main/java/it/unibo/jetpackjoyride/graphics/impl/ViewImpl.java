@@ -30,7 +30,7 @@ public class ViewImpl extends JFrame implements View {
     private final CardLayout card;
     private final JPanel cardPanel;
     //private final EndGamePanel endGamePanel;
-    //private final StatisticsPanel statisticsPanel;
+    private final StatisticsPanel statisticsPanel;
 
     public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException {
         this.setTitle("Jetpack Joyride");
@@ -39,23 +39,23 @@ public class ViewImpl extends JFrame implements View {
         this.gamePanel = new GamePanel();
         this.inputPanel = new InputPanel(inputHandler);
         this.shopPanel = new ShopPanel(inputHandler);
+        this.statisticsPanel = new StatisticsPanel(inputHandler, worldGameState.getGeneralStatistics());
         this.card = new CardLayout();
         this.cardPanel = new JPanel(this.card);
-        //this.statistics = new StatisticsPanel(worldGameState.getStatistics());
+
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(this.gamePanel.getPreferredSize());
         this.setLocationRelativeTo(null);
         this.setMinimumSize(this.gamePanel.getPreferredSize());
         this.pack();
-        //this.getContentPane().add(this.menuPanel);
 
-        //this.add(this.game);
         this.add(this.inputPanel);
 
         this.cardPanel.add(gamePanel, "gamePanel");
         this.cardPanel.add(menuPanel, "menuPanel");
         this.cardPanel.add(shopPanel, "shopPanel");
+        this.cardPanel.add(statisticsPanel, "statisticsPanel");
         this.add(cardPanel);
         this.card.show(this.cardPanel, "menuPanel");
 
@@ -87,7 +87,8 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void renderStatistics() {
-        //this.statistics.repaint();
+        this.statisticsPanel.update();
+        this.card.show(this.cardPanel, "statisticsPanel");
     }
 
     public void close() {
