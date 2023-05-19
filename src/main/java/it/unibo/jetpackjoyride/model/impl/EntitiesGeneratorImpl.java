@@ -159,6 +159,6 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
      */
     private boolean checkY(int y) {
         return this.entities.stream()
-                .filter(x -> x.getY().getCurrentPos().y - y > -5 && x.getY().getCurrentPos().y - y < 5).count() != 0;
+                .filter(x -> x.getY().getCurrentPos().y - y > -30 && x.getY().getCurrentPos().y - y < 30).count() != 0;
     }
 }
