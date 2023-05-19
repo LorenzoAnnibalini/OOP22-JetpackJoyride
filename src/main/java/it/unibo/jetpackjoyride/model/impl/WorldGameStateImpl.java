@@ -15,7 +15,6 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.api.WorldGameState;
-import it.unibo.jetpackjoyride.model.api.Player.PlayerDirection;
 import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
 import it.unibo.jetpackjoyride.core.impl.GadgetLoaderImpl;
 import it.unibo.jetpackjoyride.core.impl.MoneyPatternLoaderImpl;
@@ -27,8 +26,7 @@ import it.unibo.jetpackjoyride.input.api.Input;
 
 public class WorldGameStateImpl implements WorldGameState {
 
-    private static final int FRAME_HEIGHT = 500;
-    private static final int FRAME_WIDTH = 1180;
+    private static final int FRAME_HEIGHT = 522;
     private static final int ENTITIES_NUMBER = 3;
     private static final int SCIENTIST_NUMBER = 2;
     private static final int START_NUMBER_DECIDER = 0;
@@ -250,7 +248,7 @@ public class WorldGameStateImpl implements WorldGameState {
         this.isFlying = false;
         Point2d playerPos = new Point2d(200, 200);
         this.player = new PlayerImpl(playerPos, new Vector2d(new Point2d(200, 200), playerPos),
-                new HitboxImpl(30, 40, playerPos),this.runStatistics);
+                new HitboxImpl(20, 30, playerPos),this.runStatistics);
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
