@@ -1,14 +1,9 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
-import java.awt.Dimension;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.awt.CardLayout;
 
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.plaf.DimensionUIResource;
 
 import org.json.simple.parser.ParseException;
 
@@ -27,39 +22,42 @@ public class ViewImpl extends JFrame implements View {
 
     //TODO: Add Shop, Game and Statistics panels
 
-    private GamePanel game;
+    private GamePanel gamePanel;
     private final MenuPanel menuPanel;
     private InputQueue inputHandler;
     private final InputPanel inputPanel;
-    //private final EndGamePanel endGame;
-    private final ShopPanel shop;
-    //private final StatisticsPanel statistics;
+    private final ShopPanel shopPanel;
+    private final CardLayout card;
+    private final JPanel cardPanel;
+    //private final EndGamePanel endGamePanel;
+    //private final StatisticsPanel statisticsPanel;
 
     public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException {
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
         this.menuPanel = new MenuPanel(this.inputHandler);
-        this.game = new GamePanel();
+        this.gamePanel = new GamePanel();
         this.inputPanel = new InputPanel(inputHandler);
-        this.shop = new ShopPanel(inputHandler);
+        this.shopPanel = new ShopPanel(inputHandler);
+        this.card = new CardLayout();
+        this.cardPanel = new JPanel(this.card);
         //this.statistics = new StatisticsPanel(worldGameState.getStatistics());
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(this.game.getPreferredSize());
+        this.setSize(this.gamePanel.getPreferredSize());
         this.setLocationRelativeTo(null);
-        this.setMinimumSize(this.game.getPreferredSize());
+        this.setMinimumSize(this.gamePanel.getPreferredSize());
         this.pack();
         //this.getContentPane().add(this.menuPanel);
 
         //this.add(this.game);
-        this.add(this.shop);
-        this.shop.setVisible(false);
-        this.add(this.game);
-        this.game.setVisible(false);
         this.add(this.inputPanel);
-        this.add(this.menuPanel);
-        this.menuPanel.setVisible(true);
 
+        this.cardPanel.add(gamePanel, "gamePanel");
+        this.cardPanel.add(menuPanel, "menuPanel");
+        this.cardPanel.add(shopPanel, "shopPanel");
+        this.add(cardPanel);
+        this.card.show(this.cardPanel, "menuPanel");
 
         this.setVisible(true);
         this.setAlwaysOnTop(true);
@@ -67,24 +65,19 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void renderGame() throws ParseException {
-        this.game.repaint();
-        this.menuPanel.setVisible(false);
-        this.shop.setVisible(false);
-        this.game.setVisible(true);
+        this.gamePanel.repaint();
+        this.card.show(this.cardPanel, "gamePanel");
     }
 
     @Override
     public void renderMenu() {
-        this.shop.setVisible(false);
-        this.game.setVisible(false);
-        this.menuPanel.setVisible(true);
+        this.card.show(this.cardPanel, "menuPanel");
     }
 
     @Override
     public void renderShop() {
-        this.menuPanel.setVisible(false);
-        this.game.setVisible(false);
-        this.shop.setVisible(true);
+        this.shopPanel.update();
+        this.card.show(this.cardPanel, "shopPanel");
     }
 
     @Override
@@ -99,11 +92,12 @@ public class ViewImpl extends JFrame implements View {
 
     public void close() {
         this.dispose();
+        System.exit(0);
     }
 
     @Override
     public GamePanel getGamePanel() {
-      return this.game;
+      return this.gamePanel;
     }
     
 }

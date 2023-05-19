@@ -13,6 +13,9 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 public class Money extends GameObject{
     
+    private static final int X = 0;
+    private static final int Y = 1;
+
     public Money(final Point2d pos, final Vector2d vel,final Hitbox hitbox){
         super(pos, vel, hitbox);
     }
@@ -23,8 +26,6 @@ public class Money extends GameObject{
      * @return moneyList, the list of money
      */
     public static ArrayList<Money> getMoneyFromStringList(final ArrayList<String> moneyString){
-        final int X = 0;
-        final int Y = 1;
         ArrayList<Money> moneyList = new ArrayList<>();
         moneyString.stream().map(e -> e.split(",")).forEach(e -> {
             int x =  Integer.parseInt(e[X]);

@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 import it.unibo.jetpackjoyride.model.impl.Money;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
+import it.unibo.jetpackjoyride.model.impl.LaserRay;
 
 /**
  * Class of the panel's game. Used to visualize map of game and sprites.
@@ -50,6 +52,8 @@ public class GamePanel extends JPanel {
     private Image rightScientist;
     private Image leftScientist;
     private Image laser;
+    private Image barry;
+    private Image barryWoman;
     private Image playerImage;
     private Image moneyImage;
     private SliderImpl slider;
@@ -76,8 +80,6 @@ public class GamePanel extends JPanel {
         this.height = sprites.get("background").getScaledlDim().getY();
         slider = new SliderImpl(this.width);
         // loading sprite images and adjust sizes
-        Image barry;
-        Image barryWoman;
         rocket = sprites.get("rocket").getScaled();
         vertElectrode = sprites.get("vElectrode").getScaled();
         horElectrode = sprites.get("hElectrode").getScaled();
@@ -89,16 +91,12 @@ public class GamePanel extends JPanel {
         barry = sprites.get("barry").getScaled();
         barryWoman = sprites.get("barryWoman").getScaled();
         moneyImage = sprites.get("money").getScaled();
-        SkinInfo skinInfo = new SkinInfoImpl();
-        String skin = skinInfo.getAll().entrySet().stream()
-                .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
-                .getKey();
-        playerImage = "barry".equals(skin) ? barry : barryWoman;
+        
         this.posImage1 = 0;
         this.posImage2 = this.width;
         this.setPreferredSize(new Dimension(this.width, this.height));
         this.setSize(this.getPreferredSize());
-        this.setVisible(true);
+        this.setVisible(false);
         this.slider.start();
     }
 
@@ -131,18 +129,22 @@ public class GamePanel extends JPanel {
                         this.drawSprite(g, leftScientist, entity);
                     }
                     break;
-                case "Shield":
+                case "ShieldPowerUp":
                     this.drawSprite(g, shield, entity);
                     break;
-                case "Speedup":
+                case "SpeedUpPowerup":
                     this.drawSprite(g, speedup, entity);
                     break;
-                case "LaserOff":
-                    this.drawSprite(g, laser, entity);
+                case "Laser":
+                    System.out.println("Laser");
+                    if (!((LaserRay) entity).isActive()) {
+                        this.drawSprite(g, laser, entity);
+                    } else {
+                        this.drawSprite(g, laser, entity);
+                        g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
+                    }
                     break;
                 case "LaserOn":
-                    this.drawSprite(g, laser, entity);
-                    g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
                     break;
                 case "Nothing":
                     break;
@@ -172,9 +174,8 @@ public class GamePanel extends JPanel {
      */
     private void drawSprite(Graphics g, Image image, GameObject entity) {
         if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
-            g.drawImage(image, (int) entity.getCurrentPos().x + this.getSize().width, (int) entity.getCurrentPos().y,
+            g.drawImage(image, ((int) entity.getCurrentPos().x), (int) entity.getCurrentPos().y,
                     this);
-            //System.out.println((int) money.get(0).getCurrentPos().x + " " + (int) money.get(0).getCurrentPos().y);
         } else {
             if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Laser") {
                 g.drawImage(image, 0, (int) entity.getCurrentPos().y, this);
@@ -203,6 +204,12 @@ public class GamePanel extends JPanel {
      */
     public void setPlayer(final PlayerImpl player) {
         this.player = player;
+        //Load the right image for the player based on the skin
+        SkinInfo skinInfo = new SkinInfoImpl();
+        String skin = skinInfo.getAll().entrySet().stream()
+                .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
+                .getKey();
+        this.playerImage = "barry".equals(skin) ? this.barry : this.barryWoman;
     }
 
     /**
