@@ -23,6 +23,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader{
     /*Order to read data from nextLine().*/
     private final int X = 0;
     private final int Y = 1;
+    private static final int LIMIT = 395;
     /* Attribute that count the number of available pattern file.
      * N.B the number of available file must be the same of the number
      * of file money_.txt in the resources folder.
@@ -72,7 +73,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader{
             int x =  Integer.parseInt(line.split(",")[X]);
             int y =  Integer.parseInt(line.split(",")[Y]);
             Point2d startPosition = new Point2d(x, y);
-            Point2d finishPosition  = new Point2d(x - 1180, startPosition.y);
+            Point2d finishPosition  = new Point2d(x - LIMIT, startPosition.y);
             Vector2d vec = new Vector2d(finishPosition, startPosition);
             Hitbox hitbox = new HitboxImpl(5, 5, startPosition);
             moneyList.add(new Money(startPosition, vec, hitbox));
