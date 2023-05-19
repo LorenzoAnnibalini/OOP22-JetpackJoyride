@@ -28,6 +28,7 @@ import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 import it.unibo.jetpackjoyride.model.impl.Money;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
+import it.unibo.jetpackjoyride.model.impl.LaserRay;
 
 /**
  * Class of the panel's game. Used to visualize map of game and sprites.
@@ -134,12 +135,16 @@ public class GamePanel extends JPanel {
                 case "SpeedUpPowerup":
                     this.drawSprite(g, speedup, entity);
                     break;
-                case "LaserOff":
-                    this.drawSprite(g, laser, entity);
+                case "Laser":
+                    System.out.println("Laser");
+                    if (!((LaserRay) entity).isActive()) {
+                        this.drawSprite(g, laser, entity);
+                    } else {
+                        this.drawSprite(g, laser, entity);
+                        g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
+                    }
                     break;
                 case "LaserOn":
-                    this.drawSprite(g, laser, entity);
-                    g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
                     break;
                 case "Nothing":
                     break;
