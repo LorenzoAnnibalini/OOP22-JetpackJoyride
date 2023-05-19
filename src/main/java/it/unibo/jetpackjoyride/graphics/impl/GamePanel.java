@@ -130,7 +130,6 @@ public class GamePanel extends JPanel {
         // Draw background image
         g.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
         g.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
-        System.out.println("entità: " + entities.size());
         // Draw entities
         for (Pair<String, GameObject> el : entities) {
             String entityName = el.getX();
