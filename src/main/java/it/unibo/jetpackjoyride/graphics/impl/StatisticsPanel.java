@@ -2,17 +2,27 @@ package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Flow;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.input.api.Input.typeInput;
+import it.unibo.jetpackjoyride.input.impl.InputImpl;
+import it.unibo.jetpackjoyride.model.api.Statistics;
 
 /**
  * Class to visualize the statistics of the game.
@@ -20,41 +30,40 @@ import javax.swing.JPanel;
  * @author emanuele.sanchi@studio.unibo.it
  */
 public class StatisticsPanel extends JPanel {
-    private Map<String, Integer> statistics;
-    private BufferedImage backgruondImage;
-    private static final String FILESEPARATOR = File.separator;
-    private static final String FONTNAME = "Verdana";
-    private static final int FONTSTYLE = 0;
-    private static final int FONTSIZE = 15;
+    private Statistics statistics;
+    private Map<String, Integer>statsMap = new HashMap<>();
+    private final JButton menu;
+    private final InputQueue inputQueue;
 
     /**
      * Constructor of the class.
      * 
      * @param statistics a map from string (statistic name) to int (statistic value)
+     * @param inputQueue the input queue
      */
-    public StatisticsPanel(Map<String, Integer> statistics) {
-        this.statistics = new HashMap<>(statistics);
-        try {
-            this.backgruondImage = ImageIO.read(new File("resources" + StatisticsPanel.FILESEPARATOR + "sfondo.jpg"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        this.setPreferredSize(new Dimension(backgruondImage.getWidth(), backgruondImage.getHeight()));
-        this.setSize(this.getPreferredSize());
-
-        for (String statName : this.statistics.keySet()) {
-            int value = statistics.get(statName);
-            String text = statName + "\t\t\t\t " + value;
-            JLabel label = new JLabel(text);
-            label.setFont(new Font(StatisticsPanel.FONTNAME, StatisticsPanel.FONTSTYLE, StatisticsPanel.FONTSIZE));
-        }
+    public StatisticsPanel(final InputQueue inputQueue, Statistics statistics) {
+        super();
+        this.statistics = statistics;
+        this.setLayout(new BorderLayout());
+        this.inputQueue = inputQueue;
+        this.menu = new JButton("Menu");
+        this.menu.addActionListener(e -> {
+            this.inputQueue.addInput(new InputImpl(typeInput.MENU, null));
+        });
+        this.add(menu, BorderLayout.SOUTH);        
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        this.removeAll();
-        g = (Graphics2D) g;
-        g.drawImage(backgruondImage, 0, 0, this);
+    public void update() {
+        JPanel boxPanel = new JPanel(new FlowLayout());
+        this.statsMap = this.statistics.getAll();
+        String statsText = "<html>";
+        for (String statName : this.statsMap.keySet()) {
+            int value = this.statsMap.get(statName);
+            statsText = statsText + statName + ": " +  value + "<br>";
+        }
+        statsText = statsText + "</html>";
+        JLabel label = new JLabel(statsText);
+        boxPanel.add(label, BorderLayout.CENTER);
+        this.add(boxPanel, BorderLayout.CENTER);
     }
 }

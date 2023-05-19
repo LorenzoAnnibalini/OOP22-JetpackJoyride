@@ -61,7 +61,7 @@ public class WorldGameStateImpl implements WorldGameState {
      * @param inputHandler
      * @throws IOException
      */
-    public WorldGameStateImpl(final InputQueue inputHandler) {
+    public WorldGameStateImpl(final InputQueue inputHandler) throws IOException {
         this.inputHandler = inputHandler;
         this.generalStatistics = new StatisticsImpl();
         this.saves = new SavesImpl();
@@ -76,6 +76,11 @@ public class WorldGameStateImpl implements WorldGameState {
         }
         try {
             this.gadgetLoader.downloadGadget();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
