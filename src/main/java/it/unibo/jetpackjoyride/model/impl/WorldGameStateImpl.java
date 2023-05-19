@@ -38,7 +38,7 @@ public class WorldGameStateImpl implements WorldGameState {
     private static final int MONEY_PROBABILITY = 3;
     private static final int LASER_PROBABILITY = 2;
     private static final int ENTITY_PROBABILITY = 5;
-    private Statistics runStatistics;
+    private StatisticsImpl runStatistics;
     private EntitiesGenerator entitiesGenerator;
     private PlayerImpl player;
     private List<Money> money;
@@ -203,7 +203,7 @@ public class WorldGameStateImpl implements WorldGameState {
      * board.
      */
     private void checkBoardPlayerCollision() {
-        if (this.player.getHitbox().getPointUpLeft().y <=0 && this.isFlying) {
+        if (this.player.getHitbox().getPointUpLeft().y <= 0 && this.isFlying) {
             this.player.setDirectionSTATIC();
         } else if (this.player.getHitbox().getPointDownRight().y >= FRAME_HEIGHT && !this.isFlying) {
             this.player.setDirectionSTATIC();
@@ -250,7 +250,7 @@ public class WorldGameStateImpl implements WorldGameState {
         this.isFlying = false;
         Point2d playerPos = new Point2d(200, 200);
         this.player = new PlayerImpl(playerPos, new Vector2d(new Point2d(200, 200), playerPos),
-                new HitboxImpl(30, 40, playerPos));
+                new HitboxImpl(30, 40, playerPos),this.runStatistics);
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
@@ -351,11 +351,6 @@ public class WorldGameStateImpl implements WorldGameState {
     @Override
     public Set<Pair<String, GameObject>> getWorldEntities() {
         return this.entities;
-    }
-
-    @Override
-    public Statistics getWorldRunStatistics() {
-        return this.runStatistics;
     }
 
     @Override
