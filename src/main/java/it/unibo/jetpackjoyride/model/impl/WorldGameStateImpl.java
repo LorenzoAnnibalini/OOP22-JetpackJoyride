@@ -27,26 +27,28 @@ import it.unibo.jetpackjoyride.input.api.Input;
 public class WorldGameStateImpl implements WorldGameState {
 
     private static final int FRAME_HEIGHT = 522;
+    private static final int FRAME_WIDTH = 1240;
     private static final int ENTITIES_NUMBER = 3;
     private static final int SCIENTIST_NUMBER = 2;
     private static final int START_NUMBER_DECIDER = 0;
-    private static final int TIME_TO_WAIT = 5000;
     private static final int SPEED_POWERUP_DISTANCE = 1000;
-    private static final int GENERAL_PROBABILITY = 10;
-    private static final int MONEY_PROBABILITY = 3;
-    private static final int LASER_PROBABILITY = 2;
-    private static final int ENTITY_PROBABILITY = 5;
+    private static final int GENERAL_PROBABILITY = 100;
+    private static final int MONEY_PROBABILITY = 20;
+    private static final int LASER_PROBABILITY = 11;
+    private static final int ENTITY_PROBABILITY = 69;
     private StatisticsImpl runStatistics;
     private EntitiesGenerator entitiesGenerator;
     private PlayerImpl player;
     private List<Money> money;
     private Set<Pair<String, GameObject>> entities;
     private long previousCycleStartTime;
+    private long timePassed;
     private MoneyPatternLoader moneyPatternLoader;
     private SavesImpl saves;
     private Random random;
     private boolean isFlying;
     private int deciderEntitiesGenerator; // 0 = entities, 1 = money, 2 = laser
+    private int timeToWaitNewEntities;
     private InputQueue inputHandler;
     private Statistics generalStatistics;
     private SkinInfoLoaderImpl skinInfoLoader;
@@ -108,25 +110,29 @@ public class WorldGameStateImpl implements WorldGameState {
      */
     private void newEntities() {
         long currentCycleStartTime = System.currentTimeMillis();
-        if (this.entities.size() - this.entities.stream()
-                .filter(entity -> entity.getX().matches("Scientist") || entity.getX().matches("Nothing"))
-                .count() <= ENTITIES_NUMBER && currentCycleStartTime - this.previousCycleStartTime >= TIME_TO_WAIT
-                && this.deciderEntitiesGenerator == 0) {
-            this.entitiesGenerator.generateEntity(this.entities, random.nextInt(2) + 2);
+        this.timePassed = currentCycleStartTime - this.previousCycleStartTime;
+
+        if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 0) {
+            this.entitiesGenerator.generateEntity(this.entities, random.nextInt(3) + 2);
             this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
+            this.timeToWaitNewEntities = this.timeToWait();
             this.deciderEntitiesGenerator = this.randomDecider();
-        } else if (currentCycleStartTime - this.previousCycleStartTime >= TIME_TO_WAIT
-                && this.deciderEntitiesGenerator == 1) {
+        }
+
+        else if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 1) {
             try {
                 this.money.addAll(moneyPatternLoader.getMoneyPattern());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             this.previousCycleStartTime = currentCycleStartTime;
+            this.timeToWaitNewEntities = this.timeToWait();
             this.deciderEntitiesGenerator = this.randomDecider();
-        } else if (currentCycleStartTime - this.previousCycleStartTime >= TIME_TO_WAIT
-                && this.deciderEntitiesGenerator == 2 && this.entities.size() == 0) {
+        }
+
+        else if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 2
+                && this.entities.size() == 0) {
             this.entitiesGenerator.generateLaser(this.entities, random.nextInt(4));
             this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
@@ -134,8 +140,8 @@ public class WorldGameStateImpl implements WorldGameState {
 
         if (this.entities.stream()
                 .filter(entity -> entity.getX().matches("Scientist"))
-                .count() == 0 && this.deciderEntitiesGenerator != 4) {
-            this.entitiesGenerator.generateScientists(entities, SCIENTIST_NUMBER);
+                .count() <= 0 && this.deciderEntitiesGenerator != 2) {
+            this.entitiesGenerator.generateScientists(this.entities, SCIENTIST_NUMBER);
             this.entities = this.entitiesGenerator.getEntities();
         }
     }
@@ -218,7 +224,7 @@ public class WorldGameStateImpl implements WorldGameState {
         Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
-            if (entity.getY().getCurrentPos().x < 0) {
+            if (entity.getY().getCurrentPos().x < 0 || entity.getY().getCurrentPos().x > FRAME_WIDTH) {
                 entityIterator.remove();
             }
         }
@@ -230,6 +236,15 @@ public class WorldGameStateImpl implements WorldGameState {
             }
         }
 
+    }
+
+    /**
+     * Return the time to wait for the next entities generation.
+     * 
+     * @return the time to wait.
+     */
+    private int timeToWait() {
+        return random.nextInt(1500) + 1500;
     }
 
     /**
@@ -246,17 +261,15 @@ public class WorldGameStateImpl implements WorldGameState {
         this.runStatistics.addStatistic("Money", 0);
         this.runStatistics.addStatistic("Meters", 0);
         this.isFlying = false;
-        Point2d playerPos = new Point2d(200, 200);
-        this.player = new PlayerImpl(playerPos, new Vector2d(new Point2d(200, 200), playerPos),
-                new HitboxImpl(20, 40, playerPos),this.runStatistics);
+        this.timeToWaitNewEntities = this.timeToWait();
+        this.previousCycleStartTime = System.currentTimeMillis();
+        this.player = new PlayerImpl(new Point2d(200, 200), new Vector2d(new Point2d(200, 200), new Point2d(200, 200)),
+                new HitboxImpl(40, 50, new Point2d(200, 200)), this.runStatistics);
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        this.entitiesGenerator.generateEntity(this.entities, ENTITIES_NUMBER);
-        this.entitiesGenerator.generateScientists(this.entities, SCIENTIST_NUMBER);
-        this.entities = this.entitiesGenerator.getEntities();
         this.deciderEntitiesGenerator = START_NUMBER_DECIDER;
     }
 
