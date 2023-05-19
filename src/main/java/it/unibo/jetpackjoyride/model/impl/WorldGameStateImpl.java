@@ -27,7 +27,7 @@ import it.unibo.jetpackjoyride.input.api.Input;
 
 public class WorldGameStateImpl implements WorldGameState {
 
-    private static final int FRAME_HEIGHT = 600;
+    private static final int FRAME_HEIGHT = 500;
     private static final int FRAME_WIDTH = 1180;
     private static final int ENTITIES_NUMBER = 3;
     private static final int SCIENTIST_NUMBER = 2;
@@ -155,6 +155,7 @@ public class WorldGameStateImpl implements WorldGameState {
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
             if (this.player.getHitbox().checkCollision(entity.getY().getHitbox())) {
+                System.out.println("Collision with " + entity.getX());
                 switch (entity.getX()) {
                     case "Rocket":
                         this.player.removeHeart();
@@ -164,7 +165,7 @@ public class WorldGameStateImpl implements WorldGameState {
                         this.player.removeHeart();
                         entityIterator.remove();
                         break;
-                    case "SpeedPowerUp":
+                    case "SpeedUpPowerUp":
                         this.runStatistics.increment("score", SPEED_POWERUP_DISTANCE);
                         entityIterator.remove();
                         break;
@@ -202,11 +203,9 @@ public class WorldGameStateImpl implements WorldGameState {
      * board.
      */
     private void checkBoardPlayerCollision() {
-        if (Math.abs(
-                (this.player.getHitbox().getHeigthHitbox() / 2) - this.player.getHitbox().getPointUpLeft().y) <= 0) {
+        if (this.player.getHitbox().getPointUpLeft().y <=0 && this.isFlying) {
             this.player.setDirectionSTATIC();
-        } else if (Math.abs((this.player.getHitbox().getHeigthHitbox() / 2)
-                + this.player.getHitbox().getPointUpLeft().y) == FRAME_HEIGHT) {
+        } else if (this.player.getHitbox().getPointDownRight().y >= FRAME_HEIGHT && !this.isFlying) {
             this.player.setDirectionSTATIC();
         }
 
@@ -249,8 +248,9 @@ public class WorldGameStateImpl implements WorldGameState {
         this.runStatistics.addStatistic("Money", 0);
         this.runStatistics.addStatistic("Meters", 0);
         this.isFlying = false;
-        this.player = new PlayerImpl(new Point2d(200, 200), new Vector2d(new Point2d(200, 200), new Point2d(200, 200)),
-                new HitboxImpl(15, 10, new Point2d(0, 0)));
+        Point2d playerPos = new Point2d(200, 200);
+        this.player = new PlayerImpl(playerPos, new Vector2d(new Point2d(200, 200), playerPos),
+                new HitboxImpl(30, 40, playerPos));
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
@@ -268,9 +268,17 @@ public class WorldGameStateImpl implements WorldGameState {
      * @param elapsedTime
      */
     private void updateEntities(final long elapsedTime) {
-        this.entities.stream().forEach(entity -> entity.getY().updateState(elapsedTime));
+        this.entities.stream().forEach(entity -> {
+            entity.getY().updateState(elapsedTime);
+            entity.getY().getHitbox().updateHitbox(entity.getY().getCurrentPos());
+        });
         this.player.updateState(elapsedTime);
-        this.money.stream().forEach(moneyElem -> moneyElem.updateState(elapsedTime));
+        this.player.getHitbox().updateHitbox(this.player.getCurrentPos());
+        this.money.stream().forEach(moneyElem -> {
+            moneyElem.updateState(elapsedTime);
+            moneyElem.getHitbox().updateHitbox(moneyElem.getCurrentPos());
+        });
+
     }
 
     /**
@@ -278,6 +286,7 @@ public class WorldGameStateImpl implements WorldGameState {
      */
     private void notifyEndGame() {
         this.inputHandler.addInput(new InputImpl(Input.typeInput.END_GAME, "endGame"));
+        System.out.println("Game Over");
         this.generalStatistics.updateGeneralStats(this.runStatistics);
         try {
             this.saves.uploadSaves(this.generalStatistics.getAll());

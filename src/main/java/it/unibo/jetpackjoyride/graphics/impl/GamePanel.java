@@ -174,7 +174,7 @@ public class GamePanel extends JPanel {
         if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
             g.drawImage(image, (int) entity.getCurrentPos().x + this.getSize().width, (int) entity.getCurrentPos().y,
                     this);
-            System.out.println((int) money.get(0).getCurrentPos().x + " " + (int) money.get(0).getCurrentPos().y);
+            //System.out.println((int) money.get(0).getCurrentPos().x + " " + (int) money.get(0).getCurrentPos().y);
         } else {
             if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Laser") {
                 g.drawImage(image, 0, (int) entity.getCurrentPos().y, this);

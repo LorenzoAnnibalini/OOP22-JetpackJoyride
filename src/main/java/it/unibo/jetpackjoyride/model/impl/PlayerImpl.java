@@ -62,7 +62,7 @@ public class PlayerImpl extends GameObject implements Player {
 
     @Override
     public void removeHeart() {
-        if (this.hearts > 0) {
+        if (this.hearts > 1) {
             this.hearts--;
         } else {
             this.setPlayerDeath();
