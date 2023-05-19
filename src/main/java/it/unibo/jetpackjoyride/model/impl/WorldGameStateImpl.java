@@ -248,7 +248,7 @@ public class WorldGameStateImpl implements WorldGameState {
         this.isFlying = false;
         Point2d playerPos = new Point2d(200, 200);
         this.player = new PlayerImpl(playerPos, new Vector2d(new Point2d(200, 200), playerPos),
-                new HitboxImpl(20, 30, playerPos),this.runStatistics);
+                new HitboxImpl(20, 40, playerPos),this.runStatistics);
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
