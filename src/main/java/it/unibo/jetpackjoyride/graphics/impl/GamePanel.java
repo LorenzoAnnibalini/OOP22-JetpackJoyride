@@ -1,5 +1,7 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -27,6 +29,7 @@ import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
+import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 import it.unibo.jetpackjoyride.model.impl.Money;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
 import it.unibo.jetpackjoyride.model.impl.LaserRay;
@@ -60,7 +63,11 @@ public class GamePanel extends JPanel {
     private SliderImpl slider;
     private int width;
     private int height;
+    private int score = 0;
+    private int monies = 0;
     private static final String filename = "/config/sprites.json";
+    private JLabel scoreLabel;
+    private JLabel moneyLabel;
 
     /**
      * Constructor of the class.
@@ -93,15 +100,19 @@ public class GamePanel extends JPanel {
         barryWoman = sprites.get("barryWoman").getScaled();
         moneyImage = sprites.get("money").getScaled();
         // Stats labels
-        JLabel score = new JLabel("Score: " + 0);
-        JLabel monies = new JLabel("Monies: " + 0);
-        // score.setLocation(0, 0);
-        // monies.setLocation(0, 20);
-        this.posImage1 = 0;
-        this.posImage2 = this.width;
+        this.scoreLabel = new JLabel("Score: " + score);
+        this.moneyLabel = new JLabel("Monies: " + monies);
+        Icon moneyIcon = new ImageIcon(moneyImage);
+        this.moneyLabel.setIcon(moneyIcon);
+        this.scoreLabel.setSize(100, 20);
+        this.moneyLabel.setSize(100, 20);
+        this.add(moneyLabel);
+        this.add(scoreLabel);
         this.setPreferredSize(new Dimension(this.width, this.height));
         this.setSize(this.getPreferredSize());
         this.setVisible(false);
+        this.posImage1 = 0;
+        this.posImage2 = this.width;
         this.slider.start();
     }
 
@@ -109,6 +120,13 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         g = (Graphics2D) g;
         super.paintComponent(g);
+        // Update stats
+        StatisticsImpl currentStats = this.player.getStatistics();
+        this.monies = currentStats.getValue("Money");
+        this.score = currentStats.getValue("Meters");
+        // Update labels
+        this.moneyLabel.setText("Monies: " + this.monies);
+        this.scoreLabel.setText("Score: " + this.score);
         // Draw background image
         g.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
         g.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
