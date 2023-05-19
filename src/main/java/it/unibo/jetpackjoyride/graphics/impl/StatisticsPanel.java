@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,9 +32,6 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
 public class StatisticsPanel extends JPanel {
     private Statistics statistics;
     private Map<String, Integer>statsMap = new HashMap<>();
-    private static final String FONTNAME = "Verdana";
-    private static final int FONTSTYLE = 0;
-    private static final int FONTSIZE = 15;
     private final JButton menu;
     private final InputQueue inputQueue;
 
@@ -58,15 +56,14 @@ public class StatisticsPanel extends JPanel {
     public void update() {
         JPanel boxPanel = new JPanel(new FlowLayout());
         this.statsMap = this.statistics.getAll();
-        //System.out.println(this.statsMap.size());
+        String statsText = "<html>";
         for (String statName : this.statsMap.keySet()) {
             int value = this.statsMap.get(statName);
-            String text = statName + "\t\t\t\t " + value;
-            JLabel label = new JLabel(text);
-            label.setFont(new Font(StatisticsPanel.FONTNAME, StatisticsPanel.FONTSTYLE, StatisticsPanel.FONTSIZE));
-            boxPanel.add(label, BorderLayout.CENTER);
-            System.out.println(statName + " " + value);
+            statsText = statsText + statName + ": " +  value + "<br>";
         }
+        statsText = statsText + "</html>";
+        JLabel label = new JLabel(statsText);
+        boxPanel.add(label, BorderLayout.CENTER);
         this.add(boxPanel, BorderLayout.CENTER);
     }
 }
