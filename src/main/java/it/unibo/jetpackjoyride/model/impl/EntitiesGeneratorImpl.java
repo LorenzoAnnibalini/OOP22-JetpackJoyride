@@ -33,6 +33,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final long LONGDURATION = 8000;
     private static final int YBOUND = 500;
     private static final int XBOUND = 1180;
+    private static final int LIMIT = EntitiesGeneratorImpl.XBOUND - 395;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
     private static final int RIGHT = 1;
@@ -56,9 +57,9 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
             }
             Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
-            Point2d finishPosition = new Point2d(0, startPosition.y);
+            Point2d finishPosition = new Point2d((EntitiesGeneratorImpl.LIMIT), startPosition.y);
             Vector2d velocity = new Vector2d(finishPosition, startPosition);
-            Vector2d rocketVelocity = new Vector2d(new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
+            Vector2d rocketVelocity = new Vector2d(new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
                     startPosition);
             HitboxImpl hitbox = new HitboxImpl(50, 50, startPosition);
             // Switch on types of entities based on random result
