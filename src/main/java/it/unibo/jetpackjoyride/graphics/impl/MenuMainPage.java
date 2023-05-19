@@ -58,7 +58,7 @@ public class MenuMainPage extends JPanel {
         mainPageOptions.add(shopButton);
 
         //settingsPageComand panel
-        mainPageComands.add(settings);
+       // mainPageComands.add(settings);
         mainPageComands.add(exit);
 
         //set visible to false
