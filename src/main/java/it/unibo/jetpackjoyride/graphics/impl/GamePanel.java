@@ -128,10 +128,10 @@ public class GamePanel extends JPanel {
                         this.drawSprite(g, leftScientist, entity);
                     }
                     break;
-                case "Shield":
+                case "ShieldPowerUp":
                     this.drawSprite(g, shield, entity);
                     break;
-                case "Speedup":
+                case "SpeedUpPowerup":
                     this.drawSprite(g, speedup, entity);
                     break;
                 case "LaserOff":
