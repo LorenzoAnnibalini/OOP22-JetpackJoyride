@@ -165,8 +165,8 @@ public class WorldGameStateImpl implements WorldGameState {
                         this.player.removeHeart();
                         entityIterator.remove();
                         break;
-                    case "SpeedUpPowerUp":
-                        this.runStatistics.increment("score", SPEED_POWERUP_DISTANCE);
+                    case "SpeedUpPowerup":
+                        this.runStatistics.increment("Meters", SPEED_POWERUP_DISTANCE);
                         entityIterator.remove();
                         break;
                     case "ShieldPowerUp":
