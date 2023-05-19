@@ -50,6 +50,8 @@ public class GamePanel extends JPanel {
     private Image rightScientist;
     private Image leftScientist;
     private Image laser;
+    private Image barry;
+    private Image barryWoman;
     private Image playerImage;
     private Image moneyImage;
     private SliderImpl slider;
@@ -76,8 +78,6 @@ public class GamePanel extends JPanel {
         this.height = sprites.get("background").getScaledlDim().getY();
         slider = new SliderImpl(this.width);
         // loading sprite images and adjust sizes
-        Image barry;
-        Image barryWoman;
         rocket = sprites.get("rocket").getScaled();
         vertElectrode = sprites.get("vElectrode").getScaled();
         horElectrode = sprites.get("hElectrode").getScaled();
@@ -89,11 +89,7 @@ public class GamePanel extends JPanel {
         barry = sprites.get("barry").getScaled();
         barryWoman = sprites.get("barryWoman").getScaled();
         moneyImage = sprites.get("money").getScaled();
-        SkinInfo skinInfo = new SkinInfoImpl();
-        String skin = skinInfo.getAll().entrySet().stream()
-                .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
-                .getKey();
-        playerImage = "barry".equals(skin) ? barry : barryWoman;
+        
         this.posImage1 = 0;
         this.posImage2 = this.width;
         this.setPreferredSize(new Dimension(this.width, this.height));
@@ -203,6 +199,12 @@ public class GamePanel extends JPanel {
      */
     public void setPlayer(final PlayerImpl player) {
         this.player = player;
+        //Load the right image for the player based on the skin
+        SkinInfo skinInfo = new SkinInfoImpl();
+        String skin = skinInfo.getAll().entrySet().stream()
+                .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
+                .getKey();
+        playerImage = "barry".equals(skin) ? barry : barryWoman;
     }
 
     /**
