@@ -1,5 +1,7 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -100,15 +102,17 @@ public class GamePanel extends JPanel {
         // Stats labels
         this.scoreLabel = new JLabel("Score: " + score);
         this.moneyLabel = new JLabel("Monies: " + monies);
+        Icon moneyIcon = new ImageIcon(moneyImage);
+        this.moneyLabel.setIcon(moneyIcon);
+        this.scoreLabel.setSize(100, 20);
+        this.moneyLabel.setSize(100, 20);
         this.add(moneyLabel);
         this.add(scoreLabel);
-        //score.setLocation(0, 0);
-        //monies.setLocation(0, 20);
-        this.posImage1 = 0;
-        this.posImage2 = this.width;
         this.setPreferredSize(new Dimension(this.width, this.height));
         this.setSize(this.getPreferredSize());
         this.setVisible(false);
+        this.posImage1 = 0;
+        this.posImage2 = this.width;
         this.slider.start();
     }
 
