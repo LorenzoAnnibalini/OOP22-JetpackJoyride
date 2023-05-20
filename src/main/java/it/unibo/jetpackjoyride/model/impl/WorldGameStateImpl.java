@@ -29,7 +29,6 @@ public class WorldGameStateImpl implements WorldGameState {
     private static final int FRAME_HEIGHT = 522;
     private static final int FRAME_WIDTH = 1240;
     private static final int VOID_SPACE_ON_RIGHT = 300;
-    private static final int ENTITIES_NUMBER = 3;
     private static final int SCIENTIST_NUMBER = 2;
     private static final int START_NUMBER_DECIDER = 0;
     private static final int SPEED_POWERUP_DISTANCE = 1000;
@@ -94,6 +93,7 @@ public class WorldGameStateImpl implements WorldGameState {
         } else {
             this.player.setDirectionUP();
         }
+        System.out.println(this.runStatistics.getAll());
         this.checkBoardPlayerCollision();
         this.updateTimeLaser();
         this.updateEntities(elapsedTime);
@@ -101,7 +101,7 @@ public class WorldGameStateImpl implements WorldGameState {
         this.checkPlayerCollision();
         if (this.player.getStatusPlayer()) {
             this.newEntities();
-            this.runStatistics.increment("Meters");
+            this.runStatistics.increment("TotalMeters");
         } else {
             this.notifyEndGame();
         }
@@ -182,7 +182,7 @@ public class WorldGameStateImpl implements WorldGameState {
                         entityIterator.remove();
                         break;
                     case "SpeedUpPowerup":
-                        this.runStatistics.increment("Meters", SPEED_POWERUP_DISTANCE);
+                        this.runStatistics.increment("TotalMeters", SPEED_POWERUP_DISTANCE);
                         this.runStatistics.increment("GrabbedObjects");
                         entityIterator.remove();
                         break;
@@ -210,7 +210,7 @@ public class WorldGameStateImpl implements WorldGameState {
         while (moneyIterator.hasNext()) {
             Money moneyElem = moneyIterator.next();
             if (this.player.getHitbox().checkCollision(moneyElem.getHitbox())) {
-                this.runStatistics.increment("Money");
+                this.runStatistics.increment("GrabbedMoney");
                 moneyIterator.remove();
             }
         }
@@ -273,8 +273,8 @@ public class WorldGameStateImpl implements WorldGameState {
         this.entitiesGenerator = new EntitiesGeneratorImpl();
         this.entities = new HashSet<>();
         this.money = new ArrayList<>();
-        this.runStatistics.addStatistic("Money", 0);
-        this.runStatistics.addStatistic("Meters", 0);
+        this.runStatistics.addStatistic("GrabbedMoney", 0);
+        this.runStatistics.addStatistic("TotalMeters", 0);
         this.runStatistics.addStatistic("KilledNpc", 0);
         this.runStatistics.addStatistic("GrabbedObjects", 0);
         this.isFlying = false;
@@ -316,7 +316,8 @@ public class WorldGameStateImpl implements WorldGameState {
         this.inputHandler.addInput(new InputImpl(Input.typeInput.END_GAME, "endGame"));
         System.out.println("Game Over");
         this.generalStatistics.increment("Deaths");
-        this.generalStatistics.updateGeneralStats(this.runStatistics);
+
+        this.generalStatistics.updateGeneralStats(this.runStatistics.getAll());
         try {
             this.saves.uploadSaves(this.generalStatistics.getAll());
         } catch (IOException e) {
@@ -340,7 +341,7 @@ public class WorldGameStateImpl implements WorldGameState {
                 if (laserRayObj.isEnd()) {
                     entityIterator.remove();
                     if (this.entities.size() == 0) {
-                        this.deciderEntitiesGenerator = random.nextInt(5);
+                        this.deciderEntitiesGenerator = this.randomDecider();
                     }
                 }
 
