@@ -116,19 +116,23 @@ public class WorldGameStateImpl implements WorldGameState {
     private void newEntities() {
         long currentCycleStartTime = System.currentTimeMillis();
         this.timePassed = currentCycleStartTime - this.previousCycleStartTime;
-        /*this.entities.stream().forEach(e->{ 
-             if(e.getX().matches("Laser")){
-                System.out.println("Laser:   TopLeft:"+e.getY().getHitbox().getPointUpLeft() +"  DownRight:  "+ e.getY().getHitbox().getPointDownRight());
-            }
-        });
-        System.out.println("player:   TopLeft:"+player.getHitbox().getPointUpLeft()+"  DownRight:  "+ player.getHitbox().getPointDownRight());*/
+        /*
+         * this.entities.stream().forEach(e->{
+         * if(e.getX().matches("Laser")){
+         * System.out.println("Laser:   TopLeft:"+e.getY().getHitbox().getPointUpLeft()
+         * +"  DownRight:  "+ e.getY().getHitbox().getPointDownRight());
+         * }
+         * });
+         * System.out.println("player:   TopLeft:"+player.getHitbox().getPointUpLeft()
+         * +"  DownRight:  "+ player.getHitbox().getPointDownRight());
+         */
         if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 0) {
-            if(this.random.nextInt(100)<75){
-                this.entitiesGenerator.generateObstacles(entities, this.random.nextInt(3)+2);
-                this.entities=this.entitiesGenerator.getEntities();
+            if (this.random.nextInt(100) < 75) {
+                this.entitiesGenerator.generateObstacles(entities, this.random.nextInt(3) + 2);
+                this.entities = this.entitiesGenerator.getEntities();
             } else {
                 this.entitiesGenerator.generatePowerUps(entities, 1);
-                this.entities=this.entitiesGenerator.getEntities();
+                this.entities = this.entitiesGenerator.getEntities();
             }
             this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
@@ -175,8 +179,10 @@ public class WorldGameStateImpl implements WorldGameState {
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
 
-            //System.out.println(entity.getX()+": " + entity.getY().getHitbox().isHitboxActive()+"    ");
-            if (this.player.getHitbox().checkCollision(entity.getY().getHitbox()) || (entity.getX().matches("Laser") && entity.getY().getHitbox().checkCollision(this.player.getHitbox()))) {
+            // System.out.println(entity.getX()+": " +
+            // entity.getY().getHitbox().isHitboxActive()+" ");
+            if (this.player.getHitbox().checkCollision(entity.getY().getHitbox()) || (entity.getX().matches("Laser")
+                    && entity.getY().getHitbox().checkCollision(this.player.getHitbox()))) {
                 System.out.println("Collision with " + entity.getX());
                 switch (entity.getX()) {
                     case "Rocket":
@@ -202,7 +208,7 @@ public class WorldGameStateImpl implements WorldGameState {
                         entityIterator.remove();
                         break;
                     case "Scientist":
-                    this.runStatistics.increment("KilledNpc");
+                        this.runStatistics.increment("KilledNpc");
                         entityIterator.remove();
                         break;
                     case "Nothing":
@@ -245,7 +251,8 @@ public class WorldGameStateImpl implements WorldGameState {
         Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
-            if (entity.getY().getCurrentPos().x < 0 || entity.getY().getCurrentPos().x > FRAME_WIDTH+VOID_SPACE_ON_RIGHT) {
+            if (entity.getY().getCurrentPos().x < 0
+                    || entity.getY().getCurrentPos().x > FRAME_WIDTH + VOID_SPACE_ON_RIGHT) {
                 entityIterator.remove();
             }
         }
@@ -303,8 +310,19 @@ public class WorldGameStateImpl implements WorldGameState {
      */
     private void updateEntities(final long elapsedTime) {
         this.entities.stream().forEach(entity -> {
-            entity.getY().updateState(elapsedTime);
-            entity.getY().getHitbox().updateHitbox(entity.getY().getCurrentPos());
+            if (entity.getX().matches("Rocket")) {
+                Rocket rocket = (Rocket) entity.getY();
+                if (!rocket.isActive()) {
+                    rocket.checkState(elapsedTime);
+                } else {
+                    entity.getY().updateState(elapsedTime);
+                    entity.getY().getHitbox().updateHitbox(entity.getY().getCurrentPos());
+                }
+            } else {
+                entity.getY().updateState(elapsedTime);
+                entity.getY().getHitbox().updateHitbox(entity.getY().getCurrentPos());
+            }
+
         });
         this.player.updateState(elapsedTime);
         this.player.getHitbox().updateHitbox(this.player.getCurrentPos());
