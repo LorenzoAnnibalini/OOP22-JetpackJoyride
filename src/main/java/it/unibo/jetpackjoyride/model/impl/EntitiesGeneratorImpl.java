@@ -151,7 +151,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                     direction == EntitiesGeneratorImpl.LEFT ? EntitiesGeneratorImpl.XBOUND : 0,
                     EntitiesGeneratorImpl.YBOUND);
             Point2d finishPosition = new Point2d(
-                    direction == EntitiesGeneratorImpl.RIGHT ? EntitiesGeneratorImpl.XBOUND : 0,
+                    direction == EntitiesGeneratorImpl.RIGHT ? EntitiesGeneratorImpl.XBOUND - 500 : 500,
                     EntitiesGeneratorImpl.YBOUND);
             Vector2d velocity = new Vector2d(finishPosition, startPosition);
             this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
