@@ -84,10 +84,11 @@ public class EndGamePanel extends JPanel{
         this.statsMap = statistics.getAll();
         
         String statsText = "<html>";
-        for (String statName : this.statsMap.keySet()) {
-            int value = this.statsMap.get(statName);
-            statsText = statsText + statName + ": " +  value + "<br>";
+
+        for ( String key : statsMap.keySet()){
+            statsText = statsText + "<br>" + key + ": " + statsMap.get(key).toString() + "<br>";
         }
+        
         statsText = statsText + "</html>";
         JLabel label = new JLabel(statsText);
         this.statisticsPanel.add(label, BorderLayout.CENTER);
