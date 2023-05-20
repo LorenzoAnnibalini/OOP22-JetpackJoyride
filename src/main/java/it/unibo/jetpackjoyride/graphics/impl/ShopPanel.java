@@ -134,7 +134,7 @@ public class ShopPanel extends JPanel{
                 this.inputQueue.addInput(new InputImpl(typeInput.DISABLE, name));
                 break;
             case "Purchased":
-                this.inputQueue.addInput(new InputImpl(typeInput.BUY, null));
+                this.inputQueue.addInput(new InputImpl(typeInput.BUY, name));
                 break;
             default:
                 break;
