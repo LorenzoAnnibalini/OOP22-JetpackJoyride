@@ -133,6 +133,11 @@ public class ShopPanel extends JPanel{
         return statistics.getValue("ActualMoney");
     }
 
+    /**
+     * This method load the sprite image from the spriteLoader
+     * @param name of the sprite to load
+     * @return the JLabel with the sprite image
+     */
     private JLabel loadSpriteImage(String name){
         Sprite skinSprite = spriteLoader.getSprites().get(name);
         skinSprite.scale();
