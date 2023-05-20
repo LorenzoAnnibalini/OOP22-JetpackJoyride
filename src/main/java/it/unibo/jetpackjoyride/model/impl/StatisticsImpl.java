@@ -52,7 +52,6 @@ public class StatisticsImpl implements Statistics {
     public void updateGeneralStats(Map<String, Integer> runStats) {
         for (String key : runStats.keySet()) {
             this.increment(key, runStats.get(key));
-            System.out.println(key + " " + runStats.get(key));
         }
         if(runStats.get("GrabbedMoney") > statistics.get("MaxMoney")) {
             this.setValue("MaxMoney", runStats.get("GrabbedMoney"));
@@ -60,6 +59,7 @@ public class StatisticsImpl implements Statistics {
         if(runStats.get("TotalMeters") > statistics.get("MaxMeters")) {
             this.setValue("MaxMeters", runStats.get("TotalMeters"));
         }
+        this.increment("ActualMoney", runStats.get("GrabbedMoney"));
     }
 
 }

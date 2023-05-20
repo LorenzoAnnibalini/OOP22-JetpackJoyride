@@ -45,7 +45,6 @@ public class SavesImpl implements Saves {
                 new File(this.getClass().getResource(filename).getPath()));
             for (String name : stats.keySet()) {
                 writer.write(name + ";" + stats.get(name) + "\n");
-                System.out.println(name + ";" + stats.get(name));
             }
             writer.close();
         } catch (Exception e) {
