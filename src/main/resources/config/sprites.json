@@ -69,8 +69,14 @@
     ],
     "map": [
         {
-            "name": "background",
-            "path": "background.png",
+            "name": "background1",
+            "path": "background1.png",
+            "width": 1180,
+            "height": 600
+        },
+        {
+            "name": "background2",
+            "path": "background2.png",
             "width": 1180,
             "height": 600
         }
