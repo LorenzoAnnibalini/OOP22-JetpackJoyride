@@ -41,7 +41,7 @@ public class ViewImpl extends JFrame implements View {
         this.gamePanel = new GamePanel();
         this.inputPanel = new InputPanel(inputHandler);
         this.shopPanel = new ShopPanel(inputHandler);
-        this.endGamePanel = new EndGamePanel(inputHandler, worldGameState.getPlayer().getStatistics());
+        this.endGamePanel = new EndGamePanel(inputHandler, worldGameState);
         this.statisticsPanel = new StatisticsPanel(inputHandler, worldGameState.getGeneralStatistics());
         this.card = new CardLayout();
         this.cardPanel = new JPanel(this.card);
@@ -86,6 +86,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void renderEndGame() {
+        this.endGamePanel.update();
         this.card.show(this.cardPanel, "endGamePanel");
     }
 
