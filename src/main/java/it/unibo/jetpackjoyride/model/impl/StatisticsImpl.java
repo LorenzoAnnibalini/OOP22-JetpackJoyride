@@ -50,6 +50,10 @@ public class StatisticsImpl implements Statistics {
 
     @Override
     public void updateGeneralStats(Statistics stats) {
+        Map<String, Integer> runStats = stats.getAll();
+        for (String key : runStats.keySet()) {
+            this.increment(key, runStats.get(key));
+        }
         if(stats.getAll().get("Money") > statistics.get("MaxMoney")) {
             this.setValue("MaxMoney", stats.getAll().get("Money"));
         }
