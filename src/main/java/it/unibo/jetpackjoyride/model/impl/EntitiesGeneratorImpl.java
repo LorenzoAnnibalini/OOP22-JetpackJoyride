@@ -130,9 +130,12 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
         // Overwrite entities
         this.entities = entities;
         Random random = new Random();
-        this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(
-                new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)), null,
-                null)));
+        Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND / 2,
+                random.nextInt(EntitiesGeneratorImpl.YBOUND));
+        Point2d finishPosition = startPosition;
+        Vector2d velocity = new Vector2d(finishPosition, startPosition);
+        HitboxImpl hitbox = new HitboxImpl(30, XBOUND, startPosition);
+        this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(startPosition, velocity, hitbox)));
     }
 
     @Override
