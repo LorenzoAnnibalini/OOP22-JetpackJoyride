@@ -1,9 +1,9 @@
-MaxMoney;3000
-MaxMeters;547
-MoneySpent;2500
-KilledNpc;5
-Deaths;1
+MaxMoney;0
+MaxMeters;0
+MoneySpent;0
+KilledNpc;0
+Deaths;0
 GrabbedObjects;0
-GrabbedMoney;3000
+GrabbedMoney;0
 TotalMeters;0
-ActualMoney;500
+ActualMoney;0

@@ -5,7 +5,7 @@ import java.util.Map;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 
 /**
- * Class to modelize the statisstics of the game.
+ * Class to modelize the statistics of the game.
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
