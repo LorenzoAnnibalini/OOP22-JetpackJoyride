@@ -179,8 +179,8 @@ public class WorldGameStateImpl implements WorldGameState {
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
 
-            // System.out.println(entity.getX()+": " +
-            // entity.getY().getHitbox().isHitboxActive()+" ");
+             //System.out.println(entity.getX()+": " +
+             //entity.getY().getHitbox().isHitboxActive()+" ");
             if (this.player.getHitbox().checkCollision(entity.getY().getHitbox()) || (entity.getX().matches("Laser")
                     && entity.getY().getHitbox().checkCollision(this.player.getHitbox()))) {
                 System.out.println("Collision with " + entity.getX());
