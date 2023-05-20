@@ -1,19 +1,13 @@
 package it.unibo.jetpackjoyride.core.impl;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.prefs.Preferences;
 
 import it.unibo.jetpackjoyride.core.api.Saves;
 import it.unibo.jetpackjoyride.model.api.Statistics;
