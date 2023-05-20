@@ -93,6 +93,7 @@ public class WorldGameStateImpl implements WorldGameState {
         } else {
             this.player.setDirectionUP();
         }
+        System.out.println(this.deciderEntitiesGenerator);
         this.checkBoardPlayerCollision();
         this.updateTimeLaser();
         this.updateEntities(elapsedTime);
@@ -318,15 +319,17 @@ public class WorldGameStateImpl implements WorldGameState {
      */
     private void updateTimeLaser() {
         Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
-        if (this.deciderEntitiesGenerator == 4
-                && this.entities.stream().filter(entity -> entity.getX().equals("Laser")).count() != 0) {
+        if (this.deciderEntitiesGenerator == 2
+                && this.entities.stream().filter(entity -> entity.getX().matches("Laser")).count() != 0) {
             while (entityIterator.hasNext()) {
                 Pair<String, GameObject> laserRay = entityIterator.next();
                 LaserRay laserRayObj = (LaserRay) laserRay.getY();
                 laserRayObj.checkState(1);
                 if (laserRayObj.isEnd()) {
                     entityIterator.remove();
-                    this.deciderEntitiesGenerator = random.nextInt(5);
+                    if (this.entities.size() == 0) {
+                        this.deciderEntitiesGenerator = random.nextInt(5);
+                    }
                 }
 
             }
