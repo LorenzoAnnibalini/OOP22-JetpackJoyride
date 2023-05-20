@@ -79,7 +79,7 @@ public class ShopPanel extends JPanel{
 
             JPanel flowPanel = new JPanel(new FlowLayout());
             flowPanel.add(new JLabel(name));
-            flowPanel.add(new JLabel(price));
+            flowPanel.add(new JLabel(price + "$"));
             flowPanel.add(new JLabel(description));
             JButton enableButton = createGadgetButton(Boolean.parseBoolean(state) == true ? "Disable" : "Enable", true, name);
             JButton purchasedButton = createGadgetButton("Purchased", !Boolean.parseBoolean(purchased), name);
@@ -104,7 +104,7 @@ public class ShopPanel extends JPanel{
 
             JPanel flowPanel = new JPanel(new FlowLayout());
             flowPanel.add(new JLabel(name));
-            flowPanel.add(new JLabel(price));
+            flowPanel.add(new JLabel(price + "$"));
             JButton enableButton = createSkinButton("Enable", !Boolean.parseBoolean(state), name);
             JButton purchasedButton = createSkinButton("Purchased", !Boolean.parseBoolean(purchased), name);
             buttonMapSkin.put(name, new ArrayList<>(List.of(enableButton, purchasedButton)));
