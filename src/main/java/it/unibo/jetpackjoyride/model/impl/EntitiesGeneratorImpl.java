@@ -24,10 +24,10 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private Set<Pair<String, GameObject>> entities = new HashSet<>();
     private static final int ROCKET = 0;
     private static final int ELECTRODE = 1;
-    private static final int SHIELDPOWERUP = 2;
-    private static final int SPEEDUPPOWERUP = 3;
-    private static final int NOTHING = 4;
-    private static final int ENTITIESSEED = 5;
+    private static final int SHIELDPOWERUP = 0;
+    private static final int SPEEDUPPOWERUP = 1;
+    private static final int NOTHING = 3;
+    private static final int ENTITIESSEED = 3;
     private static final int DURATION = 0;
     private static final long SHORTDURATION = 5000;
     private static final long LONGDURATION = 8000;
@@ -40,7 +40,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int RANDOMSEED = 2;
 
     @Override
-    public void generateEntity(final Set<Pair<String, GameObject>> entities, int num) {
+    public void generateObstacles(final Set<Pair<String, GameObject>> entities, int num) {
         // Overwrite entities
         this.entities = entities;
         for (int i = 0; i < num; i++) {
@@ -78,7 +78,43 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                                             : Orientation.VERTICAL,
                                     hitbox)));
                     break;
+                case EntitiesGeneratorImpl.NOTHING:
+                    entities.add(
+                            new Pair<String, GameObject>("Nothing",
+                                    new GameObject(startPosition, velocity, new HitboxImpl(0, 0, startPosition))));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
+    @Override
+    public void generatePowerUps(final Set<Pair<String, GameObject>> entities, int num) {
+        // Overwrite entities
+        this.entities = entities;
+        for (int i = 0; i < num; i++) {
+            // Variable used to generate random number
+            int entityNum = 0;
+            Random random = new Random();
+            entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
+            System.out.println(entityNum);
+
+            // Vairables for gameobject's parameters constructor
+            // Check if the new entity has y like others that are already spawned
+            int y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
+            while (checkY(y)) {
+                y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
+            }
+            Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
+            Point2d finishPosition = new Point2d((EntitiesGeneratorImpl.LIMIT), startPosition.y);
+            Vector2d velocity = new Vector2d(finishPosition, startPosition);
+            Vector2d rocketVelocity = new Vector2d(
+                    new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
+                    startPosition);
+            HitboxImpl hitbox = new HitboxImpl(50, 50, startPosition);
+            // Switch on types of entities based on random result
+            switch (entityNum) {
                 case EntitiesGeneratorImpl.SHIELDPOWERUP:
                     int duration = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
                     entities.add(new Pair<String, GameObject>("ShieldPowerUp",
