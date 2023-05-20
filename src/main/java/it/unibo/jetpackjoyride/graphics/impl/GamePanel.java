@@ -86,9 +86,9 @@ public class GamePanel extends JPanel {
         Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
         backgruondImage1 = sprites.get("background1").getScaled();
-        backgruondImage2 = sprites.get("background2").getScaled();
+        backgruondImage2 = sprites.get("background1").getScaled();
         this.width = sprites.get("background1").getScaledlDim().getX();
-        this.height = sprites.get("background2").getScaledlDim().getY();
+        this.height = sprites.get("background1").getScaledlDim().getY();
         slider = new SliderImpl(this.width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
