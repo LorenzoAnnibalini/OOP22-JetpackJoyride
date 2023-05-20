@@ -21,7 +21,7 @@ import org.json.simple.parser.ParseException;
  */
 public class SpriteLoader {
     private static final String ASSETS_FOLDER = "/assets/";
-    private Map<String, Sprite> sprites = new HashMap<>();
+    private static Map<String, Sprite> sprites = new HashMap<>();
 
     /**
      * Getter of sprites.
