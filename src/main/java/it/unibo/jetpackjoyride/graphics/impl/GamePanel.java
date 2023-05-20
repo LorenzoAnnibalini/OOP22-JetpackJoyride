@@ -137,16 +137,16 @@ public class GamePanel extends JPanel {
         for (Pair<String, GameObject> el : entities) {
             String entityName = el.getX();
             GameObject entity = el.getY();
-            g.drawRect((int)entity.getHitbox().getPointUpLeft().x, (int)entity.getHitbox().getPointUpLeft().y,entity.getHitbox().getWidthHitbox(), entity.getHitbox().getHeigthHitbox());
+            //g.drawRect((int)entity.getHitbox().getPointUpLeft().x, (int)entity.getHitbox().getPointUpLeft().y,entity.getHitbox().getWidthHitbox(), entity.getHitbox().getHeigthHitbox());
             switch (entityName) {
                 case "Rocket":
                     this.drawSprite(g, rocket, entity);
                     break;
                 case "Electrode":
                     if (((Electrode) entity).getOrientation() == Orientation.HORIZONTAL) {
-                        this.drawSprite(g, vertElectrode, entity);
-                    } else {
                         this.drawSprite(g, horElectrode, entity);
+                    } else {
+                        this.drawSprite(g, vertElectrode, entity);
                     }
                     break;
                 case "Scientist":
@@ -170,7 +170,7 @@ public class GamePanel extends JPanel {
                         ((Graphics2D) g).setStroke(new BasicStroke(25));
                         g.setColor(Color.RED);
                         ((Graphics2D) g).setStroke(new BasicStroke(4f));
-                        g.drawLine(0, (int) entity.getCurrentPos().y + 15, this.getWidth(), (int) entity.getCurrentPos().y + 15);
+                        g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
                     }
                     break;
                 case "Nothing":
@@ -183,18 +183,18 @@ public class GamePanel extends JPanel {
 
         // Draw player
         this.drawSprite(g, playerImage, player);
-        g.drawRect((int)player.getHitbox().getPointUpLeft().x, (int)player.getHitbox().getPointUpLeft().y, player.getHitbox().getWidthHitbox(), player.getHitbox().getHeigthHitbox());
+        //g.drawRect((int)player.getHitbox().getPointUpLeft().x, (int)player.getHitbox().getPointUpLeft().y, player.getHitbox().getWidthHitbox(), player.getHitbox().getHeigthHitbox());
         if (player.getHearts() == 2) {
             ((Graphics2D) g).setStroke(new BasicStroke(10));
             g.setColor(Color.GREEN);
-            g.drawOval((int)player.getCurrentPos().x - 10, (int)player.getCurrentPos().y - 10, 70, 70);
+            g.drawOval((int)player.getHitbox().getPointUpLeft().x, (int)player.getHitbox().getPointUpLeft().y, 70, 70);
         }
 
         // Draw monies if present
         if (!money.isEmpty()) {
             for (Money m : money) {
                 this.drawSprite(g, moneyImage, m);
-                g.drawRect((int)m.getHitbox().getPointUpLeft().x, (int)m.getHitbox().getPointUpLeft().y,m.getHitbox().getWidthHitbox(), m.getHitbox().getHeigthHitbox());
+                //g.drawRect((int)m.getHitbox().getPointUpLeft().x, (int)m.getHitbox().getPointUpLeft().y,m.getHitbox().getWidthHitbox(), m.getHitbox().getHeigthHitbox());
             }
         }
     }
@@ -207,15 +207,16 @@ public class GamePanel extends JPanel {
      * @param entity entity object with values to draw
      */
     private void drawSprite(Graphics g, Image image, GameObject entity) {
+        int x = (int) entity.getHitbox().getPointUpLeft().x;
+        int y = (int) entity.getHitbox().getPointUpLeft().y;
         if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
-            g.drawImage(image, ((int) entity.getCurrentPos().x), (int) entity.getCurrentPos().y,
-                    this);
+            g.drawImage(image, x, y,this);
         } else {
             if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.LaserRay") {
-                g.drawImage(image, 0, (int) entity.getCurrentPos().y, this);
-                g.drawImage(image, 1150, (int) entity.getCurrentPos().y, this);
+                g.drawImage(image, 0, y, this);
+                g.drawImage(image, 1180, y, this);
             } else {
-                g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
+                g.drawImage(image, x, y, this);
 
             }
 

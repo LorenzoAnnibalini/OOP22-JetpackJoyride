@@ -75,9 +75,9 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 case EntitiesGeneratorImpl.ELECTRODE:
                     int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
                     if(orientation == EntitiesGeneratorImpl.HORIZONTAL) {
-                        hitbox = new HitboxImpl(60, 120, startPosition);
+                        hitbox = new HitboxImpl(25, 100, new Point2d(startPosition.x + 150, startPosition.y));
                     } else {
-                        hitbox = new HitboxImpl(120, 60, startPosition);
+                        hitbox = new HitboxImpl(100, 25, new Point2d(startPosition.x, startPosition.y + 150));
                     }
                     entities.add(new Pair<String, GameObject>("Electrode",
                             new Electrode(startPosition, velocity,
@@ -172,13 +172,17 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     public void generateLaser(final Set<Pair<String, GameObject>> entities, int num) {
         // Overwrite entities
         this.entities = entities;
-        Random random = new Random();
-        Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND / 2,
-                random.nextInt(EntitiesGeneratorImpl.YBOUND));
-        Point2d finishPosition = startPosition;
-        Vector2d velocity = new Vector2d(finishPosition, startPosition);
-        HitboxImpl hitbox = new HitboxImpl(30, XBOUND, startPosition);
-        this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(startPosition, velocity, hitbox)));
+        for (int i = 0; i < num; i++) {
+            Random random = new Random();
+            Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND / 2,
+                    random.nextInt(EntitiesGeneratorImpl.YBOUND));
+            Point2d finishPosition = startPosition;
+            Vector2d velocity = new Vector2d(finishPosition, startPosition);
+            HitboxImpl hitbox = new HitboxImpl(30, XBOUND, startPosition);
+            this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(startPosition, velocity, hitbox)));
+        }
+
+
     }
 
     @Override
