@@ -7,10 +7,13 @@ import javax.swing.JPanel;
 
 import org.json.simple.parser.ParseException;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -164,7 +167,9 @@ public class GamePanel extends JPanel {
                         this.drawSprite(g, laser, entity);
                     } else {
                         this.drawSprite(g, laser, entity);
-                        g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
+                        g.drawLine(0, (int) entity.getCurrentPos().y / 2, this.getWidth(), (int) entity.getCurrentPos().y /2);
+                        ((Graphics2D) g).setStroke(new BasicStroke(25));
+                        g.setColor(Color.RED);
                     }
                     break;
                 case "Nothing":
@@ -200,7 +205,7 @@ public class GamePanel extends JPanel {
         } else {
             if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.LaserRay") {
                 g.drawImage(image, 0, (int) entity.getCurrentPos().y, this);
-                g.drawImage(image, this.getWidth(), (int) entity.getCurrentPos().y, this);
+                g.drawImage(image, 1150, (int) entity.getCurrentPos().y, this);
             } else {
                 g.drawImage(image, (int) entity.getCurrentPos().x, (int) entity.getCurrentPos().y, this);
 
