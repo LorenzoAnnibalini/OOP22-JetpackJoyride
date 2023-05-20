@@ -10,6 +10,7 @@ import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Direction;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
+import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.api.Orientation;
 
@@ -60,18 +61,24 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             Point2d finishPosition = new Point2d((EntitiesGeneratorImpl.LIMIT), startPosition.y);
             Vector2d velocity = new Vector2d(finishPosition, startPosition);
             Vector2d rocketVelocity = new Vector2d(
-                    new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
+                    new Point2d(0, startPosition.y),
                     startPosition);
-            HitboxImpl hitbox = new HitboxImpl(50, 50, startPosition);
+            HitboxImpl hitbox;
             // Switch on types of entities based on random result
             switch (entityNum) {
                 case EntitiesGeneratorImpl.ROCKET:
+                    hitbox = new HitboxImpl(70, 70, startPosition);
                     entities.add(
                             new Pair<String, GameObject>("Rocket",
                                     new Rocket(startPosition, rocketVelocity, hitbox)));
                     break;
                 case EntitiesGeneratorImpl.ELECTRODE:
                     int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
+                    if(orientation == EntitiesGeneratorImpl.HORIZONTAL) {
+                        hitbox = new HitboxImpl(60, 120, startPosition);
+                    } else {
+                        hitbox = new HitboxImpl(120, 60, startPosition);
+                    }
                     entities.add(new Pair<String, GameObject>("Electrode",
                             new Electrode(startPosition, velocity,
                                     orientation == EntitiesGeneratorImpl.HORIZONTAL ? Orientation.HORIZONTAL
