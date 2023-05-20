@@ -39,13 +39,6 @@ public interface WorldGameState {
     public Set<Pair<String, GameObject>> getWorldEntities();
 
     /**
-     * Get the statistics of the current run.
-     * 
-     * @return statistics of run
-     */
-    public Statistics getWorldRunStatistics();
-
-    /**
      * Get the general statistics of the game.
      * 
      * @return general statistics

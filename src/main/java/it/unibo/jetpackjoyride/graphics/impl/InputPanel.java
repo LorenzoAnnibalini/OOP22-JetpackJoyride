@@ -9,8 +9,23 @@ import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 
+/**
+ * This is a class to model a generic input panel.
+ * This class is used to manage the input of the user.
+ * It implements the KeyListener interface.
+ * 
+ * @see KeyListener
+ * @see JPanel
+ * @see InputQueue
+ * @see InputImpl
+ * @see Input
+ * @see Input.typeInput
+ * @see InputPanel
+ * 
+ * @author mattia.burreli@studio.unibo.it
+ */
 public class InputPanel extends JPanel implements KeyListener {
-    
+
     private InputQueue inputHandler;
     private boolean isPressed;
 
@@ -22,7 +37,6 @@ public class InputPanel extends JPanel implements KeyListener {
         this.setSize(0, 0);
         this.setVisible(true);
     }
-
 
     @Override
     public void keyPressed(final KeyEvent e) {

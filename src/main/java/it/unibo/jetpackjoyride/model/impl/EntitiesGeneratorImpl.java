@@ -33,6 +33,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final long LONGDURATION = 8000;
     private static final int YBOUND = 500;
     private static final int XBOUND = 1180;
+    private static final int LIMIT = EntitiesGeneratorImpl.XBOUND - 395;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
     private static final int RIGHT = 1;
@@ -56,9 +57,10 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
             }
             Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
-            Point2d finishPosition = new Point2d(0, startPosition.y);
+            Point2d finishPosition = new Point2d((EntitiesGeneratorImpl.LIMIT), startPosition.y);
             Vector2d velocity = new Vector2d(finishPosition, startPosition);
-            Vector2d rocketVelocity = new Vector2d(new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
+            Vector2d rocketVelocity = new Vector2d(
+                    new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
                     startPosition);
             HitboxImpl hitbox = new HitboxImpl(50, 50, startPosition);
             // Switch on types of entities based on random result
@@ -94,7 +96,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 case EntitiesGeneratorImpl.NOTHING:
                     entities.add(
                             new Pair<String, GameObject>("Nothing",
-                                    new GameObject(startPosition, velocity, hitbox)));
+                                    new GameObject(startPosition, velocity, new HitboxImpl(0, 0, startPosition))));
                     break;
                 default:
                     break;
@@ -128,9 +130,12 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
         // Overwrite entities
         this.entities = entities;
         Random random = new Random();
-        this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(
-                new Point2d(EntitiesGeneratorImpl.XBOUND, random.nextInt(EntitiesGeneratorImpl.YBOUND)), null,
-                null)));
+        Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND / 2,
+                random.nextInt(EntitiesGeneratorImpl.YBOUND));
+        Point2d finishPosition = startPosition;
+        Vector2d velocity = new Vector2d(finishPosition, startPosition);
+        HitboxImpl hitbox = new HitboxImpl(30, XBOUND, startPosition);
+        this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(startPosition, velocity, hitbox)));
     }
 
     @Override
@@ -158,6 +163,6 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
      */
     private boolean checkY(int y) {
         return this.entities.stream()
-                .filter(x -> x.getY().getCurrentPos().y - y > -5 && x.getY().getCurrentPos().y - y < 5).count() != 0;
+                .filter(x -> x.getY().getCurrentPos().y - y > -30 && x.getY().getCurrentPos().y - y < 30).count() != 0;
     }
 }

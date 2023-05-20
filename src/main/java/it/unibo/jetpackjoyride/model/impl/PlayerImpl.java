@@ -8,6 +8,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Gadget;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.model.api.Player;
+import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
 
 /**
@@ -20,6 +21,7 @@ public class PlayerImpl extends GameObject implements Player {
     private boolean statusPlayer;
     private int hearts;
     private PlayerDirection direction;
+    private StatisticsImpl statistics;
     private final int UP_VELOCITY = 145;
     private final int DOWN_VELOCITY = -160;
 
@@ -29,11 +31,12 @@ public class PlayerImpl extends GameObject implements Player {
      * @param pos
      * @param vel
      */
-    public PlayerImpl(Point2d pos, Vector2d vel, Hitbox hitbox) {
+    public PlayerImpl(Point2d pos, Vector2d vel, Hitbox hitbox, StatisticsImpl statistics) {
         super(pos, vel, hitbox);
         this.hearts = 1;
         this.setPlayerAlive();
         this.direction = PlayerDirection.STATIC;
+        this.statistics = statistics;
     }
 
     @Override
@@ -62,7 +65,7 @@ public class PlayerImpl extends GameObject implements Player {
 
     @Override
     public void removeHeart() {
-        if (this.hearts > 0) {
+        if (this.hearts > 1) {
             this.hearts--;
         } else {
             this.setPlayerDeath();
@@ -74,14 +77,16 @@ public class PlayerImpl extends GameObject implements Player {
     public void setDirectionUP() {
         this.direction = PlayerDirection.UP;
         double multiplier = this.applyGadget(direction);
-        this.setVel(new Vector2d(this.getCurrentPos(), new Point2d(this.getCurrentPos().x, this.getCurrentPos().y+UP_VELOCITY*multiplier)));
+        this.setVel(new Vector2d(this.getCurrentPos(),
+                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + UP_VELOCITY * multiplier)));
     }
 
     @Override
     public void setDirectionDOWN() {
         this.direction = PlayerDirection.DOWN;
         double multiplier = this.applyGadget(direction);
-        this.setVel(new Vector2d(this.getCurrentPos(), new Point2d(this.getCurrentPos().x, this.getCurrentPos().y+DOWN_VELOCITY*multiplier)));
+        this.setVel(new Vector2d(this.getCurrentPos(),
+                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + DOWN_VELOCITY * multiplier)));
     }
 
     @Override
@@ -97,30 +102,41 @@ public class PlayerImpl extends GameObject implements Player {
 
     /**
      * Method to apply gadget effects to the player.
+     * 
      * @param direction
      * @return a multiplier to apply to the velocity
      */
-    private double applyGadget(PlayerDirection direction){
+    private double applyGadget(PlayerDirection direction) {
         Gadget gadget = new GadgetImpl();
         Map<String, List<String>> gadgets = gadget.getAll();
         for (String name : gadgets.keySet()) {
-            if ((gadgets.get(name).get(GadgetInfoPositions.STATE.ordinal())).equals("true")){
-                switch(name){
+            if ((gadgets.get(name).get(GadgetInfoPositions.STATE.ordinal())).equals("true")) {
+                switch (name) {
                     case "Air Barry":
-                        if(direction == PlayerDirection.UP){
+                        if (direction == PlayerDirection.UP) {
                             return 1.3;
                         }
-                    break;
+                        break;
                     case "Gravity Belt":
-                        if(direction == PlayerDirection.DOWN){
+                        if (direction == PlayerDirection.DOWN) {
                             return 1.3;
                         }
-                    break;
+                        break;
                     default:
-                    break;
+                        break;
                 }
             }
         }
         return 1;
+    }
+
+    @Override
+    public int getHearts() {
+        return this.hearts;
+    }
+
+    @Override
+    public StatisticsImpl getStatistics() {
+        return this.statistics;
     }
 }

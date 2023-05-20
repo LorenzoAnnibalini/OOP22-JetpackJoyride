@@ -1,5 +1,7 @@
 package it.unibo.jetpackjoyride.model.api;
 
+import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
+
 /**
  * Interface for the player.
  * 
@@ -64,5 +66,19 @@ public interface Player {
      * @return the direction of the player.
      */
     public PlayerDirection getDirection();
+
+    /**
+     * Function for get the number of hearts of the player.
+     * 
+     * @return the number of hearts of the player.
+     */
+    public int getHearts();
+
+    /**
+     * Function for get the statistics of the player.
+     * 
+     * @return the statistics of the player.
+     */
+    public StatisticsImpl getStatistics();
 
 }

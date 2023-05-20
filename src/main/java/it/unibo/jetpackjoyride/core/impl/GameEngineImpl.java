@@ -29,6 +29,7 @@ public class GameEngineImpl implements GameEngine {
     private SkinInfoLoaderImpl skinInfoLoader;
     private GadgetLoaderImpl gadgetLoader;
     private GameEconomy gameEconomy;
+    private SavesImpl saves;
 
     /**
      * Constructor for the game engine. It needs a view, a worldGameState and an
@@ -47,6 +48,7 @@ public class GameEngineImpl implements GameEngine {
         this.skinInfoLoader = new SkinInfoLoaderImpl();
         this.gadgetLoader = new GadgetLoaderImpl();
         this.gameEconomy = new GameEconomyImpl();
+        this.saves = new SavesImpl();
     }
 
     @Override
@@ -96,6 +98,11 @@ public class GameEngineImpl implements GameEngine {
                 case STATISTICS:
                     if (this.currentState == GameState.MAIN_MENU) {
                         this.currentState = GameState.STATISTICS_MENU;
+                        try {
+                            this.saves.downloadSaves();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
 
