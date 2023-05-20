@@ -167,9 +167,10 @@ public class GamePanel extends JPanel {
                         this.drawSprite(g, laser, entity);
                     } else {
                         this.drawSprite(g, laser, entity);
-                        g.drawLine(0, (int) entity.getCurrentPos().y / 2, this.getWidth(), (int) entity.getCurrentPos().y /2);
                         ((Graphics2D) g).setStroke(new BasicStroke(25));
                         g.setColor(Color.RED);
+                        ((Graphics2D) g).setStroke(new BasicStroke(4f));
+                        g.drawLine(0, (int) entity.getCurrentPos().y + 15, this.getWidth(), (int) entity.getCurrentPos().y + 15);
                     }
                     break;
                 case "Nothing":
