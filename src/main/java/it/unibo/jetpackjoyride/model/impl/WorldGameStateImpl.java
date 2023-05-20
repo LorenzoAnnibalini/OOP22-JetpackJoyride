@@ -93,7 +93,6 @@ public class WorldGameStateImpl implements WorldGameState {
         } else {
             this.player.setDirectionUP();
         }
-        System.out.println(this.runStatistics.getAll());
         this.checkBoardPlayerCollision();
         this.updateTimeLaser();
         this.updateEntities(elapsedTime);

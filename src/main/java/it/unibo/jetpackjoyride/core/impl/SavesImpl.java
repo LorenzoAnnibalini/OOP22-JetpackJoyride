@@ -40,7 +40,6 @@ public class SavesImpl implements Saves {
 
     @Override
     public void uploadSaves(Map<String, Integer> stats) throws IOException {
-        System.out.println(stats);
         try{
             PrintWriter writer = new PrintWriter(
                 new File(this.getClass().getResource(filename).getPath()));
@@ -49,7 +48,6 @@ public class SavesImpl implements Saves {
                 System.out.println(name + ";" + stats.get(name));
             }
             writer.close();
-            System.out.println(this.downloadSaves());
         } catch (Exception e) {
             e.printStackTrace();
         }
