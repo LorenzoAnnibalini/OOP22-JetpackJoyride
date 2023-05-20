@@ -65,7 +65,6 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                     startPosition);
             HitboxImpl hitbox;
             // Switch on types of entities based on random result
-            entityNum = 0;
             switch (entityNum) {
                 case EntitiesGeneratorImpl.ROCKET:
                     hitbox = new HitboxImpl(25, 50, startPosition);
@@ -76,9 +75,9 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 case EntitiesGeneratorImpl.ELECTRODE:
                     int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
                     if(orientation == EntitiesGeneratorImpl.HORIZONTAL) {
-                        hitbox = new HitboxImpl(25, 100, new Point2d(startPosition.x + 150, startPosition.y));
+                        hitbox = new HitboxImpl(25, 100, new Point2d(startPosition.x, startPosition.y));
                     } else {
-                        hitbox = new HitboxImpl(100, 25, new Point2d(startPosition.x, startPosition.y + 150));
+                        hitbox = new HitboxImpl(100, 25, new Point2d(startPosition.x, startPosition.y));
                     }
                     entities.add(new Pair<String, GameObject>("Electrode",
                             new Electrode(startPosition, velocity,

@@ -175,9 +175,8 @@ public class GamePanel extends JPanel {
                         this.drawSprite(g, laser, entity);
                     } else {
                         this.drawSprite(g, laser, entity);
-                        ((Graphics2D) g).setStroke(new BasicStroke(25));
-                        g.setColor(Color.RED);
                         ((Graphics2D) g).setStroke(new BasicStroke(4f));
+                        g.setColor(Color.RED);
                         g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
                     }
                     break;
@@ -222,7 +221,7 @@ public class GamePanel extends JPanel {
         } else {
             if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.LaserRay") {
                 g.drawImage(image, 0, y, this);
-                g.drawImage(image, 1180, y, this);
+                g.drawImage(image, 1150, y, this);
             } else {
                 g.drawImage(image, x, y, this);
 
