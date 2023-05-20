@@ -125,8 +125,8 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         // Update stats
         StatisticsImpl currentStats = this.player.getStatistics();
-        this.monies = currentStats.getValue("Money");
-        this.score = currentStats.getValue("Meters");
+        this.monies = currentStats.getValue("GrabbedMoney");
+        this.score = currentStats.getValue("TotalMeters");
         // Update labels
         this.moneyLabel.setText("Monies: " + this.monies);
         this.scoreLabel.setText("Score: " + this.score);
@@ -183,6 +183,9 @@ public class GamePanel extends JPanel {
 
         // Draw player
         this.drawSprite(g, playerImage, player);
+        if (player.getHearts() == 2) {
+            g.drawOval((int)player.getCurrentPos().x, (int)player.getCurrentPos().y, 50, 50);
+        }
 
         // Draw monies if present
         if (!money.isEmpty()) {
