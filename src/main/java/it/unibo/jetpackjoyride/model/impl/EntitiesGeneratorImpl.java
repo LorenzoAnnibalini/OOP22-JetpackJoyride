@@ -33,7 +33,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final long SHORTDURATION = 5000;
     private static final long LONGDURATION = 8000;
     private static final int YBOUND = 500;
-    private static final int XBOUND = 1180;
+    private static final int XBOUND = 1100;
     private static final int LIMIT = EntitiesGeneratorImpl.XBOUND - 395;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
@@ -65,9 +65,10 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                     startPosition);
             HitboxImpl hitbox;
             // Switch on types of entities based on random result
+            entityNum = 0;
             switch (entityNum) {
                 case EntitiesGeneratorImpl.ROCKET:
-                    hitbox = new HitboxImpl(70, 70, startPosition);
+                    hitbox = new HitboxImpl(25, 50, startPosition);
                     entities.add(
                             new Pair<String, GameObject>("Rocket",
                                     new Rocket(startPosition, rocketVelocity, hitbox)));

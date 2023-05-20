@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
+import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
@@ -36,6 +37,7 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 import it.unibo.jetpackjoyride.model.impl.Money;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
 import it.unibo.jetpackjoyride.model.impl.LaserRay;
+import it.unibo.jetpackjoyride.model.impl.Rocket;
 
 /**
  * Class of the panel's game. Used to visualize map of game and sprites.
@@ -52,6 +54,7 @@ public class GamePanel extends JPanel {
     private Image backgruondImage1;
     private Image backgruondImage2;
     private Image rocket;
+    private Image warning;
     private Image vertElectrode;
     private Image horElectrode;
     private Image shield;
@@ -92,6 +95,7 @@ public class GamePanel extends JPanel {
         slider = new SliderImpl(this.width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
+        warning = sprites.get("warning").getScaled();
         vertElectrode = sprites.get("vElectrode").getScaled();
         horElectrode = sprites.get("hElectrode").getScaled();
         shield = sprites.get("shield").getScaled();
@@ -140,7 +144,11 @@ public class GamePanel extends JPanel {
             //g.drawRect((int)entity.getHitbox().getPointUpLeft().x, (int)entity.getHitbox().getPointUpLeft().y,entity.getHitbox().getWidthHitbox(), entity.getHitbox().getHeigthHitbox());
             switch (entityName) {
                 case "Rocket":
-                    this.drawSprite(g, rocket, entity);
+                    if (!((Rocket) entity).isActive()) {
+                       this.drawSprite(g, warning, entity);
+                    } else {
+                        this.drawSprite(g, rocket, entity);
+                    }
                     break;
                 case "Electrode":
                     if (((Electrode) entity).getOrientation() == Orientation.HORIZONTAL) {
@@ -185,9 +193,9 @@ public class GamePanel extends JPanel {
         this.drawSprite(g, playerImage, player);
         //g.drawRect((int)player.getHitbox().getPointUpLeft().x, (int)player.getHitbox().getPointUpLeft().y, player.getHitbox().getWidthHitbox(), player.getHitbox().getHeigthHitbox());
         if (player.getHearts() == 2) {
-            ((Graphics2D) g).setStroke(new BasicStroke(10));
+            ((Graphics2D) g).setStroke(new BasicStroke(5));
             g.setColor(Color.GREEN);
-            g.drawOval((int)player.getHitbox().getPointUpLeft().x, (int)player.getHitbox().getPointUpLeft().y, 70, 70);
+            g.drawOval((int)player.getHitbox().getPointUpLeft().x - 10, (int)player.getHitbox().getPointUpLeft().y - 10, 70, 70);
         }
 
         // Draw monies if present

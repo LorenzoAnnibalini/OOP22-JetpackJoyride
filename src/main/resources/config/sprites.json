@@ -16,7 +16,7 @@
             "name": "rocket",
             "path": "rocket.png",
             "width": 50,
-            "height": 50
+            "height": 25
         },
         {
             "name": "vElectrode",
@@ -65,6 +65,12 @@
             "path": "money.png",
             "width": 25,
             "height": 25
+        },
+        {
+            "name": "warning",
+            "path": "warning.png",
+            "width": 50,
+            "height": 50
         }
     ],
     "map": [
