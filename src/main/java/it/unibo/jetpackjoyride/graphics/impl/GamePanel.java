@@ -86,9 +86,9 @@ public class GamePanel extends JPanel {
         Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
         backgruondImage1 = sprites.get("background1").getScaled();
-        backgruondImage2 = sprites.get("background2").getScaled();
-        this.width = sprites.get("background").getScaledlDim().getX();
-        this.height = sprites.get("background").getScaledlDim().getY();
+        backgruondImage2 = sprites.get("background1").getScaled();
+        this.width = sprites.get("background1").getScaledlDim().getX();
+        this.height = sprites.get("background1").getScaledlDim().getY();
         slider = new SliderImpl(this.width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
@@ -167,9 +167,10 @@ public class GamePanel extends JPanel {
                         this.drawSprite(g, laser, entity);
                     } else {
                         this.drawSprite(g, laser, entity);
-                        g.drawLine(0, (int) entity.getCurrentPos().y / 2, this.getWidth(), (int) entity.getCurrentPos().y /2);
                         ((Graphics2D) g).setStroke(new BasicStroke(25));
                         g.setColor(Color.RED);
+                        ((Graphics2D) g).setStroke(new BasicStroke(4f));
+                        g.drawLine(0, (int) entity.getCurrentPos().y + 15, this.getWidth(), (int) entity.getCurrentPos().y + 15);
                     }
                     break;
                 case "Nothing":

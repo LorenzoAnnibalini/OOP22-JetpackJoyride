@@ -49,16 +49,16 @@ public class StatisticsImpl implements Statistics {
     }
 
     @Override
-    public void updateGeneralStats(Statistics stats) {
-        Map<String, Integer> runStats = stats.getAll();
+    public void updateGeneralStats(Map<String, Integer> runStats) {
         for (String key : runStats.keySet()) {
             this.increment(key, runStats.get(key));
+            System.out.println(key + " " + runStats.get(key));
         }
-        if(stats.getAll().get("Money") > statistics.get("MaxMoney")) {
-            this.setValue("MaxMoney", stats.getAll().get("Money"));
+        if(runStats.get("GrabbedMoney") > statistics.get("MaxMoney")) {
+            this.setValue("MaxMoney", runStats.get("GrabbedMoney"));
         }
-        if(stats.getAll().get("Meters") > statistics.get("MaxMeters")) {
-            this.setValue("MaxMeters", stats.getAll().get("Meters"));
+        if(runStats.get("TotalMeters") > statistics.get("MaxMeters")) {
+            this.setValue("MaxMeters", runStats.get("TotalMeters"));
         }
     }
 

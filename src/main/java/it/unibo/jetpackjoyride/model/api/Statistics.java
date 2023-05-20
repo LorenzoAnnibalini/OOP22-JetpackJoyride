@@ -2,6 +2,8 @@ package it.unibo.jetpackjoyride.model.api;
 
 import java.util.Map;
 
+import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
+
 /**
  * Interface for game statistics.
  * 
@@ -61,7 +63,7 @@ public interface Statistics {
 
     /**
      * Method use to update general statistcs with ones of current play.
-     * @param stats statistics of current game
+     * @param runStats statistics of current game
      */
-    void updateGeneralStats(Statistics stats);
+    void updateGeneralStats(Map<String, Integer> runStats);
 }

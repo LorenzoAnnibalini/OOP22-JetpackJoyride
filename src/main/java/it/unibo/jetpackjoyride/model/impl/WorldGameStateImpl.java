@@ -28,6 +28,7 @@ public class WorldGameStateImpl implements WorldGameState {
 
     private static final int FRAME_HEIGHT = 522;
     private static final int FRAME_WIDTH = 1240;
+    private static final int VOID_SPACE_ON_RIGHT = 300;
     private static final int ENTITIES_NUMBER = 3;
     private static final int SCIENTIST_NUMBER = 2;
     private static final int START_NUMBER_DECIDER = 0;
@@ -118,7 +119,13 @@ public class WorldGameStateImpl implements WorldGameState {
         this.timePassed = currentCycleStartTime - this.previousCycleStartTime;
 
         if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 0) {
-            this.entitiesGenerator.generateEntity(this.entities, random.nextInt(3) + 2);
+            if(this.random.nextInt(100)<75){
+                this.entitiesGenerator.generateObstacles(entities, this.random.nextInt(3)+2);
+                this.entities=this.entitiesGenerator.getEntities();
+            } else {
+                this.entitiesGenerator.generatePowerUps(entities, 1);
+                this.entities=this.entitiesGenerator.getEntities();
+            }
             this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
             this.timeToWaitNewEntities = this.timeToWait();
@@ -232,7 +239,7 @@ public class WorldGameStateImpl implements WorldGameState {
         Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
-            if (entity.getY().getCurrentPos().x < 0 || entity.getY().getCurrentPos().x > FRAME_WIDTH) {
+            if (entity.getY().getCurrentPos().x < 0 || entity.getY().getCurrentPos().x > FRAME_WIDTH+VOID_SPACE_ON_RIGHT) {
                 entityIterator.remove();
             }
         }
