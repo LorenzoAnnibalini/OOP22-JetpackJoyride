@@ -176,10 +176,12 @@ public class WorldGameStateImpl implements WorldGameState {
                         break;
                     case "SpeedUpPowerup":
                         this.runStatistics.increment("Meters", SPEED_POWERUP_DISTANCE);
+                        this.runStatistics.increment("GrabbedObjects");
                         entityIterator.remove();
                         break;
                     case "ShieldPowerUp":
                         this.player.addHeart();
+                        this.runStatistics.increment("GrabbedObjects");
                         entityIterator.remove();
                         break;
                     case "Laser":
@@ -187,6 +189,7 @@ public class WorldGameStateImpl implements WorldGameState {
                         entityIterator.remove();
                         break;
                     case "Scientist":
+                    this.runStatistics.increment("KilledNpc");
                         entityIterator.remove();
                         break;
                     case "Nothing":
@@ -265,6 +268,8 @@ public class WorldGameStateImpl implements WorldGameState {
         this.money = new ArrayList<>();
         this.runStatistics.addStatistic("Money", 0);
         this.runStatistics.addStatistic("Meters", 0);
+        this.runStatistics.addStatistic("KilledNpc", 0);
+        this.runStatistics.addStatistic("GrabbedObjects", 0);
         this.isFlying = false;
         this.timeToWaitNewEntities = this.timeToWait();
         this.previousCycleStartTime = System.currentTimeMillis();
@@ -303,6 +308,7 @@ public class WorldGameStateImpl implements WorldGameState {
     private void notifyEndGame() {
         this.inputHandler.addInput(new InputImpl(Input.typeInput.END_GAME, "endGame"));
         System.out.println("Game Over");
+        this.generalStatistics.increment("Deaths");
         this.generalStatistics.updateGeneralStats(this.runStatistics);
         try {
             this.saves.uploadSaves(this.generalStatistics.getAll());
