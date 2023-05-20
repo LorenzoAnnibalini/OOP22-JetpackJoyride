@@ -26,7 +26,7 @@ import it.unibo.jetpackjoyride.input.api.Input;
 
 public class WorldGameStateImpl implements WorldGameState {
 
-    private static final int FRAME_HEIGHT = 522;
+    private static final int FRAME_HEIGHT = 560;
     private static final int FRAME_WIDTH = 1240;
     private static final int VOID_SPACE_ON_RIGHT = 300;
     private static final int SCIENTIST_NUMBER = 2;
@@ -116,7 +116,12 @@ public class WorldGameStateImpl implements WorldGameState {
     private void newEntities() {
         long currentCycleStartTime = System.currentTimeMillis();
         this.timePassed = currentCycleStartTime - this.previousCycleStartTime;
-
+        /*this.entities.stream().forEach(e->{ 
+             if(e.getX().matches("Laser")){
+                System.out.println("Laser:   TopLeft:"+e.getY().getHitbox().getPointUpLeft() +"  DownRight:  "+ e.getY().getHitbox().getPointDownRight());
+            }
+        });
+        System.out.println("player:   TopLeft:"+player.getHitbox().getPointUpLeft()+"  DownRight:  "+ player.getHitbox().getPointDownRight());*/
         if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 0) {
             if(this.random.nextInt(100)<75){
                 this.entitiesGenerator.generateObstacles(entities, this.random.nextInt(3)+2);
@@ -169,7 +174,9 @@ public class WorldGameStateImpl implements WorldGameState {
         Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
-            if (this.player.getHitbox().checkCollision(entity.getY().getHitbox())) {
+
+            //System.out.println(entity.getX()+": " + entity.getY().getHitbox().isHitboxActive()+"    ");
+            if (this.player.getHitbox().checkCollision(entity.getY().getHitbox()) || (entity.getX().matches("Laser") && entity.getY().getHitbox().checkCollision(this.player.getHitbox()))) {
                 System.out.println("Collision with " + entity.getX());
                 switch (entity.getX()) {
                     case "Rocket":

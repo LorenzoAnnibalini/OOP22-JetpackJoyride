@@ -137,6 +137,7 @@ public class GamePanel extends JPanel {
         for (Pair<String, GameObject> el : entities) {
             String entityName = el.getX();
             GameObject entity = el.getY();
+            g.drawRect((int)entity.getHitbox().getPointUpLeft().x, (int)entity.getHitbox().getPointUpLeft().y,entity.getHitbox().getWidthHitbox(), entity.getHitbox().getHeigthHitbox());
             switch (entityName) {
                 case "Rocket":
                     this.drawSprite(g, rocket, entity);
@@ -162,7 +163,6 @@ public class GamePanel extends JPanel {
                     this.drawSprite(g, speedup, entity);
                     break;
                 case "Laser":
-                    System.out.println("Laser");
                     if (!((LaserRay) entity).isActive()) {
                         this.drawSprite(g, laser, entity);
                     } else {
@@ -183,6 +183,7 @@ public class GamePanel extends JPanel {
 
         // Draw player
         this.drawSprite(g, playerImage, player);
+        g.drawRect((int)player.getHitbox().getPointUpLeft().x, (int)player.getHitbox().getPointUpLeft().y, player.getHitbox().getWidthHitbox(), player.getHitbox().getHeigthHitbox());
         if (player.getHearts() == 2) {
             ((Graphics2D) g).setStroke(new BasicStroke(10));
             g.setColor(Color.GREEN);
@@ -193,6 +194,7 @@ public class GamePanel extends JPanel {
         if (!money.isEmpty()) {
             for (Money m : money) {
                 this.drawSprite(g, moneyImage, m);
+                g.drawRect((int)m.getHitbox().getPointUpLeft().x, (int)m.getHitbox().getPointUpLeft().y,m.getHitbox().getWidthHitbox(), m.getHitbox().getHeigthHitbox());
             }
         }
     }
