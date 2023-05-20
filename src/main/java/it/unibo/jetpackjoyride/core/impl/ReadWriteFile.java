@@ -65,10 +65,10 @@ public class ReadWriteFile<T, G> {
         Scanner sc = new Scanner(new File(this.path));
         sc.useDelimiter(";"); 
             while (sc.hasNext()) { 
-                    T key = (T)sc.next();
-                    G value = (G)sc.next(); 
-                    mappaTmp.put(key, value);sc.nextLine();
-                    System.out.println("Reading Game Settings : " + key + " " + value);
+                T key = (T)sc.next();
+                G value = (G)sc.next(); 
+                mappaTmp.put(key, value);sc.nextLine();
+                System.out.println("Reading Game Settings : " + key + " " + value);
             }
         sc.close();  
         return mappaTmp;
