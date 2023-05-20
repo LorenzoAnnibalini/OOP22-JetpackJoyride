@@ -198,7 +198,7 @@ public class GamePanel extends JPanel {
             g.drawImage(image, ((int) entity.getCurrentPos().x), (int) entity.getCurrentPos().y,
                     this);
         } else {
-            if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Laser") {
+            if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.LaserRay") {
                 g.drawImage(image, 0, (int) entity.getCurrentPos().y, this);
                 g.drawImage(image, this.getWidth(), (int) entity.getCurrentPos().y, this);
             } else {

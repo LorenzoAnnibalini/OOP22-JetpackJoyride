@@ -58,7 +58,7 @@ public class ViewImpl extends JFrame implements View {
         this.cardPanel.add(statisticsPanel, "statisticsPanel");
         this.add(cardPanel);
         this.card.show(this.cardPanel, "menuPanel");
-
+        this.setResizable(false);
         this.setVisible(true);
         this.setAlwaysOnTop(true);
     }
