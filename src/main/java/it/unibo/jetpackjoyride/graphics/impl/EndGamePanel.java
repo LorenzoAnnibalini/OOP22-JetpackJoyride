@@ -82,15 +82,15 @@ public class EndGamePanel extends JPanel{
     public void update(){
         this.statistics = worldGameState.getPlayer().getStatistics();
         this.statsMap = statistics.getAll();
-        
+        JPanel boxPanel = new JPanel(new FlowLayout());
         String statsText = "<html>";
-
-        for ( String key : statsMap.keySet()){
-            statsText = statsText + "<br>" + key + ": " + statsMap.get(key).toString() + "<br>";
+        for (String statName : this.statsMap.keySet()) {
+            int value = this.statsMap.get(statName);
+            statsText = statsText + statName + ": " +  value + "<br>";
         }
-        
         statsText = statsText + "</html>";
         JLabel label = new JLabel(statsText);
-        this.statisticsPanel.add(label, BorderLayout.CENTER);
+        boxPanel.add(label, BorderLayout.CENTER);
+        this.add(boxPanel, BorderLayout.CENTER);
     }
 }
