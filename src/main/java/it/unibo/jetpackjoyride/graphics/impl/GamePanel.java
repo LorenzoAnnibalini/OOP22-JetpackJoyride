@@ -220,7 +220,7 @@ public class GamePanel extends JPanel {
             g.drawImage(image, x, y,this);
         } else {
             if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.LaserRay") {
-                g.drawImage(image, 0, y, this);
+                g.drawImage(image, -10, y, this);
                 g.drawImage(image, 1150, y, this);
             } else {
                 g.drawImage(image, x, y, this);
