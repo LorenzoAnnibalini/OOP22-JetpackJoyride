@@ -9,6 +9,8 @@ import org.json.simple.parser.ParseException;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.model.api.Player;
+import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 
@@ -32,14 +34,14 @@ public class ViewImpl extends JFrame implements View {
     private final EndGamePanel endGamePanel;
     private final StatisticsPanel statisticsPanel;
 
-    public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException {
+    public ViewImpl(final PlayerImpl player ,final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException {
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
         this.menuPanel = new MenuPanel(this.inputHandler);
         this.gamePanel = new GamePanel();
         this.inputPanel = new InputPanel(inputHandler);
         this.shopPanel = new ShopPanel(inputHandler);
-        this.endGamePanel = new EndGamePanel(inputHandler, worldGameState.getGeneralStatistics());
+        this.endGamePanel = new EndGamePanel(inputHandler, player.getStatistics());
         this.statisticsPanel = new StatisticsPanel(inputHandler, worldGameState.getGeneralStatistics());
         this.card = new CardLayout();
         this.cardPanel = new JPanel(this.card);
