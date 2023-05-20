@@ -2,19 +2,8 @@ package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Flow;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,7 +20,7 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
  */
 public class StatisticsPanel extends JPanel {
     private Statistics statistics;
-    private Map<String, Integer>statsMap = new HashMap<>();
+    private Map<String, Integer> statsMap = new HashMap<>();
     private final JButton menu;
     private final InputQueue inputQueue;
 
@@ -50,7 +39,7 @@ public class StatisticsPanel extends JPanel {
         this.menu.addActionListener(e -> {
             this.inputQueue.addInput(new InputImpl(typeInput.MENU, null));
         });
-        this.add(menu, BorderLayout.SOUTH);        
+        this.add(menu, BorderLayout.SOUTH);
     }
 
     public void update() {
@@ -59,7 +48,7 @@ public class StatisticsPanel extends JPanel {
         String statsText = "<html>";
         for (String statName : this.statsMap.keySet()) {
             int value = this.statsMap.get(statName);
-            statsText = statsText + statName + ": " +  value + "<br>";
+            statsText = statsText + statName + ": " + value + "<br>";
         }
         statsText = statsText + "</html>";
         JLabel label = new JLabel(statsText);

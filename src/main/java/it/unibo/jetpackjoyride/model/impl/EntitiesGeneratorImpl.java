@@ -74,7 +74,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                     break;
                 case EntitiesGeneratorImpl.ELECTRODE:
                     int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
-                    if(orientation == EntitiesGeneratorImpl.HORIZONTAL) {
+                    if (orientation == EntitiesGeneratorImpl.HORIZONTAL) {
                         hitbox = new HitboxImpl(25, 100, new Point2d(startPosition.x, startPosition.y));
                     } else {
                         hitbox = new HitboxImpl(100, 25, new Point2d(startPosition.x, startPosition.y));
@@ -181,7 +181,6 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             HitboxImpl hitbox = new HitboxImpl(30, XBOUND, startPosition);
             this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(startPosition, velocity, hitbox)));
         }
-
 
     }
 

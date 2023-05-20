@@ -63,6 +63,7 @@ public interface Statistics {
 
     /**
      * Method use to update general statistcs with ones of current play.
+     * 
      * @param runStats statistics of current game
      */
     void updateGeneralStats(Map<String, Integer> runStats);

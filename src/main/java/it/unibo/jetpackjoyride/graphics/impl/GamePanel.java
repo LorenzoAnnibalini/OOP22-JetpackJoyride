@@ -141,11 +141,13 @@ public class GamePanel extends JPanel {
         for (Pair<String, GameObject> el : entities) {
             String entityName = el.getX();
             GameObject entity = el.getY();
-            //g.drawRect((int)entity.getHitbox().getPointUpLeft().x, (int)entity.getHitbox().getPointUpLeft().y,entity.getHitbox().getWidthHitbox(), entity.getHitbox().getHeigthHitbox());
+            // g.drawRect((int)entity.getHitbox().getPointUpLeft().x,
+            // (int)entity.getHitbox().getPointUpLeft().y,entity.getHitbox().getWidthHitbox(),
+            // entity.getHitbox().getHeigthHitbox());
             switch (entityName) {
                 case "Rocket":
                     if (!((Rocket) entity).isActive()) {
-                       this.drawSprite(g, warning, entity);
+                        this.drawSprite(g, warning, entity);
                     } else {
                         this.drawSprite(g, rocket, entity);
                     }
@@ -190,18 +192,23 @@ public class GamePanel extends JPanel {
 
         // Draw player
         this.drawSprite(g, playerImage, player);
-        //g.drawRect((int)player.getHitbox().getPointUpLeft().x, (int)player.getHitbox().getPointUpLeft().y, player.getHitbox().getWidthHitbox(), player.getHitbox().getHeigthHitbox());
+        // g.drawRect((int)player.getHitbox().getPointUpLeft().x,
+        // (int)player.getHitbox().getPointUpLeft().y,
+        // player.getHitbox().getWidthHitbox(), player.getHitbox().getHeigthHitbox());
         if (player.getHearts() == 2) {
             ((Graphics2D) g).setStroke(new BasicStroke(5));
             g.setColor(Color.GREEN);
-            g.drawOval((int)player.getHitbox().getPointUpLeft().x - 10, (int)player.getHitbox().getPointUpLeft().y - 10, 70, 70);
+            g.drawOval((int) player.getHitbox().getPointUpLeft().x - 10,
+                    (int) player.getHitbox().getPointUpLeft().y - 10, 70, 70);
         }
 
         // Draw monies if present
         if (!money.isEmpty()) {
             for (Money m : money) {
                 this.drawSprite(g, moneyImage, m);
-                //g.drawRect((int)m.getHitbox().getPointUpLeft().x, (int)m.getHitbox().getPointUpLeft().y,m.getHitbox().getWidthHitbox(), m.getHitbox().getHeigthHitbox());
+                // g.drawRect((int)m.getHitbox().getPointUpLeft().x,
+                // (int)m.getHitbox().getPointUpLeft().y,m.getHitbox().getWidthHitbox(),
+                // m.getHitbox().getHeigthHitbox());
             }
         }
     }
@@ -217,7 +224,7 @@ public class GamePanel extends JPanel {
         int x = (int) entity.getHitbox().getPointUpLeft().x;
         int y = (int) entity.getHitbox().getPointUpLeft().y;
         if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
-            g.drawImage(image, x, y,this);
+            g.drawImage(image, x, y, this);
         } else {
             if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.LaserRay") {
                 g.drawImage(image, -10, y, this);
