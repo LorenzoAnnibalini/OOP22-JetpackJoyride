@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,12 +49,11 @@ public class ReadWriteFile<T, G> {
      * @throws IOException
      */
     public void writeMap(final Map<T,G> map) throws IOException{
-        BufferedWriter writer = new BufferedWriter(new FileWriter(this.path));
-        for (T key : map.keySet()) {
-            writer.write(key + ";" + map.get(key) + "\n");
+        PrintWriter writer = new PrintWriter(new File(this.path));
+        for (T name : map.keySet()) {
+            writer.write(name + ";" + map.get(name) + "\n");
         }
-        writer.close();
-        
+        writer.close();   
     }
 
     /**
@@ -65,21 +65,21 @@ public class ReadWriteFile<T, G> {
         Scanner sc = new Scanner(new File(this.path));
         sc.useDelimiter(";"); 
             while (sc.hasNext()) { 
-                    T key = (T)sc.next();
-                    G value = (G)sc.next(); 
-                    mappaTmp.put(key, value);sc.nextLine();
-                    System.out.println("Reading Game Settings : " + key + " " + value);
+                T key = (T)sc.next();
+                G value = (G)sc.next(); 
+                mappaTmp.put(key, value);sc.nextLine();
+                System.out.println("Reading Game Settings : " + key + " " + value);
             }
         sc.close();  
         return mappaTmp;
     }
 
     public void writeArrayList(final ArrayList<T> list) throws IOException{
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.path));
-            for (T element : list) {
-                writer.write(element + "\n");
-            }
-            writer.close();
+        PrintWriter writer = new PrintWriter(new File(this.path));
+        for (T name : list) {
+            writer.write(name + "\n");
+        }
+        writer.close();   
     }
 
     public <T> ArrayList<T> readArrayList() throws FileNotFoundException{
