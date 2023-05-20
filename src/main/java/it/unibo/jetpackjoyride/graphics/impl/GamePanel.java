@@ -184,7 +184,9 @@ public class GamePanel extends JPanel {
         // Draw player
         this.drawSprite(g, playerImage, player);
         if (player.getHearts() == 2) {
-            g.drawOval((int)player.getCurrentPos().x, (int)player.getCurrentPos().y, 50, 50);
+            ((Graphics2D) g).setStroke(new BasicStroke(10));
+            g.setColor(Color.GREEN);
+            g.drawOval((int)player.getCurrentPos().x - 10, (int)player.getCurrentPos().y - 10, 70, 70);
         }
 
         // Draw monies if present
