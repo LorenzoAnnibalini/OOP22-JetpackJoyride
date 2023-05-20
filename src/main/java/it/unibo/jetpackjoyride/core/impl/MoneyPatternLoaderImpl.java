@@ -28,10 +28,15 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader{
      * N.B the number of available file must be the same of the number
      * of file money_.txt in the resources folder.
     */
-    private int availableFile = 1;
+    private int availableFile = 4;
     private int minAvailableFile = 1;
     private String fileNumber;
     private final String filename = "/money";
+    //Range to change the y coordinate of the money.
+    private final int RANGE = 150;
+    //Random to multiply the range.
+    private final int MINRANDOM = -1;
+    private final int MAXRANDOM = 1;
 
     /**
      * Constructor of the class MoneyPatternLoader.
@@ -68,14 +73,16 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader{
 
         ArrayList<Money> moneyList = new ArrayList<>();
         Scanner filePattern = new Scanner(fileContent);
+        double multiplier = Math.floor(Math.random() * (MAXRANDOM - MINRANDOM) + MINRANDOM);
         while (filePattern.hasNextLine()) {
             String line = filePattern.nextLine();
             int x =  Integer.parseInt(line.split(",")[X]);
             int y =  Integer.parseInt(line.split(",")[Y]);
+            y = y + (int)(multiplier * RANGE);
             Point2d startPosition = new Point2d(x, y);
             Point2d finishPosition  = new Point2d(x - LIMIT, startPosition.y);
             Vector2d vec = new Vector2d(finishPosition, startPosition);
-            Hitbox hitbox = new HitboxImpl(5, 5, startPosition);
+            Hitbox hitbox = new HitboxImpl(15, 15, startPosition);
             moneyList.add(new Money(startPosition, vec, hitbox));
         }
         filePattern.close();
