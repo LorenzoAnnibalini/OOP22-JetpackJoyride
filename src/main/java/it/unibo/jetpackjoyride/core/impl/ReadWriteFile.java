@@ -49,7 +49,7 @@ public class ReadWriteFile<T, G> {
     public void writeMap(final Map<T,G> map) throws IOException{
         PrintWriter writer = new PrintWriter(new File(this.path));
         for (T name : map.keySet()) {
-            writer.write(name + ";" + map.get(name) + "\n");
+            writer.write(name + ";" + map.get(name) + ";" + "\n");
         }
         writer.close();   
     }
@@ -65,7 +65,8 @@ public class ReadWriteFile<T, G> {
             while (sc.hasNext()) { 
                 T key = (T)sc.next();
                 G value = (G)sc.next(); 
-                mappaTmp.put(key, value);sc.nextLine();
+                mappaTmp.put(key, value);
+                sc.nextLine();
                 System.out.println("Reading Game Settings : " + key + " " + value);
             }
         sc.close();  
