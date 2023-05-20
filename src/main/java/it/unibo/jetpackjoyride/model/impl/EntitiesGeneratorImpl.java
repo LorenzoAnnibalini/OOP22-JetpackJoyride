@@ -67,7 +67,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             // Switch on types of entities based on random result
             switch (entityNum) {
                 case EntitiesGeneratorImpl.ROCKET:
-                    hitbox = new HitboxImpl(70, 70, startPosition);
+                    hitbox = new HitboxImpl(25, 50, startPosition);
                     entities.add(
                             new Pair<String, GameObject>("Rocket",
                                     new Rocket(startPosition, rocketVelocity, hitbox)));
