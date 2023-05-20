@@ -9,6 +9,8 @@ import org.json.simple.parser.ParseException;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.model.api.Player;
+import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 
@@ -29,16 +31,17 @@ public class ViewImpl extends JFrame implements View {
     private final ShopPanel shopPanel;
     private final CardLayout card;
     private final JPanel cardPanel;
-    //private final EndGamePanel endGamePanel;
+    private final EndGamePanel endGamePanel;
     private final StatisticsPanel statisticsPanel;
 
-    public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException {
+    public ViewImpl(final PlayerImpl player ,final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException {
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
         this.menuPanel = new MenuPanel(this.inputHandler);
         this.gamePanel = new GamePanel();
         this.inputPanel = new InputPanel(inputHandler);
         this.shopPanel = new ShopPanel(inputHandler);
+        this.endGamePanel = new EndGamePanel(inputHandler, player.getStatistics());
         this.statisticsPanel = new StatisticsPanel(inputHandler, worldGameState.getGeneralStatistics());
         this.card = new CardLayout();
         this.cardPanel = new JPanel(this.card);
@@ -56,6 +59,7 @@ public class ViewImpl extends JFrame implements View {
         this.cardPanel.add(menuPanel, "menuPanel");
         this.cardPanel.add(shopPanel, "shopPanel");
         this.cardPanel.add(statisticsPanel, "statisticsPanel");
+        this.cardPanel.add(endGamePanel, "endGamePanel");
         this.add(cardPanel);
         this.card.show(this.cardPanel, "menuPanel");
         this.setResizable(false);
@@ -82,7 +86,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void renderEndGame() {
-        //TODO: cosa devo fare qui? Chiamo statistics ?
+        this.card.show(this.cardPanel, "endGamePanel");
     }
 
     @Override
