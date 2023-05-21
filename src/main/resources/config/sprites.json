@@ -45,13 +45,13 @@
         {
             "name": "rightScientist",
             "path": "rightScientist.png",
-            "width": 50,
+            "width": 30,
             "height": 50
         },
         {
             "name": "leftScientist",
             "path": "leftScientist.png",
-            "width": 50,
+            "width": 30,
             "height": 50
         },
         {

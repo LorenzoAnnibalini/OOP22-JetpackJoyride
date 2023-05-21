@@ -164,7 +164,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
                     direction == EntitiesGeneratorImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
                     startPosition,
-                    velocity, new HitboxImpl(50, 50, startPosition))));
+                    velocity, new HitboxImpl(50, 30, startPosition))));
         }
     }
 
