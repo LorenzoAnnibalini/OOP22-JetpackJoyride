@@ -123,7 +123,7 @@ public class ShopPanel extends JPanel{
      * @return the actual money of the player
      */
     private int getActualMoney(){
-        Saves saves = new SavesImpl();;
+        Saves saves = new SavesImpl();
         Statistics statistics = new StatisticsImpl();
         try {
             statistics.setAll(saves.downloadSaves());
