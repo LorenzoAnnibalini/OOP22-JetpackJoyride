@@ -46,7 +46,7 @@ public class GameEngineImpl implements GameEngine {
         this.worldGameState = worldGameState;
         this.skinInfoLoader = new SkinInfoLoaderImpl();
         this.gadgetLoader = new GadgetLoaderImpl();
-        this.gameEconomy = new GameEconomyImpl();
+        this.gameEconomy = new GameEconomyImpl(worldGameState.getGeneralStatistics());
     }
 
     @Override

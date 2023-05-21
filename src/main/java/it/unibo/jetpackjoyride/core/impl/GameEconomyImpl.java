@@ -13,7 +13,6 @@ import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
-import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 public class GameEconomyImpl implements GameEconomy {
 
@@ -37,40 +36,36 @@ public class GameEconomyImpl implements GameEconomy {
 
     /**
      * saves is the class to load game general statistic.
-     * statics is the class that contains the map 
+     * generalStatics is the class that contains the map 
      * with the name of the statistic and the statistic value.
      */
     private Saves saves;
-    private Statistics statistics;
+    private Statistics generalStatistics;
+    
 
-    public GameEconomyImpl() {
-        gadget = new GadgetImpl();
-        skin = new SkinInfoImpl();
-        saves = new SavesImpl();
-        statistics = new StatisticsImpl();
+    public GameEconomyImpl(Statistics generalStatistics) {
+        this.gadget = new GadgetImpl();
+        this.skin = new SkinInfoImpl();
+        this.saves = new SavesImpl();
+        this.generalStatistics = generalStatistics;
     }
 
     @Override
     public void buyGadget(String name) {
         this.gadgetInfo = gadget.getValue(name);
-        try {
-            this.statistics.setAll(saves.downloadSaves());
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
         int gadgetPrice = Integer.parseInt(
                                 gadgetInfo.get(GadgetInfoPositions.PRICE.ordinal()));
-        int ActualMoney = statistics.getValue("ActualMoney"); 
+        int ActualMoney = this.generalStatistics.getValue("ActualMoney"); 
         if (ActualMoney >= gadgetPrice){
             gadgetInfo.set(GadgetInfoPositions.PURCHASED.ordinal(), "true");
             gadget.setValue(name, gadgetInfo);
-            statistics.increment("ActualMoney", -gadgetPrice);
-            statistics.increment("MoneySpent", gadgetPrice);
-            try {
-                this.saves.uploadSaves(this.statistics.getAll());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            generalStatistics.increment("ActualMoney", -gadgetPrice);
+            generalStatistics.increment("MoneySpent", gadgetPrice);
+        }
+        try {
+            saves.uploadSaves(generalStatistics.getAll());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -93,24 +88,19 @@ public class GameEconomyImpl implements GameEconomy {
     @Override
     public void buySkin(String name) {
         this.skinInfo = skin.getValue(name);
-        try {
-            this.statistics.setAll(saves.downloadSaves());
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
         int skinPrice = Integer.parseInt(
                                 skinInfo.get(SkinInfoPositions.PRICE.ordinal()));
-        int ActualMoney = statistics.getValue("ActualMoney"); 
+        int ActualMoney = generalStatistics.getValue("ActualMoney"); 
         if (ActualMoney >= skinPrice){
             skinInfo.set(SkinInfoPositions.PURCHASED.ordinal(), "true");
             skin.setValue(name, skinInfo);
-            statistics.increment("ActualMoney", -skinPrice);
-            statistics.increment("MoneySpent", skinPrice);
-            try {
-                this.saves.uploadSaves(this.statistics.getAll());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            generalStatistics.increment("ActualMoney", -skinPrice);
+            generalStatistics.increment("MoneySpent", skinPrice);
+        }
+        try {
+            saves.uploadSaves(generalStatistics.getAll());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
