@@ -1,5 +1,8 @@
 package it.unibo.jetpackjoyride.graphics.api;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.swing.JPanel;
 
 import org.json.simple.parser.ParseException;
@@ -30,8 +33,10 @@ public interface View {
 
     /**
      * Method to render statistics.
+     * @throws IOException
+     * @throws FileNotFoundException
      */
-    void renderStatistics();
+    void renderStatistics() throws FileNotFoundException, IOException;
 
     /**
      * Method to get the game panel.

@@ -4,10 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import it.unibo.jetpackjoyride.core.api.Saves;
+import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.typeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
@@ -23,6 +28,7 @@ public class StatisticsPanel extends JPanel {
     private Map<String, Integer> statsMap = new HashMap<>();
     private final JButton menu;
     private final InputQueue inputQueue;
+    private final Saves saves;
 
     /**
      * Constructor of the class.
@@ -40,11 +46,12 @@ public class StatisticsPanel extends JPanel {
             this.inputQueue.addInput(new InputImpl(typeInput.MENU, null));
         });
         this.add(menu, BorderLayout.SOUTH);
+        saves = new SavesImpl();
     }
 
-    public void update() {
+    public void update() throws FileNotFoundException, IOException {
         JPanel boxPanel = new JPanel(new FlowLayout());
-        this.statsMap = this.statistics.getAll();
+        this.statsMap = saves.downloadSaves();
         String statsText = "<html>";
         for (String statName : this.statsMap.keySet()) {
             int value = this.statsMap.get(statName);
