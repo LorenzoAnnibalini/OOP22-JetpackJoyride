@@ -10,7 +10,6 @@ import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Direction;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
-import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.api.Orientation;
 
@@ -35,10 +34,14 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int YBOUND = 530;
     private static final int XBOUND = 1100;
     private static final int LIMIT = EntitiesGeneratorImpl.XBOUND - 395;
+    private static final int SCIENTISTIMIT = EntitiesGeneratorImpl.XBOUND - 500;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
     private static final int RIGHT = 1;
     private static final int RANDOMSEED = 2;
+    private static final int SQUAREHITBOX = 50;
+    private static final Pair<Integer, Integer> RECTANGLEHITBOX = new Pair<Integer, Integer>(100, 25);
+    private static final int NOTHINGHITBOX = 0;
 
     @Override
     public void generateObstacles(final Set<Pair<String, GameObject>> entities, int num) {
@@ -58,7 +61,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
             }
             Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
-            Point2d finishPosition = new Point2d((EntitiesGeneratorImpl.LIMIT), startPosition.y);
+            Point2d finishPosition = new Point2d(EntitiesGeneratorImpl.LIMIT, startPosition.y);
             Vector2d velocity = new Vector2d(finishPosition, startPosition);
             Vector2d rocketVelocity = new Vector2d(
                     new Point2d(0, startPosition.y),
@@ -67,7 +70,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             // Switch on types of entities based on random result
             switch (entityNum) {
                 case EntitiesGeneratorImpl.ROCKET:
-                    hitbox = new HitboxImpl(25, 50, startPosition);
+                    hitbox = new HitboxImpl(SQUAREHITBOX / 2, SQUAREHITBOX, startPosition);
                     entities.add(
                             new Pair<String, GameObject>("Rocket",
                                     new Rocket(startPosition, rocketVelocity, hitbox)));
@@ -75,9 +78,11 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 case EntitiesGeneratorImpl.ELECTRODE:
                     int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
                     if (orientation == EntitiesGeneratorImpl.HORIZONTAL) {
-                        hitbox = new HitboxImpl(25, 100, new Point2d(startPosition.x, startPosition.y));
+                        hitbox = new HitboxImpl(RECTANGLEHITBOX.getY(), RECTANGLEHITBOX.getX(),
+                                new Point2d(startPosition.x, startPosition.y));
                     } else {
-                        hitbox = new HitboxImpl(100, 25, new Point2d(startPosition.x, startPosition.y));
+                        hitbox = new HitboxImpl(RECTANGLEHITBOX.getX(), RECTANGLEHITBOX.getY(),
+                                new Point2d(startPosition.x, startPosition.y));
                     }
                     entities.add(new Pair<String, GameObject>("Electrode",
                             new Electrode(startPosition, velocity,
@@ -88,7 +93,8 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 case EntitiesGeneratorImpl.NOTHING:
                     entities.add(
                             new Pair<String, GameObject>("Nothing",
-                                    new GameObject(startPosition, velocity, new HitboxImpl(0, 0, startPosition))));
+                                    new GameObject(startPosition, velocity,
+                                            new HitboxImpl(NOTHINGHITBOX, NOTHINGHITBOX, startPosition))));
                     break;
                 default:
                     break;
@@ -114,12 +120,9 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
             }
             Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
-            Point2d finishPosition = new Point2d((EntitiesGeneratorImpl.LIMIT), startPosition.y);
+            Point2d finishPosition = new Point2d(EntitiesGeneratorImpl.LIMIT, startPosition.y);
             Vector2d velocity = new Vector2d(finishPosition, startPosition);
-            Vector2d rocketVelocity = new Vector2d(
-                    new Point2d(0, random.nextInt(EntitiesGeneratorImpl.YBOUND)),
-                    startPosition);
-            HitboxImpl hitbox = new HitboxImpl(50, 50, startPosition);
+            HitboxImpl hitbox = new HitboxImpl(SQUAREHITBOX, SQUAREHITBOX, startPosition);
             // Switch on types of entities based on random result
             switch (entityNum) {
                 case EntitiesGeneratorImpl.SHIELDPOWERUP:
@@ -139,7 +142,8 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                 case EntitiesGeneratorImpl.NOTHING:
                     entities.add(
                             new Pair<String, GameObject>("Nothing",
-                                    new GameObject(startPosition, velocity, new HitboxImpl(0, 0, startPosition))));
+                                    new GameObject(startPosition, velocity,
+                                            new HitboxImpl(NOTHINGHITBOX, NOTHINGHITBOX, startPosition))));
                     break;
                 default:
                     break;
@@ -158,13 +162,14 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                     direction == EntitiesGeneratorImpl.LEFT ? EntitiesGeneratorImpl.XBOUND : 0,
                     EntitiesGeneratorImpl.YBOUND);
             Point2d finishPosition = new Point2d(
-                    direction == EntitiesGeneratorImpl.RIGHT ? EntitiesGeneratorImpl.XBOUND - 500 : 500,
+                    direction == EntitiesGeneratorImpl.RIGHT ? EntitiesGeneratorImpl.SCIENTISTIMIT
+                            : EntitiesGeneratorImpl.XBOUND - EntitiesGeneratorImpl.SCIENTISTIMIT,
                     EntitiesGeneratorImpl.YBOUND);
             Vector2d velocity = new Vector2d(finishPosition, startPosition);
             this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
                     direction == EntitiesGeneratorImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
                     startPosition,
-                    velocity, new HitboxImpl(50, 30, startPosition))));
+                    velocity, new HitboxImpl(SQUAREHITBOX, 30, startPosition))));
         }
     }
 
