@@ -7,8 +7,20 @@
             "height": 50
         },
         {
+            "name": "barryUp",
+            "path": "barryUp.png",
+            "width": 50,
+            "height": 50
+        },
+        {
             "name": "barryWoman",
             "path": "barryWoman.png",
+            "width": 50,
+            "height": 50
+        },
+        {
+            "name": "barryWomanUp",
+            "path": "barryWomanUp.png",
             "width": 50,
             "height": 50
         },

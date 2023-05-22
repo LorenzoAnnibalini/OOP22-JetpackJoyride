@@ -64,7 +64,10 @@ public class GamePanel extends JPanel {
     private Image laser;
     private Image barry;
     private Image barryWoman;
+    private Image barryUp;
+    private Image barryWomanUp;
     private Image playerImage;
+    private Image playerUpImage;
     private Image moneyImage;
     private SliderImpl slider;
     private int width;
@@ -104,7 +107,9 @@ public class GamePanel extends JPanel {
         leftScientist = sprites.get("leftScientist").getScaled();
         laser = sprites.get("laser").getScaled();
         barry = sprites.get("barry").getScaled();
+        barryUp = sprites.get("barryUp").getScaled();
         barryWoman = sprites.get("barryWoman").getScaled();
+        barryWomanUp = sprites.get("barryWomanUp").getScaled();
         moneyImage = sprites.get("money").getScaled();
         // Stats labels
         this.scoreLabel = new JLabel("Score: " + score);
@@ -191,7 +196,12 @@ public class GamePanel extends JPanel {
         }
 
         // Draw player
-        this.drawSprite(g, playerImage, player);
+        //this.drawSprite(g, playerImage, player);
+        if (player.getCurrentVel().y > 0) {
+            this.drawSprite(g, playerImage, player);
+        } else {
+            this.drawSprite(g, playerUpImage, player);
+        }
         // g.drawRect((int)player.getHitbox().getPointUpLeft().x,
         // (int)player.getHitbox().getPointUpLeft().y,
         // player.getHitbox().getWidthHitbox(), player.getHitbox().getHeigthHitbox());
@@ -259,6 +269,7 @@ public class GamePanel extends JPanel {
                 .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
                 .getKey();
         this.playerImage = "barry".equals(skin) ? this.barry : this.barryWoman;
+        this.playerUpImage = "barry".equals(skin) ? this.barryUp : this.barryWomanUp;
     }
 
     /**
