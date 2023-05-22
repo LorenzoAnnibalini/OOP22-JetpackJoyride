@@ -20,20 +20,15 @@ public class SavesImpl implements Saves {
     private final static int NAME = 0;
     private final static int VALUE = 1;
     private final String SEPARATOR = File.separator;
-    String wFilename = "src" + this.SEPARATOR +
+    String filename = "src" + this.SEPARATOR +
             "main" + this.SEPARATOR +
             "resources" + this.SEPARATOR +
             "saves.csv";
-    String rFilename = "/saves.csv";
     private Statistics statistics = new StatisticsImpl();
 
     @Override
     public Map<String, Integer> downloadSaves() throws IOException {
-        final InputStream stream = this.getClass().getResourceAsStream(rFilename);
-        String fileContent = new String(stream.readAllBytes(),
-                StandardCharsets.UTF_8);
-        stream.close();
-        Scanner sc = new Scanner(fileContent);
+        Scanner sc = new Scanner(new File(filename));
         Map<String, Integer> stats = new HashMap<>();
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
@@ -47,7 +42,7 @@ public class SavesImpl implements Saves {
     @Override
     public void uploadSaves(Map<String, Integer> stats) throws IOException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(wFilename));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
             for (String name : stats.keySet()) {
                 writer.write(name + ";" + stats.get(name) + "\n");
             }
