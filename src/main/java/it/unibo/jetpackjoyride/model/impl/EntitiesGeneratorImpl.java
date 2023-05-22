@@ -32,7 +32,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int DURATION = 0;
     private static final long SHORTDURATION = 5000;
     private static final long LONGDURATION = 8000;
-    private static final int YBOUND = 500;
+    private static final int YBOUND = 530;
     private static final int XBOUND = 1100;
     private static final int LIMIT = EntitiesGeneratorImpl.XBOUND - 395;
     private static final int HORIZONTAL = 0;
