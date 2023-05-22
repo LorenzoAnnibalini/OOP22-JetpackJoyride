@@ -17,6 +17,7 @@ import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.typeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.api.Statistics;
+import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 /**
  * Class to visualize the statistics of the game.
@@ -52,9 +53,11 @@ public class StatisticsPanel extends JPanel {
     public void update() throws FileNotFoundException, IOException {
         JPanel boxPanel = new JPanel(new FlowLayout());
         this.statsMap = saves.downloadSaves();
+        StatisticsImpl app = new StatisticsImpl();
         String statsText = "<html>";
-        for (String statName : this.statsMap.keySet()) {
-            int value = this.statsMap.get(statName);
+        for (String stat : this.statsMap.keySet()) {
+            int value = this.statsMap.get(stat);
+            String statName = stat;
             statsText = statsText + statName + ": " + value + "<br>";
         }
         statsText = statsText + "</html>";

@@ -2,6 +2,8 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 
 /**
@@ -10,6 +12,18 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
  * @author emanuele.sanchi@studio.unibo.it
  */
 public class StatisticsImpl implements Statistics {
+
+    public static final Pair<String, String> MAX_MONEY = new Pair<>("MaxMoney", "Max Money");
+    public static final Pair<String, String> MAX_METERS = new Pair<>("MaxMeters", "Max Distance");
+    public static final Pair<String, String> MONEY_SPENT = new Pair<>("MoneySpent", "Money Spent");
+    public static final Pair<String, String> KILLED_NPC = new Pair<>("KilledNpc", "Killd Npc");
+    public static final Pair<String, String> DEATHS = new Pair<>("Deaths", "Deaths");
+    public static final Pair<String, String> GRABBED_OBJECTS = new Pair<>("GrabbedObjects", "Grabbed Objects");
+    public static final Pair<String, String> GRABBED_MONEY = new Pair<>("GrabbedMoney", "Grabbed Money");
+    public static final Pair<String, String> TOTAL_METERS = new Pair<>("TotalMeters", "Total Distance");
+    public static final Pair<String, String> ACTUAL_MONEY = new Pair<>("ActualMoney", "Actual Money");
+
+
 
     private Map<String, Integer> statistics = new HashMap<>();
 
@@ -53,13 +67,13 @@ public class StatisticsImpl implements Statistics {
         for (String key : runStats.keySet()) {
             this.increment(key, runStats.get(key));
         }
-        if (runStats.get("GrabbedMoney") > statistics.get("MaxMoney")) {
-            this.setValue("MaxMoney", runStats.get("GrabbedMoney"));
+        if (runStats.get(GRABBED_MONEY.getX()) > statistics.get(MAX_MONEY.getX())) {
+            this.setValue(MAX_MONEY.getX(), runStats.get(GRABBED_MONEY.getX()));
         }
-        if (runStats.get("TotalMeters") > statistics.get("MaxMeters")) {
-            this.setValue("MaxMeters", runStats.get("TotalMeters"));
+        if (runStats.get(TOTAL_METERS.getX()) > statistics.get(MAX_METERS.getX())) {
+            this.setValue(MAX_METERS.getX(), runStats.get(TOTAL_METERS.getX()));
         }
-        this.increment("ActualMoney", runStats.get("GrabbedMoney"));
+        this.increment(ACTUAL_MONEY.getX(), runStats.get(GRABBED_MONEY.getX()));
     }
 
 }
