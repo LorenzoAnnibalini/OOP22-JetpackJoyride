@@ -53,10 +53,10 @@ public class StatisticsImpl implements Statistics {
         for (String key : runStats.keySet()) {
             this.increment(key, runStats.get(key));
         }
-        if(runStats.get("GrabbedMoney") > statistics.get("MaxMoney")) {
+        if (runStats.get("GrabbedMoney") > statistics.get("MaxMoney")) {
             this.setValue("MaxMoney", runStats.get("GrabbedMoney"));
         }
-        if(runStats.get("TotalMeters") > statistics.get("MaxMeters")) {
+        if (runStats.get("TotalMeters") > statistics.get("MaxMeters")) {
             this.setValue("MaxMeters", runStats.get("TotalMeters"));
         }
         this.increment("ActualMoney", runStats.get("GrabbedMoney"));

@@ -2,23 +2,17 @@ package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Flow;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import it.unibo.jetpackjoyride.core.api.Saves;
+import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.typeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
@@ -31,9 +25,10 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
  */
 public class StatisticsPanel extends JPanel {
     private Statistics statistics;
-    private Map<String, Integer>statsMap = new HashMap<>();
+    private Map<String, Integer> statsMap = new HashMap<>();
     private final JButton menu;
     private final InputQueue inputQueue;
+    private final Saves saves;
 
     /**
      * Constructor of the class.
@@ -50,16 +45,17 @@ public class StatisticsPanel extends JPanel {
         this.menu.addActionListener(e -> {
             this.inputQueue.addInput(new InputImpl(typeInput.MENU, null));
         });
-        this.add(menu, BorderLayout.SOUTH);        
+        this.add(menu, BorderLayout.SOUTH);
+        saves = new SavesImpl();
     }
 
-    public void update() {
+    public void update() throws FileNotFoundException, IOException {
         JPanel boxPanel = new JPanel(new FlowLayout());
-        this.statsMap = this.statistics.getAll();
+        this.statsMap = saves.downloadSaves();
         String statsText = "<html>";
         for (String statName : this.statsMap.keySet()) {
             int value = this.statsMap.get(statName);
-            statsText = statsText + statName + ": " +  value + "<br>";
+            statsText = statsText + statName + ": " + value + "<br>";
         }
         statsText = statsText + "</html>";
         JLabel label = new JLabel(statsText);

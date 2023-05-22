@@ -32,7 +32,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int DURATION = 0;
     private static final long SHORTDURATION = 5000;
     private static final long LONGDURATION = 8000;
-    private static final int YBOUND = 500;
+    private static final int YBOUND = 530;
     private static final int XBOUND = 1100;
     private static final int LIMIT = EntitiesGeneratorImpl.XBOUND - 395;
     private static final int HORIZONTAL = 0;
@@ -65,7 +65,6 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                     startPosition);
             HitboxImpl hitbox;
             // Switch on types of entities based on random result
-            entityNum = 0;
             switch (entityNum) {
                 case EntitiesGeneratorImpl.ROCKET:
                     hitbox = new HitboxImpl(25, 50, startPosition);
@@ -75,10 +74,10 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
                     break;
                 case EntitiesGeneratorImpl.ELECTRODE:
                     int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
-                    if(orientation == EntitiesGeneratorImpl.HORIZONTAL) {
-                        hitbox = new HitboxImpl(25, 100, new Point2d(startPosition.x + 150, startPosition.y));
+                    if (orientation == EntitiesGeneratorImpl.HORIZONTAL) {
+                        hitbox = new HitboxImpl(25, 100, new Point2d(startPosition.x, startPosition.y));
                     } else {
-                        hitbox = new HitboxImpl(100, 25, new Point2d(startPosition.x, startPosition.y + 150));
+                        hitbox = new HitboxImpl(100, 25, new Point2d(startPosition.x, startPosition.y));
                     }
                     entities.add(new Pair<String, GameObject>("Electrode",
                             new Electrode(startPosition, velocity,
@@ -165,7 +164,7 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             this.entities.add(new Pair<String, GameObject>("Scientist", new ScientistImpl(
                     direction == EntitiesGeneratorImpl.LEFT ? Direction.LEFT : Direction.RIGHT,
                     startPosition,
-                    velocity, new HitboxImpl(50, 50, startPosition))));
+                    velocity, new HitboxImpl(50, 30, startPosition))));
         }
     }
 
@@ -182,7 +181,6 @@ public class EntitiesGeneratorImpl implements EntitiesGenerator {
             HitboxImpl hitbox = new HitboxImpl(30, XBOUND, startPosition);
             this.entities.add(new Pair<String, GameObject>("Laser", new LaserRay(startPosition, velocity, hitbox)));
         }
-
 
     }
 

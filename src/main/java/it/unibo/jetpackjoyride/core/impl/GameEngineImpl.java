@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.core.impl;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class GameEngineImpl implements GameEngine {
         this.worldGameState = worldGameState;
         this.skinInfoLoader = new SkinInfoLoaderImpl();
         this.gadgetLoader = new GadgetLoaderImpl();
-        this.gameEconomy = new GameEconomyImpl();
+        this.gameEconomy = new GameEconomyImpl(worldGameState.getGeneralStatistics());
     }
 
     @Override
@@ -61,7 +62,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
     @Override
-    public void loopState() throws ParseException {
+    public void loopState() throws ParseException, FileNotFoundException, IOException {
         long previousCycleStartTime = System.currentTimeMillis();
         while (true) {
             long currentCycleStartTime = System.currentTimeMillis();
@@ -188,8 +189,10 @@ public class GameEngineImpl implements GameEngine {
      * render the view. It will render things based on the current state.
      * 
      * @throws ParseException
+     * @throws IOException
+     * @throws FileNotFoundException
      */
-    private void renderView() throws ParseException {
+    private void renderView() throws ParseException, FileNotFoundException, IOException {
         switch (this.currentState) {
             case MAIN_MENU:
                 this.view.renderMenu();

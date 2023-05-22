@@ -1,5 +1,8 @@
 package it.unibo.jetpackjoyride.core.api;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.json.simple.parser.ParseException;
 
 /**
@@ -57,6 +60,8 @@ public interface GameEngine {
      * It will process inputs, update the game state, render the view and wait for
      * the next frame.
      * @throws ParseException
+     * @throws IOException
+     * @throws FileNotFoundException
      */
-    public void loopState() throws ParseException;
+    public void loopState() throws ParseException, FileNotFoundException, IOException;
 }

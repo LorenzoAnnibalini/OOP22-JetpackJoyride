@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,14 +21,11 @@ import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
-import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.typeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
-import it.unibo.jetpackjoyride.core.api.Saves;
 import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
-import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 
 /**
  * Class that represents the panel of the shop.
@@ -46,20 +42,22 @@ public class ShopPanel extends JPanel{
     private HashMap<String, ArrayList<JButton>> buttonMapGadget;
     private HashMap<String, ArrayList<JButton>> buttonMapSkin;
     SpriteLoader spriteLoader;
+    Statistics generalStatistics;
 
     /**
      * Constructor for the ShopPanel.
      * @param inputQueue
      */
-    public ShopPanel(final InputQueue inputQueue) {
+    public ShopPanel(final InputQueue inputQueue, Statistics generalStatistics) {
         super();
         this.inputQueue = inputQueue;
+        this.generalStatistics = generalStatistics;
         this.buttonMapGadget = new HashMap<>();
         this.buttonMapSkin = new HashMap<>();
         this.setLayout(new BorderLayout());
         JPanel boxPanel = new JPanel();
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
-        this.moneyLabel = new JLabel("YourMoney: " + getActualMoney());
+        this.moneyLabel = new JLabel("YourMoney: " + this.getActualMoney());
         this.add(moneyLabel, BorderLayout.LINE_START);
         boxPanel.add(new JLabel("Gadget"));
         this.add(boxPanel, BorderLayout.NORTH);
@@ -117,20 +115,12 @@ public class ShopPanel extends JPanel{
     }
 
     /**
-     * method to load game statistics from file and return
-     * only the statistic that represent the actual money
-     * of the player.
+     * method to return only the statistic 
+     * that represent the actual money of the player.
      * @return the actual money of the player
      */
     private int getActualMoney(){
-        Saves saves = new SavesImpl();;
-        Statistics statistics = new StatisticsImpl();
-        try {
-            statistics.setAll(saves.downloadSaves());
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
-        return statistics.getValue("ActualMoney");
+        return this.generalStatistics.getValue("ActualMoney");
     }
 
     /**

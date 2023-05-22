@@ -1,6 +1,8 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.awt.CardLayout;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -40,7 +42,7 @@ public class ViewImpl extends JFrame implements View {
         this.menuPanel = new MenuPanel(this.inputHandler);
         this.gamePanel = new GamePanel();
         this.inputPanel = new InputPanel(inputHandler);
-        this.shopPanel = new ShopPanel(inputHandler);
+        this.shopPanel = new ShopPanel(inputHandler, worldGameState.getGeneralStatistics());
         this.endGamePanel = new EndGamePanel(inputHandler, worldGameState);
         this.statisticsPanel = new StatisticsPanel(inputHandler, worldGameState.getGeneralStatistics());
         this.card = new CardLayout();
@@ -91,7 +93,7 @@ public class ViewImpl extends JFrame implements View {
     }
 
     @Override
-    public void renderStatistics() {
+    public void renderStatistics() throws FileNotFoundException, IOException {
         this.statisticsPanel.update();
         this.card.show(this.cardPanel, "statisticsPanel");
     }

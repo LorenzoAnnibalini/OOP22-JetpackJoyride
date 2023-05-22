@@ -1,9 +1,10 @@
 package it.unibo.jetpackjoyride.core.impl;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,12 +19,17 @@ public class SavesImpl implements Saves {
     // private final String SEPARATOR = File.separator;
     private final static int NAME = 0;
     private final static int VALUE = 1;
-    private final String filename = "/saves.csv";
+    private final String SEPARATOR = File.separator;
+    String wFilename = "src" + this.SEPARATOR +
+            "main" + this.SEPARATOR +
+            "resources" + this.SEPARATOR +
+            "saves.csv";
+    String rFilename = "/saves.csv";
     private Statistics statistics = new StatisticsImpl();
 
     @Override
     public Map<String, Integer> downloadSaves() throws IOException {
-        final InputStream stream = this.getClass().getResourceAsStream(filename);
+        final InputStream stream = this.getClass().getResourceAsStream(rFilename);
         String fileContent = new String(stream.readAllBytes(),
                 StandardCharsets.UTF_8);
         stream.close();
@@ -40,9 +46,8 @@ public class SavesImpl implements Saves {
 
     @Override
     public void uploadSaves(Map<String, Integer> stats) throws IOException {
-        try{
-            PrintWriter writer = new PrintWriter(
-                new File(this.getClass().getResource(filename).getPath()));
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(wFilename));
             for (String name : stats.keySet()) {
                 writer.write(name + ";" + stats.get(name) + "\n");
             }
