@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Flow;
 
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.common.Point2d;
@@ -77,6 +79,7 @@ public class GamePanel extends JPanel {
     private static final String filename = "/config/sprites.json";
     private JLabel scoreLabel;
     private JLabel moneyLabel;
+    
 
     /**
      * Constructor of the class.
@@ -87,6 +90,7 @@ public class GamePanel extends JPanel {
      * @throws ParseException
      */
     public GamePanel() throws ParseException {
+        this.setLayout(new FlowLayout(FlowLayout.LEFT));
         SpriteLoader spriteLoader = new SpriteLoader();
         spriteLoader.loadSprites(filename);
         Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
@@ -118,6 +122,10 @@ public class GamePanel extends JPanel {
         this.moneyLabel.setIcon(moneyIcon);
         this.scoreLabel.setSize(100, 20);
         this.moneyLabel.setSize(100, 20);
+        moneyLabel.setAlignmentX(LEFT_ALIGNMENT);
+        moneyLabel.setAlignmentY(LEFT_ALIGNMENT);
+        scoreLabel.setAlignmentX(LEFT_ALIGNMENT);
+        scoreLabel.setAlignmentY(LEFT_ALIGNMENT);
         this.add(moneyLabel);
         this.add(scoreLabel);
         this.setPreferredSize(new Dimension(this.width, this.height));
