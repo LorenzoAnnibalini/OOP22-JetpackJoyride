@@ -26,7 +26,7 @@ import it.unibo.jetpackjoyride.input.api.Input;
 
 public class WorldGameStateImpl implements WorldGameState {
 
-    private static final int FRAME_HEIGHT = 560;
+    private static final int FRAME_HEIGHT = 550;
     private static final int FRAME_WIDTH = 1240;
     private static final int VOID_SPACE_ON_RIGHT = 300;
     private static final int SCIENTIST_NUMBER = 2;
@@ -93,6 +93,7 @@ public class WorldGameStateImpl implements WorldGameState {
         } else {
             this.player.setDirectionUP();
         }
+        System.out.println(this.randomDecider());
         this.checkBoardPlayerCollision();
         this.updateTimeLaser();
         this.updateEntities(elapsedTime);
@@ -179,10 +180,9 @@ public class WorldGameStateImpl implements WorldGameState {
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
 
-             //System.out.println(entity.getX()+": " +
-             //entity.getY().getHitbox().isHitboxActive()+" ");
-            if (this.player.getHitbox().checkCollision(entity.getY().getHitbox()) || (entity.getX().matches("Laser")
-                    && entity.getY().getHitbox().checkCollision(this.player.getHitbox()))) {
+            // System.out.println(entity.getX()+": " +
+            // entity.getY().getHitbox().isHitboxActive()+" ");
+            if (entity.getY().getHitbox().checkCollision(this.player.getHitbox())) {
                 System.out.println("Collision with " + entity.getX());
                 switch (entity.getX()) {
                     case "Rocket":
@@ -339,7 +339,7 @@ public class WorldGameStateImpl implements WorldGameState {
     private void notifyEndGame() {
         this.inputHandler.addInput(new InputImpl(Input.typeInput.END_GAME, "endGame"));
         System.out.println("Game Over");
-        this.generalStatistics.increment("Deaths");
+        this.generalStatistics.increment("Death");
 
         this.generalStatistics.updateGeneralStats(this.runStatistics.getAll());
         try {

@@ -119,7 +119,7 @@ public class GameEngineImpl implements GameEngine {
                     break;
 
                 case EXIT:
-                    if (this.currentState == GameState.MAIN_MENU) {
+                    if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
                         try {
                             this.gadgetLoader.uploadGadget(new GadgetImpl().getAll());
                         } catch (IOException e) {
@@ -130,7 +130,7 @@ public class GameEngineImpl implements GameEngine {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        // this.view.close();
+                        System.exit(0);
                     }
                     break;
 
