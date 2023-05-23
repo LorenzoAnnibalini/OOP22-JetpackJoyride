@@ -34,7 +34,7 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int YBOUND = 530;
     private static final int XBOUND = 1180;
     private static final int ROCKETBOUND = 1100;
-    private static final int LIMIT = EntitiesGeneratorImpl.XBOUND - 395;
+    private static final int LIMIT = EntitiesGeneratorImpl.XBOUND - 389;
     private static final int SCIENTISTIMIT = EntitiesGeneratorImpl.XBOUND - 500;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
@@ -55,7 +55,6 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
             int entityNum = 0;
             final Random random = new Random();
             entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
-            System.out.println(entityNum);
             // Check if the new entity has y like others that are already spawned
             int y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
             while (checkY(y)) {
@@ -114,14 +113,12 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
             int entityNum = 0;
             final Random random = new Random();
             entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
-            System.out.println(entityNum);
-
-            // Vairables for gameobject's parameters constructor
             // Check if the new entity has y like others that are already spawned
             int y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
             while (checkY(y)) {
                 y = random.nextInt(EntitiesGeneratorImpl.YBOUND);
             }
+            // Vairables for gameobject's parameters constructor
             final Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
             final Point2d finishPosition = new Point2d(EntitiesGeneratorImpl.LIMIT, startPosition.y);
             final Vector2d velocity = new Vector2d(finishPosition, startPosition);
