@@ -11,17 +11,18 @@ import it.unibo.jetpackjoyride.model.impl.Money;
 
 /**
  * Class to test the MoneyPatternLoader and the class Money.
+ * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 public class MoneyPatternTest {
 
     private final int fileNumber = 1;
     private ArrayList<Money> moneyList = new ArrayList<>();
-    private MoneyPatternLoader moneyPatternLoader = new MoneyPatternLoaderImpl(this.fileNumber);
+    private final MoneyPatternLoader moneyPatternLoader = new MoneyPatternLoaderImpl(this.fileNumber);
 
     @Test
     void testMoneyPatternLoader() throws Exception {
-        int index = 0;
+        final int index = 0;
         moneyList = moneyPatternLoader.getMoneyPattern();
         assertEquals(26, moneyList.size());
         assertEquals(227, moneyList.remove(index).getCurrentPos().x);
