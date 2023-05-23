@@ -36,7 +36,7 @@ public class ViewImpl extends JFrame implements View {
     private final EndGamePanel endGamePanel;
     private final StatisticsPanel statisticsPanel;
 
-    public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException {
+    public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException, IOException {
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
         this.menuPanel = new MenuPanel(this.inputHandler);

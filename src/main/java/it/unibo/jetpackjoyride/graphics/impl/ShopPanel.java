@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +48,9 @@ public class ShopPanel extends JPanel{
     /**
      * Constructor for the ShopPanel.
      * @param inputQueue
+     * @throws IOException
      */
-    public ShopPanel(final InputQueue inputQueue, Statistics generalStatistics) {
+    public ShopPanel(final InputQueue inputQueue, Statistics generalStatistics) throws IOException {
         super();
         this.inputQueue = inputQueue;
         this.generalStatistics = generalStatistics;
