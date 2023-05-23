@@ -89,6 +89,9 @@ public final class GamePanel extends JPanel {
      * Constant for the shield's radius.
      */
     private static final int SHIELD_RADIUS = 70;
+    /**
+     * Constant for the shield's extremes.
+     */
     private static final Pair<Integer, Integer> LASER_EXTREMES = new Pair<>(-10, 1150);
 
     /**
@@ -134,6 +137,7 @@ public final class GamePanel extends JPanel {
         moneyLabel.setAlignmentY(LEFT_ALIGNMENT);
         scoreLabel.setAlignmentX(LEFT_ALIGNMENT);
         scoreLabel.setAlignmentY(LEFT_ALIGNMENT);
+        // Add components to panel and set size
         this.add(moneyLabel);
         this.add(scoreLabel);
         this.setPreferredSize(new Dimension(this.width, this.height));
@@ -162,9 +166,6 @@ public final class GamePanel extends JPanel {
         for (Pair<String, GameObject> el : entities) {
             String entityName = el.getX();
             GameObject entity = el.getY();
-            // g.drawRect((int)entity.getHitbox().getPointUpLeft().x,
-            // (int)entity.getHitbox().getPointUpLeft().y,entity.getHitbox().getWidthHitbox(),
-            // entity.getHitbox().getHeigthHitbox());
             switch (entityName) {
                 case "Rocket":
                     if (!((Rocket) entity).isActive()) {
@@ -213,15 +214,12 @@ public final class GamePanel extends JPanel {
         }
 
         // Draw player
-        // this.drawSprite(g, playerImage, player);
         if (player.getCurrentVel().y > 0) {
             this.drawSprite(g2d, playerImage, player);
         } else {
             this.drawSprite(g2d, playerUpImage, player);
         }
-        // g.drawRect((int)player.getHitbox().getPointUpLeft().x,
-        // (int)player.getHitbox().getPointUpLeft().y,
-        // player.getHitbox().getWidthHitbox(), player.getHitbox().getHeigthHitbox());
+        // Draw shield if present
         if (player.getHearts() == 2) {
             g2d.setStroke(new BasicStroke(SHIELD_STROKE));
             g2d.setColor(Color.GREEN);
@@ -233,9 +231,6 @@ public final class GamePanel extends JPanel {
         if (!money.isEmpty()) {
             for (Money m : money) {
                 this.drawSprite(g2d, moneyImage, m);
-                // g.drawRect((int)m.getHitbox().getPointUpLeft().x,
-                // (int)m.getHitbox().getPointUpLeft().y,m.getHitbox().getWidthHitbox(),
-                // m.getHitbox().getHeigthHitbox());
             }
         }
     }
@@ -248,6 +243,7 @@ public final class GamePanel extends JPanel {
      * @param entity entity object with values to draw
      */
     private void drawSprite(final Graphics2D g, final Image image, final GameObject entity) {
+        // x and y are the coordinates of the upper left corner of the image based on hitbox
         int x = (int) entity.getHitbox().getPointUpLeft().x;
         int y = (int) entity.getHitbox().getPointUpLeft().y;
         if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
