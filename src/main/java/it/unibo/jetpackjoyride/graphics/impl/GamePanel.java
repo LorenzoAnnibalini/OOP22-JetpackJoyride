@@ -17,6 +17,7 @@ import java.awt.Image;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -88,8 +89,9 @@ public class GamePanel extends JPanel {
      * @param player   the object of the player
      * @param money    the list of money that has to be shown
      * @throws ParseException
+     * @throws IOException
      */
-    public GamePanel() throws ParseException {
+    public GamePanel() throws ParseException, IOException {
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
         SpriteLoader spriteLoader = new SpriteLoader();
         spriteLoader.loadSprites(filename);

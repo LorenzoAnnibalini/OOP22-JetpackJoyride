@@ -22,7 +22,7 @@ public class Sprite {
      * @param height height of the sprite
      * @param img    image of the sprite
      */
-    public Sprite(int width, int height, Image img) {
+    public Sprite(final int width, final int height, final Image img) {
         this.originalDimension = new Pair<>(img.getWidth(null), img.getHeight(null));
         this.scaledDimension = new Pair<>(width, height);
         this.originalImage = img;
@@ -30,18 +30,15 @@ public class Sprite {
 
     /**
      * Method to scale the sprite.
-     * 
-     * @param x x scale
-     * @param y y scale
+     *
      */
     public void scale() {
-        //this.scaledDimension = new Pair<>((int) (originalDimension.getX() * x), (int) (originalDimension.getY() * y));
         this.scaledImage = originalImage.getScaledInstance(this.scaledDimension.getX(), this.scaledDimension.getY(),
                 Image.SCALE_SMOOTH);
     }
 
     /**
-     * Getter of original image
+     * Getter of original image.
      * 
      * @return the image with original dimension
      */
@@ -50,7 +47,7 @@ public class Sprite {
     }
 
     /**
-     * Getter of original dimension
+     * Getter of original dimension.
      * 
      * @return a pair with original dimension
      */
@@ -59,7 +56,7 @@ public class Sprite {
     }
 
     /**
-     * Getter of scaked image
+     * Getter of scaked image.
      * 
      * @return the image with scaled dimension
      */
@@ -68,7 +65,7 @@ public class Sprite {
     }
 
     /**
-     * Getter of scaled dimension
+     * Getter of scaled dimension.
      * 
      * @return a pair with scaled dimension
      */
