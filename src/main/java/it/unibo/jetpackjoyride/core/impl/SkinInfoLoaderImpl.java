@@ -15,44 +15,43 @@ import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.core.api.SkinInfoLoader;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 
-public class SkinInfoLoaderImpl implements SkinInfoLoader{
-    
+public class SkinInfoLoaderImpl implements SkinInfoLoader {
+
     private final String SEPARATOR = File.separator;
     private final int NAME = 0;
-    String filename = 
-        "src" + this.SEPARATOR + 
-        "main" + this.SEPARATOR + 
-        "resources" + this.SEPARATOR + 
-        "skin.csv";
+    String filename = "src" + this.SEPARATOR +
+            "main" + this.SEPARATOR +
+            "resources" + this.SEPARATOR +
+            "skin.csv";
 
     @Override
     public Map<String, List<String>> downloadSkin() throws FileNotFoundException {
-        Scanner sc = new Scanner(new File(filename));
-        Map<String, List<String>> skinMap = new HashMap<>();
+        final Scanner sc = new Scanner(new File(filename));
+        final Map<String, List<String>> skinMap = new HashMap<>();
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
-            String name = line.split(";")[NAME];
+            final String name = line.split(";")[NAME];
             line = line.substring(line.indexOf(";") + 1);
-            skinMap.put(name, 
-                new ArrayList<>(List.of(
-                    line.split(";")[SkinInfoPositions.STATE.ordinal()],
-                    line.split(";")[SkinInfoPositions.PURCHASED.ordinal()],
-                    line.split(";")[SkinInfoPositions.PRICE.ordinal()])));
+            skinMap.put(name,
+                    new ArrayList<>(List.of(
+                            line.split(";")[SkinInfoPositions.STATE.ordinal()],
+                            line.split(";")[SkinInfoPositions.PURCHASED.ordinal()],
+                            line.split(";")[SkinInfoPositions.PRICE.ordinal()])));
         }
         SkinInfoImpl.setAll(skinMap);
         return skinMap;
     }
 
     @Override
-    public void uploadSkin(Map<String, List<String>> skinMap) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-        for (String name : skinMap.keySet()) {
-            writer.write(name + ";" + 
-                skinMap.get(name).get(SkinInfoPositions.STATE.ordinal()) + ";" + 
-                skinMap.get(name).get(SkinInfoPositions.PURCHASED.ordinal()) + ";" +
-                skinMap.get(name).get(SkinInfoPositions.PRICE.ordinal()) + "\n");
+    public void uploadSkin(final Map<String, List<String>> skinMap) throws IOException {
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+        for (final String name : skinMap.keySet()) {
+            writer.write(name + ";" +
+                    skinMap.get(name).get(SkinInfoPositions.STATE.ordinal()) + ";" +
+                    skinMap.get(name).get(SkinInfoPositions.PURCHASED.ordinal()) + ";" +
+                    skinMap.get(name).get(SkinInfoPositions.PRICE.ordinal()) + "\n");
         }
         writer.close();
     }
-    
+
 }
