@@ -10,9 +10,10 @@ import it.unibo.jetpackjoyride.model.api.Gadget;
 
 /**
  * Class to modelize the Gadget information.
+ * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
-public class GadgetImpl implements Gadget{
+public class GadgetImpl implements Gadget {
 
     private static Map<String, List<String>> gadget = new HashMap<>();
 
@@ -22,23 +23,23 @@ public class GadgetImpl implements Gadget{
     }
 
     @Override
-    public List<String> getValue(String name) {
+    public List<String> getValue(final String name) {
         return new ArrayList<>(gadget.get(name));
     }
 
     @Override
-    public void setValue(String name, String state, String purchased, 
-        String price, String description) {
-        gadget.replace(name, 
-            new ArrayList<>(List.of(state, purchased, price, description)));
+    public void setValue(final String name, final String state, final String purchased,
+            final String price, final String description) {
+        gadget.replace(name,
+                new ArrayList<>(List.of(state, purchased, price, description)));
     }
 
     @Override
-    public void setValue(String name, List<String> value) {
-        String state = value.get(GadgetInfoPositions.STATE.ordinal());
-        String purchased = value.get(GadgetInfoPositions.PURCHASED.ordinal());
-        String price = value.get(GadgetInfoPositions.PRICE.ordinal());
-        String description = value.get(GadgetInfoPositions.DESCRIPTION.ordinal());
+    public void setValue(final String name, final List<String> value) {
+        final String state = value.get(GadgetInfoPositions.STATE.ordinal());
+        final String purchased = value.get(GadgetInfoPositions.PURCHASED.ordinal());
+        final String price = value.get(GadgetInfoPositions.PRICE.ordinal());
+        final String description = value.get(GadgetInfoPositions.DESCRIPTION.ordinal());
         this.setValue(name, state, purchased, price, description);
     }
 
@@ -47,7 +48,7 @@ public class GadgetImpl implements Gadget{
      * 
      * @param gadgetMap the map of names and values to set
      */
-    public static void setAll(Map<String, List<String>> gadgetMap) {
+    public static void setAll(final Map<String, List<String>> gadgetMap) {
         gadget.putAll(gadgetMap);
     }
 }

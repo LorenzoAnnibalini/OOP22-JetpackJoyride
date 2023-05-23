@@ -5,12 +5,16 @@ import java.io.FileNotFoundException;
 import javax.swing.JFrame;
 
 import it.unibo.jetpackjoyride.core.api.GadgetLoader;
+import it.unibo.jetpackjoyride.core.api.Saves;
 import it.unibo.jetpackjoyride.core.api.SkinInfoLoader;
 import it.unibo.jetpackjoyride.core.impl.GadgetLoaderImpl;
+import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.core.impl.SkinInfoLoaderImpl;
 import it.unibo.jetpackjoyride.graphics.impl.ShopPanel;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
+import it.unibo.jetpackjoyride.model.api.Statistics;
+import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 /**
  * Class to test the GUI of the shop.
@@ -18,22 +22,30 @@ import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
  * @author lorenzo.bacchini4@tudio.unibo.it
  */
 public class ShopTest {
-    
-    public static void main(String[] args) {
-        GadgetLoader gadgetLoader = new GadgetLoaderImpl();
-        SkinInfoLoader skinInfoLoader = new SkinInfoLoaderImpl();
-        InputQueue queue = new InputQueueImpl();
-        try{
+
+    public static void main(final String[] args) {
+        final GadgetLoader gadgetLoader = new GadgetLoaderImpl();
+        final SkinInfoLoader skinInfoLoader = new SkinInfoLoaderImpl();
+        final Saves saves = new SavesImpl();
+        final Statistics statistics = new StatisticsImpl();
+        try {
+            statistics.setAll(saves.downloadSaves());
+        } catch (final Exception e) {
+        }
+        final InputQueue queue = new InputQueueImpl();
+        try {
             gadgetLoader.downloadGadget();
-        }catch(FileNotFoundException e){}
-        try{
+        } catch (final FileNotFoundException e) {
+        }
+        try {
             skinInfoLoader.downloadSkin();
-        }catch(FileNotFoundException e){}
-        
-        JFrame frame = new JFrame();
+        } catch (final FileNotFoundException e) {
+        }
+
+        final JFrame frame = new JFrame();
         frame.setTitle("GUI shop test");
         frame.setSize(300, 400);
-        frame.getContentPane().add(new ShopPanel(queue));
+        frame.getContentPane().add(new ShopPanel(queue, statistics));
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

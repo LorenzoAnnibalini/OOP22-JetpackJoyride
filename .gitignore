@@ -21,3 +21,6 @@ bin/
 #ignore csv files
 *.csv
 
+resources/*.csv
+
+
