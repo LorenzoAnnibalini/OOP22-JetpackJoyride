@@ -6,18 +6,20 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /**
  * Class to model a LaserRay obstacle.
+ * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class LaserRay extends ObstacleActivable{
+public class LaserRay extends ObstacleActivable {
 
     /**
      * Constructor to create a LaserRay obstacle.
+     * 
      * @param type
      * @param pos
      * @param vel
      */
-    public LaserRay(Point2d pos, Vector2d vel,Hitbox hitbox) {
+    public LaserRay(final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
         super(pos, vel, hitbox);
     }
 }
