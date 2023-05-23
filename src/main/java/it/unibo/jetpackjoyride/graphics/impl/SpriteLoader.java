@@ -29,15 +29,17 @@ public class SpriteLoader {
      * @return the map of sprites
      */
     public Map<String, Sprite> getSprites() {
-        return this.sprites;
+        return sprites;
     }
 
     /**
-     * Method to get all sprites sclaed
+     * Method to get all sprites sclaed.
+     * 
+     * @return the map of scaled sprites
      */
     public Map<String, Sprite> getSpritesScaled() {
         Map<String, Sprite> scaledSprites = new HashMap<>();
-        for (Map.Entry<String, Sprite> s : this.sprites.entrySet()) {
+        for (Map.Entry<String, Sprite> s : sprites.entrySet()) {
             s.getValue().scale();
             scaledSprites.put(s.getKey(), s.getValue());
         }
@@ -49,20 +51,22 @@ public class SpriteLoader {
      * 
      * @param filename the name of the file
      * @throws ParseException
+     * @throws IOException
      */
-    public void loadSprites(String filename) throws ParseException {
+    public void loadSprites(final String filename) throws ParseException, IOException {
         final JSONParser parser = new JSONParser();
         String fileContent;
         JSONObject jsonObj = new JSONObject();
-
+        final InputStream stream = this.getClass().getResourceAsStream(filename);
         try {
-            final InputStream stream = this.getClass().getResourceAsStream(filename);
             fileContent = new String(stream.readAllBytes(),
                     StandardCharsets.UTF_8);
             stream.close();
             jsonObj = (JSONObject) parser.parse(fileContent);
         } catch (ParseException | IOException e) {
             e.printStackTrace();
+        } finally {
+            stream.close();
         }
         try {
             // load sprites
@@ -74,7 +78,7 @@ public class SpriteLoader {
                 int width = ((Long) spriteObj.get("width")).intValue();
                 int height = ((Long) spriteObj.get("height")).intValue();
                 Image img = ImageIO.read(this.getClass().getResourceAsStream(path));
-                this.sprites.put(name, new Sprite(width, height, img));
+                sprites.put(name, new Sprite(width, height, img));
             }
             // load map
             JSONArray jMap = (JSONArray) jsonObj.get("map");
@@ -85,7 +89,7 @@ public class SpriteLoader {
                 int width = ((Long) mapObj.get("width")).intValue();
                 int height = ((Long) mapObj.get("height")).intValue();
                 Image img = ImageIO.read(this.getClass().getResourceAsStream(SpriteLoader.ASSETS_FOLDER + path));
-                this.sprites.put(name, new Sprite(width, height, img));
+                sprites.put(name, new Sprite(width, height, img));
             }
 
         } catch (IOException e) {
