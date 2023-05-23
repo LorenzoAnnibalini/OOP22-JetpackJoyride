@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * Interface for classes to load and write skins from file.
+ * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 public interface SkinInfoLoader {
