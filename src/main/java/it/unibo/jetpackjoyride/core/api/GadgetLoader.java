@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * Interface for classes to load and write gadgets from file.
+ * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
