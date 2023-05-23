@@ -44,7 +44,7 @@ public class ViewImpl extends JFrame implements View {
         this.inputPanel = new InputPanel(inputHandler);
         this.shopPanel = new ShopPanel(inputHandler, worldGameState.getGeneralStatistics());
         this.endGamePanel = new EndGamePanel(inputHandler, worldGameState);
-        this.statisticsPanel = new StatisticsPanel(inputHandler, worldGameState.getGeneralStatistics());
+        this.statisticsPanel = new StatisticsPanel(inputHandler);
         this.card = new CardLayout();
         this.cardPanel = new JPanel(this.card);
 
