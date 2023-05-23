@@ -11,33 +11,34 @@ import it.unibo.jetpackjoyride.model.impl.Money;
 
 /**
  * Class to test the MoneyPatternLoader and the class Money.
+ * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 public class MoneyPatternTest {
 
     private final int fileNumber = 1;
     private ArrayList<Money> moneyList = new ArrayList<>();
-    private MoneyPatternLoader moneyPatternLoader = new MoneyPatternLoaderImpl(this.fileNumber);
+    private final MoneyPatternLoader moneyPatternLoader = new MoneyPatternLoaderImpl(this.fileNumber);
 
     @Test
     void testMoneyPatternLoader() throws Exception {
-        int index = 0;
+        final int index = 0;
         moneyList = moneyPatternLoader.getMoneyPattern();
-        assertEquals(26, moneyList.size());
-        assertEquals(227, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(209, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(195, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(189, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(192, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(206, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(227, moneyList.remove(index).getCurrentPos().x);
+        assertEquals(28, moneyList.size());
+        assertEquals(2330, moneyList.remove(index).getCurrentPos().x);
+        assertEquals(2285, moneyList.remove(index).getCurrentPos().x);
+        assertEquals(2248, moneyList.remove(index).getCurrentPos().x);
+        assertEquals(2233, moneyList.remove(index).getCurrentPos().x);
+        assertEquals(2248, moneyList.remove(index).getCurrentPos().x);
+        assertEquals(2285, moneyList.remove(index).getCurrentPos().x);
+        assertEquals(2330, moneyList.remove(index).getCurrentPos().x);
 
-        assertEquals(262, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(280, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(299, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(314, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(314, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(296, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(280, moneyList.remove(index).getCurrentPos().y);
+        assertEquals(232, moneyList.remove(index).getCurrentPos().y);
+        assertEquals(276, moneyList.remove(index).getCurrentPos().y);
+        assertEquals(318, moneyList.remove(index).getCurrentPos().y);
+        assertEquals(369, moneyList.remove(index).getCurrentPos().y);
+        assertEquals(364, moneyList.remove(index).getCurrentPos().y);
+        assertEquals(323, moneyList.remove(index).getCurrentPos().y);
+        assertEquals(323, moneyList.remove(index).getCurrentPos().y);
     }
 }

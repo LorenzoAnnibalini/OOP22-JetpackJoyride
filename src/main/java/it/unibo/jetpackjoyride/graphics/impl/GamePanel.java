@@ -14,19 +14,13 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Flow;
-
 import it.unibo.jetpackjoyride.common.Pair;
-import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
-import it.unibo.jetpackjoyride.core.api.Slider;
 import it.unibo.jetpackjoyride.core.impl.SliderImpl;
 import it.unibo.jetpackjoyride.model.api.Direction;
 import it.unibo.jetpackjoyride.model.api.Orientation;
@@ -46,7 +40,7 @@ import it.unibo.jetpackjoyride.model.impl.Rocket;
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-public class GamePanel extends JPanel {
+public final class GamePanel extends JPanel {
 
     private Set<Pair<String, GameObject>> entities;
     private PlayerImpl player;
@@ -76,23 +70,40 @@ public class GamePanel extends JPanel {
     private int height;
     private int score = 0;
     private int monies = 0;
-    private static final String filename = "/config/sprites.json";
+    private final String fileName = "/config/sprites.json";
     private JLabel scoreLabel;
     private JLabel moneyLabel;
-    
+    /**
+     * Constant for the label's width.
+     */
+    private static final int LABEL_WIDTH = 100;
+    /**
+     * Constant for the label's height.
+     */
+    private static final int LABEL_HEIGHT = 20;
+    /**
+     * Constant for the shield's stroke.
+     */
+    private static final int SHIELD_STROKE = 5;
+    /**
+     * Constant for the shield's radius.
+     */
+    private static final int SHIELD_RADIUS = 70;
+    /**
+     * Constant for the shield's extremes.
+     */
+    private static final Pair<Integer, Integer> LASER_EXTREMES = new Pair<>(-10, 1150);
 
     /**
      * Constructor of the class.
      * 
-     * @param entities the set of entities to show
-     * @param player   the object of the player
-     * @param money    the list of money that has to be shown
      * @throws ParseException
+     * @throws IOException
      */
-    public GamePanel() throws ParseException {
+    public GamePanel() throws ParseException, IOException {
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
         SpriteLoader spriteLoader = new SpriteLoader();
-        spriteLoader.loadSprites(filename);
+        spriteLoader.loadSprites(fileName);
         Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
         backgruondImage1 = sprites.get("background1").getScaled();
@@ -120,12 +131,13 @@ public class GamePanel extends JPanel {
         this.moneyLabel = new JLabel("Monies: " + monies);
         Icon moneyIcon = new ImageIcon(moneyImage);
         this.moneyLabel.setIcon(moneyIcon);
-        this.scoreLabel.setSize(100, 20);
-        this.moneyLabel.setSize(100, 20);
+        this.scoreLabel.setSize(LABEL_WIDTH, LABEL_HEIGHT);
+        this.moneyLabel.setSize(LABEL_WIDTH, LABEL_HEIGHT);
         moneyLabel.setAlignmentX(LEFT_ALIGNMENT);
         moneyLabel.setAlignmentY(LEFT_ALIGNMENT);
         scoreLabel.setAlignmentX(LEFT_ALIGNMENT);
         scoreLabel.setAlignmentY(LEFT_ALIGNMENT);
+        // Add components to panel and set size
         this.add(moneyLabel);
         this.add(scoreLabel);
         this.setPreferredSize(new Dimension(this.width, this.height));
@@ -137,9 +149,9 @@ public class GamePanel extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        g = (Graphics2D) g;
+    protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
         // Update stats
         StatisticsImpl currentStats = this.player.getStatistics();
         this.monies = currentStats.getValue("GrabbedMoney");
@@ -148,51 +160,49 @@ public class GamePanel extends JPanel {
         this.moneyLabel.setText("Monies: " + this.monies);
         this.scoreLabel.setText("Score: " + this.score);
         // Draw background image
-        g.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
-        g.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
+        g2d.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
+        g2d.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
         // Draw entities
         for (Pair<String, GameObject> el : entities) {
             String entityName = el.getX();
             GameObject entity = el.getY();
-            // g.drawRect((int)entity.getHitbox().getPointUpLeft().x,
-            // (int)entity.getHitbox().getPointUpLeft().y,entity.getHitbox().getWidthHitbox(),
-            // entity.getHitbox().getHeigthHitbox());
             switch (entityName) {
                 case "Rocket":
                     if (!((Rocket) entity).isActive()) {
-                        this.drawSprite(g, warning, entity);
+                        this.drawSprite(g2d, warning, entity);
                     } else {
-                        this.drawSprite(g, rocket, entity);
+                        this.drawSprite(g2d, rocket, entity);
                     }
                     break;
                 case "Electrode":
                     if (((Electrode) entity).getOrientation() == Orientation.HORIZONTAL) {
-                        this.drawSprite(g, horElectrode, entity);
+                        this.drawSprite(g2d, horElectrode, entity);
                     } else {
-                        this.drawSprite(g, vertElectrode, entity);
+                        this.drawSprite(g2d, vertElectrode, entity);
                     }
                     break;
                 case "Scientist":
                     if (((Scientist) entity).getDirection() == Direction.RIGHT) {
-                        this.drawSprite(g, rightScientist, entity);
+                        this.drawSprite(g2d, rightScientist, entity);
                     } else {
-                        this.drawSprite(g, leftScientist, entity);
+                        this.drawSprite(g2d, leftScientist, entity);
                     }
                     break;
                 case "ShieldPowerUp":
-                    this.drawSprite(g, shield, entity);
+                    this.drawSprite(g2d, shield, entity);
                     break;
                 case "SpeedUpPowerup":
-                    this.drawSprite(g, speedup, entity);
+                    this.drawSprite(g2d, speedup, entity);
                     break;
                 case "Laser":
                     if (!((LaserRay) entity).isActive()) {
-                        this.drawSprite(g, laser, entity);
+                        this.drawSprite(g2d, laser, entity);
                     } else {
-                        this.drawSprite(g, laser, entity);
-                        ((Graphics2D) g).setStroke(new BasicStroke(4f));
-                        g.setColor(Color.RED);
-                        g.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(), (int) entity.getCurrentPos().y);
+                        this.drawSprite(g2d, laser, entity);
+                        g2d.setStroke(new BasicStroke(4f));
+                        g2d.setColor(Color.RED);
+                        g2d.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(),
+                                (int) entity.getCurrentPos().y);
                     }
                     break;
                 case "Nothing":
@@ -204,29 +214,23 @@ public class GamePanel extends JPanel {
         }
 
         // Draw player
-        //this.drawSprite(g, playerImage, player);
         if (player.getCurrentVel().y > 0) {
-            this.drawSprite(g, playerImage, player);
+            this.drawSprite(g2d, playerImage, player);
         } else {
-            this.drawSprite(g, playerUpImage, player);
+            this.drawSprite(g2d, playerUpImage, player);
         }
-        // g.drawRect((int)player.getHitbox().getPointUpLeft().x,
-        // (int)player.getHitbox().getPointUpLeft().y,
-        // player.getHitbox().getWidthHitbox(), player.getHitbox().getHeigthHitbox());
+        // Draw shield if present
         if (player.getHearts() == 2) {
-            ((Graphics2D) g).setStroke(new BasicStroke(5));
-            g.setColor(Color.GREEN);
-            g.drawOval((int) player.getHitbox().getPointUpLeft().x - 10,
-                    (int) player.getHitbox().getPointUpLeft().y - 10, 70, 70);
+            g2d.setStroke(new BasicStroke(SHIELD_STROKE));
+            g2d.setColor(Color.GREEN);
+            g2d.drawOval((int) player.getHitbox().getPointUpLeft().x - 10,
+                    (int) player.getHitbox().getPointUpLeft().y - 10, SHIELD_RADIUS, SHIELD_RADIUS);
         }
 
         // Draw monies if present
         if (!money.isEmpty()) {
             for (Money m : money) {
-                this.drawSprite(g, moneyImage, m);
-                // g.drawRect((int)m.getHitbox().getPointUpLeft().x,
-                // (int)m.getHitbox().getPointUpLeft().y,m.getHitbox().getWidthHitbox(),
-                // m.getHitbox().getHeigthHitbox());
+                this.drawSprite(g2d, moneyImage, m);
             }
         }
     }
@@ -235,18 +239,19 @@ public class GamePanel extends JPanel {
      * Metohd to draw a sprite.
      * 
      * @param g      graphics object
-     * @param sprite image to draw
+     * @param image  image to draw
      * @param entity entity object with values to draw
      */
-    private void drawSprite(Graphics g, Image image, GameObject entity) {
+    private void drawSprite(final Graphics2D g, final Image image, final GameObject entity) {
+        // x and y are the coordinates of the upper left corner of the image based on hitbox
         int x = (int) entity.getHitbox().getPointUpLeft().x;
         int y = (int) entity.getHitbox().getPointUpLeft().y;
         if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
             g.drawImage(image, x, y, this);
         } else {
             if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.LaserRay") {
-                g.drawImage(image, -10, y, this);
-                g.drawImage(image, 1150, y, this);
+                g.drawImage(image, LASER_EXTREMES.getX(), y, this);
+                g.drawImage(image, LASER_EXTREMES.getY(), y, this);
             } else {
                 g.drawImage(image, x, y, this);
 

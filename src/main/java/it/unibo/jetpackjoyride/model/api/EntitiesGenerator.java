@@ -15,7 +15,7 @@ public interface EntitiesGenerator {
      * Method to generate new obstacles (Electrode, LaserRay or Rocket).
      * 
      * @param entities the set of entities already spwaned in game
-     * @num number of entities to generate
+     * @param num number of entities to generate
      */
     void generateObstacles(Set<Pair<String, GameObject>> entities, int num);
 
@@ -23,7 +23,7 @@ public interface EntitiesGenerator {
      * Method to generate new powerups (Electrode, LaserRay or Rocket).
      * 
      * @param entities the set of entities already spwaned in game
-     * @num number of entities to generate
+     * @param num number of entities to generate
      */
     void generatePowerUps(Set<Pair<String, GameObject>> entities, int num);
 
@@ -31,12 +31,12 @@ public interface EntitiesGenerator {
      * Method to generate new scientists (5 scientist per time).
      * 
      * @param entities the set of entities already spwaned in game
-     * @param number   of scientist to generate
+     * @param num   of scientist to generate
      */
     void generateScientists(Set<Pair<String, GameObject>> entities, int num);
 
     /**
-     * Method to generate a laser
+     * Method to generate a laser.
      * 
      * @param entities the set of entities already spwaned in game
      * @param num      number of laser to generate
