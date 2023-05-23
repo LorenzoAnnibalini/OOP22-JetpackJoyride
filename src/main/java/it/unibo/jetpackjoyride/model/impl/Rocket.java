@@ -6,18 +6,20 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /**
  * Class to model a Rocket obstacle.
+ * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class Rocket extends ObstacleActivable{
+public class Rocket extends ObstacleActivable {
 
     /**
      * Constructor to create a Rocket obstacle.
+     * 
      * @param type
      * @param pos
      * @param vel
      */
-    public Rocket(Point2d pos, Vector2d vel,Hitbox hitbox) {
+    public Rocket(final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
         super(pos, vel, hitbox);
     }
 }
