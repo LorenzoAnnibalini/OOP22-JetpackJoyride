@@ -2,8 +2,6 @@ package it.unibo.jetpackjoyride.model.api;
 
 import java.util.Map;
 
-import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
-
 /**
  * Interface for game statistics.
  * 
@@ -12,6 +10,8 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 public interface Statistics {
     /**
      * Method to get map of statistcs.
+     * 
+     * @return map of statistics
      */
     Map<String, Integer> getAll();
 

@@ -11,39 +11,63 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-public class StatisticsImpl implements Statistics {
-
+public final class StatisticsImpl implements Statistics {
+    /**
+     * Constants for max money grabbed and value to use in the view.
+     */
     public static final Pair<String, String> MAX_MONEY = new Pair<>("MaxMoney", "Max Money");
+    /**
+     * Constants for max meters traveled and value to use in the view.
+     */
     public static final Pair<String, String> MAX_METERS = new Pair<>("MaxMeters", "Max Distance");
+    /**
+     * Constants for max score and value to use in the view.
+     */
     public static final Pair<String, String> MONEY_SPENT = new Pair<>("MoneySpent", "Money Spent");
+    /**
+     * Constants for Killed Npc and value to use in the view.
+     */
     public static final Pair<String, String> KILLED_NPC = new Pair<>("KilledNpc", "Killd Npc");
+    /**
+     * Constants for deaths and value to use in the view.
+     */
     public static final Pair<String, String> DEATHS = new Pair<>("Deaths", "Deaths");
+    /**
+     * Constants for grabbed objects and value to use in the view.
+     */
     public static final Pair<String, String> GRABBED_OBJECTS = new Pair<>("GrabbedObjects", "Grabbed Objects");
+    /**
+     * Constants for grabbed money and value to use in the view.
+     */
     public static final Pair<String, String> GRABBED_MONEY = new Pair<>("GrabbedMoney", "Grabbed Money");
+    /**
+     * Constants for total meters traveled and value to use in the view.
+     */
     public static final Pair<String, String> TOTAL_METERS = new Pair<>("TotalMeters", "Total Distance");
+    /**
+     * Constants for actual money and value to use in the view.
+     */
     public static final Pair<String, String> ACTUAL_MONEY = new Pair<>("ActualMoney", "Actual Money");
 
-
-
-    private Map<String, Integer> statistics = new HashMap<>();
+    private final Map<String, Integer> statistics = new HashMap<>();
 
     @Override
-    public int getValue(String name) {
+    public int getValue(final String name) {
         return this.statistics.get(name);
     }
 
     @Override
-    public void setValue(String name, int value) {
+    public void setValue(final String name, final int value) {
         this.statistics.replace(name, value);
     }
 
     @Override
-    public void increment(String name, int value) {
+    public void increment(final String name, final int value) {
         this.statistics.replace(name, this.statistics.get(name) + value);
     }
 
     @Override
-    public void increment(String name) {
+    public void increment(final String name) {
         this.statistics.replace(name, this.statistics.get(name) + 1);
     }
 
@@ -53,18 +77,18 @@ public class StatisticsImpl implements Statistics {
     }
 
     @Override
-    public void addStatistic(String name, int value) {
+    public void addStatistic(final String name, final int value) {
         this.statistics.put(name, value);
     }
 
     @Override
-    public void setAll(Map<String, Integer> stats) {
+    public void setAll(final Map<String, Integer> stats) {
         this.statistics.putAll(stats);
     }
 
     @Override
-    public void updateGeneralStats(Map<String, Integer> runStats) {
-        for (String key : runStats.keySet()) {
+    public void updateGeneralStats(final Map<String, Integer> runStats) {
+        for (final String key : runStats.keySet()) {
             this.increment(key, runStats.get(key));
         }
         if (runStats.get(GRABBED_MONEY.getX()) > statistics.get(MAX_MONEY.getX())) {
