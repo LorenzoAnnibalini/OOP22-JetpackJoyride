@@ -13,7 +13,11 @@ import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
-
+/**
+ * Class to manage the game economy.
+ * 
+ * @author lorenzo.bacchini4@studio.unibo.it
+ */
 public class GameEconomyImpl implements GameEconomy {
 
     /**
@@ -42,6 +46,10 @@ public class GameEconomyImpl implements GameEconomy {
     private final Saves saves;
     private final Statistics generalStatistics;
 
+    /**
+     * Constructor of the GameEconomyImpl class.
+     * @param generalStatistics
+     */
     public GameEconomyImpl(final Statistics generalStatistics) {
         this.gadget = new GadgetImpl();
         this.skin = new SkinInfoImpl();
@@ -50,12 +58,12 @@ public class GameEconomyImpl implements GameEconomy {
     }
 
     @Override
-    public void buyGadget(final String name) {
+    public final void buyGadget(final String name) {
         this.gadgetInfo = gadget.getValue(name);
         final int gadgetPrice = Integer.parseInt(
                 gadgetInfo.get(GadgetInfoPositions.PRICE.ordinal()));
-        final int ActualMoney = this.generalStatistics.getValue("ActualMoney");
-        if (ActualMoney >= gadgetPrice) {
+        final int actualMoney = this.generalStatistics.getValue("ActualMoney");
+        if (actualMoney >= gadgetPrice) {
             gadgetInfo.set(GadgetInfoPositions.PURCHASED.ordinal(), "true");
             gadget.setValue(name, gadgetInfo);
             generalStatistics.increment("ActualMoney", -gadgetPrice);
@@ -69,7 +77,7 @@ public class GameEconomyImpl implements GameEconomy {
     }
 
     @Override
-    public void enableGadget(final String name) {
+    public final void enableGadget(final String name) {
         this.gadgetInfo = gadget.getValue(name);
         if (gadgetInfo.get(GadgetInfoPositions.PURCHASED.ordinal()).equals("true")) {
             gadgetInfo.set(GadgetInfoPositions.STATE.ordinal(), "true");
@@ -78,19 +86,19 @@ public class GameEconomyImpl implements GameEconomy {
     }
 
     @Override
-    public void disableGadget(final String name) {
+    public final void disableGadget(final String name) {
         this.gadgetInfo = gadget.getValue(name);
         gadgetInfo.set(GadgetInfoPositions.STATE.ordinal(), "false");
         gadget.setValue(name, gadgetInfo);
     }
 
     @Override
-    public void buySkin(final String name) {
+    public final void buySkin(final String name) {
         this.skinInfo = skin.getValue(name);
         final int skinPrice = Integer.parseInt(
                 skinInfo.get(SkinInfoPositions.PRICE.ordinal()));
-        final int ActualMoney = generalStatistics.getValue("ActualMoney");
-        if (ActualMoney >= skinPrice) {
+        final int actualMoney = generalStatistics.getValue("ActualMoney");
+        if (actualMoney >= skinPrice) {
             skinInfo.set(SkinInfoPositions.PURCHASED.ordinal(), "true");
             skin.setValue(name, skinInfo);
             generalStatistics.increment("ActualMoney", -skinPrice);
@@ -104,7 +112,7 @@ public class GameEconomyImpl implements GameEconomy {
     }
 
     @Override
-    public void selectSkin(final String name) {
+    public final void selectSkin(final String name) {
         this.skinInfo = skin.getValue(name);
         if (skinInfo.get(SkinInfoPositions.PURCHASED.ordinal()).equals("true")) {
             final Map<String, List<String>> allSkin = skin.getAll();
