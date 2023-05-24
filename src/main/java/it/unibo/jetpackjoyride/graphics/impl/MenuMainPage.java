@@ -16,15 +16,15 @@ import java.awt.GridLayout;
 public class MenuMainPage extends JPanel {
     
     //Main Page panels
-    private JPanel mainPageOptions = new JPanel();
-    private JPanel mainPageComands = new JPanel();
+    private final JPanel mainPageOptions = new JPanel();
+    private final JPanel mainPageComands = new JPanel();
 
     //Main Page buttons
-    private JButton exit = new JButton("Exit");
-    private JButton settings = new JButton("Settings");
-    private JButton newGame = new JButton("New Game");
-    private JButton shopButton = new JButton("Shop");
-    private JButton statistics = new JButton("Statistics");
+    private final JButton exit = new JButton("Exit");
+    private final JButton settings = new JButton("Settings");
+    private final JButton newGame = new JButton("New Game");
+    private final JButton shopButton = new JButton("Shop");
+    private final JButton statistics = new JButton("Statistics");
 
      //Title of the main page
      JTextArea title = new JTextArea();

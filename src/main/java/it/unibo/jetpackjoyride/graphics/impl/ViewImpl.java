@@ -26,9 +26,9 @@ public class ViewImpl extends JFrame implements View {
 
     //TODO: Add Shop, Game and Statistics panels
 
-    private GamePanel gamePanel;
+    private final GamePanel gamePanel;
     private final MenuPanel menuPanel;
-    private InputQueue inputHandler;
+    private final InputQueue inputHandler;
     private final InputPanel inputPanel;
     private final ShopPanel shopPanel;
     private final CardLayout card;

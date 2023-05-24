@@ -95,3 +95,4 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
         return moneyList;
     }
 }
+
