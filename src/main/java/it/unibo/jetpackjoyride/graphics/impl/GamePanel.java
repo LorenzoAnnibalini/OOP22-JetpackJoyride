@@ -214,7 +214,7 @@ public final class GamePanel extends JPanel {
         }
 
         // Draw player
-        if (player.getCurrentVel().y > 0) {
+        if (player.getCurrentVel().getY() > 0) {
             this.drawSprite(g2d, playerImage, player);
         } else {
             this.drawSprite(g2d, playerUpImage, player);

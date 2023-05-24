@@ -1,11 +1,10 @@
 package it.unibo.jetpackjoyride.common;
 
 /**
- * This is a class to model two-dimensional point
+ * This is a class to model two-dimensional point.
  * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
-
 public class Point2d {
 
     public double x, y;
@@ -28,7 +27,7 @@ public class Point2d {
      * @return new point
      */
     public Point2d sum(final Vector2d v) {
-        return new Point2d(this.x + v.x, this.y + v.y);
+        return new Point2d(this.x + v.getX(), this.y + v.getY());
     }
 
     /**
@@ -38,7 +37,7 @@ public class Point2d {
      * @return new point
      */
     public Point2d sub(final Vector2d v) {
-        return new Point2d(this.x - v.x, this.y - v.y);
+        return new Point2d(this.x - v.getX(), this.y - v.getY());
     }
 
     /**
