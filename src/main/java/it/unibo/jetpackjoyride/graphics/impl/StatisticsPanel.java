@@ -21,7 +21,7 @@ import it.unibo.jetpackjoyride.input.impl.InputImpl;
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-public class StatisticsPanel extends JPanel {
+public final class StatisticsPanel extends JPanel {
     private final InputQueue inputQueue;
     private final Saves saves;
 
@@ -43,6 +43,12 @@ public class StatisticsPanel extends JPanel {
         saves = new SavesImpl();
     }
 
+    /**
+     * Method to update the statistics panel.
+     * 
+     * @throws FileNotFoundException if the file is not found
+     * @throws IOException           if there is an error in the file
+     */
     public void update() throws FileNotFoundException, IOException {
         Map<String, Integer> statsMap = new HashMap<>();
         JPanel boxPanel = new JPanel(new FlowLayout());
