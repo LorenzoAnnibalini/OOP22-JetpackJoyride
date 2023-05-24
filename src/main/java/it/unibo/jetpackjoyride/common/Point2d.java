@@ -21,7 +21,7 @@ public class Point2d {
      * setter for x.
      * @param x coordinate
      */
-    public void setX(double x) {
+    public void setX(final double x) {
         this.x = x;
     }
 
@@ -37,7 +37,7 @@ public class Point2d {
      * setter for y.
      * @param y coordinate
      */
-    public void setY(double y) {
+    public void setY(final double y) {
         this.y = y;
     }
 
