@@ -81,7 +81,7 @@ public class PlayerImpl extends GameObject implements Player {
         this.direction = PlayerDirection.UP;
         double multiplier = this.applyGadget(direction);
         this.setVel(new Vector2d(this.getCurrentPos(),
-                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + UP_VELOCITY * multiplier)));
+                new Point2d(this.getCurrentPos().getX(), this.getCurrentPos().getY() + UP_VELOCITY * multiplier)));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class PlayerImpl extends GameObject implements Player {
         this.direction = PlayerDirection.DOWN;
         double multiplier = this.applyGadget(direction);
         this.setVel(new Vector2d(this.getCurrentPos(),
-                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + DOWN_VELOCITY * multiplier)));
+                new Point2d(this.getCurrentPos().getX(), this.getCurrentPos().getY() + DOWN_VELOCITY * multiplier)));
     }
 
     @Override

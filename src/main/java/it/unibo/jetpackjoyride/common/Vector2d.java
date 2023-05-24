@@ -59,8 +59,8 @@ public class Vector2d {
      * @param from
      */
     public Vector2d(final Point2d to, final Point2d from) {
-        this.x = to.x - from.x;
-        this.y = to.y - from.y;
+        this.x = to.getX() - from.getX();
+        this.y = to.getY() - from.getY();
     }
 
     /**

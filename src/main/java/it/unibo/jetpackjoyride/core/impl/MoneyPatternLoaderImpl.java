@@ -88,7 +88,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
             int y = Integer.parseInt(line.split(",")[Y]);
             y = y + (int) (multiplier * RANGE);
             final Point2d startPosition = new Point2d(x, y);
-            final Point2d finishPosition = new Point2d(x - LIMIT, startPosition.y);
+            final Point2d finishPosition = new Point2d(x - LIMIT, startPosition.getY());
             final Vector2d vec = new Vector2d(finishPosition, startPosition);
             final Hitbox hitbox = new HitboxImpl(15, 15, startPosition);
             moneyList.add(new Money(startPosition, vec, hitbox));

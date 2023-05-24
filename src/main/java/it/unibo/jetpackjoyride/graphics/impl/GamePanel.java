@@ -201,8 +201,8 @@ public final class GamePanel extends JPanel {
                         this.drawSprite(g2d, laser, entity);
                         g2d.setStroke(new BasicStroke(4f));
                         g2d.setColor(Color.RED);
-                        g2d.drawLine(0, (int) entity.getCurrentPos().y, this.getWidth(),
-                                (int) entity.getCurrentPos().y);
+                        g2d.drawLine(0, (int) entity.getCurrentPos().getY(), this.getWidth(),
+                                (int) entity.getCurrentPos().getY());
                     }
                     break;
                 case "Nothing":
@@ -223,8 +223,8 @@ public final class GamePanel extends JPanel {
         if (player.getHearts() == 2) {
             g2d.setStroke(new BasicStroke(SHIELD_STROKE));
             g2d.setColor(Color.GREEN);
-            g2d.drawOval((int) player.getHitbox().getPointUpLeft().x - 10,
-                    (int) player.getHitbox().getPointUpLeft().y - 10, SHIELD_RADIUS, SHIELD_RADIUS);
+            g2d.drawOval((int) player.getHitbox().getPointUpLeft().getX() - 10,
+                    (int) player.getHitbox().getPointUpLeft().getY() - 10, SHIELD_RADIUS, SHIELD_RADIUS);
         }
 
         // Draw monies if present
@@ -244,8 +244,8 @@ public final class GamePanel extends JPanel {
      */
     private void drawSprite(final Graphics2D g, final Image image, final GameObject entity) {
         // x and y are the coordinates of the upper left corner of the image based on hitbox
-        int x = (int) entity.getHitbox().getPointUpLeft().x;
-        int y = (int) entity.getHitbox().getPointUpLeft().y;
+        int x = (int) entity.getHitbox().getPointUpLeft().getX();
+        int y = (int) entity.getHitbox().getPointUpLeft().getY();
         if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
             g.drawImage(image, x, y, this);
         } else {

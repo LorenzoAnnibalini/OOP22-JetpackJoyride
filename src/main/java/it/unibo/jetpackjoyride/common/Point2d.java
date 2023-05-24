@@ -7,7 +7,39 @@ package it.unibo.jetpackjoyride.common;
  */
 public class Point2d {
 
-    public double x, y;
+    private double x, y;
+
+    /**
+     * getter for x.
+     * @return x coordinate
+     */
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * setter for x.
+     * @param x coordinate
+     */
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    /**
+     * getter for y.
+     * @return y coordinate
+     */
+    public double getY() {
+        return y;
+    }
+
+    /**
+     * setter for y.
+     * @param y coordinate
+     */
+    public void setY(double y) {
+        this.y = y;
+    }
 
     /**
      * Constructor to create a 2d point (x,y).

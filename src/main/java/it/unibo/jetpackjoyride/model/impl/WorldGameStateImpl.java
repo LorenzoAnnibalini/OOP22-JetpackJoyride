@@ -234,9 +234,9 @@ public class WorldGameStateImpl implements WorldGameState {
      * board.
      */
     private void checkBoardPlayerCollision() {
-        if (this.player.getHitbox().getPointUpLeft().y <= 0 && this.isFlying) {
+        if (this.player.getHitbox().getPointUpLeft().getY() <= 0 && this.isFlying) {
             this.player.setDirectionSTATIC();
-        } else if (this.player.getHitbox().getPointDownRight().y >= FRAME_HEIGHT && !this.isFlying) {
+        } else if (this.player.getHitbox().getPointDownRight().getY() >= FRAME_HEIGHT && !this.isFlying) {
             this.player.setDirectionSTATIC();
         }
 
@@ -251,15 +251,15 @@ public class WorldGameStateImpl implements WorldGameState {
         Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
-            if (entity.getY().getCurrentPos().x < 0
-                    || entity.getY().getCurrentPos().x > FRAME_WIDTH + VOID_SPACE_ON_RIGHT) {
+            if (entity.getY().getCurrentPos().getX() < 0
+                    || entity.getY().getCurrentPos().getX() > FRAME_WIDTH + VOID_SPACE_ON_RIGHT) {
                 entityIterator.remove();
             }
         }
 
         while (moneyIterator.hasNext()) {
             Money moneyElem = moneyIterator.next();
-            if (moneyElem.getCurrentPos().x < 0) {
+            if (moneyElem.getCurrentPos().getX() < 0) {
                 moneyIterator.remove();
             }
         }
