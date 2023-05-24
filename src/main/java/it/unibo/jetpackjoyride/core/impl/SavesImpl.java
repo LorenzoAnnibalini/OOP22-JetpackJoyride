@@ -20,36 +20,21 @@ public class SavesImpl implements Saves {
     private final static int NAME = 0;
     private final static int VALUE = 1;
     private final String SEPARATOR = File.separator;
-    String filename = "src" + this.SEPARATOR +
-            "main" + this.SEPARATOR +
-            "resources" + this.SEPARATOR +
-            "saves.csv";
+    String filename = "saves.csv";
     private Statistics statistics = new StatisticsImpl();
 
     @Override
     public Map<String, Integer> downloadSaves() throws IOException {
-        Scanner sc = new Scanner(new File(filename));
         Map<String, Integer> stats = new HashMap<>();
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            stats.put(line.split(";")[SavesImpl.NAME], Integer.parseInt(line.split(";")[SavesImpl.VALUE]));
-        }
-        this.statistics.setAll(stats);
-        sc.close();
+        ReadWriteFile<String, Integer> reader = new ReadWriteFile<>(filename);
+        this.statistics.setAll(reader.readMap());
         return stats;
     }
 
     @Override
     public void uploadSaves(Map<String, Integer> stats) throws IOException {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-            for (String name : stats.keySet()) {
-                writer.write(name + ";" + stats.get(name) + "\n");
-            }
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ReadWriteFile<String, Integer> writer = new ReadWriteFile<>(filename);
+        writer.writeMap(stats);
     }
 
 }

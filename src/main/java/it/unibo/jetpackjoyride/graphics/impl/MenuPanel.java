@@ -19,7 +19,7 @@ public class MenuPanel extends JPanel{
     public MenuPanel(final InputQueue inputHandler) {
 
         //Component of the menu
-        MenuMainPage mainPage = new MenuMainPage();
+        final MenuMainPage mainPage = new MenuMainPage();
         //MenuSettingsPage settingsPage = new MenuSettingsPage();
 
         //Default settings
@@ -33,25 +33,6 @@ public class MenuPanel extends JPanel{
         // if press exit button close the programm
         mainPage.getExit().addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.EXIT, "Exit")));
         //settingsPage.getExit().addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.EXIT, "Exit")));
-
-      /*
-        // if press settings button open the settings page
-        mainPage.getSettings().addActionListener(e -> {
-            mainPage.setVisible(false);
-            this.add(settingsPage);
-            settingsPage.setVisible(true);
-            this.setVisible(true);
-        });
-
-        // if press return button open the main page
-        settingsPage.getReturnBack().addActionListener(e -> {
-            settingsPage.setVisible(false);
-            this.add(mainPage);
-            mainPage.setVisible(true);
-            this.setVisible(true);
-        });
-
-        */
 
         // if press NewGame button open the game
         mainPage.getNewGame().addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.START_GAME, "New Game")));

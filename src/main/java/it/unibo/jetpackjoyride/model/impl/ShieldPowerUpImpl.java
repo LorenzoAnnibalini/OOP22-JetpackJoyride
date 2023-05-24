@@ -11,10 +11,10 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
 public class ShieldPowerUpImpl extends GameObject {
 
     private boolean active;
-    private long duration;
+    private final long duration;
     private long startTime;
 
-    public ShieldPowerUpImpl(long duration, Point2d pos, Vector2d vel, Hitbox hitbox) {
+    public ShieldPowerUpImpl(final long duration, final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
         super(pos, vel, hitbox);
         this.duration = duration;
         this.active = false;
@@ -38,7 +38,7 @@ public class ShieldPowerUpImpl extends GameObject {
         return this.startTime;
     }
 
-    public void setIsActive(boolean active) {
+    public void setIsActive(final boolean active) {
         this.active = active;
         this.startTime = System.currentTimeMillis();
     }

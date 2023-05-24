@@ -24,15 +24,15 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 public class EndGamePanel extends JPanel{
     //End Game panels
-    private JPanel statisticsPanel = new JPanel(new FlowLayout());
-    private JPanel mainPageComands = new JPanel();
+    private final JPanel statisticsPanel = new JPanel(new FlowLayout());
+    private final JPanel mainPageComands = new JPanel();
 
     //Elements of the statistics panel
     WorldGameStateImpl worldGameState;
 
     //End Games buttons
-    private JButton exit = new JButton("Exit");
-    private JButton menu = new JButton("Menu");
+    private final JButton exit = new JButton("Exit");
+    private final JButton menu = new JButton("Menu");
 
     //Title of the main page
     JTextArea title = new JTextArea();
@@ -82,14 +82,14 @@ public class EndGamePanel extends JPanel{
     public void update(){
         this.statistics = worldGameState.getPlayer().getStatistics();
         this.statsMap = statistics.getAll();
-        JPanel boxPanel = new JPanel(new FlowLayout());
+        final JPanel boxPanel = new JPanel(new FlowLayout());
         String statsText = "<html>";
-        for (String statName : this.statsMap.keySet()) {
-            int value = this.statsMap.get(statName);
+        for (final String statName : this.statsMap.keySet()) {
+            final int value = this.statsMap.get(statName);
             statsText = statsText + statName + ": " +  value + "<br>";
         }
         statsText = statsText + "</html>";
-        JLabel label = new JLabel(statsText);
+        final JLabel label = new JLabel(statsText);
         boxPanel.add(label, BorderLayout.CENTER);
         this.add(boxPanel, BorderLayout.CENTER);
     }

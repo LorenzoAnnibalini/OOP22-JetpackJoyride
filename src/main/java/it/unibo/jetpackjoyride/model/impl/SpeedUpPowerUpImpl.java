@@ -11,9 +11,9 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
 public class SpeedUpPowerUpImpl extends GameObject {
 
     private boolean active;
-    private int distanceSpeedUp;
+    private final int distanceSpeedUp;
 
-    public SpeedUpPowerUpImpl(int distanceSpeedUp, Point2d pos, Vector2d vel, Hitbox hitbox) {
+    public SpeedUpPowerUpImpl(final int distanceSpeedUp, final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
         super(pos, vel, hitbox);
         this.distanceSpeedUp = distanceSpeedUp;
         this.active = false;
