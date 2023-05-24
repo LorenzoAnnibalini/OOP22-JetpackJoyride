@@ -16,5 +16,5 @@ public interface MoneyPatternLoader {
      * 
      * @return an array list of Money
      */
-    public ArrayList<Money> getMoneyPattern() throws IOException;
+    ArrayList<Money> getMoneyPattern() throws IOException;
 }
