@@ -136,7 +136,7 @@ public class MenuSettingsPage extends JPanel {
          */
         public void loadSettings(){
                 try{
-                GameSettingsImpl settings = new GameSettingsImpl();
+                final GameSettingsImpl settings = new GameSettingsImpl();
                 //Audio settings
                 audio.setText(settings.getValue("audio"));
                 System.out.println(settings.getValue("audio"));
@@ -146,7 +146,7 @@ public class MenuSettingsPage extends JPanel {
 
                 //TODO: add more settings
             
-            }catch(Exception e){
+            }catch(final Exception e){
                 System.out.println(e.toString());
             }    
 
@@ -158,7 +158,7 @@ public class MenuSettingsPage extends JPanel {
          */
         public void saveSettings() {
             try{
-                GameSettingsImpl settings = new GameSettingsImpl();
+                final GameSettingsImpl settings = new GameSettingsImpl();
                 //Audio settings
                 settings.setValue("audio", audio.getText());
 
@@ -166,7 +166,7 @@ public class MenuSettingsPage extends JPanel {
                 settings.setValue("difficulty", difficulty.getText());
                 
                 settings.writeSettings();
-            }catch(Exception e){
+            }catch(final Exception e){
                 System.out.println(e.toString());
             }
         }
@@ -175,7 +175,7 @@ public class MenuSettingsPage extends JPanel {
         /**
         * @param audio the audio to set
         */
-        public void setAudio(boolean audio) {
+        public void setAudio(final boolean audio) {
             if(audio){
                 this.audio.setText("Audio ON");
             }else{
@@ -187,7 +187,7 @@ public class MenuSettingsPage extends JPanel {
         /**
         * @param difficulty the difficulty to set
         */
-        public void setDifficulty(String difficulty) {
+        public void setDifficulty(final String difficulty) {
             this.difficulty.setText(difficulty);
             this.saveSettings();
         }

@@ -47,8 +47,8 @@ public class ReadWriteFile<T, G> {
      * @throws IOException
      */
     public void writeMap(final Map<T,G> map) throws IOException{
-        PrintWriter writer = new PrintWriter(new File(this.path));
-        for (T name : map.keySet()) {
+        final PrintWriter writer = new PrintWriter(new File(this.path));
+        for (final T name : map.keySet()) {
             writer.write(name + ";" + map.get(name) + ";" + "\n");
         }
         writer.close();   
@@ -59,12 +59,12 @@ public class ReadWriteFile<T, G> {
      * @throws FileNotFoundException
      */
     public <T, G> Map<T, G> readMap() throws FileNotFoundException{
-        Map<T, G> mappaTmp = new HashMap<T, G>();
-        Scanner sc = new Scanner(new File(this.path));
+        final Map<T, G> mappaTmp = new HashMap<T, G>();
+        final Scanner sc = new Scanner(new File(this.path));
         sc.useDelimiter(";"); 
             while (sc.hasNext()) { 
-                T key = (T)sc.next();
-                G value = (G)sc.next(); 
+                final T key = (T)sc.next();
+                final G value = (G)sc.next(); 
                 mappaTmp.put(key, value);
                 sc.nextLine();
                 System.out.println("Reading Game Settings : " + key + " " + value);
@@ -74,18 +74,18 @@ public class ReadWriteFile<T, G> {
     }
 
     public void writeArrayList(final ArrayList<T> list) throws IOException{
-        PrintWriter writer = new PrintWriter(new File(this.path));
-        for (T name : list) {
+        final PrintWriter writer = new PrintWriter(new File(this.path));
+        for (final T name : list) {
             writer.write(name + "\n");
         }
         writer.close();   
     }
 
     public <T> ArrayList<T> readArrayList() throws FileNotFoundException{
-        Scanner file = new Scanner(new File(this.path));
-        ArrayList<T> list = new ArrayList<T>();
+        final Scanner file = new Scanner(new File(this.path));
+        final ArrayList<T> list = new ArrayList<T>();
         while (file.hasNextLine()) {
-            String line = file.nextLine();
+            final String line = file.nextLine();
             list.add((T) line);
         }
         return list;
