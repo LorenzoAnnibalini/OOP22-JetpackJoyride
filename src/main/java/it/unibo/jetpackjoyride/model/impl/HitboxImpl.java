@@ -83,22 +83,12 @@ public final class HitboxImpl implements Hitbox {
     }
 
     @Override
-<<<<<<< HEAD
     public boolean checkCollision(final Hitbox hitbox) {
         return (this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) 
         || this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight()) 
-        || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().x, hitbox.getPointDownRight().y))
-        || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().x, hitbox.getPointUpLeft().y))) 
+        || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().getX(), hitbox.getPointDownRight().getY()))
+        || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().getX(), hitbox.getPointUpLeft().getY()))) 
         && hitbox.isHitboxActive() && this.hitboxActive;
-=======
-    public boolean checkCollision(Hitbox hitbox) {
-        return (this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) ||
-                this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight()) ||
-                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().getX(), hitbox.getPointDownRight().getY()))
-                ||
-                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().getX(), hitbox.getPointUpLeft().getY())))
-                && hitbox.isHitboxActive() && this.hitboxActive;
->>>>>>> refactoring
     }
 
     /**
