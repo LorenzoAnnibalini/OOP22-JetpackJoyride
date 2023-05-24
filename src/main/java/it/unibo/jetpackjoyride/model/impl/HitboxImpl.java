@@ -8,7 +8,7 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
  * 
  * @author mattia.burreli@studio.unibo.it
  */
-public class HitboxImpl implements Hitbox {
+public final class HitboxImpl implements Hitbox {
 
     private Point2d upLeftPoint;
     private Point2d downRightPoint;
@@ -22,6 +22,7 @@ public class HitboxImpl implements Hitbox {
      * 
      * @param height
      * @param width
+     * @param posObject
      */
     public HitboxImpl(final int height, final int width, final Point2d posObject) {
         this.height = height;
@@ -51,17 +52,15 @@ public class HitboxImpl implements Hitbox {
     }
 
     @Override
-    public void updateHitbox(Point2d posObject) {
+    public void updateHitbox(final Point2d posObject) {
         this.calcPointPosition(posObject);
     }
 
     /**
-     * method for calculating the position of a point based on the object's position
-     * and the size of its hitbox
+     * method for calculating the position of a point based on the object's position.
+     * and the size of its hitbox.
      * 
      * @param posObject
-     * @param sign
-     * @return the position of the calculated point.
      */
     private void calcPointPosition(final Point2d posObject) {
         this.upLeftPoint = new Point2d(posObject.x - this.width / 2, posObject.y - this.height / 2);
@@ -84,13 +83,12 @@ public class HitboxImpl implements Hitbox {
     }
 
     @Override
-    public boolean checkCollision(Hitbox hitbox) {
-        return (this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) ||
-                this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight()) ||
-                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().x, hitbox.getPointDownRight().y))
-                ||
-                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().x, hitbox.getPointUpLeft().y)))
-                && hitbox.isHitboxActive() && this.hitboxActive;
+    public boolean checkCollision(final Hitbox hitbox) {
+        return (this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) 
+        || this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight()) 
+        || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().x, hitbox.getPointDownRight().y))
+        || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().x, hitbox.getPointUpLeft().y))) 
+        && hitbox.isHitboxActive() && this.hitboxActive;
     }
 
     /**

@@ -24,6 +24,14 @@ import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.input.api.Input;
 
+/**
+ * Implementation of the world game state. It contains the entities and the
+ * world,
+ * the main statistics of the run and status updates of the entities and the
+ * world.
+ * 
+ * @author mattia.burreli@studio.unibo.it
+ */
 public class WorldGameStateImpl implements WorldGameState {
 
     private static final int FRAME_HEIGHT = 550;
@@ -117,16 +125,6 @@ public class WorldGameStateImpl implements WorldGameState {
     private void newEntities() {
         long currentCycleStartTime = System.currentTimeMillis();
         this.timePassed = currentCycleStartTime - this.previousCycleStartTime;
-        /*
-         * this.entities.stream().forEach(e->{
-         * if(e.getX().matches("Laser")){
-         * System.out.println("Laser:   TopLeft:"+e.getY().getHitbox().getPointUpLeft()
-         * +"  DownRight:  "+ e.getY().getHitbox().getPointDownRight());
-         * }
-         * });
-         * System.out.println("player:   TopLeft:"+player.getHitbox().getPointUpLeft()
-         * +"  DownRight:  "+ player.getHitbox().getPointDownRight());
-         */
         if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 0) {
             if (this.random.nextInt(100) < 75) {
                 this.entitiesGenerator.generateObstacles(entities, this.random.nextInt(3) + 2);
@@ -179,9 +177,6 @@ public class WorldGameStateImpl implements WorldGameState {
         Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
-
-            // System.out.println(entity.getX()+": " +
-            // entity.getY().getHitbox().isHitboxActive()+" ");
             if (entity.getY().getHitbox().checkCollision(this.player.getHitbox())) {
                 System.out.println("Collision with " + entity.getX());
                 switch (entity.getX()) {
