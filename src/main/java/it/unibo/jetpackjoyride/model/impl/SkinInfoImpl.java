@@ -18,23 +18,23 @@ public class SkinInfoImpl implements SkinInfo {
     private static Map<String, List<String>> skin = new HashMap<>();
 
     @Override
-    public Map<String, List<String>> getAll() {
+    public final Map<String, List<String>> getAll() {
         return new HashMap<>(skin);
     }
 
     @Override
-    public List<String> getValue(final String name) {
+    public final List<String> getValue(final String name) {
         return new ArrayList<>(skin.get(name));
     }
 
     @Override
-    public void setValue(final String name, final String state, final String purchased, final String price) {
+    public final void setValue(final String name, final String state, final String purchased, final String price) {
         skin.replace(name,
                 new ArrayList<>(List.of(state, purchased, price)));
     }
 
     @Override
-    public void setValue(final String name, final List<String> value) {
+    public final void setValue(final String name, final List<String> value) {
         final String state = value.get(SkinInfoPositions.STATE.ordinal());
         final String purchased = value.get(SkinInfoPositions.PURCHASED.ordinal());
         final String price = value.get(SkinInfoPositions.PRICE.ordinal());
