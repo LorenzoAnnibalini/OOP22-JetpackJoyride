@@ -13,7 +13,7 @@ import it.unibo.jetpackjoyride.model.api.Gadget;
  * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
-public class GadgetImpl implements Gadget {
+public final class GadgetImpl implements Gadget {
 
     private static Map<String, List<String>> gadget = new HashMap<>();
 
