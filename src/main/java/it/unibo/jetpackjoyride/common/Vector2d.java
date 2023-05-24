@@ -13,7 +13,7 @@ public class Vector2d {
      * setter for x.
      * @param x
      */
-    public void setX(double x) {
+    public void setX(final double x) {
         this.x = x;
     }
 
@@ -21,7 +21,7 @@ public class Vector2d {
      * setter for y.
      * @param y
      */
-    public void setY(double y) {
+    public void setY(final double y) {
         this.y = y;
     }
 
