@@ -35,7 +35,6 @@ public class HitboxImplTest {
         while (y>=-X_PLAYER) {
             entity.updateState(dt);
             entity.getHitbox().updateHitbox(entity.getCurrentPos());
-            System.out.println(entity.getCurrentPos());
             if (entity.getHitbox().checkCollision(hitboxPlayer)) {
                 y--;
                 entity.setPos(new Point2d(positionEntity.x, positionEntity.y + y));

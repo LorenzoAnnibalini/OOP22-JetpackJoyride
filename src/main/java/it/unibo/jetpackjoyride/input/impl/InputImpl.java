@@ -10,23 +10,24 @@ import it.unibo.jetpackjoyride.input.api.Input;
  * 
  * @author mattia.burreli@studio.unibo.it
  */
-public class InputImpl implements Input {
+public final class InputImpl implements Input {
 
-    private typeInput type;
-    Optional<String> name;
+    private TypeInput type;
+    private Optional<String> name;
 
     /**
      * Constructor for the input.
      * 
      * @param type the type of the input
+     * @param name the name of the input
      */
-    public InputImpl(final typeInput type, final String name) {
+    public InputImpl(final TypeInput type, final String name) {
         this.type = Objects.requireNonNull(type);
         this.name = Optional.ofNullable(name);
     }
 
     @Override
-    public typeInput getType() {
+    public TypeInput getType() {
         return this.type;
     }
 

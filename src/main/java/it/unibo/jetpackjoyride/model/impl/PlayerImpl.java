@@ -21,8 +21,10 @@ public final class PlayerImpl extends GameObject implements Player {
     private int hearts;
     private PlayerDirection direction;
     private StatisticsImpl statistics;
-    private final int UpVelocity = 145;
-    private final int DownVelocity = -160;
+    private static final int UP_VELOCITY = 145;
+    private static final int DOWN_VELOCITY = -160;
+    private static final double AIR_BARRY_MULTIPLIER = 1.3;
+    private static final double GRAVITY_BELT_MULTIPLIER = 1.3;
 
     /**
      * constructor to create a player.
@@ -32,7 +34,7 @@ public final class PlayerImpl extends GameObject implements Player {
      * @param hitbox
      * @param statistics
      */
-    public PlayerImpl(final Point2d pos,final Vector2d vel,final Hitbox hitbox,final StatisticsImpl statistics) {
+    public PlayerImpl(final Point2d pos, final Vector2d vel, final Hitbox hitbox, final StatisticsImpl statistics) {
         super(pos, vel, hitbox);
         this.hearts = 1;
         this.setPlayerAlive();
@@ -82,7 +84,7 @@ public final class PlayerImpl extends GameObject implements Player {
         this.direction = PlayerDirection.UP;
         double multiplier = this.applyGadget(direction);
         this.setVel(new Vector2d(this.getCurrentPos(),
-                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + UpVelocity * multiplier)));
+                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + UP_VELOCITY * multiplier)));
     }
 
     @Override
@@ -90,7 +92,7 @@ public final class PlayerImpl extends GameObject implements Player {
         this.direction = PlayerDirection.DOWN;
         double multiplier = this.applyGadget(direction);
         this.setVel(new Vector2d(this.getCurrentPos(),
-                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + DownVelocity * multiplier)));
+                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + DOWN_VELOCITY * multiplier)));
     }
 
     @Override
@@ -118,12 +120,12 @@ public final class PlayerImpl extends GameObject implements Player {
                 switch (name) {
                     case "Air Barry":
                         if (direction == PlayerDirection.UP) {
-                            return 1.3;
+                            return AIR_BARRY_MULTIPLIER;
                         }
                         break;
                     case "Gravity Belt":
                         if (direction == PlayerDirection.DOWN) {
-                            return 1.3;
+                            return GRAVITY_BELT_MULTIPLIER;
                         }
                         break;
                     default:

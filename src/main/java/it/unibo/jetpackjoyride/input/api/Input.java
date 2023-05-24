@@ -12,7 +12,7 @@ public interface Input {
     /**
      * Enum for the type of the input.
      */
-    public enum typeInput {
+    enum TypeInput {
         /**
          * Input type for raise the player.
          */
@@ -89,13 +89,13 @@ public interface Input {
      * 
      * @return the type of the input.
      */
-    public typeInput getType();
+    TypeInput getType();
 
     /**
      * Get the name of the input.
      * 
      * @return an optional of the name of the input.
      */
-    public Optional<String> getName();
+    Optional<String> getName();
 
 }

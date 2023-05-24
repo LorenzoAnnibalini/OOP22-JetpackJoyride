@@ -21,7 +21,7 @@ import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.api.Input.typeInput;
+import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
 import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
@@ -66,7 +66,7 @@ public class ShopPanel extends JPanel {
 
         this.menu = new JButton("Menu");
         this.menu.addActionListener(e -> {
-            this.inputQueue.addInput(new InputImpl(typeInput.MENU, null));
+            this.inputQueue.addInput(new InputImpl(TypeInput.MENU, null));
         });
         this.add(menu, BorderLayout.SOUTH);
 
@@ -149,13 +149,13 @@ public class ShopPanel extends JPanel {
         button.addActionListener(e -> {
             switch (button.getText()) {
                 case "Enable":
-                    this.inputQueue.addInput(new InputImpl(typeInput.ENABLE, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.ENABLE, name));
                     break;
                 case "Disable":
-                    this.inputQueue.addInput(new InputImpl(typeInput.DISABLE, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.DISABLE, name));
                     break;
                 case "Purchased":
-                    this.inputQueue.addInput(new InputImpl(typeInput.BUY, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.BUY, name));
                     break;
                 default:
                     break;
@@ -178,10 +178,10 @@ public class ShopPanel extends JPanel {
         button.addActionListener(e -> {
             switch (button.getText()) {
                 case "Enable":
-                    this.inputQueue.addInput(new InputImpl(typeInput.SELECT_SKIN, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.SELECT_SKIN, name));
                     break;
                 case "Purchased":
-                    this.inputQueue.addInput(new InputImpl(typeInput.BUY_SKIN, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.BUY_SKIN, name));
                     break;
                 default:
                     break;

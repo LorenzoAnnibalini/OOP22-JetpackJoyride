@@ -16,7 +16,7 @@ import org.junit.Test;
 import it.unibo.jetpackjoyride.graphics.impl.InputPanel;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.api.Input.typeInput;
+import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
 
 public class InputPanelTest {
@@ -39,7 +39,6 @@ public class InputPanelTest {
         if (inputList.isEmpty()) {
             assertTrue(false);
         }
-        System.out.println(inputList.get(0).getName());
         for (Input input : inputList) {
             switch (input.getType()) {
                 case UP_PRESSED:

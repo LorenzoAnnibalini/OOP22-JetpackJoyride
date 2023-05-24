@@ -12,7 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.GroupLayout.Alignment;
 
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.api.Input.typeInput;
+import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
@@ -74,8 +74,8 @@ public class EndGamePanel extends JPanel{
         this.setVisible(false);
 
         /* ------------------------ ACTION LISTENER -------------------------*/
-        exit.addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.EXIT, "Exit")));
-        menu.addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.MENU, "Menu")));
+        exit.addActionListener(e -> inputHandler.addInput(new InputImpl(TypeInput.EXIT, "Exit")));
+        menu.addActionListener(e -> inputHandler.addInput(new InputImpl(TypeInput.MENU, "Menu")));
 
     }
 

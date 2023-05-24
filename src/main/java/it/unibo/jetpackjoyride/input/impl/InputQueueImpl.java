@@ -12,7 +12,7 @@ import it.unibo.jetpackjoyride.input.api.InputQueue;
  * 
  * @author mattia.burreli@studio.unibo.it
  */
-public class InputQueueImpl implements InputQueue {
+public final class InputQueueImpl implements InputQueue {
 
     private List<Input> inputQueue;
 
