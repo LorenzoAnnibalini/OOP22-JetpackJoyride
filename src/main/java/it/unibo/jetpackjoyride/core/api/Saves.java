@@ -21,7 +21,7 @@ public interface Saves {
     Map<String, Integer> downloadSaves() throws FileNotFoundException, IOException;
 
     /**
-     * Method to save newstatistcs in file
+     * Method to save newstatistcs in file.
      * 
      * @param stats the map to get value that has to be save
      * @throws IOException
