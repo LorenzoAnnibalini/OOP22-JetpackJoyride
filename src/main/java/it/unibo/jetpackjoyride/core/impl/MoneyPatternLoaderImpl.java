@@ -33,7 +33,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
     private int availableFile = 4;
     private int minAvailableFile = 1;
     private String fileNumber;
-    private final String filename = "money";
+    private final String filename = "/money";
     // Range to change the y coordinate of the money.
     private final int RANGE = 150;
     // Random to multiply the range.
@@ -72,11 +72,13 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
                 * (this.availableFile - this.minAvailableFile + 1)
                 + this.minAvailableFile));
 
-        final String name = filename + fileNumber + ".txt";
-        ReadWriteFile<Integer,Integer> reader = new ReadWriteFile<>(name);
-
+        final InputStream stream = this.getClass().getResourceAsStream(filename + fileNumber + ".txt");
+        final String fileContent = new String(stream.readAllBytes(),
+                StandardCharsets.UTF_8);
+        stream.close();
 
         final ArrayList<Money> moneyList = new ArrayList<>();
+        final Scanner filePattern = new Scanner(fileContent);
         final double multiplier = Math.floor(Math.random() * (MAXRANDOM - MINRANDOM) + MINRANDOM);
         while (filePattern.hasNextLine()) {
             final String line = filePattern.nextLine();
@@ -93,3 +95,4 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
         return moneyList;
     }
 }
+
