@@ -3,7 +3,9 @@ package it.unibo.jetpackjoyride.graphics.impl;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.JButton;
@@ -94,7 +96,11 @@ public final class StatisticsPanel extends JPanel {
 
         statsText = statsText + "</html>";
         JLabel label = new JLabel(statsText);
+        label.setFont(new Font("Verdana", Font.PLAIN, 30));
+        boxPanel.setSize(500, 500);
+        boxPanel.setBackground(Color.CYAN);
         boxPanel.add(label, BorderLayout.CENTER);
+        this.setBackground(Color.DARK_GRAY);
         this.add(boxPanel, BorderLayout.CENTER);
     }
 }
