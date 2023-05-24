@@ -15,7 +15,7 @@ public class GameObject {
     private Point2d pos;
     private Vector2d vel;
     private final Hitbox hitbox;
-    private final double DELTA_TIME_MULTIPLIER = 0.001;
+    private static final double DELTA_TIME_MULTIPLIER = 0.001;
 
     /**
      * constructor to create a game object.
@@ -71,7 +71,7 @@ public class GameObject {
      * @param dt
      */
     public void updateState(final long dt) {
-        this.pos = this.pos.sum(vel.mul(this.DELTA_TIME_MULTIPLIER * dt));
+        this.pos = this.pos.sum(vel.mul(DELTA_TIME_MULTIPLIER * dt));
     }
 
     /**
