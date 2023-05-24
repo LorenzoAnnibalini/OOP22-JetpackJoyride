@@ -17,6 +17,12 @@ public class Money extends GameObject {
     private static final int X = 0;
     private static final int Y = 1;
 
+    /**
+     * Cosntructor of the class Money.
+     * @param pos position
+     * @param vel velocity
+     * @param hitbox hitbox
+     */
     public Money(final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
         super(pos, vel, hitbox);
     }
@@ -24,7 +30,7 @@ public class Money extends GameObject {
     /**
      * Static method to create a list of money from a list of string.
      * 
-     * @param moneyString, the list of string to convert
+     * @param moneyString the list of string to convert
      * @return moneyList, the list of money
      */
     public static ArrayList<Money> getMoneyFromStringList(final ArrayList<String> moneyString) {

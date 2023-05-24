@@ -14,18 +14,20 @@ import java.util.Scanner;
 import it.unibo.jetpackjoyride.core.api.GadgetLoader;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
-
+/**
+ * Class to load and write gadgets from file.
+ */
 public class GadgetLoaderImpl implements GadgetLoader {
 
-    private final String SEPARATOR = File.separator;
-    private final int NAME = 0;
-    String filename = "src" + this.SEPARATOR +
-            "main" + this.SEPARATOR +
-            "resources" + this.SEPARATOR +
-            "gadget.csv";
+    private static final String SEPARATOR = File.separator;
+    private static final int NAME = 0;
+    private final String filename = "src" + SEPARATOR
+            + "main" + SEPARATOR
+            + "resources" + SEPARATOR
+            + "gadget.csv";
 
     @Override
-    public Map<String, List<String>> downloadGadget() throws FileNotFoundException {
+    public final Map<String, List<String>> downloadGadget() throws FileNotFoundException {
         final Scanner sc = new Scanner(new File(filename));
         final Map<String, List<String>> gadgetMap = new HashMap<>();
         while (sc.hasNextLine()) {
@@ -44,14 +46,19 @@ public class GadgetLoaderImpl implements GadgetLoader {
     }
 
     @Override
-    public void uploadGadget(final Map<String, List<String>> gadgetMap) throws IOException {
+    public final void uploadGadget(final Map<String, List<String>> gadgetMap) 
+        throws IOException {
         final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
         for (final String name : gadgetMap.keySet()) {
-            writer.write(name + ";" +
-                    gadgetMap.get(name).get(GadgetInfoPositions.STATE.ordinal()) + ";" +
-                    gadgetMap.get(name).get(GadgetInfoPositions.PURCHASED.ordinal()) + ";" +
-                    gadgetMap.get(name).get(GadgetInfoPositions.PRICE.ordinal()) + ";" +
-                    gadgetMap.get(name).get(GadgetInfoPositions.DESCRIPTION.ordinal()) + "\n");
+            writer.write(name + ";"
+                    + gadgetMap.get(name).get(GadgetInfoPositions.STATE.ordinal())
+                    + ";"
+                    + gadgetMap.get(name).get(GadgetInfoPositions.PURCHASED.ordinal())
+                    + ";"
+                    + gadgetMap.get(name).get(GadgetInfoPositions.PRICE.ordinal())
+                    + ";"
+                    + gadgetMap.get(name).get(GadgetInfoPositions.DESCRIPTION.ordinal())
+                    + "\n");
         }
         writer.close();
     }

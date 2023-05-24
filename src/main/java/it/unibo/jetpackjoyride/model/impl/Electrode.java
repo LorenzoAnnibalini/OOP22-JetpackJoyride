@@ -18,9 +18,10 @@ public class Electrode extends ObstacleImpl {
     /**
      * Constructor to create an Electrode obstacle.
      * 
-     * @param type
-     * @param pos
-     * @param vel
+     * @param pos position
+     * @param vel velocity
+     * @param orientation orientation
+     * @param hitbox hitbox
      */
     public Electrode(final Point2d pos, final Vector2d vel, final Orientation orientation, final Hitbox hitbox) {
         super(pos, vel, hitbox);

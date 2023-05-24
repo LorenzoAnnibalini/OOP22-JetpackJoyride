@@ -20,26 +20,29 @@ public abstract class ObstacleImpl extends GameObject implements Obstacle {
      * call back the constructor of the superclass
      * and set the obstacle state to active.
      * 
-     * @param type
-     * @param pos
-     * @param vel
+     * @param pos position
+     * @param vel velocity
+     * @param hitbox hitbox
      */
     public ObstacleImpl(final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
         super(pos, vel, hitbox);
         this.setActiveOn();
     }
 
-    public void setActiveOn() {
+    @Override
+    public final void setActiveOn() {
         this.active = true;
         this.getHitbox().setHitboxActive();
     }
 
-    public void setActiveOff() {
+    @Override
+    public final void setActiveOff() {
         this.active = false;
         this.getHitbox().setHitboxDisable();
     }
 
-    public boolean isActive() {
+    @Override
+    public final boolean isActive() {
         return this.active;
     }
 }

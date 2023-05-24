@@ -62,16 +62,16 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
             }
             // Vairables for gameobject's parameters constructor
             final Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
-            final Point2d finishPosition = new Point2d(EntitiesGeneratorImpl.LIMIT, startPosition.y);
+            final Point2d finishPosition = new Point2d(EntitiesGeneratorImpl.LIMIT, startPosition.getY());
             final Vector2d velocity = new Vector2d(finishPosition, startPosition);
             final Vector2d rocketVelocity = new Vector2d(
-                    new Point2d(0, startPosition.y),
+                    new Point2d(0, startPosition.getY()),
                     startPosition);
             HitboxImpl hitbox;
             // Switch on types of entities based on random result
             switch (entityNum) {
                 case EntitiesGeneratorImpl.ROCKET:
-                    startPosition.x = EntitiesGeneratorImpl.ROCKETBOUND;
+                    startPosition.setX(EntitiesGeneratorImpl.ROCKETBOUND);
                     hitbox = new HitboxImpl(SQUAREHITBOX / 2, SQUAREHITBOX, startPosition);
                     entities.add(
                             new Pair<String, GameObject>("Rocket",
@@ -81,10 +81,10 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
                     final int orientation = random.nextInt(EntitiesGeneratorImpl.RANDOMSEED);
                     if (orientation == EntitiesGeneratorImpl.HORIZONTAL) {
                         hitbox = new HitboxImpl(RECTANGLEHITBOX.getY(), RECTANGLEHITBOX.getX(),
-                                new Point2d(startPosition.x, startPosition.y));
+                                new Point2d(startPosition.getX(), startPosition.getY()));
                     } else {
                         hitbox = new HitboxImpl(RECTANGLEHITBOX.getX(), RECTANGLEHITBOX.getY(),
-                                new Point2d(startPosition.x, startPosition.y));
+                                new Point2d(startPosition.getX(), startPosition.getY()));
                     }
                     entities.add(new Pair<String, GameObject>("Electrode",
                             new Electrode(startPosition, velocity,
@@ -120,7 +120,7 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
             }
             // Vairables for gameobject's parameters constructor
             final Point2d startPosition = new Point2d(EntitiesGeneratorImpl.XBOUND, y);
-            final Point2d finishPosition = new Point2d(EntitiesGeneratorImpl.LIMIT, startPosition.y);
+            final Point2d finishPosition = new Point2d(EntitiesGeneratorImpl.LIMIT, startPosition.getY());
             final Vector2d velocity = new Vector2d(finishPosition, startPosition);
             final HitboxImpl hitbox = new HitboxImpl(SQUAREHITBOX, SQUAREHITBOX, startPosition);
             // Switch on types of entities based on random result
@@ -199,8 +199,8 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
         final Iterator<Pair<String, GameObject>> iterator = this.entities.iterator();
         while (iterator.hasNext()) {
             final Pair<String, GameObject> pair = iterator.next();
-            if (pair.getY().getCurrentPos().x < 0
-                    || pair.getX() == "Scientist" && pair.getY().getCurrentPos().x > EntitiesGeneratorImpl.XBOUND) {
+            if (pair.getY().getCurrentPos().getX() < 0
+                    || pair.getX() == "Scientist" && pair.getY().getCurrentPos().getX() > EntitiesGeneratorImpl.XBOUND) {
                 iterator.remove();
             }
         }
@@ -214,8 +214,8 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
      */
     private boolean checkY(final int y) {
         return this.entities.stream()
-                .filter(x -> x.getY().getCurrentPos().y - y > -SPAWNRANGE
-                        && x.getY().getCurrentPos().y - y < SPAWNRANGE)
+                .filter(x -> x.getY().getCurrentPos().getY() - y > -SPAWNRANGE
+                        && x.getY().getCurrentPos().getY() - y < SPAWNRANGE)
                 .count() != 0;
     }
 }

@@ -63,8 +63,8 @@ public final class HitboxImpl implements Hitbox {
      * @param posObject
      */
     private void calcPointPosition(final Point2d posObject) {
-        this.upLeftPoint = new Point2d(posObject.x - this.width / 2, posObject.y - this.height / 2);
-        this.downRightPoint = new Point2d(posObject.x + this.width / 2, posObject.y + this.height / 2);
+        this.upLeftPoint = new Point2d(posObject.getX() - this.width / 2, posObject.getY() - this.height / 2);
+        this.downRightPoint = new Point2d(posObject.getX() + this.width / 2, posObject.getY() + this.height / 2);
     }
 
     @Override
@@ -83,12 +83,22 @@ public final class HitboxImpl implements Hitbox {
     }
 
     @Override
+<<<<<<< HEAD
     public boolean checkCollision(final Hitbox hitbox) {
         return (this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) 
         || this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight()) 
         || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().x, hitbox.getPointDownRight().y))
         || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().x, hitbox.getPointUpLeft().y))) 
         && hitbox.isHitboxActive() && this.hitboxActive;
+=======
+    public boolean checkCollision(Hitbox hitbox) {
+        return (this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) ||
+                this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight()) ||
+                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().getX(), hitbox.getPointDownRight().getY()))
+                ||
+                this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().getX(), hitbox.getPointUpLeft().getY())))
+                && hitbox.isHitboxActive() && this.hitboxActive;
+>>>>>>> refactoring
     }
 
     /**
@@ -98,8 +108,8 @@ public final class HitboxImpl implements Hitbox {
      * @return true if the point is in collision with the hitbox, false otherwise.
      */
     private boolean checkCollisionHitboxAndPoint(final Point2d point) {
-        return point.x >= this.upLeftPoint.x && point.x <= this.downRightPoint.x
-                && point.y >= this.upLeftPoint.y && point.y <= this.downRightPoint.y;
+        return point.getX() >= this.upLeftPoint.getX() && point.getX() <= this.downRightPoint.getX()
+                && point.getY() >= this.upLeftPoint.getY() && point.getY() <= this.downRightPoint.getY();
     }
 
 }
