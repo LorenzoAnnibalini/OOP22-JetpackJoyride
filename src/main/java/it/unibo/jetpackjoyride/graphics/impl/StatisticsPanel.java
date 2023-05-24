@@ -15,6 +15,7 @@ import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.typeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
+import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 /**
  * Class to visualize the statistics of the game.
@@ -54,11 +55,43 @@ public final class StatisticsPanel extends JPanel {
         JPanel boxPanel = new JPanel(new FlowLayout());
         statsMap = saves.downloadSaves();
         String statsText = "<html>";
-        for (String stat : statsMap.keySet()) {
-            int value = statsMap.get(stat);
-            String statName = stat;
-            statsText = statsText + statName + ": " + value + "<br>";
-        }
+        /*
+         * for (int i = 0; i< statsMap.size(); i++) {
+         * int value = statsMap.get(i);
+         * String statName = StatisticsImpl.class.getFields()[i].getName();
+         * statsText = statsText + statName + ": " + value + "<br>";
+         * }
+         */
+        /*
+         * for (String stat : statsMap.keySet()) {
+         * int value = statsMap.get(stat);
+         * var statName = StatisticsImpl.class.getFields()[0].getName();
+         * StatisticsImpl.ACTUAL_MONEY.getY();
+         * String statName = stat;
+         * statsText = statsText + statName + ": " + value + "<br>";
+         * }
+         */
+        statsText = statsText + StatisticsImpl.ACTUAL_MONEY.getY() + " : "
+                + statsMap.get(StatisticsImpl.ACTUAL_MONEY.getX()) + "<br>";
+        statsText = statsText + StatisticsImpl.DEATHS.getY() + " : " + statsMap.get(StatisticsImpl.DEATHS.getX())
+                + "<br>";
+        statsText = statsText + StatisticsImpl.MAX_MONEY.getY() + " : " + statsMap.get(StatisticsImpl.MAX_MONEY.getX())
+                + "<br>";
+        statsText = statsText + StatisticsImpl.GRABBED_MONEY.getY() + " : "
+                + statsMap.get(StatisticsImpl.GRABBED_MONEY.getX()) + "<br>";
+        statsText = statsText + StatisticsImpl.GRABBED_OBJECTS.getY() + " : "
+                + statsMap.get(StatisticsImpl.GRABBED_OBJECTS.getX()) + "<br>";
+        statsText = statsText + StatisticsImpl.KILLED_NPC.getY() + " : "
+                + statsMap.get(StatisticsImpl.KILLED_NPC.getX()) + "<br>";
+        statsText = statsText + StatisticsImpl.MAX_METERS.getY() + " : "
+                + statsMap.get(StatisticsImpl.MAX_METERS.getX()) + "<br>";
+        statsText = statsText + StatisticsImpl.MAX_MONEY.getY() + " : " + statsMap.get(StatisticsImpl.MAX_MONEY.getX())
+                + "<br>";
+        statsText = statsText + StatisticsImpl.MONEY_SPENT.getY() + " : "
+                + statsMap.get(StatisticsImpl.MONEY_SPENT.getX()) + "<br>";
+        statsText = statsText + StatisticsImpl.TOTAL_METERS.getY() + " : "
+                + statsMap.get(StatisticsImpl.TOTAL_METERS.getX()) + "<br>";
+
         statsText = statsText + "</html>";
         JLabel label = new JLabel(statsText);
         boxPanel.add(label, BorderLayout.CENTER);
