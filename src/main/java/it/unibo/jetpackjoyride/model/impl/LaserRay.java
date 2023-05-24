@@ -15,9 +15,9 @@ public class LaserRay extends ObstacleActivable {
     /**
      * Constructor to create a LaserRay obstacle.
      * 
-     * @param type
-     * @param pos
-     * @param vel
+     * @param pos position
+     * @param vel velocity
+     * @param hitbox hitbox
      */
     public LaserRay(final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
         super(pos, vel, hitbox);
