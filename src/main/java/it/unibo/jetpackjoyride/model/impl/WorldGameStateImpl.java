@@ -334,7 +334,7 @@ public class WorldGameStateImpl implements WorldGameState {
     private void notifyEndGame() {
         this.inputHandler.addInput(new InputImpl(Input.typeInput.END_GAME, "endGame"));
         System.out.println("Game Over");
-        this.generalStatistics.increment("Death");
+        this.generalStatistics.increment("Deaths");
 
         this.generalStatistics.updateGeneralStats(this.runStatistics.getAll());
         try {

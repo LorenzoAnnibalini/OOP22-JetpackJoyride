@@ -28,4 +28,8 @@ public class SpeedUpPowerUpImpl extends GameObject {
         return this.active;
     }
 
+    public int getDistanceSpeedUp() {
+        return this.distanceSpeedUp;
+    }
+
 }
