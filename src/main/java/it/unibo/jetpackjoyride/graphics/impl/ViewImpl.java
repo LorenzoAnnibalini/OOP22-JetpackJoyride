@@ -95,6 +95,7 @@ public class ViewImpl extends JFrame implements View {
         this.card.show(this.cardPanel, "statisticsPanel");
     }
 
+    @Override
     public void close() {
         this.dispose();
         System.exit(0);
