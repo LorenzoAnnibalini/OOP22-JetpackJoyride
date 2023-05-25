@@ -22,49 +22,49 @@ public interface WorldGameState {
      * 
      * @return the player entity;
      */
-    public PlayerImpl getPlayer();
+    PlayerImpl getPlayer();
 
     /**
      * Get money etities.
      * 
      * @return money entities;
      */
-    public List<Money> getMoney();
+    List<Money> getMoney();
 
     /**
      * Get all entities.
      * 
      * @return all entities;
      */
-    public Set<Pair<String, GameObject>> getWorldEntities();
+    Set<Pair<String, GameObject>> getWorldEntities();
 
     /**
      * Get the general statistics of the game.
      * 
      * @return general statistics
      */
-    public Statistics getGeneralStatistics();
+    Statistics getGeneralStatistics();
 
     /**
      * Update the status of the world and its entities.
      * 
      * @param elapsedTime
      */
-    public void updateState(final long elapsedTime);
+    void updateState(long elapsedTime);
 
     /**
      * Start a new game.
      */
-    public void newGame();
+    void newGame();
 
     /**
      * Move the player up.
      */
-    public void moveUp();
+    void moveUp();
 
     /**
      * Stop the player and set his direction to static.
      */
-    public void moveStatic();
+    void moveStatic();
 
 }

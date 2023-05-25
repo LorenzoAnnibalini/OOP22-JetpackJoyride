@@ -25,20 +25,20 @@ public class MoneyPatternTest {
         final int index = 0;
         moneyList = moneyPatternLoader.getMoneyPattern();
         assertEquals(28, moneyList.size());
-        assertEquals(2330, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(2285, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(2248, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(2233, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(2248, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(2285, moneyList.remove(index).getCurrentPos().x);
-        assertEquals(2330, moneyList.remove(index).getCurrentPos().x);
+        assertEquals(2330, moneyList.remove(index).getCurrentPos().getX());
+        assertEquals(2285, moneyList.remove(index).getCurrentPos().getX());
+        assertEquals(2248, moneyList.remove(index).getCurrentPos().getX());
+        assertEquals(2233, moneyList.remove(index).getCurrentPos().getX());
+        assertEquals(2248, moneyList.remove(index).getCurrentPos().getX());
+        assertEquals(2285, moneyList.remove(index).getCurrentPos().getX());
+        assertEquals(2330, moneyList.remove(index).getCurrentPos().getX());
 
-        assertEquals(232, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(276, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(318, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(369, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(364, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(323, moneyList.remove(index).getCurrentPos().y);
-        assertEquals(323, moneyList.remove(index).getCurrentPos().y);
+        assertEquals(232, moneyList.remove(index).getCurrentPos().getY());
+        assertEquals(276, moneyList.remove(index).getCurrentPos().getY());
+        assertEquals(318, moneyList.remove(index).getCurrentPos().getY());
+        assertEquals(369, moneyList.remove(index).getCurrentPos().getY());
+        assertEquals(364, moneyList.remove(index).getCurrentPos().getY());
+        assertEquals(323, moneyList.remove(index).getCurrentPos().getY());
+        assertEquals(323, moneyList.remove(index).getCurrentPos().getY());
     }
 }

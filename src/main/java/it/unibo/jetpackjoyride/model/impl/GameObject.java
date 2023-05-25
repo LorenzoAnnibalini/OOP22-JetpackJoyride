@@ -15,6 +15,7 @@ public class GameObject {
     private Point2d pos;
     private Vector2d vel;
     private final Hitbox hitbox;
+    private static final double DELTA_TIME_MULTIPLIER = 0.001;
 
     /**
      * constructor to create a game object.
@@ -51,14 +52,14 @@ public class GameObject {
      * flip the velocity of the game object on the y axis.
      */
     public void flipVelOnY() {
-        this.vel = new Vector2d(vel.x, -vel.y);
+        this.vel = new Vector2d(vel.getX(), -vel.getY());
     }
 
     /**
      * flip the velocity of the game object on the x axis.
      */
     public void flipVelOnX() {
-        this.vel = new Vector2d(-vel.x, vel.y);
+        this.vel = new Vector2d(-vel.getX(), vel.getY());
     }
 
     /**
@@ -70,7 +71,7 @@ public class GameObject {
      * @param dt
      */
     public void updateState(final long dt) {
-        this.pos = this.pos.sum(vel.mul(0.001 * dt));
+        this.pos = this.pos.sum(vel.mul(DELTA_TIME_MULTIPLIER * dt));
     }
 
     /**

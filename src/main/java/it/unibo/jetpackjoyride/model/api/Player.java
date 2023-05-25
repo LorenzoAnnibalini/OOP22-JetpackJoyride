@@ -13,7 +13,7 @@ public interface Player {
     /**
      * Enum for the direction of the player.
      */
-    public enum PlayerDirection {
+    enum PlayerDirection {
         /**
          * Direction of the player to UP.
          */
@@ -33,52 +33,52 @@ public interface Player {
      * 
      * @return true if the player is alive, else return false.
      */
-    public boolean getStatusPlayer();
+    boolean getStatusPlayer();
 
     /**
      * Function for add a heart to the player.
      */
-    public void addHeart();
+    void addHeart();
 
     /**
      * Function for remove a heart to the player.
      */
-    public void removeHeart();
+    void removeHeart();
 
     /**
      * Function for set the direction of the player to UP.
      */
-    public void setDirectionUP();
+    void setDirectionUP();
 
     /**
      * Function for set the direction of the player to DOWN.
      */
-    public void setDirectionDOWN();
+    void setDirectionDOWN();
 
     /**
      * Function for set the direction of the player to STATIC.
      */
-    public void setDirectionSTATIC();
+    void setDirectionSTATIC();
 
     /**
      * Function for get the direction of the player.
      * 
      * @return the direction of the player.
      */
-    public PlayerDirection getDirection();
+    PlayerDirection getDirection();
 
     /**
      * Function for get the number of hearts of the player.
      * 
      * @return the number of hearts of the player.
      */
-    public int getHearts();
+    int getHearts();
 
     /**
      * Function for get the statistics of the player.
      * 
      * @return the statistics of the player.
      */
-    public StatisticsImpl getStatistics();
+    StatisticsImpl getStatistics();
 
 }

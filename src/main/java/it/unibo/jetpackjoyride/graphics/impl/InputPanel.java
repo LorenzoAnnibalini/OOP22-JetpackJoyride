@@ -19,17 +19,22 @@ import it.unibo.jetpackjoyride.input.impl.InputImpl;
  * @see InputQueue
  * @see InputImpl
  * @see Input
- * @see Input.typeInput
+ * @see Input.TypeInput
  * @see InputPanel
  * 
  * @author mattia.burreli@studio.unibo.it
  */
-public class InputPanel extends JPanel implements KeyListener {
+public final class InputPanel extends JPanel implements KeyListener {
 
     private InputQueue inputHandler;
     private boolean isPressed;
 
-    public InputPanel(InputQueue inputHandler) {
+    /**
+     * Public constructor of the InputPanel class.
+     * 
+     * @param inputHandler
+     */
+    public InputPanel(final InputQueue inputHandler) {
         this.isPressed = false;
         this.inputHandler = inputHandler;
         this.addKeyListener(this);
@@ -40,9 +45,9 @@ public class InputPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
-        if (e.getKeyCode() == 32 && this.isPressed != true) {
+        if (e.getKeyCode() == 32 && !this.isPressed) {
             this.isPressed = true;
-            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_PRESSED, "UP_PRESSED"));
+            this.inputHandler.addInput(new InputImpl(Input.TypeInput.UP_PRESSED, "UP_PRESSED"));
         }
     }
 
@@ -52,9 +57,9 @@ public class InputPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(final KeyEvent e) {
-        if (e.getKeyCode() == 32 && this.isPressed != false) {
+        if (e.getKeyCode() == 32 && this.isPressed) {
             this.isPressed = false;
-            this.inputHandler.addInput(new InputImpl(Input.typeInput.UP_RELEASED, "UP_RELEASED"));
+            this.inputHandler.addInput(new InputImpl(Input.TypeInput.UP_RELEASED, "UP_RELEASED"));
         }
     }
 }

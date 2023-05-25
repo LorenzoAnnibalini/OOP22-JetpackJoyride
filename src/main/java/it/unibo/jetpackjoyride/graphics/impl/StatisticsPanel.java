@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import it.unibo.jetpackjoyride.core.api.Saves;
 import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.api.Input.typeInput;
+import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
@@ -40,7 +40,7 @@ public final class StatisticsPanel extends JPanel {
         final JButton menu;
         menu = new JButton("Menu");
         menu.addActionListener(e -> {
-            this.inputQueue.addInput(new InputImpl(typeInput.MENU, null));
+            this.inputQueue.addInput(new InputImpl(TypeInput.MENU, null));
         });
         this.add(menu, BorderLayout.SOUTH);
         saves = new SavesImpl();

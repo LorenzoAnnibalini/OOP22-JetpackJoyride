@@ -15,180 +15,182 @@ import javax.swing.GroupLayout.Alignment;
 
 /**
  * This class is used to create the settings page of the game.
+ * 
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
 public class MenuSettingsPage extends JPanel {
-    
-    //Settings panels
+
+    // Settings panels
     JPanel settingsPageOption = new JPanel();
     JPanel settingsPageComands = new JPanel();
 
-    //Title of the settings page
+    // Title of the settings page
     JTextArea title = new JTextArea();
     JPanel titlePanel = new JPanel();
 
-    //Settings buttons
+    // Settings buttons
     JButton exit = new JButton("Exit");
     JButton returnBack = new JButton("Return");
     JButton audio = new JButton("Audio ON");
     JButton difficulty = new JButton("Easy");
 
-    public MenuSettingsPage(){
+    public MenuSettingsPage() {
 
-        //Settings Page layout
+        // Settings Page layout
         this.setLayout(new BorderLayout());
 
-        //Font of the title
+        // Font of the title
         title.setEditable(false);
         title.setBackground(null);
-        title.setFont( new Font("Arial", Font.BOLD, 30));
+        title.setFont(new Font("Arial", Font.BOLD, 30));
         titlePanel.add(title, Alignment.CENTER);
         final String settingsPageText = "Jetpack Joyride - Settings";
         title.setText(settingsPageText);
 
-        //Position of the panels in the settingsPage
+        // Position of the panels in the settingsPage
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(new JPanel(), BorderLayout.EAST);
         this.add(new JPanel(), BorderLayout.WEST);
         this.add(settingsPageOption, BorderLayout.CENTER);
         this.add(settingsPageComands, BorderLayout.SOUTH);
 
-        //settingsPageOption panel
-        settingsPageOption.setLayout(new GridLayout(2,1));
+        // settingsPageOption panel
+        settingsPageOption.setLayout(new GridLayout(2, 1));
         settingsPageOption.add(audio);
         settingsPageOption.add(difficulty);
 
-        //settingsPageComand panel
+        // settingsPageComand panel
         settingsPageComands.add(returnBack);
         settingsPageComands.add(exit);
 
-        //Set visible to false
+        // Set visible to false
         this.setVisible(false);
 
-        //Load the settings from the file
+        // Load the settings from the file
         loadSettings();
 
-        //It will change the state of the button from ON to OFF and viceversa
+        // It will change the state of the button from ON to OFF and viceversa
         this.audio.addActionListener(e -> {
-            if(audio.getText().equals("Audio ON")) {
+            if (audio.getText().equals("Audio ON")) {
                 audio.setText("Audio OFF");
-                //TODO: remove audio
+                // TODO: remove audio
             } else {
                 audio.setText("Audio ON");
-                //TODO: add audio
+                // TODO: add audio
             }
             this.saveSettings();
         });
 
-        //It will change the state of the button from Easy to Medium to Hard
+        // It will change the state of the button from Easy to Medium to Hard
         difficulty.addActionListener(e -> {
-            if(difficulty.getText().equals("Difficult : EASY")) {
+            if (difficulty.getText().equals("Difficult : EASY")) {
                 difficulty.setText("Difficult : MEDIUM");
-            }else if (difficulty.getText().equals("Difficult : MEDIUM")) {
+            } else if (difficulty.getText().equals("Difficult : MEDIUM")) {
                 difficulty.setText("Difficult : HARD");
-            }else if (difficulty.getText().equals("Difficult : HARD")) {
+            } else if (difficulty.getText().equals("Difficult : HARD")) {
                 difficulty.setText("Difficult : EASY");
             }
             this.saveSettings();
         });
     }
 
-/* ------------------------ SETTINGS PAGE GETTER -------------------------*/
-    
-        /**
-        * @return the exit
-        */
-        public JButton getExit() {
-            return exit;
+    /* ------------------------ SETTINGS PAGE GETTER ------------------------- */
+
+    /**
+     * @return the exit
+     */
+    public JButton getExit() {
+        return exit;
+    }
+
+    /**
+     * @return the returnBack
+     */
+    public JButton getReturnBack() {
+        return returnBack;
+    }
+
+    /**
+     * @return the audio
+     */
+    public boolean getAudioState() {
+        if (audio.getText().equals("Audio ON")) {
+            return true;
+        } else {
+            return false;
         }
-    
-        /**
-        * @return the returnBack
-        */
-        public JButton getReturnBack() {
-            return returnBack;
-        }
-    
-        /**
-        * @return the audio
-        */
-        public boolean getAudioState() {
-            if(audio.getText().equals("Audio ON")){
-                return true;
-            }else{
-                return false;
-            }
-        }
-    
-        /**
-        * @return the difficulty
-        */
-        public String getDifficulty() {
-            return difficulty.getText();
-        }
+    }
 
-/* ------------------------ SETTINGS PAGE SETTER -------------------------*/
+    /**
+     * @return the difficulty
+     */
+    public String getDifficulty() {
+        return difficulty.getText();
+    }
 
-        /**
-         * Load the settings from the file
-         * @throws FileNotFoundException
-         */
-        public void loadSettings(){
-                try{
-                final GameSettingsImpl settings = new GameSettingsImpl();
-                //Audio settings
-                audio.setText(settings.getValue("audio"));
-                System.out.println(settings.getValue("audio"));
-                //Difficulty settings
-                difficulty.setText(settings.getValue("difficulty"));
-                System.out.println(settings.getValue("difficulty"));
+    /* ------------------------ SETTINGS PAGE SETTER ------------------------- */
 
-                //TODO: add more settings
-            
-            }catch(final Exception e){
-                System.out.println(e.toString());
-            }    
+    /**
+     * Load the settings from the file
+     * 
+     * @throws FileNotFoundException
+     */
+    public void loadSettings() {
+        try {
+            final GameSettingsImpl settings = new GameSettingsImpl();
+            // Audio settings
+            audio.setText(settings.getValue("audio"));
+            System.out.println(settings.getValue("audio"));
+            // Difficulty settings
+            difficulty.setText(settings.getValue("difficulty"));
+            System.out.println(settings.getValue("difficulty"));
 
-        }
+            // TODO: add more settings
 
-        /**
-         * Save the settings to the file
-         * @throws IOException
-         */
-        public void saveSettings() {
-            try{
-                final GameSettingsImpl settings = new GameSettingsImpl();
-                //Audio settings
-                settings.setValue("audio", audio.getText());
-
-                //Difficulty settings
-                settings.setValue("difficulty", difficulty.getText());
-                
-                settings.writeSettings();
-            }catch(final Exception e){
-                System.out.println(e.toString());
-            }
+        } catch (final Exception e) {
+            System.out.println(e.toString());
         }
 
+    }
 
-        /**
-        * @param audio the audio to set
-        */
-        public void setAudio(final boolean audio) {
-            if(audio){
-                this.audio.setText("Audio ON");
-            }else{
-                this.audio.setText("Audio OFF");
-            }
-            this.saveSettings();
+    /**
+     * Save the settings to the file
+     * 
+     * @throws IOException
+     */
+    public void saveSettings() {
+        try {
+            final GameSettingsImpl settings = new GameSettingsImpl();
+            // Audio settings
+            settings.setValue("audio", audio.getText());
+
+            // Difficulty settings
+            settings.setValue("difficulty", difficulty.getText());
+
+            settings.writeSettings();
+        } catch (final Exception e) {
+            System.out.println(e.toString());
         }
-    
-        /**
-        * @param difficulty the difficulty to set
-        */
-        public void setDifficulty(final String difficulty) {
-            this.difficulty.setText(difficulty);
-            this.saveSettings();
+    }
+
+    /**
+     * @param audio the audio to set
+     */
+    public void setAudio(final boolean audio) {
+        if (audio) {
+            this.audio.setText("Audio ON");
+        } else {
+            this.audio.setText("Audio OFF");
         }
+        this.saveSettings();
+    }
+
+    /**
+     * @param difficulty the difficulty to set
+     */
+    public void setDifficulty(final String difficulty) {
+        this.difficulty.setText(difficulty);
+        this.saveSettings();
+    }
 }

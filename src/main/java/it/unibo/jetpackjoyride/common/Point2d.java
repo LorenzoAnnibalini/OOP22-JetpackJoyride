@@ -1,14 +1,45 @@
 package it.unibo.jetpackjoyride.common;
 
 /**
- * This is a class to model two-dimensional point
+ * This is a class to model two-dimensional point.
  * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
-
 public class Point2d {
 
-    public double x, y;
+    private double x, y;
+
+    /**
+     * getter for x.
+     * @return x coordinate
+     */
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * setter for x.
+     * @param x coordinate
+     */
+    public void setX(final double x) {
+        this.x = x;
+    }
+
+    /**
+     * getter for y.
+     * @return y coordinate
+     */
+    public double getY() {
+        return y;
+    }
+
+    /**
+     * setter for y.
+     * @param y coordinate
+     */
+    public void setY(final double y) {
+        this.y = y;
+    }
 
     /**
      * Constructor to create a 2d point (x,y).
@@ -28,7 +59,7 @@ public class Point2d {
      * @return new point
      */
     public Point2d sum(final Vector2d v) {
-        return new Point2d(this.x + v.x, this.y + v.y);
+        return new Point2d(this.x + v.getX(), this.y + v.getY());
     }
 
     /**
@@ -38,7 +69,7 @@ public class Point2d {
      * @return new point
      */
     public Point2d sub(final Vector2d v) {
-        return new Point2d(this.x - v.x, this.y - v.y);
+        return new Point2d(this.x - v.getX(), this.y - v.getY());
     }
 
     /**

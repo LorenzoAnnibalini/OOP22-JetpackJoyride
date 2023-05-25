@@ -1,5 +1,10 @@
 package it.unibo.jetpackjoyride.model.api;
 
+/**
+ * Interface to model a generic Obstacle.
+ * 
+ * @author lorenzo.bacchini4@studio.unibo.it
+ */
 public interface Obstacle {
 
     /**

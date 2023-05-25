@@ -21,7 +21,7 @@ public interface SkinInfoLoader {
     Map<String, List<String>> downloadSkin() throws FileNotFoundException;
 
     /**
-     * Method to save new skin information in file
+     * Method to save new skin information in file.
      * 
      * @param skinMap the map to get value that has to be saved
      * @throws IOException

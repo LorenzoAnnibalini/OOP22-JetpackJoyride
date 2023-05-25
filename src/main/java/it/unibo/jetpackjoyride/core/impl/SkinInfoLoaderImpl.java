@@ -15,17 +15,20 @@ import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.core.api.SkinInfoLoader;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 
+/**
+ * Class to load and write skins information from file.
+ */
 public class SkinInfoLoaderImpl implements SkinInfoLoader {
 
-    private final String SEPARATOR = File.separator;
-    private final int NAME = 0;
-    String filename = "src" + this.SEPARATOR +
-            "main" + this.SEPARATOR +
-            "resources" + this.SEPARATOR +
-            "skin.csv";
+    private static final String SEPARATOR = File.separator;
+    private static final int NAME = 0;
+    private final String filename = "src" + SEPARATOR
+            + "main" + SEPARATOR
+            + "resources" + SEPARATOR
+            + "skin.csv";
 
     @Override
-    public Map<String, List<String>> downloadSkin() throws FileNotFoundException {
+    public final Map<String, List<String>> downloadSkin() throws FileNotFoundException {
         final Scanner sc = new Scanner(new File(filename));
         final Map<String, List<String>> skinMap = new HashMap<>();
         while (sc.hasNextLine()) {
@@ -43,13 +46,13 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader {
     }
 
     @Override
-    public void uploadSkin(final Map<String, List<String>> skinMap) throws IOException {
+    public final void uploadSkin(final Map<String, List<String>> skinMap) throws IOException {
         final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
         for (final String name : skinMap.keySet()) {
-            writer.write(name + ";" +
-                    skinMap.get(name).get(SkinInfoPositions.STATE.ordinal()) + ";" +
-                    skinMap.get(name).get(SkinInfoPositions.PURCHASED.ordinal()) + ";" +
-                    skinMap.get(name).get(SkinInfoPositions.PRICE.ordinal()) + "\n");
+            writer.write(name + ";"
+                    + skinMap.get(name).get(SkinInfoPositions.STATE.ordinal()) + ";"
+                    + skinMap.get(name).get(SkinInfoPositions.PURCHASED.ordinal()) + ";"
+                    + skinMap.get(name).get(SkinInfoPositions.PRICE.ordinal()) + "\n");
         }
         writer.close();
     }

@@ -11,7 +11,7 @@ public interface GameEconomy {
     /**
      * Method to manage the purchase of a gadget,
      * this method must count the available money and
-     * allow or not to buy the gadget
+     * allow or not to buy the gadget.
      * 
      * @param name of the gadget
      */
@@ -36,7 +36,7 @@ public interface GameEconomy {
     /**
      * Method to manage the purchase of a skin,
      * this method must count the available money and
-     * allow or not to buy the skin
+     * allow or not to buy the skin.
      * 
      * @param name of the skin
      */
@@ -46,7 +46,7 @@ public interface GameEconomy {
      * Method to manage the selection of a skin,
      * this method must check if the skin is purchased
      * before to select it, and if it is purchased
-     * must also deselect the skin currently selected
+     * must also deselect the skin currently selected.
      * 
      * @param name of the skin
      */

@@ -8,7 +8,6 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Gadget;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.model.api.Player;
-import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
 
 /**
@@ -16,22 +15,26 @@ import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
  * 
  * @author mattia.burreli@studio.unibo.it
  */
-public class PlayerImpl extends GameObject implements Player {
+public final class PlayerImpl extends GameObject implements Player {
 
     private boolean statusPlayer;
     private int hearts;
     private PlayerDirection direction;
     private StatisticsImpl statistics;
-    private final int UP_VELOCITY = 145;
-    private final int DOWN_VELOCITY = -160;
+    private static final int UP_VELOCITY = 145;
+    private static final int DOWN_VELOCITY = -160;
+    private static final double AIR_BARRY_MULTIPLIER = 1.3;
+    private static final double GRAVITY_BELT_MULTIPLIER = 1.3;
 
     /**
      * constructor to create a player.
      * 
      * @param pos
      * @param vel
+     * @param hitbox
+     * @param statistics
      */
-    public PlayerImpl(Point2d pos, Vector2d vel, Hitbox hitbox, StatisticsImpl statistics) {
+    public PlayerImpl(final Point2d pos, final Vector2d vel, final Hitbox hitbox, final StatisticsImpl statistics) {
         super(pos, vel, hitbox);
         this.hearts = 1;
         this.setPlayerAlive();
@@ -81,7 +84,7 @@ public class PlayerImpl extends GameObject implements Player {
         this.direction = PlayerDirection.UP;
         double multiplier = this.applyGadget(direction);
         this.setVel(new Vector2d(this.getCurrentPos(),
-                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + UP_VELOCITY * multiplier)));
+                new Point2d(this.getCurrentPos().getX(), this.getCurrentPos().getY() + UP_VELOCITY * multiplier)));
     }
 
     @Override
@@ -89,7 +92,7 @@ public class PlayerImpl extends GameObject implements Player {
         this.direction = PlayerDirection.DOWN;
         double multiplier = this.applyGadget(direction);
         this.setVel(new Vector2d(this.getCurrentPos(),
-                new Point2d(this.getCurrentPos().x, this.getCurrentPos().y + DOWN_VELOCITY * multiplier)));
+                new Point2d(this.getCurrentPos().getX(), this.getCurrentPos().getY() + DOWN_VELOCITY * multiplier)));
     }
 
     @Override
@@ -109,7 +112,7 @@ public class PlayerImpl extends GameObject implements Player {
      * @param direction
      * @return a multiplier to apply to the velocity
      */
-    private double applyGadget(PlayerDirection direction) {
+    private double applyGadget(final PlayerDirection direction) {
         Gadget gadget = new GadgetImpl();
         Map<String, List<String>> gadgets = gadget.getAll();
         for (String name : gadgets.keySet()) {
@@ -117,12 +120,12 @@ public class PlayerImpl extends GameObject implements Player {
                 switch (name) {
                     case "Air Barry":
                         if (direction == PlayerDirection.UP) {
-                            return 1.3;
+                            return AIR_BARRY_MULTIPLIER;
                         }
                         break;
                     case "Gravity Belt":
                         if (direction == PlayerDirection.DOWN) {
-                            return 1.3;
+                            return GRAVITY_BELT_MULTIPLIER;
                         }
                         break;
                     default:

@@ -22,7 +22,7 @@ public interface GadgetLoader {
     Map<String, List<String>> downloadGadget() throws FileNotFoundException;
 
     /**
-     * Method to save new gadgets in file
+     * Method to save new gadgets in file.
      * 
      * @param stats the map to get value that has to be save
      * @throws IOException

@@ -14,49 +14,51 @@ public interface Hitbox {
      * 
      * @return the position of the hitbox.
      */
-    public int getWidthHitbox();
+    int getWidthHitbox();
 
     /**
      * Method to get the height of the hitbox.
      * 
      * @return the position of the hitbox.
      */
-    public int getHeigthHitbox();
+    int getHeigthHitbox();
 
     /**
      * Method to get the position of the up-left point of hitbox.
      * 
      * @return the position of the up-left point.
      */
-    public Point2d getPointUpLeft();
+    Point2d getPointUpLeft();
 
     /**
      * Method to get the position of the down-right point of hitbox.
      * 
      * @return the position of the down-right point.
      */
-    public Point2d getPointDownRight();
+    Point2d getPointDownRight();
 
     /**
      * Method to update the position of the hitbox and main points.
+     * @param posObject
      */
-    public void updateHitbox(final Point2d posObject);
+    void updateHitbox(Point2d posObject);
 
     /**
      * Method to set the hitbox active.
      */
-    public void setHitboxActive();
+    void setHitboxActive();
 
     /**
      * Method to check if the hitbox is active.
+     * 
      * @return true if the hitbox is active, false otherwise.
      */
-    public boolean isHitboxActive();
+    boolean isHitboxActive();
 
     /**
      * Method to set the hitbox disable.
      */
-    public void setHitboxDisable();
+    void setHitboxDisable();
 
     /**
      * Method to check if two hitboxes are in collision.
@@ -64,6 +66,6 @@ public interface Hitbox {
      * @param hitbox
      * @return true if the hitboxes are in collision, false otherwise.
      */
-    public boolean checkCollision(final Hitbox hitbox);
+    boolean checkCollision(Hitbox hitbox);
 
 }

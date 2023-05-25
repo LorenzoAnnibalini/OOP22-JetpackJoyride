@@ -12,7 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.GroupLayout.Alignment;
 
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.api.Input.typeInput;
+import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
@@ -22,71 +22,70 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class EndGamePanel extends JPanel{
-    //End Game panels
+public class EndGamePanel extends JPanel {
+    // End Game panels
     private final JPanel statisticsPanel = new JPanel(new FlowLayout());
     private final JPanel mainPageComands = new JPanel();
 
-    //Elements of the statistics panel
+    // Elements of the statistics panel
     WorldGameStateImpl worldGameState;
 
-    //End Games buttons
+    // End Games buttons
     private final JButton exit = new JButton("Exit");
     private final JButton menu = new JButton("Menu");
 
-    //Title of the main page
+    // Title of the main page
     JTextArea title = new JTextArea();
     JPanel titlePanel = new JPanel();
 
-    //Map of the statistics
-    Statistics statistics ;
-    Map<String,Integer> statsMap;
+    // Map of the statistics
+    Statistics statistics;
+    Map<String, Integer> statsMap;
 
-    public EndGamePanel(final InputQueue inputHandler,final WorldGameStateImpl worldGameState) {
+    public EndGamePanel(final InputQueue inputHandler, final WorldGameStateImpl worldGameState) {
 
-        //Main Page layout
+        // Main Page layout
         this.setLayout(new BorderLayout());
 
-        //Set the worldGameState
+        // Set the worldGameState
         this.worldGameState = worldGameState;
 
-        //Font of the title
+        // Font of the title
         title.setEditable(false);
         title.setBackground(null);
-        title.setFont( new Font("Arial", Font.BOLD, 30));
+        title.setFont(new Font("Arial", Font.BOLD, 30));
         titlePanel.add(title, Alignment.CENTER);
         final String welcomText = "End Game !!!";
         title.setText(welcomText);
 
-
-        //Position of the panels in the mainPage
+        // Position of the panels in the mainPage
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(new JPanel(), BorderLayout.EAST);
         this.add(new JPanel(), BorderLayout.WEST);
         this.add(statisticsPanel, BorderLayout.CENTER);
         this.add(mainPageComands, BorderLayout.SOUTH);
 
-       // mainPageComands.add(settings);
+        // mainPageComands.add(settings);
         mainPageComands.add(exit);
         mainPageComands.add(menu);
 
-        //set visible to false
+        // set visible to false
         this.setVisible(false);
 
-        /* ------------------------ ACTION LISTENER -------------------------*/
-        exit.addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.EXIT, "Exit")));
-        menu.addActionListener(e -> inputHandler.addInput(new InputImpl(typeInput.MENU, "Menu")));
+        /* ------------------------ ACTION LISTENER ------------------------- */
+        exit.addActionListener(e -> inputHandler.addInput(new InputImpl(TypeInput.EXIT, "Exit")));
+        menu.addActionListener(e -> inputHandler.addInput(new InputImpl(TypeInput.MENU, "Menu")));
 
     }
 
-    public void update(){
+    public void update() {
         this.statistics = worldGameState.getPlayer().getStatistics();
         this.statsMap = statistics.getAll();
         final JPanel boxPanel = new JPanel(new FlowLayout());
         String statsText = "<html>";
         for (final String statName : this.statsMap.keySet()) {
             final int value = this.statsMap.get(statName);
-            statsText = statsText + statName + ": " +  value + "<br>";
+            statsText = statsText + statName + ": " + value + "<br>";
         }
         statsText = statsText + "</html>";
         final JLabel label = new JLabel(statsText);

@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +20,7 @@ import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.api.Input.typeInput;
+import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
 import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
@@ -40,14 +39,14 @@ public class ShopPanel extends JPanel {
     private final JLabel moneyLabel;
     private final HashMap<String, ArrayList<JButton>> buttonMapGadget;
     private final HashMap<String, ArrayList<JButton>> buttonMapSkin;
-    SpriteLoader spriteLoader;
-    Statistics generalStatistics;
+    private final SpriteLoader spriteLoader;
+    private final Statistics generalStatistics;
 
     /**
      * Constructor for the ShopPanel.
      * 
      * @param inputQueue
-     * @throws IOException
+     * @param generalStatistics
      */
     public ShopPanel(final InputQueue inputQueue, final Statistics generalStatistics) {
         super();
@@ -66,7 +65,7 @@ public class ShopPanel extends JPanel {
 
         this.menu = new JButton("Menu");
         this.menu.addActionListener(e -> {
-            this.inputQueue.addInput(new InputImpl(typeInput.MENU, null));
+            this.inputQueue.addInput(new InputImpl(TypeInput.MENU, null));
         });
         this.add(menu, BorderLayout.SOUTH);
 
@@ -81,7 +80,7 @@ public class ShopPanel extends JPanel {
             flowPanel.add(new JLabel(name));
             flowPanel.add(new JLabel(price + "$"));
             flowPanel.add(new JLabel(description));
-            final JButton enableButton = createGadgetButton(Boolean.parseBoolean(state) == true ? "Disable" : "Enable",
+            final JButton enableButton = createGadgetButton(Boolean.parseBoolean(state) ? "Disable" : "Enable",
                     true, name);
             final JButton purchasedButton = createGadgetButton("Purchased", !Boolean.parseBoolean(purchased), name);
             buttonMapGadget.put(name, new ArrayList<>(List.of(enableButton, purchasedButton)));
@@ -122,7 +121,7 @@ public class ShopPanel extends JPanel {
     }
 
     /**
-     * This method load the sprite image from the spriteLoader
+     * This method load the sprite image from the spriteLoader.
      * 
      * @param name of the sprite to load
      * @return the JLabel with the sprite image
@@ -149,13 +148,13 @@ public class ShopPanel extends JPanel {
         button.addActionListener(e -> {
             switch (button.getText()) {
                 case "Enable":
-                    this.inputQueue.addInput(new InputImpl(typeInput.ENABLE, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.ENABLE, name));
                     break;
                 case "Disable":
-                    this.inputQueue.addInput(new InputImpl(typeInput.DISABLE, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.DISABLE, name));
                     break;
                 case "Purchased":
-                    this.inputQueue.addInput(new InputImpl(typeInput.BUY, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.BUY, name));
                     break;
                 default:
                     break;
@@ -178,10 +177,10 @@ public class ShopPanel extends JPanel {
         button.addActionListener(e -> {
             switch (button.getText()) {
                 case "Enable":
-                    this.inputQueue.addInput(new InputImpl(typeInput.SELECT_SKIN, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.SELECT_SKIN, name));
                     break;
                 case "Purchased":
-                    this.inputQueue.addInput(new InputImpl(typeInput.BUY_SKIN, name));
+                    this.inputQueue.addInput(new InputImpl(TypeInput.BUY_SKIN, name));
                     break;
                 default:
                     break;
@@ -199,7 +198,7 @@ public class ShopPanel extends JPanel {
             final ArrayList<JButton> buttonList = buttonMapGadget.get(name);
             final String purchased = gadget.getValue(name).get(GadgetInfoPositions.PURCHASED.ordinal());
             final String state = (Boolean
-                    .parseBoolean(gadget.getValue(name).get(GadgetInfoPositions.STATE.ordinal())) == true ? "Disable"
+                    .parseBoolean(gadget.getValue(name).get(GadgetInfoPositions.STATE.ordinal())) ? "Disable"
                             : "Enable");
             buttonList.get(GadgetInfoPositions.PURCHASED.ordinal()).setEnabled(!Boolean.parseBoolean(purchased));
             buttonList.get(GadgetInfoPositions.STATE.ordinal()).setText(state);

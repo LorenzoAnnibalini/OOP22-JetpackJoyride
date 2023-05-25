@@ -13,6 +13,7 @@ import java.util.Scanner;
  * A simple class to read and write different tipe of files.
  * ONLY WITH SIMPLE TYPES (STRING,INTEGER,DOUBLE,BOOLEAN,ECC)
  * NO OBJECTS
+ * 
  * @author lorenzo.annibalini@studio.unibo.it
  * @param <T>
  * @param <G>
@@ -22,16 +23,16 @@ public class ReadWriteFile<T, G> {
 
     private String path;
 
-   public ReadWriteFile(final String path) {
-        //System.out.println(path);
+    public ReadWriteFile(final String path) {
+        // System.out.println(path);
         this.path = getClass().getClassLoader().getResource(path).getPath();
-        //System.out.println(this.path);
+        // System.out.println(this.path);
     }
 
     /**
      * @param path the path of the file to read or write
      */
-   public void setPath (final String path) {
+    public void setPath(final String path) {
         this.path = path;
     }
 
@@ -43,45 +44,60 @@ public class ReadWriteFile<T, G> {
     }
 
     /**
-     * @param map the map to write in the file
+     * Write a map in a file
+     * @param map the map to write in the file (key;value)
+     * only use symple types (String,Integer,Double,Boolean,ECC)
      * @throws IOException
      */
-    public void writeMap(final Map<T,G> map) throws IOException{
+    public void writeMap(final Map<T, G> map) throws IOException {
         final PrintWriter writer = new PrintWriter(new File(this.path));
         for (final T name : map.keySet()) {
             writer.write(name + ";" + map.get(name) + ";" + "\n");
         }
-        writer.close();   
+        writer.close();
     }
 
     /**
+     * Read a map from a file
      * @return the file read as a map
      * @throws FileNotFoundException
      */
-    public <T, G> Map<T, G> readMap() throws FileNotFoundException{
+    public <T, G> Map<T, G> readMap() throws FileNotFoundException {
         final Map<T, G> mappaTmp = new HashMap<T, G>();
         final Scanner sc = new Scanner(new File(this.path));
-        sc.useDelimiter(";"); 
-            while (sc.hasNext()) { 
-                final T key = (T)sc.next();
-                final G value = (G)sc.next(); 
-                mappaTmp.put(key, value);
-                sc.nextLine();
-                System.out.println("Reading Game Settings : " + key + " " + value);
-            }
-        sc.close();  
+        sc.useDelimiter(";");
+        while (sc.hasNext()) {
+            final T key = (T) sc.next();
+            final G value = (G) sc.next();
+            mappaTmp.put(key, value);
+            sc.nextLine();
+            System.out.println("Reading Game Settings : " + key + " " + value);
+        }
+        sc.close();
         return mappaTmp;
     }
 
-    public void writeArrayList(final ArrayList<T> list) throws IOException{
+    /**
+     * Write a ArrayList in a file
+     * @param list the list to write in the file
+     * only use symple types (String,Integer,Double,Boolean,ECC)
+     * @throws IOException
+     */
+    public void writeArrayList(final ArrayList<T> list) throws IOException {
         final PrintWriter writer = new PrintWriter(new File(this.path));
         for (final T name : list) {
             writer.write(name + "\n");
         }
-        writer.close();   
+        writer.close();
     }
 
-    public <T> ArrayList<T> readArrayList() throws FileNotFoundException{
+
+    /**
+     * Read a ArrayList from a file
+     * @return the file read as a ArrayList
+     * @throws FileNotFoundException
+     */
+    public <T> ArrayList<T> readArrayList() throws FileNotFoundException {
         final Scanner file = new Scanner(new File(this.path));
         final ArrayList<T> list = new ArrayList<T>();
         while (file.hasNextLine()) {
@@ -91,6 +107,4 @@ public class ReadWriteFile<T, G> {
         return list;
     }
 
-
-    
 }

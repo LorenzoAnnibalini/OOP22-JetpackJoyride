@@ -14,20 +14,20 @@ public interface InputQueue {
      * 
      * @param input the input to add
      */
-    public void addInput(final Input input);
+    void addInput(Input input);
 
     /**
      * Get a copy of imput queue.
      * 
      * @return a list of inputs.
      */
-    public List<Input> getInputQueue();
+    List<Input> getInputQueue();
 
     /**
      * Check if the queue is empty.
      * 
      * @return true if the queue is empty, false otherwise
      */
-    public boolean isEmpty();
+    boolean isEmpty();
 
 }

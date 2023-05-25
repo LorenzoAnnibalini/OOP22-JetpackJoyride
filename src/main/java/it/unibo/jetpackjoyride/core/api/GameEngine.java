@@ -17,7 +17,7 @@ public interface GameEngine {
     /**
      * Enum for the game state of the game engine.
      */
-    public enum GameState {
+    enum GameState {
 
         /**
          * The gameEngine is in the main menu.
@@ -53,7 +53,7 @@ public interface GameEngine {
     /**
      * Start the game engine.
      */
-    public void worldGameStateStart();
+    void worldGameStateStart();
 
     /**
      * Start the game loop of the game engine.
@@ -63,5 +63,5 @@ public interface GameEngine {
      * @throws IOException
      * @throws FileNotFoundException
      */
-    public void loopState() throws ParseException, FileNotFoundException, IOException;
+    void loopState() throws ParseException, FileNotFoundException, IOException;
 }

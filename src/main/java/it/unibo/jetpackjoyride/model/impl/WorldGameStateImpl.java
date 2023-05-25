@@ -24,21 +24,36 @@ import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.input.api.Input;
 
-public class WorldGameStateImpl implements WorldGameState {
+/**
+ * Implementation of the world game state. It contains the entities and the
+ * world,
+ * the main statistics of the run and status updates of the entities and the
+ * world.
+ * 
+ * @author mattia.burreli@studio.unibo.it
+ */
+public final class WorldGameStateImpl implements WorldGameState {
 
     private static final int FRAME_HEIGHT = 550;
     private static final int FRAME_WIDTH = 1240;
     private static final int VOID_SPACE_ON_RIGHT = 300;
     private static final int SCIENTIST_NUMBER = 2;
     private static final int START_NUMBER_DECIDER = 0;
-    private static final int SPEED_POWERUP_DISTANCE = 1000;
     private static final int GENERAL_PROBABILITY = 100;
     private static final int MONEY_PROBABILITY = 20;
     private static final int LASER_PROBABILITY = 11;
     private static final int ENTITY_PROBABILITY = 69;
+    private static final int X_PLAYER_POSITION = 200;
+    private static final int Y_PLAYER_POSITION = 200;
+    private static final int HEIGHT_PLAYER = 40;
+    private static final int WIDTH_PLAYER = 50;
+    private static final int GENERATION_OBSTACLES_PROBABILITY = 75;
+    private static final int DELTA_TIME_ENTITIES = 1500;
     private StatisticsImpl runStatistics;
     private EntitiesGenerator entitiesGenerator;
     private PlayerImpl player;
+    private Point2d playerPosition;
+    private Vector2d playerVelocity;
     private List<Money> money;
     private Set<Pair<String, GameObject>> entities;
     private long previousCycleStartTime;
@@ -93,7 +108,6 @@ public class WorldGameStateImpl implements WorldGameState {
         } else {
             this.player.setDirectionUP();
         }
-        System.out.println(this.randomDecider());
         this.checkBoardPlayerCollision();
         this.updateTimeLaser();
         this.updateEntities(elapsedTime);
@@ -117,18 +131,8 @@ public class WorldGameStateImpl implements WorldGameState {
     private void newEntities() {
         long currentCycleStartTime = System.currentTimeMillis();
         this.timePassed = currentCycleStartTime - this.previousCycleStartTime;
-        /*
-         * this.entities.stream().forEach(e->{
-         * if(e.getX().matches("Laser")){
-         * System.out.println("Laser:   TopLeft:"+e.getY().getHitbox().getPointUpLeft()
-         * +"  DownRight:  "+ e.getY().getHitbox().getPointDownRight());
-         * }
-         * });
-         * System.out.println("player:   TopLeft:"+player.getHitbox().getPointUpLeft()
-         * +"  DownRight:  "+ player.getHitbox().getPointDownRight());
-         */
         if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 0) {
-            if (this.random.nextInt(100) < 75) {
+            if (this.random.nextInt(100) < GENERATION_OBSTACLES_PROBABILITY) {
                 this.entitiesGenerator.generateObstacles(entities, this.random.nextInt(3) + 2);
                 this.entities = this.entitiesGenerator.getEntities();
             } else {
@@ -139,9 +143,7 @@ public class WorldGameStateImpl implements WorldGameState {
             this.previousCycleStartTime = currentCycleStartTime;
             this.timeToWaitNewEntities = this.timeToWait();
             this.deciderEntitiesGenerator = this.randomDecider();
-        }
-
-        else if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 1) {
+        } else if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 1) {
             try {
                 this.money.addAll(moneyPatternLoader.getMoneyPattern());
             } catch (IOException e) {
@@ -150,9 +152,7 @@ public class WorldGameStateImpl implements WorldGameState {
             this.previousCycleStartTime = currentCycleStartTime;
             this.timeToWaitNewEntities = this.timeToWait();
             this.deciderEntitiesGenerator = this.randomDecider();
-        }
-
-        else if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 2
+        } else if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 2
                 && this.entities.size() == 0) {
             this.entitiesGenerator.generateLaser(this.entities, random.nextInt(4));
             this.entities = this.entitiesGenerator.getEntities();
@@ -179,11 +179,7 @@ public class WorldGameStateImpl implements WorldGameState {
         Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
-
-            // System.out.println(entity.getX()+": " +
-            // entity.getY().getHitbox().isHitboxActive()+" ");
             if (entity.getY().getHitbox().checkCollision(this.player.getHitbox())) {
-                System.out.println("Collision with " + entity.getX());
                 switch (entity.getX()) {
                     case "Rocket":
                         this.player.removeHeart();
@@ -194,7 +190,8 @@ public class WorldGameStateImpl implements WorldGameState {
                         entityIterator.remove();
                         break;
                     case "SpeedUpPowerup":
-                        this.runStatistics.increment("TotalMeters", SPEED_POWERUP_DISTANCE);
+                        SpeedUpPowerUpImpl speedUp = (SpeedUpPowerUpImpl) entity.getY();
+                        this.runStatistics.increment("TotalMeters", speedUp.getDistanceSpeedUp());
                         this.runStatistics.increment("GrabbedObjects");
                         entityIterator.remove();
                         break;
@@ -234,9 +231,9 @@ public class WorldGameStateImpl implements WorldGameState {
      * board.
      */
     private void checkBoardPlayerCollision() {
-        if (this.player.getHitbox().getPointUpLeft().y <= 0 && this.isFlying) {
+        if (this.player.getHitbox().getPointUpLeft().getY() <= 0 && this.isFlying) {
             this.player.setDirectionSTATIC();
-        } else if (this.player.getHitbox().getPointDownRight().y >= FRAME_HEIGHT && !this.isFlying) {
+        } else if (this.player.getHitbox().getPointDownRight().getY() >= FRAME_HEIGHT && !this.isFlying) {
             this.player.setDirectionSTATIC();
         }
 
@@ -251,15 +248,15 @@ public class WorldGameStateImpl implements WorldGameState {
         Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
-            if (entity.getY().getCurrentPos().x < 0
-                    || entity.getY().getCurrentPos().x > FRAME_WIDTH + VOID_SPACE_ON_RIGHT) {
+            if (entity.getY().getCurrentPos().getX() < 0
+                    || entity.getY().getCurrentPos().getX() > FRAME_WIDTH + VOID_SPACE_ON_RIGHT) {
                 entityIterator.remove();
             }
         }
 
         while (moneyIterator.hasNext()) {
             Money moneyElem = moneyIterator.next();
-            if (moneyElem.getCurrentPos().x < 0) {
+            if (moneyElem.getCurrentPos().getX() < 0) {
                 moneyIterator.remove();
             }
         }
@@ -272,7 +269,7 @@ public class WorldGameStateImpl implements WorldGameState {
      * @return the time to wait.
      */
     private int timeToWait() {
-        return random.nextInt(1500) + 1500;
+        return random.nextInt(DELTA_TIME_ENTITIES) + DELTA_TIME_ENTITIES;
     }
 
     /**
@@ -293,8 +290,10 @@ public class WorldGameStateImpl implements WorldGameState {
         this.isFlying = false;
         this.timeToWaitNewEntities = this.timeToWait();
         this.previousCycleStartTime = System.currentTimeMillis();
-        this.player = new PlayerImpl(new Point2d(200, 200), new Vector2d(new Point2d(200, 200), new Point2d(200, 200)),
-                new HitboxImpl(40, 50, new Point2d(200, 200)), this.runStatistics);
+        this.playerPosition = new Point2d(X_PLAYER_POSITION, Y_PLAYER_POSITION);
+        this.playerVelocity = new Vector2d(this.playerPosition, this.playerPosition);
+        this.player = new PlayerImpl(this.playerPosition, this.playerVelocity,
+                new HitboxImpl(HEIGHT_PLAYER, WIDTH_PLAYER, this.playerPosition), this.runStatistics);
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
@@ -337,8 +336,7 @@ public class WorldGameStateImpl implements WorldGameState {
      * Notify that the game is ended at the game engine.
      */
     private void notifyEndGame() {
-        this.inputHandler.addInput(new InputImpl(Input.typeInput.END_GAME, "endGame"));
-        System.out.println("Game Over");
+        this.inputHandler.addInput(new InputImpl(Input.TypeInput.END_GAME, "endGame"));
         this.generalStatistics.increment("Deaths");
 
         this.generalStatistics.updateGeneralStats(this.runStatistics.getAll());
@@ -385,7 +383,6 @@ public class WorldGameStateImpl implements WorldGameState {
         if (valueRandom < ENTITY_PROBABILITY) {
             return 0;
         } else if (valueRandom < ENTITY_PROBABILITY + MONEY_PROBABILITY) {
-            System.out.println("money");
             return 1;
         } else if (valueRandom < ENTITY_PROBABILITY + MONEY_PROBABILITY + LASER_PROBABILITY) {
             return 2;

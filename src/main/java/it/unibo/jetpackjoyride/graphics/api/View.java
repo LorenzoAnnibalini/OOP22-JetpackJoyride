@@ -3,13 +3,17 @@ package it.unibo.jetpackjoyride.graphics.api;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.swing.JPanel;
-
 import org.json.simple.parser.ParseException;
 
 import it.unibo.jetpackjoyride.graphics.impl.GamePanel;
 
+/**
+ * Interface for the view.
+ * It contains all the methods to render the game.
+ */
+
 public interface View {
+
     /**
      * Method to render the start of the game.
      * @throws ParseException
@@ -42,5 +46,10 @@ public interface View {
      * Method to get the game panel.
      */
     GamePanel getGamePanel();
+
+    /**
+     * Method to close the Frame.
+     */
+    void close();
 
 }

@@ -13,24 +13,33 @@ import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 /**
- * Classe principale del gioco. All'avvio dell'applicazione verrà chiamato questo
+ * Classe principale del gioco. All'avvio dell'applicazione verrà chiamato
+ * questo
  * metodo per inizializzare e avviare il gioco.
+ * 
  * @author mattia.burreli@studio.unibo.it
  */
-public class JetpackJoyride {
+
+public final class JetpackJoyride {
+
+    private JetpackJoyride() {
+
+    }
 
     /**
      * Main principale del gioco. All'avvio dell'applicazione verrà chiamato questo
      * metodo per inizializzare e avviare il gioco.
+     * 
+     * @param args
      * @throws ParseException
      * @throws IOException
      */
-    public static void main(String[] args) throws ParseException, IOException {
+    public static void main(final String[] args) throws ParseException, IOException {
 
-        InputQueue inputHandler=new InputQueueImpl();
+        InputQueue inputHandler = new InputQueueImpl();
         WorldGameStateImpl worldGameStateImpl = new WorldGameStateImpl(inputHandler);
-        View view = new ViewImpl(worldGameStateImpl,inputHandler);
-        GameEngine gameEngine = new GameEngineImpl(view, worldGameStateImpl,inputHandler);
+        View view = new ViewImpl(worldGameStateImpl, inputHandler);
+        GameEngine gameEngine = new GameEngineImpl(view, worldGameStateImpl, inputHandler);
         gameEngine.loopState();
 
     }

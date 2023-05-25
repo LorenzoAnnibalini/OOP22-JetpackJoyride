@@ -5,10 +5,41 @@ package it.unibo.jetpackjoyride.common;
  * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
-
 public class Vector2d {
 
-    public double x, y;
+    private double x, y;
+
+    /**
+     * setter for x.
+     * @param x
+     */
+    public void setX(final double x) {
+        this.x = x;
+    }
+
+    /**
+     * setter for y.
+     * @param y
+     */
+    public void setY(final double y) {
+        this.y = y;
+    }
+
+    /**
+     * getter for x.
+     * @return x coordinate
+     */
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * getter for y.
+     * @return y coordinate
+     */
+    public double getY() {
+        return y;
+    }
 
     /**
      * Constructor to create a 2d vector (x,y).
@@ -28,8 +59,8 @@ public class Vector2d {
      * @param from
      */
     public Vector2d(final Point2d to, final Point2d from) {
-        this.x = to.x - from.x;
-        this.y = to.y - from.y;
+        this.x = to.getX() - from.getX();
+        this.y = to.getY() - from.getY();
     }
 
     /**

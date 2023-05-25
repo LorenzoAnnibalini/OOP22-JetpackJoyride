@@ -20,7 +20,7 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
  * 
  * @author mattia.burreli@studio.unibo.it
  */
-public class GameEngineImpl implements GameEngine {
+public final class GameEngineImpl implements GameEngine {
 
     private InputQueue inputHandler;
     private View view;
@@ -171,7 +171,6 @@ public class GameEngineImpl implements GameEngine {
 
             }
         }
-        ;
     }
 
     /**
