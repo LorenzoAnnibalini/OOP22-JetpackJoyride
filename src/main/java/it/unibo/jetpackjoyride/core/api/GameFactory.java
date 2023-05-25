@@ -16,18 +16,53 @@ import it.unibo.jetpackjoyride.model.impl.SpeedUpPowerUpImpl;
  * 
  */
 public interface GameFactory {
-    
-    public Electrode createElectrode(Set<Pair<String, GameObject>> entities);
 
-    public Rocket createRocket(Set<Pair<String, GameObject>> entities);
+    /**
+     * Method to create an Electrode.
+     * @param entities
+     * @return the new Electrode
+     */
+    Electrode createElectrode(Set<Pair<String, GameObject>> entities);
 
-    public LaserRay createLaserRay(Set<Pair<String, GameObject>> entities);
+    /**
+     * Method to create a Rocket.
+     * @param entities
+     * @return the new Rocket
+     */
+    Rocket createRocket(Set<Pair<String, GameObject>> entities);
 
-    public ShieldPowerUpImpl createShieldPowerUp(Set<Pair<String, GameObject>> entities);
+    /**
+     * Method to create a LaserRay.
+     * @param entities
+     * @return the new LaserRay
+     */
+    LaserRay createLaserRay(Set<Pair<String, GameObject>> entities);
 
-    public SpeedUpPowerUpImpl createSpeedUpPowerUpImpl(Set<Pair<String, GameObject>> entities);
+    /**
+     * Method to create a ShieldPowerUp.
+     * @param entities
+     * @return the new ShieldPowerUp
+     */
+    ShieldPowerUpImpl createShieldPowerUp(Set<Pair<String, GameObject>> entities);
 
-    public ScientistImpl createScientist(Set<Pair<String, GameObject>> entities);
+    /**
+     * Method to create a SpeedUpPowerUp.
+     * @param entities
+     * @return the new SpeedUpPowerUp
+     */
+    SpeedUpPowerUpImpl createSpeedUpPowerUpImpl(Set<Pair<String, GameObject>> entities);
 
-    public GameObject createGenericGameObject(Set<Pair<String, GameObject>> entities);
+    /**
+     * Method to create a Scientist.
+     * @param entities
+     * @return the new Scientist
+     */
+    ScientistImpl createScientist(Set<Pair<String, GameObject>> entities);
+
+    /**
+     * Method to create a generic GameObject.
+     * @param entities
+     * @return the new GameObject
+     */
+    GameObject createGenericGameObject(Set<Pair<String, GameObject>> entities);
 }
