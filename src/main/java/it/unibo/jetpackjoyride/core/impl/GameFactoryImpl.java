@@ -1,16 +1,30 @@
 package it.unibo.jetpackjoyride.core.impl;
 
 import it.unibo.jetpackjoyride.model.api.Direction;
-import it.unibo.jetpackjoyride.model.impl.*;
+import it.unibo.jetpackjoyride.model.impl.Electrode;
+import it.unibo.jetpackjoyride.model.impl.GameObject;
+import it.unibo.jetpackjoyride.model.impl.LaserRay;
+import it.unibo.jetpackjoyride.model.impl.Rocket;
+import it.unibo.jetpackjoyride.model.impl.ScientistImpl;
+import it.unibo.jetpackjoyride.model.impl.ShieldPowerUpImpl;
+import it.unibo.jetpackjoyride.model.impl.SpeedUpPowerUpImpl;
+import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
 
 import java.util.Random;
 import java.util.Set;
 
-import it.unibo.jetpackjoyride.common.*;
+import it.unibo.jetpackjoyride.common.Point2d;
+import it.unibo.jetpackjoyride.common.Vector2d;
+import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.core.api.GameFactory;
 import it.unibo.jetpackjoyride.model.api.Orientation;
 
-public class GameFactoryImpl implements GameFactory{
+/**
+ * Class to create the game objects.
+ * 
+ * @author lorenzo.bacchini4@studio.unibo.it
+ */
+public class GameFactoryImpl implements GameFactory {
 
     private static final int DURATION = 0;
     private static final long SHORTDURATION = 5000;
@@ -27,10 +41,11 @@ public class GameFactoryImpl implements GameFactory{
     private static final int SQUAREHITBOX = 50;
     private static final Pair<Integer, Integer> RECTANGLEHITBOX = new Pair<Integer, Integer>(100, 25);
     private static final int SCIENTISTWIDTH = 30;
+    private static final int LASERRAYHEIGHT = 30;
     private static final int NOTHINGHITBOX = 0;
     private static final int SPAWNRANGE = 50;
-    
-    static private GameFactoryImpl instance;
+
+    private static GameFactoryImpl instance;
     private final Random random;
     private Point2d startPosition;
     private Point2d finishPosition;
@@ -38,21 +53,27 @@ public class GameFactoryImpl implements GameFactory{
     private Vector2d rocketVelocity;
     private HitboxImpl hitbox;
 
-
-    static public GameFactoryImpl getInstance(){
-        if(instance == null){
+    /**
+     * Method to get the instance of GameFactoryImpl.
+     * @return the instance of GameFactoryImpl
+     */
+    static GameFactoryImpl getInstance() {
+        if (instance == null) {
             instance = new GameFactoryImpl();
         }
         return instance;
     }
 
-    public GameFactoryImpl(){
+    /**
+     * Constructor of GameFactoryImpl.
+     */
+    public GameFactoryImpl() {
         this.random = new Random();
     }
 
     @Override
-    public final Electrode createElectrode(Set<Pair<String, GameObject>> entities){
-        int y = this.getY(entities);
+    public final Electrode createElectrode(final Set<Pair<String, GameObject>> entities) {
+        final int y = this.getY(entities);
         final int orientation = random.nextInt(GameFactoryImpl.RANDOMSEED);
         if (orientation == GameFactoryImpl.HORIZONTAL) {
             this.hitbox = new HitboxImpl(RECTANGLEHITBOX.getY(), RECTANGLEHITBOX.getX(),
@@ -71,8 +92,8 @@ public class GameFactoryImpl implements GameFactory{
     }
 
     @Override
-    public final Rocket createRocket(Set<Pair<String, GameObject>> entities){
-        int y = this.getY(entities);
+    public final Rocket createRocket(final Set<Pair<String, GameObject>> entities) {
+        final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.ROCKETBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.rocketVelocity = new Vector2d(
@@ -83,19 +104,19 @@ public class GameFactoryImpl implements GameFactory{
     }
 
     @Override
-    public final LaserRay createLaserRay(Set<Pair<String, GameObject>> entities){
-        int y = this.getY(entities);
+    public final LaserRay createLaserRay(final Set<Pair<String, GameObject>> entities) {
+        final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND / 2, y);
         this.finishPosition = startPosition;
         this.velocity = new Vector2d(finishPosition, startPosition);
-        this.hitbox = new HitboxImpl(30, XBOUND, startPosition);
+        this.hitbox = new HitboxImpl(LASERRAYHEIGHT, XBOUND, startPosition);
         return new LaserRay(this.startPosition, this.velocity, this.hitbox);
     }
 
     @Override
-    public final ShieldPowerUpImpl createShieldPowerUp(Set<Pair<String, GameObject>> entities) {
+    public final ShieldPowerUpImpl createShieldPowerUp(final Set<Pair<String, GameObject>> entities) {
         final int duration = random.nextInt(GameFactoryImpl.RANDOMSEED);
-        int y = this.getY(entities);
+        final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
@@ -107,9 +128,9 @@ public class GameFactoryImpl implements GameFactory{
     }
 
     @Override
-    public final SpeedUpPowerUpImpl createSpeedUpPowerUpImpl(Set<Pair<String, GameObject>> entities) {
+    public final SpeedUpPowerUpImpl createSpeedUpPowerUpImpl(final Set<Pair<String, GameObject>> entities) {
         final int distance = random.nextInt(GameFactoryImpl.XBOUND);
-        int y = this.getY(entities);
+        final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
@@ -118,7 +139,7 @@ public class GameFactoryImpl implements GameFactory{
     }
 
     @Override
-    public final ScientistImpl createScientist(Set<Pair<String, GameObject>> entities) {
+    public final ScientistImpl createScientist(final Set<Pair<String, GameObject>> entities) {
         final int direction = random.nextInt(2);
         this.startPosition = new Point2d(
                 direction == GameFactoryImpl.LEFT ? GameFactoryImpl.XBOUND : 0,
@@ -136,8 +157,8 @@ public class GameFactoryImpl implements GameFactory{
     }
 
     @Override
-    public final GameObject createGenericGameObject(Set<Pair<String, GameObject>> entities) {
-        int y = this.getY(entities);
+    public final GameObject createGenericGameObject(final Set<Pair<String, GameObject>> entities) {
+        final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
@@ -149,9 +170,10 @@ public class GameFactoryImpl implements GameFactory{
      * Method to check if new entities has y like others already spawned.
      * 
      * @param y the y value of new entitiy
+     * @param entities the set of entities already spawned
      * @return true if y is like someone's else, false otherwise
      */
-    private boolean checkY(final int y, Set<Pair<String, GameObject>> entities) {
+    private boolean checkY(final int y, final Set<Pair<String, GameObject>> entities) {
         return entities.stream()
                 .filter(x -> 
                         x.getY().getCurrentPos().getY() - y > -SPAWNRANGE
@@ -164,9 +186,10 @@ public class GameFactoryImpl implements GameFactory{
      * this method also check if the y is like someone's else
      * and only return "free" y.
      * 
+     * @param entities the set of entities already spawned
      * @return the y coordinate
      */
-    private int getY(Set<Pair<String, GameObject>> entities){
+    private int getY(final Set<Pair<String, GameObject>> entities) {
         int y = random.nextInt(GameFactoryImpl.YBOUND);
         while (checkY(y, entities)) {
             y = random.nextInt(GameFactoryImpl.YBOUND);
