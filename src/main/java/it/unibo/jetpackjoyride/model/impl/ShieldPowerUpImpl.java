@@ -42,5 +42,5 @@ public class ShieldPowerUpImpl extends GameObject {
         this.active = active;
         this.startTime = System.currentTimeMillis();
     }
-     
+
 }

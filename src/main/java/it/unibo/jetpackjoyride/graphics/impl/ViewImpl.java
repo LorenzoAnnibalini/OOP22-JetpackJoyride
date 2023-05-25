@@ -11,10 +11,7 @@ import org.json.simple.parser.ParseException;
 
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.model.api.Player;
-import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
-
 
 /*
  * Implements the View interface of the game.
@@ -24,7 +21,7 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 public class ViewImpl extends JFrame implements View {
 
-    //TODO: Add Shop, Game and Statistics panels
+    // TODO: Add Shop, Game and Statistics panels
 
     private final GamePanel gamePanel;
     private final MenuPanel menuPanel;
@@ -36,7 +33,8 @@ public class ViewImpl extends JFrame implements View {
     private final EndGamePanel endGamePanel;
     private final StatisticsPanel statisticsPanel;
 
-    public ViewImpl(final WorldGameStateImpl worldGameState,final InputQueue inputHandler) throws ParseException, IOException {
+    public ViewImpl(final WorldGameStateImpl worldGameState, final InputQueue inputHandler)
+            throws ParseException, IOException {
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
         this.menuPanel = new MenuPanel(this.inputHandler);
@@ -48,7 +46,6 @@ public class ViewImpl extends JFrame implements View {
         this.card = new CardLayout();
         this.cardPanel = new JPanel(this.card);
 
-       
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(this.gamePanel.getPreferredSize());
         this.setLocationRelativeTo(null);
@@ -105,7 +102,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public GamePanel getGamePanel() {
-      return this.gamePanel;
+        return this.gamePanel;
     }
-    
+
 }
