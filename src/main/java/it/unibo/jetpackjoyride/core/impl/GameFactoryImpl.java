@@ -45,24 +45,12 @@ public class GameFactoryImpl implements GameFactory {
     private static final int NOTHINGHITBOX = 0;
     private static final int SPAWNRANGE = 50;
 
-    private static GameFactoryImpl instance;
     private final Random random;
     private Point2d startPosition;
     private Point2d finishPosition;
     private Vector2d velocity;
-    private Vector2d rocketVelocity;
-    private HitboxImpl hitbox;
 
-    /**
-     * Method to get the instance of GameFactoryImpl.
-     * @return the instance of GameFactoryImpl
-     */
-    static GameFactoryImpl getInstance() {
-        if (instance == null) {
-            instance = new GameFactoryImpl();
-        }
-        return instance;
-    }
+    private HitboxImpl hitbox;
 
     /**
      * Constructor of GameFactoryImpl.
@@ -94,13 +82,14 @@ public class GameFactoryImpl implements GameFactory {
     @Override
     public final Rocket createRocket(final Set<Pair<String, GameObject>> entities) {
         final int y = this.getY(entities);
+        Vector2d rocketVelocity;
         this.startPosition = new Point2d(GameFactoryImpl.ROCKETBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
-        this.rocketVelocity = new Vector2d(
+        rocketVelocity = new Vector2d(
             new Point2d(0, startPosition.getY()),
             startPosition);
         this.hitbox = new HitboxImpl(SQUAREHITBOX / 2, SQUAREHITBOX, startPosition);
-        return new Rocket(this.startPosition, this.rocketVelocity, this.hitbox);
+        return new Rocket(this.startPosition, rocketVelocity, this.hitbox);
     }
 
     @Override
