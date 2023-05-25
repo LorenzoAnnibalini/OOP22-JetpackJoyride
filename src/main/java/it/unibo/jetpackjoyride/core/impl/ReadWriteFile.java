@@ -44,7 +44,9 @@ public class ReadWriteFile<T, G> {
     }
 
     /**
-     * @param map the map to write in the file
+     * Write a map in a file
+     * @param map the map to write in the file (key;value)
+     * only use symple types (String,Integer,Double,Boolean,ECC)
      * @throws IOException
      */
     public void writeMap(final Map<T, G> map) throws IOException {
@@ -56,6 +58,7 @@ public class ReadWriteFile<T, G> {
     }
 
     /**
+     * Read a map from a file
      * @return the file read as a map
      * @throws FileNotFoundException
      */
@@ -74,6 +77,12 @@ public class ReadWriteFile<T, G> {
         return mappaTmp;
     }
 
+    /**
+     * Write a ArrayList in a file
+     * @param list the list to write in the file
+     * only use symple types (String,Integer,Double,Boolean,ECC)
+     * @throws IOException
+     */
     public void writeArrayList(final ArrayList<T> list) throws IOException {
         final PrintWriter writer = new PrintWriter(new File(this.path));
         for (final T name : list) {
@@ -82,6 +91,12 @@ public class ReadWriteFile<T, G> {
         writer.close();
     }
 
+
+    /**
+     * Read a ArrayList from a file
+     * @return the file read as a ArrayList
+     * @throws FileNotFoundException
+     */
     public <T> ArrayList<T> readArrayList() throws FileNotFoundException {
         final Scanner file = new Scanner(new File(this.path));
         final ArrayList<T> list = new ArrayList<T>();
