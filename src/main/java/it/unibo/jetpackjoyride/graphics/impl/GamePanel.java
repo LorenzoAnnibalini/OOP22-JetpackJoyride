@@ -73,6 +73,7 @@ public final class GamePanel extends JPanel {
     private final JLabel scoreLabel;
     private final JLabel moneyLabel;
     private static final float FONT_SIZE = 15f;
+    private static final String BACKGROUND = "background1";
     private static final long serialVersionUID = 1L;
     /**
      * Constant for the label's width.
@@ -108,10 +109,10 @@ public final class GamePanel extends JPanel {
         spriteLoader.loadSprites(FILENAME);
         final Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
-        backgruondImage1 = sprites.get("background1").getScaled();
-        backgruondImage2 = sprites.get("background1").getScaled();
-        final int width = sprites.get("background1").getScaledlDim().getX();
-        final int height = sprites.get("background1").getScaledlDim().getY();
+        backgruondImage1 = sprites.get(BACKGROUND).getScaled();
+        backgruondImage2 = sprites.get(BACKGROUND).getScaled();
+        final int width = sprites.get(BACKGROUND).getScaledlDim().getX();
+        final int height = sprites.get(BACKGROUND).getScaledlDim().getY();
         slider = new SliderImpl(width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
