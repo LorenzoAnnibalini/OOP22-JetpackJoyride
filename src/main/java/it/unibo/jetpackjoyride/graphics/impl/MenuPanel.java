@@ -7,19 +7,27 @@ import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 /**
- * Menu of the game
+ * Menu of the game.
  * 
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
 public class MenuPanel extends JPanel {
 
-    public MenuPanel(final InputQueue inputHandler) {
 
+    /**
+     * Constructor of the MenuPanel.
+     * 
+     * @param inputHandler
+     * @param font
+     * 
+     */
+    public MenuPanel(final InputQueue inputHandler, final Font font) {
         // Component of the menu
-        final MenuMainPage mainPage = new MenuMainPage();
+        final MenuMainPage mainPage = new MenuMainPage(font);
         // MenuSettingsPage settingsPage = new MenuSettingsPage();
 
         // Default settings

@@ -7,20 +7,29 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.model.api.Scientist;
 
 /**
- * Standard scientist implementation
+ * Standard scientist implementation.
+ * 
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class ScientistImpl extends GameObject implements Scientist{
+public final class ScientistImpl extends GameObject implements Scientist {
 
     private final Direction direction;
     private boolean life;
 
+    /**
+     * Standard constructor for the scientist.
+     * 
+     * @param direction
+     * @param point
+     * @param velocity
+     * @param hitbox
+     */
     public ScientistImpl(final Direction direction, final Point2d point, final Vector2d velocity, final Hitbox hitbox) {
         super(point, velocity, hitbox);
-        if(direction == null) {
+        if (direction == null) {
             throw new IllegalArgumentException("Input can't be empty");
-        }else{
+        } else {
             this.direction = direction;
             this.life = true;
         }
@@ -38,14 +47,17 @@ public class ScientistImpl extends GameObject implements Scientist{
 
     @Override
     public void killScientist() {
-        this.life = false;    
+        this.life = false;
     }
 
-   public void nextPosition(){
-        if(direction == Direction.LEFT)
+    @Override
+   public void nextPosition() {
+        if (direction == Direction.LEFT) {
             super.setPos(super.getCurrentPos().sub(super.getCurrentVel()));
-        else if(direction == Direction.RIGHT){
+        } else if (direction == Direction.RIGHT) {
             super.setPos(super.getCurrentPos().sum(super.getCurrentVel()));
         }
+
     }
+
 }

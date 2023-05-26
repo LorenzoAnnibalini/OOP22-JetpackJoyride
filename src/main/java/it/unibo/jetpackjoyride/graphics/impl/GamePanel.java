@@ -11,6 +11,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -45,34 +46,34 @@ public final class GamePanel extends JPanel {
     private Set<Pair<String, GameObject>> entities;
     private PlayerImpl player;
     private List<Money> money = new ArrayList<>();
-    private int posImage1;
-    private int posImage2;
-    private Image backgruondImage1;
-    private Image backgruondImage2;
-    private Image rocket;
-    private Image warning;
-    private Image vertElectrode;
-    private Image horElectrode;
-    private Image shield;
-    private Image speedup;
-    private Image rightScientist;
-    private Image leftScientist;
-    private Image laser;
-    private Image barry;
-    private Image barryWoman;
-    private Image barryUp;
-    private Image barryWomanUp;
+    private final int posImage1;
+    private final int posImage2;
+    private final Image backgruondImage1;
+    private final Image backgruondImage2;
+    private final Image rocket;
+    private final Image warning;
+    private final Image vertElectrode;
+    private final Image horElectrode;
+    private final Image shield;
+    private final Image speedup;
+    private final Image rightScientist;
+    private final Image leftScientist;
+    private final Image laser;
+    private final Image barry;
+    private final Image barryWoman;
+    private final Image barryUp;
+    private final Image barryWomanUp;
     private Image playerImage;
     private Image playerUpImage;
-    private Image moneyImage;
-    private SliderImpl slider;
-    private int width;
-    private int height;
-    private int score = 0;
-    private int monies = 0;
-    private final String fileName = "/config/sprites.json";
-    private JLabel scoreLabel;
-    private JLabel moneyLabel;
+    private final Image moneyImage;
+    private final SliderImpl slider;
+    private int score;
+    private int monies;
+    private static final String FILENAME = "/config/sprites.json";
+    private final JLabel scoreLabel;
+    private final JLabel moneyLabel;
+    private static final float FONT_SIZE = 15f;
+    private static final long serialVersionUID = 1L;
     /**
      * Constant for the label's width.
      */
@@ -97,20 +98,21 @@ public final class GamePanel extends JPanel {
     /**
      * Constructor of the class.
      * 
+     * @param font the font for labels and buttons
      * @throws ParseException
      * @throws IOException
      */
-    public GamePanel() throws ParseException, IOException {
+    public GamePanel(final Font font) throws ParseException, IOException {
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
-        SpriteLoader spriteLoader = new SpriteLoader();
-        spriteLoader.loadSprites(fileName);
-        Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
+        final SpriteLoader spriteLoader = new SpriteLoader();
+        spriteLoader.loadSprites(FILENAME);
+        final Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
         backgruondImage1 = sprites.get("background1").getScaled();
         backgruondImage2 = sprites.get("background1").getScaled();
-        this.width = sprites.get("background1").getScaledlDim().getX();
-        this.height = sprites.get("background1").getScaledlDim().getY();
-        slider = new SliderImpl(this.width);
+        final int width = sprites.get("background1").getScaledlDim().getX();
+        final int height = sprites.get("background1").getScaledlDim().getY();
+        slider = new SliderImpl(width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
         warning = sprites.get("warning").getScaled();
@@ -129,7 +131,9 @@ public final class GamePanel extends JPanel {
         // Stats labels
         this.scoreLabel = new JLabel("Score: " + score);
         this.moneyLabel = new JLabel("Monies: " + monies);
-        Icon moneyIcon = new ImageIcon(moneyImage);
+        this.scoreLabel.setFont(font.deriveFont(FONT_SIZE));
+        this.moneyLabel.setFont(font.deriveFont(FONT_SIZE));
+        final Icon moneyIcon = new ImageIcon(moneyImage);
         this.moneyLabel.setIcon(moneyIcon);
         this.scoreLabel.setSize(LABEL_WIDTH, LABEL_HEIGHT);
         this.moneyLabel.setSize(LABEL_WIDTH, LABEL_HEIGHT);
@@ -140,20 +144,20 @@ public final class GamePanel extends JPanel {
         // Add components to panel and set size
         this.add(moneyLabel);
         this.add(scoreLabel);
-        this.setPreferredSize(new Dimension(this.width, this.height));
+        this.setPreferredSize(new Dimension(width, height));
         this.setSize(this.getPreferredSize());
         this.setVisible(false);
         this.posImage1 = 0;
-        this.posImage2 = this.width;
+        this.posImage2 = width;
         this.slider.start();
     }
 
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
+        final Graphics2D g2d = (Graphics2D) g;
         // Update stats
-        StatisticsImpl currentStats = this.player.getStatistics();
+        final StatisticsImpl currentStats = this.player.getStatistics();
         this.monies = currentStats.getValue("GrabbedMoney");
         this.score = currentStats.getValue("TotalMeters");
         // Update labels
@@ -163,9 +167,9 @@ public final class GamePanel extends JPanel {
         g2d.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
         g2d.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
         // Draw entities
-        for (Pair<String, GameObject> el : entities) {
-            String entityName = el.getX();
-            GameObject entity = el.getY();
+        for (final Pair<String, GameObject> el : entities) {
+            final String entityName = el.getX();
+            final GameObject entity = el.getY();
             switch (entityName) {
                 case "Rocket":
                     if (!((Rocket) entity).isActive()) {
@@ -229,7 +233,7 @@ public final class GamePanel extends JPanel {
 
         // Draw monies if present
         if (!money.isEmpty()) {
-            for (Money m : money) {
+            for (final Money m : money) {
                 this.drawSprite(g2d, moneyImage, m);
             }
         }
@@ -243,13 +247,14 @@ public final class GamePanel extends JPanel {
      * @param entity entity object with values to draw
      */
     private void drawSprite(final Graphics2D g, final Image image, final GameObject entity) {
-        // x and y are the coordinates of the upper left corner of the image based on hitbox
-        int x = (int) entity.getHitbox().getPointUpLeft().getX();
-        int y = (int) entity.getHitbox().getPointUpLeft().getY();
-        if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
+        // x and y are the coordinates of the upper left corner of the image based on
+        // hitbox
+        final int x = (int) entity.getHitbox().getPointUpLeft().getX();
+        final int y = (int) entity.getHitbox().getPointUpLeft().getY();
+        if ("it.unibo.jetpackjoyride.model.impl.Money".equals(entity.getClass().getName())) {
             g.drawImage(image, x, y, this);
         } else {
-            if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.LaserRay") {
+            if ("it.unibo.jetpackjoyride.model.impl.LaserRay".equals(entity.getClass().getName())) {
                 g.drawImage(image, LASER_EXTREMES.getX(), y, this);
                 g.drawImage(image, LASER_EXTREMES.getY(), y, this);
             } else {
@@ -277,8 +282,8 @@ public final class GamePanel extends JPanel {
     public void setPlayer(final PlayerImpl player) {
         this.player = player;
         // Load the right image for the player based on the skin
-        SkinInfo skinInfo = new SkinInfoImpl();
-        String skin = skinInfo.getAll().entrySet().stream()
+        final SkinInfo skinInfo = new SkinInfoImpl();
+        final String skin = skinInfo.getAll().entrySet().stream()
                 .filter(x -> "true".equals(x.getValue().get(SkinInfoPositions.STATE.ordinal()))).findAny().get()
                 .getKey();
         this.playerImage = "barry".equals(skin) ? this.barry : this.barryWoman;

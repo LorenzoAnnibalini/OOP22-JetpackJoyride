@@ -17,33 +17,46 @@ import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
-/*
- * Panel for the end of the game
+/**
+ * Panel for the end of the game.
+ * 
  * @author lorenzo.annibalini@studio.unibo.it
  */
-
 public class EndGamePanel extends JPanel {
     // End Game panels
     private final JPanel statisticsPanel = new JPanel(new FlowLayout());
     private final JPanel mainPageComands = new JPanel();
 
     // Elements of the statistics panel
-    WorldGameStateImpl worldGameState;
+    private WorldGameStateImpl worldGameState;
 
     // End Games buttons
     private final JButton exit = new JButton("Exit");
     private final JButton menu = new JButton("Menu");
 
     // Title of the main page
-    JTextArea title = new JTextArea();
-    JPanel titlePanel = new JPanel();
+    private JTextArea title = new JTextArea();
+    private JPanel titlePanel = new JPanel();
+    static final float FLOAT_SIZE = 50f;
+    static final float LABEL_FONT_SIZE = 30f;
 
     // Map of the statistics
-    Statistics statistics;
-    Map<String, Integer> statsMap;
+    private Statistics statistics;
+    private Map<String, Integer> statsMap;
 
-    public EndGamePanel(final InputQueue inputHandler, final WorldGameStateImpl worldGameState) {
+    private Font font;
 
+    /**
+     * Constructor of the EndGamePanel.
+     * @param inputHandler
+     * @param worldGameState
+     * @param font
+     */
+    public EndGamePanel(final InputQueue inputHandler, final WorldGameStateImpl worldGameState, final Font font) {
+
+        this.font = font;
+        this.exit.setFont(font);
+        this.menu.setFont(font);
         // Main Page layout
         this.setLayout(new BorderLayout());
 
@@ -53,7 +66,7 @@ public class EndGamePanel extends JPanel {
         // Font of the title
         title.setEditable(false);
         title.setBackground(null);
-        title.setFont(new Font("Arial", Font.BOLD, 30));
+        title.setFont(font.deriveFont(FLOAT_SIZE));
         titlePanel.add(title, Alignment.CENTER);
         final String welcomText = "End Game !!!";
         title.setText(welcomText);
@@ -78,6 +91,10 @@ public class EndGamePanel extends JPanel {
 
     }
 
+    /**
+     * Method that updates the statistics of the Enda Game Panel.
+     * 
+     */
     public void update() {
         this.statistics = worldGameState.getPlayer().getStatistics();
         this.statsMap = statistics.getAll();
@@ -89,6 +106,7 @@ public class EndGamePanel extends JPanel {
         }
         statsText = statsText + "</html>";
         final JLabel label = new JLabel(statsText);
+        label.setFont(this.font.deriveFont(LABEL_FONT_SIZE));
         boxPanel.add(label, BorderLayout.CENTER);
         this.add(boxPanel, BorderLayout.CENTER);
     }

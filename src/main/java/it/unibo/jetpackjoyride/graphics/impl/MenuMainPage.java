@@ -28,21 +28,36 @@ public class MenuMainPage extends JPanel {
     private final JButton statistics = new JButton("Statistics");
 
     // Title of the main page
-    JTextArea title = new JTextArea();
-    JPanel titlePanel = new JPanel();
+    private final JTextArea title = new JTextArea();
+    private final JPanel titlePanel = new JPanel();
+    private final Font font;
+    static final float SIZE = 50f;
 
-    public MenuMainPage() {
+    /**
+     * Constructor of the main page.
+     * 
+     * @param font
+     */
+    public MenuMainPage(final Font font) {
 
+        this.font = font;
         // Main Page layout
         this.setLayout(new BorderLayout());
 
         // Font of the title
         title.setEditable(false);
         title.setBackground(null);
-        title.setFont(new Font("Arial", Font.BOLD, 30));
+        title.setFont(font.deriveFont(SIZE));
         titlePanel.add(title, Alignment.CENTER);
         final String welcomText = "Welcome to Jetpack Joyride !";
         title.setText(welcomText);
+
+        // Font of the buttons
+        newGame.setFont(font);
+        statistics.setFont(font);
+        shopButton.setFont(font);
+        exit.setFont(font);
+        settings.setFont(font);
 
         // Position of the panels in the mainPage
         this.add(titlePanel, BorderLayout.NORTH);
@@ -69,35 +84,45 @@ public class MenuMainPage extends JPanel {
     /* ------------------------ MAIN PAGE GETTER ------------------------- */
 
     /**
-     * @return the mainPageOptions
+     * Get the exit button.
+     * 
+     * @return the exit button
      */
     public JButton getExit() {
         return exit;
     }
 
     /**
-     * @return the mainPageComands
+     * Get the settings button.
+     * 
+     * @return the settings button
      */
     public JButton getSettings() {
         return settings;
     }
 
     /**
-     * @return the exit
+     * Get the new game button.
+     * 
+     * @return the newGame
      */
     public JButton getNewGame() {
         return newGame;
     }
 
     /**
-     * @return the settings
+     * Get the shop button.
+     * 
+     * @return the shopButton
      */
     public JButton getShopButton() {
         return shopButton;
     }
 
     /**
-     * @return the newGame
+     * Get the statistics.
+     * 
+     * @return the statistics
      */
     public JButton getStatistics() {
         return statistics;

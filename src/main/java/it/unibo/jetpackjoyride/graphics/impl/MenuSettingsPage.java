@@ -5,13 +5,12 @@ import it.unibo.jetpackjoyride.core.impl.GameSettingsImpl;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.GroupLayout.Alignment;
+
 
 /**
  * This class is used to create the settings page of the game.
@@ -22,19 +21,23 @@ import javax.swing.GroupLayout.Alignment;
 public class MenuSettingsPage extends JPanel {
 
     // Settings panels
-    JPanel settingsPageOption = new JPanel();
-    JPanel settingsPageComands = new JPanel();
+    private JPanel settingsPageOption = new JPanel();
+    private JPanel settingsPageComands = new JPanel();
 
     // Title of the settings page
-    JTextArea title = new JTextArea();
-    JPanel titlePanel = new JPanel();
+    private JTextArea title = new JTextArea();
+    private JPanel titlePanel = new JPanel();
+    static final int SIZE = 30;
 
     // Settings buttons
-    JButton exit = new JButton("Exit");
-    JButton returnBack = new JButton("Return");
-    JButton audio = new JButton("Audio ON");
-    JButton difficulty = new JButton("Easy");
+    private JButton exit = new JButton("Exit");
+    private JButton returnBack = new JButton("Return");
+    private JButton audio = new JButton("Audio ON");
+    private JButton difficulty = new JButton("Easy");
 
+    /**
+     * Constructor of the settings page.
+     */
     public MenuSettingsPage() {
 
         // Settings Page layout
@@ -43,7 +46,7 @@ public class MenuSettingsPage extends JPanel {
         // Font of the title
         title.setEditable(false);
         title.setBackground(null);
-        title.setFont(new Font("Arial", Font.BOLD, 30));
+        title.setFont(new Font("Arial", Font.BOLD, SIZE));
         titlePanel.add(title, Alignment.CENTER);
         final String settingsPageText = "Jetpack Joyride - Settings";
         title.setText(settingsPageText);
@@ -74,10 +77,8 @@ public class MenuSettingsPage extends JPanel {
         this.audio.addActionListener(e -> {
             if (audio.getText().equals("Audio ON")) {
                 audio.setText("Audio OFF");
-                // TODO: remove audio
             } else {
                 audio.setText("Audio ON");
-                // TODO: add audio
             }
             this.saveSettings();
         });
@@ -112,7 +113,7 @@ public class MenuSettingsPage extends JPanel {
     }
 
     /**
-     * @return the audio
+     * @return the audio saved state
      */
     public boolean getAudioState() {
         if (audio.getText().equals("Audio ON")) {
@@ -123,7 +124,7 @@ public class MenuSettingsPage extends JPanel {
     }
 
     /**
-     * @return the difficulty
+     * @return the difficulty saved state
      */
     public String getDifficulty() {
         return difficulty.getText();
@@ -132,7 +133,7 @@ public class MenuSettingsPage extends JPanel {
     /* ------------------------ SETTINGS PAGE SETTER ------------------------- */
 
     /**
-     * Load the settings from the file
+     * Load the settings from the file.
      * 
      * @throws FileNotFoundException
      */
@@ -146,8 +147,6 @@ public class MenuSettingsPage extends JPanel {
             difficulty.setText(settings.getValue("difficulty"));
             System.out.println(settings.getValue("difficulty"));
 
-            // TODO: add more settings
-
         } catch (final Exception e) {
             System.out.println(e.toString());
         }
@@ -155,7 +154,7 @@ public class MenuSettingsPage extends JPanel {
     }
 
     /**
-     * Save the settings to the file
+     * Save the settings to the file.
      * 
      * @throws IOException
      */
@@ -192,5 +191,12 @@ public class MenuSettingsPage extends JPanel {
     public void setDifficulty(final String difficulty) {
         this.difficulty.setText(difficulty);
         this.saveSettings();
+    }
+
+    /**
+     * @param title the title to set
+     */
+    void setTitle(final String title) {
+        this.title.setText(title);
     }
 }
