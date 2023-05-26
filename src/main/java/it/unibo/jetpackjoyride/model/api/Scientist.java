@@ -25,11 +25,13 @@ public interface Scientist {
     /**
      * Method to kill the Scientist's
      * Set the life of the scientist to false
+     * 
      */
     public void killScientist();
 
     /**
      * Method to update the position of the scientist based on his direction
+     * 
      */
     public void nextPosition();
 

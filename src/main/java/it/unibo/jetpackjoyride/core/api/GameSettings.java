@@ -14,6 +14,7 @@ public interface GameSettings {
     /**
      * Method to get map of settings
      * 
+     * @return map of settings
      */
     Map<String, String> getAllSettings();
 

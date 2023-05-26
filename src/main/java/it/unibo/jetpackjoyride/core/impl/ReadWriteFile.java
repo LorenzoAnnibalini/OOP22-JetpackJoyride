@@ -87,7 +87,6 @@ public class ReadWriteFile<T, G> {
      * @param list the list to write in the file
      * only use symple types (String,Integer,Double,Boolean,ECC)
      * @throws IOException
-     * @param list the list to write in the file
      */
     public void writeArrayList(final ArrayList<T> list) throws IOException {
         final PrintWriter writer = new PrintWriter(new File(this.path));
