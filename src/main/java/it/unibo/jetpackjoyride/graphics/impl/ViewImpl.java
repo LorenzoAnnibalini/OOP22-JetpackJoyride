@@ -25,8 +25,6 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 public class ViewImpl extends JFrame implements View {
 
-    // TODO: Add Shop, Game and Statistics panels
-
     private final GamePanel gamePanel;
     private final MenuPanel menuPanel;
     private final InputQueue inputHandler;

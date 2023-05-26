@@ -1,6 +1,7 @@
 package it.unibo.jetpackjoyride.model.impl;
 
-import it.unibo.jetpackjoyride.common.*;
+import it.unibo.jetpackjoyride.common.Point2d;
+import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /*
@@ -21,6 +22,10 @@ public class ShieldPowerUpImpl extends GameObject {
         this.startTime = 0;
     }
 
+    /**
+     * Method that checks if the shield is active or not
+     * @return true if the shield is active, false otherwise
+     */
     public boolean isActive() {
         if (this.active) {
             if (System.currentTimeMillis() - this.startTime > this.duration) {
@@ -30,14 +35,26 @@ public class ShieldPowerUpImpl extends GameObject {
         return this.active;
     }
 
+    /**
+     * Method that returns the duration of the shield
+     * @return the duration of the shield
+     */
     public long getDuration() {
         return this.duration;
     }
 
+    /**
+     * Method that returns the time when the shield has been activated
+     * @return the time when the shield has been activated
+     */
     public long getStartTime() {
         return this.startTime;
     }
 
+    /**
+     * Method that sets the shield active or not
+     * @param active true if the shield is active, false otherwise
+     */
     public void setIsActive(final boolean active) {
         this.active = active;
         this.startTime = System.currentTimeMillis();

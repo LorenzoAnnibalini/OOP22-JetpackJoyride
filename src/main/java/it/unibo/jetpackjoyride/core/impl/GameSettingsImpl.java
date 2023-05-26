@@ -1,6 +1,5 @@
 package it.unibo.jetpackjoyride.core.impl;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,9 +23,9 @@ public class GameSettingsImpl implements GameSettings {
      */
     public GameSettingsImpl() {
         try {
-            ReadWriteFile<String, String> reader = new ReadWriteFile<String, String>("gamesettings.csv");
+            final ReadWriteFile<String, String> reader = new ReadWriteFile<String, String>("gamesettings.csv");
             settings.putAll(reader.readMap());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println("Reading Game Settings : ERROR");
             System.out.println(e.toString());
         }
@@ -43,21 +42,21 @@ public class GameSettingsImpl implements GameSettings {
     }
 
     @Override
-    public String getValue(String name) {
+    public String getValue(final String name) {
         return settings.get(name);
     }
 
     @Override
-    public void setValue(String name, String value) {
+    public void setValue(final String name, final String value) {
         settings.replace(name, value);
     }
 
     @Override
     public void writeSettings() {
         try {
-            ReadWriteFile<String, String> reader = new ReadWriteFile<String, String>("gamesettings.csv");
+            final ReadWriteFile<String, String> reader = new ReadWriteFile<String, String>("gamesettings.csv");
             reader.writeMap(settings);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println("Writing Game Settings : Error");
             System.out.println(e.toString());
         }

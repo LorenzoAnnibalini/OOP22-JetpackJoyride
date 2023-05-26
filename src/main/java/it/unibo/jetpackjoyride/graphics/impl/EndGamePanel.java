@@ -28,21 +28,21 @@ public class EndGamePanel extends JPanel {
     private final JPanel mainPageComands = new JPanel();
 
     // Elements of the statistics panel
-    WorldGameStateImpl worldGameState;
+    private WorldGameStateImpl worldGameState;
 
     // End Games buttons
     private final JButton exit = new JButton("Exit");
     private final JButton menu = new JButton("Menu");
 
     // Title of the main page
-    JTextArea title = new JTextArea();
-    JPanel titlePanel = new JPanel();
+    private JTextArea title = new JTextArea();
+    private JPanel titlePanel = new JPanel();
 
     // Map of the statistics
-    Statistics statistics;
-    Map<String, Integer> statsMap;
+    private Statistics statistics;
+    private Map<String, Integer> statsMap;
 
-    Font font;
+    private Font font;
 
     public EndGamePanel(final InputQueue inputHandler, final WorldGameStateImpl worldGameState, final Font font) {
 
@@ -83,6 +83,9 @@ public class EndGamePanel extends JPanel {
 
     }
 
+    /**
+     * Method that updates the statistics of the Enda Game Panel
+     */
     public void update() {
         this.statistics = worldGameState.getPlayer().getStatistics();
         this.statsMap = statistics.getAll();
