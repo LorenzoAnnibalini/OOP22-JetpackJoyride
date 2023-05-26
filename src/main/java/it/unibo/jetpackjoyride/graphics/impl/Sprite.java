@@ -10,9 +10,9 @@ import java.awt.Image;
  * @author emanuele.sanchi@studio.unibo.it
  */
 public class Sprite {
-    private Pair<Integer, Integer> originalDimension;
-    private Pair<Integer, Integer> scaledDimension;
-    private Image originalImage;
+    private final Pair<Integer, Integer> originalDimension;
+    private final Pair<Integer, Integer> scaledDimension;
+    private final Image originalImage;
     private Image scaledImage;
 
     /**
