@@ -11,6 +11,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -100,7 +101,7 @@ public final class GamePanel extends JPanel {
      * @throws ParseException
      * @throws IOException
      */
-    public GamePanel() throws ParseException, IOException {
+    public GamePanel(Font font) throws ParseException, IOException {
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
         SpriteLoader spriteLoader = new SpriteLoader();
         spriteLoader.loadSprites(fileName);
@@ -129,6 +130,8 @@ public final class GamePanel extends JPanel {
         // Stats labels
         this.scoreLabel = new JLabel("Score: " + score);
         this.moneyLabel = new JLabel("Monies: " + monies);
+        this.scoreLabel.setFont(font.deriveFont(15f));
+        this.moneyLabel.setFont(font.deriveFont(15f));
         Icon moneyIcon = new ImageIcon(moneyImage);
         this.moneyLabel.setIcon(moneyIcon);
         this.scoreLabel.setSize(LABEL_WIDTH, LABEL_HEIGHT);

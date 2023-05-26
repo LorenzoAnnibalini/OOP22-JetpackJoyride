@@ -42,8 +42,13 @@ public class EndGamePanel extends JPanel {
     Statistics statistics;
     Map<String, Integer> statsMap;
 
-    public EndGamePanel(final InputQueue inputHandler, final WorldGameStateImpl worldGameState) {
+    Font font;
 
+    public EndGamePanel(final InputQueue inputHandler, final WorldGameStateImpl worldGameState, final Font font) {
+
+        this.font = font;
+        this.exit.setFont(font);
+        this.menu.setFont(font);
         // Main Page layout
         this.setLayout(new BorderLayout());
 
@@ -53,7 +58,7 @@ public class EndGamePanel extends JPanel {
         // Font of the title
         title.setEditable(false);
         title.setBackground(null);
-        title.setFont(new Font("Arial", Font.BOLD, 30));
+        title.setFont(font.deriveFont(50f));
         titlePanel.add(title, Alignment.CENTER);
         final String welcomText = "End Game !!!";
         title.setText(welcomText);
@@ -89,6 +94,7 @@ public class EndGamePanel extends JPanel {
         }
         statsText = statsText + "</html>";
         final JLabel label = new JLabel(statsText);
+        label.setFont(this.font.deriveFont(30f));
         boxPanel.add(label, BorderLayout.CENTER);
         this.add(boxPanel, BorderLayout.CENTER);
     }

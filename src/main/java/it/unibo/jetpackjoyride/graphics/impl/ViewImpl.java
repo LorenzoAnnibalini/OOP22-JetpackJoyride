@@ -1,6 +1,10 @@
 package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.awt.CardLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -32,17 +36,32 @@ public class ViewImpl extends JFrame implements View {
     private final JPanel cardPanel;
     private final EndGamePanel endGamePanel;
     private final StatisticsPanel statisticsPanel;
+    private Font customFont;
+    private static final String SEPARATOR = File.separator;
+    private String fontPath = "src" + SEPARATOR
+            + "main" + SEPARATOR
+            + "resources" + SEPARATOR
+            + "New Athletic M54.ttf";
 
     public ViewImpl(final WorldGameStateImpl worldGameState, final InputQueue inputHandler)
             throws ParseException, IOException {
+        // load font
+        try {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(48f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+            customFont = new Font("Arial", Font.PLAIN, 48);
+        }
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
-        this.menuPanel = new MenuPanel(this.inputHandler);
-        this.gamePanel = new GamePanel();
+        this.menuPanel = new MenuPanel(this.inputHandler, this.customFont);
+        this.gamePanel = new GamePanel(this.customFont);
         this.inputPanel = new InputPanel(inputHandler);
-        this.shopPanel = new ShopPanel(inputHandler, worldGameState.getGeneralStatistics());
-        this.endGamePanel = new EndGamePanel(inputHandler, worldGameState);
-        this.statisticsPanel = new StatisticsPanel(inputHandler);
+        this.shopPanel = new ShopPanel(inputHandler, worldGameState.getGeneralStatistics(), this.customFont);
+        this.endGamePanel = new EndGamePanel(inputHandler, worldGameState, this.customFont);
+        this.statisticsPanel = new StatisticsPanel(inputHandler, this.customFont);
         this.card = new CardLayout();
         this.cardPanel = new JPanel(this.card);
 

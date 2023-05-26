@@ -7,6 +7,7 @@ import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 /**
  * Menu of the game
@@ -16,10 +17,10 @@ import java.awt.BorderLayout;
 
 public class MenuPanel extends JPanel {
 
-    public MenuPanel(final InputQueue inputHandler) {
 
+    public MenuPanel(final InputQueue inputHandler, Font font) {
         // Component of the menu
-        final MenuMainPage mainPage = new MenuMainPage();
+        final MenuMainPage mainPage = new MenuMainPage(font);
         // MenuSettingsPage settingsPage = new MenuSettingsPage();
 
         // Default settings

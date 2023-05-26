@@ -31,18 +31,30 @@ public class MenuMainPage extends JPanel {
     JTextArea title = new JTextArea();
     JPanel titlePanel = new JPanel();
 
-    public MenuMainPage() {
+    Font font;
 
+    public MenuMainPage(Font font) {
+
+        this.font = font;
         // Main Page layout
         this.setLayout(new BorderLayout());
 
         // Font of the title
         title.setEditable(false);
         title.setBackground(null);
-        title.setFont(new Font("Arial", Font.BOLD, 30));
+        title.setFont(font.deriveFont(50f));
         titlePanel.add(title, Alignment.CENTER);
         final String welcomText = "Welcome to Jetpack Joyride !";
         title.setText(welcomText);
+
+        // Font of the buttons
+        newGame.setFont(font);
+        statistics.setFont(font);
+        shopButton.setFont(font);
+        exit.setFont(font);
+        settings.setFont(font);
+        
+        
 
         // Position of the panels in the mainPage
         this.add(titlePanel, BorderLayout.NORTH);
