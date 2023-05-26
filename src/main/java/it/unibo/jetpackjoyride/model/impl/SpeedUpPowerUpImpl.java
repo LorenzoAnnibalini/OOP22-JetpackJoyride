@@ -6,9 +6,9 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /*
  * Class that represents a speed up power up
+ * 
  * @author lorenzo.annibalini@studio.unibo.it
  */
-
 public class SpeedUpPowerUpImpl extends GameObject {
 
     private boolean active;
@@ -16,6 +16,7 @@ public class SpeedUpPowerUpImpl extends GameObject {
 
     /**
      *  Constructor for the speed up power up
+     * 
      * @param distanceSpeedUp
      * @param pos
      * @param vel
@@ -29,6 +30,7 @@ public class SpeedUpPowerUpImpl extends GameObject {
 
     /**
      * Method that activates the speed up power up
+     * 
      * @return the distance of the speed up
      */
     public int active() {
@@ -38,6 +40,7 @@ public class SpeedUpPowerUpImpl extends GameObject {
 
     /**
      * Method that checks if the speed up power up is active or not
+     * 
      * @return true if the speed up power up is active, false otherwise
      */
     public boolean isActive() {
@@ -46,6 +49,7 @@ public class SpeedUpPowerUpImpl extends GameObject {
 
     /**
      * Method that returns the distance of the speed up
+     * 
      * @return the distance of the speed up
      */
     public int getDistanceSpeedUp() {
