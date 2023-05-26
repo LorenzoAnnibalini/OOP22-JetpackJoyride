@@ -11,7 +11,7 @@ import it.unibo.jetpackjoyride.core.api.GameSettings;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class GameSettingsImpl implements GameSettings {
+public final class GameSettingsImpl implements GameSettings {
 
     private static Map<String, String> settings = new HashMap<>();
 

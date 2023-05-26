@@ -22,7 +22,7 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
  * 
  * @author lorenzo.annibalini@studio.unibo.it
  */
-public class ViewImpl extends JFrame implements View {
+public final class ViewImpl extends JFrame implements View {
 
     static final int SIZE = 48;
     static final float FLOAT_SIZE = 48f;

@@ -23,6 +23,11 @@ public class ReadWriteFile<T, G> {
 
     private String path;
 
+    /**
+     * Constructor of the class.
+     * 
+     * @param path
+     */
     public ReadWriteFile(final String path) {
         this.path = getClass().getClassLoader().getResource(path).getPath();
     }

@@ -113,7 +113,7 @@ public class MenuSettingsPage extends JPanel {
     }
 
     /**
-     * @return the audio
+     * @return the audio saved state
      */
     public boolean getAudioState() {
         if (audio.getText().equals("Audio ON")) {
@@ -124,7 +124,7 @@ public class MenuSettingsPage extends JPanel {
     }
 
     /**
-     * @return the difficulty
+     * @return the difficulty saved state
      */
     public String getDifficulty() {
         return difficulty.getText();

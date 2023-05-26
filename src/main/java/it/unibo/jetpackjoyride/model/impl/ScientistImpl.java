@@ -12,7 +12,7 @@ import it.unibo.jetpackjoyride.model.api.Scientist;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
-public class ScientistImpl extends GameObject implements Scientist {
+public final class ScientistImpl extends GameObject implements Scientist {
 
     private final Direction direction;
     private boolean life;
