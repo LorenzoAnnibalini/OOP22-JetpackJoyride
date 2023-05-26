@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.GroupLayout.Alignment;
 
+
 /**
  * This class is used to create the settings page of the game.
  * 
@@ -26,7 +27,7 @@ public class MenuSettingsPage extends JPanel {
     // Title of the settings page
     private JTextArea title = new JTextArea();
     private JPanel titlePanel = new JPanel();
-    private int size = 30;
+    static final int SIZE = 30;
 
     // Settings buttons
     private JButton exit = new JButton("Exit");
@@ -42,7 +43,7 @@ public class MenuSettingsPage extends JPanel {
         // Font of the title
         title.setEditable(false);
         title.setBackground(null);
-        title.setFont(new Font("Arial", Font.BOLD, size));
+        title.setFont(new Font("Arial", Font.BOLD, SIZE));
         titlePanel.add(title, Alignment.CENTER);
         final String settingsPageText = "Jetpack Joyride - Settings";
         title.setText(settingsPageText);

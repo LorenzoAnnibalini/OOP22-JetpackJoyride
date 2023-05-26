@@ -20,8 +20,10 @@ public class MenuPanel extends JPanel {
 
     /**
      * Constructor of the MenuPanel.
+     * 
      * @param inputHandler
      * @param font
+     * 
      */
     public MenuPanel(final InputQueue inputHandler, final Font font) {
         // Component of the menu

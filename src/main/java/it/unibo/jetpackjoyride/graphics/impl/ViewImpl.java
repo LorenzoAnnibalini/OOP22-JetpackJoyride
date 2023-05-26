@@ -25,6 +25,8 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 public class ViewImpl extends JFrame implements View {
 
+    static final int SIZE = 48;
+    static final float FLOAT_SIZE = 48f;
     private final GamePanel gamePanel;
     private final MenuPanel menuPanel;
     private final InputQueue inputHandler;
@@ -43,6 +45,7 @@ public class ViewImpl extends JFrame implements View {
 
     /**
      * Constructor of the ViewImpl.
+     * 
      * @param worldGameState
      * @param inputHandler
      * @throws ParseException
@@ -52,12 +55,12 @@ public class ViewImpl extends JFrame implements View {
             throws ParseException, IOException {
         // load font
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(48f);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(FLOAT_SIZE);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-            customFont = new Font("Arial", Font.PLAIN, 48);
+            customFont = new Font("Arial", Font.PLAIN, SIZE);
         }
         this.setTitle("Jetpack Joyride");
         this.inputHandler = inputHandler;
