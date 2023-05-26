@@ -17,12 +17,11 @@ import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
-/*
+/**
  * Implements the View interface of the game.
  * 
  * @author lorenzo.annibalini@studio.unibo.it
  */
-
 public class ViewImpl extends JFrame implements View {
 
     static final int SIZE = 48;

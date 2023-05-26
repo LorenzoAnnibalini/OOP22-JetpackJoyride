@@ -10,7 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 
 /**
- * Menu of the game
+ * Menu of the game.
  * 
  * @author lorenzo.annibalini@studio.unibo.it
  */

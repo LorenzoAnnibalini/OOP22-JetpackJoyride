@@ -35,6 +35,9 @@ public class MenuSettingsPage extends JPanel {
     private JButton audio = new JButton("Audio ON");
     private JButton difficulty = new JButton("Easy");
 
+    /**
+     * Constructor of the settings page.
+     */
     public MenuSettingsPage() {
 
         // Settings Page layout
@@ -130,7 +133,7 @@ public class MenuSettingsPage extends JPanel {
     /* ------------------------ SETTINGS PAGE SETTER ------------------------- */
 
     /**
-     * Load the settings from the file
+     * Load the settings from the file.
      * 
      * @throws FileNotFoundException
      */
@@ -151,7 +154,7 @@ public class MenuSettingsPage extends JPanel {
     }
 
     /**
-     * Save the settings to the file
+     * Save the settings to the file.
      * 
      * @throws IOException
      */

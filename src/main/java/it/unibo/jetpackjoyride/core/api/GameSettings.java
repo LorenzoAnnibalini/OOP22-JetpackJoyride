@@ -12,14 +12,14 @@ import java.util.Map;
 public interface GameSettings {
 
     /**
-     * Method to get map of settings
+     * Method to get map of settings.
      * 
      * @return map of settings
      */
     Map<String, String> getAllSettings();
 
     /**
-     * Getter of a setting
+     * Getter of a setting.
      * 
      * @param name tha name of the setting to get the value
      * @return value of the setting
@@ -27,7 +27,7 @@ public interface GameSettings {
     String getValue(String name);
 
     /**
-     * Setter for a setting
+     * Setter for a setting.
      * 
      * @param name  the name of the setting that want to be set
      * @param value the new value of the setting
@@ -35,7 +35,7 @@ public interface GameSettings {
     void setValue(String name, String value);
 
     /**
-     * Method to write the settings in a file
+     * Method to write the settings in a file.
      * 
      * @throws IOException
      * @throws FileNotFoundException if the file is not found

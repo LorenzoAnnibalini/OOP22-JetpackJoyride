@@ -12,7 +12,7 @@ import java.util.Scanner;
 /**
  * A simple class to read and write different tipe of files.
  * ONLY WITH SIMPLE TYPES (STRING,INTEGER,DOUBLE,BOOLEAN,ECC)
- * NO OBJECTS
+ * NO OBJECTS.
  * 
  * @author lorenzo.annibalini@studio.unibo.it
  * @param <T> type of the key or type of the list
@@ -24,9 +24,7 @@ public class ReadWriteFile<T, G> {
     private String path;
 
     public ReadWriteFile(final String path) {
-        // System.out.println(path);
         this.path = getClass().getClassLoader().getResource(path).getPath();
-        // System.out.println(this.path);
     }
 
     /**
@@ -44,7 +42,7 @@ public class ReadWriteFile<T, G> {
     }
 
     /**
-     * Write a map in a file
+     * Write a map in a file.
      * 
      * @param map the map to write in the file (key;value)
      * only use symple types (String,Integer,Double,Boolean,ECC)
@@ -59,7 +57,7 @@ public class ReadWriteFile<T, G> {
     }
 
     /**
-     * Read a map from a file
+     * Read a map from a file.
      * 
      * @return the file read as a map
      * @throws FileNotFoundException
@@ -82,7 +80,7 @@ public class ReadWriteFile<T, G> {
     }
 
     /**
-     * Write a ArrayList in a file
+     * Write a ArrayList in a file.
      * 
      * @param list the list to write in the file
      * only use symple types (String,Integer,Double,Boolean,ECC)
@@ -98,7 +96,7 @@ public class ReadWriteFile<T, G> {
 
 
     /**
-     * Read a ArrayList from a file
+     * Read a ArrayList from a file.
      * 
      * @return the file read as a ArrayList
      * @throws FileNotFoundException

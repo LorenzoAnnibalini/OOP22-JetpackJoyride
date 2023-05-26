@@ -7,7 +7,8 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.model.api.Scientist;
 
 /**
- * Standard scientist implementation
+ * Standard scientist implementation.
+ * 
  * @author lorenzo.annibalini@studio.unibo.it
  */
 
@@ -17,7 +18,7 @@ public class ScientistImpl extends GameObject implements Scientist {
     private boolean life;
 
     /**
-     * Standard constructor for the scientist
+     * Standard constructor for the scientist.
      * 
      * @param direction
      * @param point

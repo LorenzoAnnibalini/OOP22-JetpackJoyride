@@ -51,6 +51,7 @@ public interface View {
     /**
      * Method to get the game panel.
      * 
+     * @return the game panel
      */
     GamePanel getGamePanel();
 

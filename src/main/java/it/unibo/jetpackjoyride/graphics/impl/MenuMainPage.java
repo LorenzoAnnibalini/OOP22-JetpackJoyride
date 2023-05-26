@@ -31,7 +31,7 @@ public class MenuMainPage extends JPanel {
     private final JTextArea title = new JTextArea();
     private final JPanel titlePanel = new JPanel();
     private final Font font;
-    static final float SIZE=50f;
+    static final float SIZE = 50f;
 
     /**
      * Constructor of the main page.
@@ -58,8 +58,6 @@ public class MenuMainPage extends JPanel {
         shopButton.setFont(font);
         exit.setFont(font);
         settings.setFont(font);
-        
-        
 
         // Position of the panels in the mainPage
         this.add(titlePanel, BorderLayout.NORTH);

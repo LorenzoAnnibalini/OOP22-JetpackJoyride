@@ -17,11 +17,11 @@ import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
-/*
- * Panel for the end of the game
+/**
+ * Panel for the end of the game.
+ * 
  * @author lorenzo.annibalini@studio.unibo.it
  */
-
 public class EndGamePanel extends JPanel {
     // End Game panels
     private final JPanel statisticsPanel = new JPanel(new FlowLayout());
@@ -37,6 +37,8 @@ public class EndGamePanel extends JPanel {
     // Title of the main page
     private JTextArea title = new JTextArea();
     private JPanel titlePanel = new JPanel();
+    static final float FLOAT_SIZE = 50f;
+    static final float LABEL_FONT_SIZE = 30f;
 
     // Map of the statistics
     private Statistics statistics;
@@ -64,7 +66,7 @@ public class EndGamePanel extends JPanel {
         // Font of the title
         title.setEditable(false);
         title.setBackground(null);
-        title.setFont(font.deriveFont(50f));
+        title.setFont(font.deriveFont(FLOAT_SIZE));
         titlePanel.add(title, Alignment.CENTER);
         final String welcomText = "End Game !!!";
         title.setText(welcomText);
@@ -90,7 +92,8 @@ public class EndGamePanel extends JPanel {
     }
 
     /**
-     * Method that updates the statistics of the Enda Game Panel
+     * Method that updates the statistics of the Enda Game Panel.
+     * 
      */
     public void update() {
         this.statistics = worldGameState.getPlayer().getStatistics();
@@ -103,7 +106,7 @@ public class EndGamePanel extends JPanel {
         }
         statsText = statsText + "</html>";
         final JLabel label = new JLabel(statsText);
-        label.setFont(this.font.deriveFont(30f));
+        label.setFont(this.font.deriveFont(LABEL_FONT_SIZE));
         boxPanel.add(label, BorderLayout.CENTER);
         this.add(boxPanel, BorderLayout.CENTER);
     }

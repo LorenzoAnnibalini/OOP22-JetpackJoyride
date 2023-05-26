@@ -16,8 +16,8 @@ public class GameSettingsImpl implements GameSettings {
     private static Map<String, String> settings = new HashMap<>();
 
     /**
-     * Constructor of the class
-     * Read the file and put the values in the map
+     * Constructor of the class.
+     * Read the file and put the values in the map.
      * 
      * @throws FileNotFoundException if the file is not found
      */
