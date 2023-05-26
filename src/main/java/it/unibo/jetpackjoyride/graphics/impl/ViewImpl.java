@@ -41,6 +41,13 @@ public class ViewImpl extends JFrame implements View {
             + "resources" + SEPARATOR
             + "New Athletic M54.ttf";
 
+    /**
+     * Constructor of the ViewImpl.
+     * @param worldGameState
+     * @param inputHandler
+     * @throws ParseException
+     * @throws IOException
+     */
     public ViewImpl(final WorldGameStateImpl worldGameState, final InputQueue inputHandler)
             throws ParseException, IOException {
         // load font

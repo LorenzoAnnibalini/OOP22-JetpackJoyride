@@ -15,6 +15,13 @@ public class ShieldPowerUpImpl extends GameObject {
     private final long duration;
     private long startTime;
 
+    /**
+     * Constructor for the shield power up
+     * @param duration
+     * @param pos
+     * @param vel
+     * @param hitbox
+     */
     public ShieldPowerUpImpl(final long duration, final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
         super(pos, vel, hitbox);
         this.duration = duration;

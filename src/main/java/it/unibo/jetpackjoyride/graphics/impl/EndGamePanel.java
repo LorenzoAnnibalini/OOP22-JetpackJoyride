@@ -44,6 +44,12 @@ public class EndGamePanel extends JPanel {
 
     private Font font;
 
+    /**
+     * Constructor of the EndGamePanel.
+     * @param inputHandler
+     * @param worldGameState
+     * @param font
+     */
     public EndGamePanel(final InputQueue inputHandler, final WorldGameStateImpl worldGameState, final Font font) {
 
         this.font = font;

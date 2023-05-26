@@ -18,7 +18,12 @@ import java.awt.Font;
 public class MenuPanel extends JPanel {
 
 
-    public MenuPanel(final InputQueue inputHandler, Font font) {
+    /**
+     * Constructor of the MenuPanel.
+     * @param inputHandler
+     * @param font
+     */
+    public MenuPanel(final InputQueue inputHandler, final Font font) {
         // Component of the menu
         final MenuMainPage mainPage = new MenuMainPage(font);
         // MenuSettingsPage settingsPage = new MenuSettingsPage();

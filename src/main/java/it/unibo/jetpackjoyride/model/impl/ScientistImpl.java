@@ -41,6 +41,7 @@ public class ScientistImpl extends GameObject implements Scientist {
         this.life = false;    
     }
 
+    @Override
    public void nextPosition() {
         if (direction == Direction.LEFT)
             super.setPos(super.getCurrentPos().sub(super.getCurrentVel()));

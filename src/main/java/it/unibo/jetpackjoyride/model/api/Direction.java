@@ -5,6 +5,12 @@ package it.unibo.jetpackjoyride.model.api;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 public enum Direction {
+    /**
+     * Left direction.
+     */
     LEFT,
+    /**
+     * Right direction.
+     */
     RIGHT
 }
