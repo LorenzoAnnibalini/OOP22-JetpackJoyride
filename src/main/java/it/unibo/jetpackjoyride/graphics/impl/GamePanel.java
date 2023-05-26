@@ -67,14 +67,13 @@ public final class GamePanel extends JPanel {
     private Image playerUpImage;
     private final Image moneyImage;
     private final SliderImpl slider;
-    private final int width;
-    private final int height;
-    private int score = 0;
-    private int monies = 0;
-    private final String fileName = "/config/sprites.json";
+    private int score;
+    private int monies;
+    private static final String FILENAME = "/config/sprites.json";
     private final JLabel scoreLabel;
     private final JLabel moneyLabel;
     private static final float FONT_SIZE = 15f;
+    private static final long serialVersionUID = 1L;
     /**
      * Constant for the label's width.
      */
@@ -106,14 +105,14 @@ public final class GamePanel extends JPanel {
     public GamePanel(final Font font) throws ParseException, IOException {
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
         final SpriteLoader spriteLoader = new SpriteLoader();
-        spriteLoader.loadSprites(fileName);
+        spriteLoader.loadSprites(FILENAME);
         final Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
         backgruondImage1 = sprites.get("background1").getScaled();
         backgruondImage2 = sprites.get("background1").getScaled();
-        this.width = sprites.get("background1").getScaledlDim().getX();
-        this.height = sprites.get("background1").getScaledlDim().getY();
-        slider = new SliderImpl(this.width);
+        final int width = sprites.get("background1").getScaledlDim().getX();
+        final int height = sprites.get("background1").getScaledlDim().getY();
+        slider = new SliderImpl(width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
         warning = sprites.get("warning").getScaled();
@@ -145,11 +144,11 @@ public final class GamePanel extends JPanel {
         // Add components to panel and set size
         this.add(moneyLabel);
         this.add(scoreLabel);
-        this.setPreferredSize(new Dimension(this.width, this.height));
+        this.setPreferredSize(new Dimension(width, height));
         this.setSize(this.getPreferredSize());
         this.setVisible(false);
         this.posImage1 = 0;
-        this.posImage2 = this.width;
+        this.posImage2 = width;
         this.slider.start();
     }
 
@@ -252,10 +251,10 @@ public final class GamePanel extends JPanel {
         // hitbox
         final int x = (int) entity.getHitbox().getPointUpLeft().getX();
         final int y = (int) entity.getHitbox().getPointUpLeft().getY();
-        if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.Money") {
+        if ("it.unibo.jetpackjoyride.model.impl.Money".equals(entity.getClass().getName())) {
             g.drawImage(image, x, y, this);
         } else {
-            if (entity.getClass().getName() == "it.unibo.jetpackjoyride.model.impl.LaserRay") {
+            if ("it.unibo.jetpackjoyride.model.impl.LaserRay".equals(entity.getClass().getName())) {
                 g.drawImage(image, LASER_EXTREMES.getX(), y, this);
                 g.drawImage(image, LASER_EXTREMES.getY(), y, this);
             } else {
