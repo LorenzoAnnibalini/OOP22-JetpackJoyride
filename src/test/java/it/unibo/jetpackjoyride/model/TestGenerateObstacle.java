@@ -17,11 +17,11 @@ public class TestGenerateObstacle {
             InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
         Set<Pair<String, GameObject>> baseSet = new HashSet<>();
         EntitiesGenerator eg = new EntitiesGeneratorImpl();
-        eg.generateEntity(baseSet, 1);
+        eg.generateObstacles(baseSet, 1);
         baseSet = eg.getEntities();
-        eg.generateEntity(baseSet, 1);
+        eg.generatePowerUps(baseSet, 1);
         baseSet = eg.getEntities();
-        eg.generateEntity(baseSet, 1);
+        eg.generateScientists(baseSet, 1);
         baseSet = eg.getEntities();
         var result = eg.getEntities();
         for (Pair<String, GameObject> pair : result) {
