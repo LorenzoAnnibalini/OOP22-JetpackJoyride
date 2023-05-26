@@ -42,6 +42,7 @@ public class ShopPanel extends JPanel {
     private final HashMap<String, ArrayList<JButton>> buttonMapSkin;
     private final SpriteLoader spriteLoader;
     private final Statistics generalStatistics;
+    private static final float FONTSIZE = 20; 
     private Font font;
 
     /**
@@ -49,8 +50,9 @@ public class ShopPanel extends JPanel {
      * 
      * @param inputQueue
      * @param generalStatistics
+     * @param font
      */
-    public ShopPanel(final InputQueue inputQueue, final Statistics generalStatistics, Font font) {
+    public ShopPanel(final InputQueue inputQueue, final Statistics generalStatistics, final Font font) {
         super();
         this.inputQueue = inputQueue;
         this.spriteLoader = new SpriteLoader();
@@ -87,9 +89,9 @@ public class ShopPanel extends JPanel {
             JLabel nameLabel = new JLabel(name);
             JLabel priceLabel = new JLabel(price + "$");
             JLabel descriptionLabel = new JLabel(description);
-            nameLabel.setFont(font.deriveFont(20f));
-            priceLabel.setFont(font.deriveFont(20f));
-            descriptionLabel.setFont(font.deriveFont(20f));
+            nameLabel.setFont(font.deriveFont(FONTSIZE));
+            priceLabel.setFont(font.deriveFont(FONTSIZE));
+            descriptionLabel.setFont(font.deriveFont(FONTSIZE));
             flowPanel.add(nameLabel);
             flowPanel.add(priceLabel);
             flowPanel.add(descriptionLabel);
@@ -114,14 +116,14 @@ public class ShopPanel extends JPanel {
             final JPanel flowPanel = new JPanel(new FlowLayout());
             JLabel nameLabel = new JLabel(name);
             JLabel priceLabel = new JLabel(price + "$");
-            nameLabel.setFont(font.deriveFont(20f));
-            priceLabel.setFont(font.deriveFont(20f));
+            nameLabel.setFont(font.deriveFont(FONTSIZE));
+            priceLabel.setFont(font.deriveFont(FONTSIZE));
             flowPanel.add(nameLabel);
             flowPanel.add(priceLabel);
             final JButton enableButton = createSkinButton("Enable", !Boolean.parseBoolean(state), name);
             final JButton purchasedButton = createSkinButton("Purchased", !Boolean.parseBoolean(purchased), name);
             buttonMapSkin.put(name, new ArrayList<>(List.of(enableButton, purchasedButton)));
-
+            System.out.println(name);
             flowPanel.add(loadSpriteImage(name));
             flowPanel.add(purchasedButton);
             flowPanel.add(enableButton);
@@ -163,7 +165,7 @@ public class ShopPanel extends JPanel {
      */
     private JButton createGadgetButton(final String text, final boolean enabled, final String name) {
         final JButton button = new JButton(text);
-        button.setFont(font.deriveFont(20f));
+        button.setFont(font.deriveFont(FONTSIZE));
         button.setEnabled(enabled);
         button.addActionListener(e -> {
             switch (button.getText()) {
@@ -193,7 +195,7 @@ public class ShopPanel extends JPanel {
      */
     private JButton createSkinButton(final String text, final boolean enabled, final String name) {
         final JButton button = new JButton(text);
-        button.setFont(font.deriveFont(20f));
+        button.setFont(font.deriveFont(FONTSIZE));
         button.setEnabled(enabled);
         button.addActionListener(e -> {
             switch (button.getText()) {
