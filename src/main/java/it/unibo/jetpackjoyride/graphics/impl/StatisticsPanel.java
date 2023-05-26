@@ -68,8 +68,6 @@ public final class StatisticsPanel extends JPanel {
      */
     public void update() throws FileNotFoundException, IOException {
         statsMap.clear();
-        System.out.println(saves.downloadSaves());
-
         statsMap = saves.downloadSaves();
         String statsText = StatisticsImpl.ACTUAL_MONEY.getY() + " : "
                 + statsMap.get(StatisticsImpl.ACTUAL_MONEY.getX()) + "\n" + StatisticsImpl.DEATHS.getY() + " : "
