@@ -2,15 +2,15 @@ package it.unibo.jetpackjoyride.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
-import it.unibo.jetpackjoyride.core.api.GadgetLoader;
 import it.unibo.jetpackjoyride.core.api.Saves;
-import it.unibo.jetpackjoyride.core.impl.GadgetLoaderImpl;
 import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.model.api.Gadget;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
@@ -40,36 +40,35 @@ public class PlayerImplTest {
     void testApplyGadget() {
         // Load gadget
         this.createPlayer();
-        final GadgetLoader gadgetLoader = new GadgetLoaderImpl();
-        try {
-            gadgetLoader.downloadGadget();
-        } catch (final FileNotFoundException e) {
-        }
+        final Gadget gadget = new GadgetImpl();
+        Map<String, List<String>> gadgetMap = new HashMap<>();
+        gadgetMap.put("Air Barry", List.of("true", "true", "100", "Moltiplicatore di salto iniziale"));
+        gadgetMap.put("Gravity Belt", List.of("false", "true", "150", "Aumento gravita'"));
+        GadgetImpl.setAll(gadgetMap);
 
         // Check if the player constuction was successful
-        assertEquals(30, player.getCurrentPos().x);
-        assertEquals(250, player.getCurrentVel().y);
+        assertEquals(30, player.getCurrentPos().getX());
+        assertEquals(250, player.getCurrentVel().getY());
 
         /*
-         * Fist two test for the applyGadget() method, in first case the gadget
+         * First two test for the applyGadget() method, in first case the gadget
          * is not active, in the second case the gadget is active
          */
         player.setDirectionDOWN();
-        assertEquals(254, player.getCurrentVel().y);
+        assertEquals(160, player.getCurrentVel().getY());
 
         player.setDirectionUP();
-        assertEquals(244.8, player.getCurrentVel().y);
+        assertEquals(-188.5, player.getCurrentVel().getY());
 
         /* Set to active also the second gadget */
-        final Gadget gadget = new GadgetImpl();
         gadget.setValue("Gravity Belt", "true", "true", "150$", "Aumento gravita'");
 
         player.setDirectionSTATIC();
-        assertEquals(250, player.getCurrentVel().y);
+        assertEquals(0, player.getCurrentVel().getY());
 
         /* Retry of the first testbut now with the gadget state active */
         player.setDirectionDOWN();
-        assertEquals(255.2, player.getCurrentVel().y);
+        assertEquals(208, player.getCurrentVel().getY());
 
     }
 }
