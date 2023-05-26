@@ -179,7 +179,8 @@ public final class WorldGameStateImpl implements WorldGameState {
         Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
             Pair<String, GameObject> entity = entityIterator.next();
-            if (entity.getY().getHitbox().checkCollision(this.player.getHitbox()) || player.getHitbox().checkCollision(entity.getY().getHitbox()) ) {
+            if (entity.getY().getHitbox().checkCollision(this.player.getHitbox())
+                    || player.getHitbox().checkCollision(entity.getY().getHitbox())) {
                 switch (entity.getX()) {
                     case "Rocket":
                         this.player.removeHeart();

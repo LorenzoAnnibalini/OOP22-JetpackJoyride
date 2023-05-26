@@ -37,9 +37,9 @@ public class HitboxImplTest {
             entity.getHitbox().updateHitbox(entity.getCurrentPos());
             if (entity.getHitbox().checkCollision(hitboxPlayer)) {
                 y--;
-                entity.setPos(new Point2d(positionEntity.x, positionEntity.y + y));
+                entity.setPos(new Point2d(positionEntity.getX(), positionEntity.getY() + y));
                 break;
-            } else if (entity.getCurrentPos().x < 0) {
+            } else if (entity.getCurrentPos().getX() < 0) {
                 assertTrue(false);
                 break;
             }

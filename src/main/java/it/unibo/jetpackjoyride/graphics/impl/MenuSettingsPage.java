@@ -116,11 +116,7 @@ public class MenuSettingsPage extends JPanel {
      * @return the audio saved state
      */
     public boolean getAudioState() {
-        if (audio.getText().equals("Audio ON")) {
-            return true;
-        } else {
-            return false;
-        }
+        return audio.getText().equals("Audio ON");
     }
 
     /**

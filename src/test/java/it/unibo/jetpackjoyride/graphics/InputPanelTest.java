@@ -1,7 +1,6 @@
 package it.unibo.jetpackjoyride.graphics;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,7 +15,6 @@ import org.junit.Test;
 import it.unibo.jetpackjoyride.graphics.impl.InputPanel;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputQueueImpl;
 
 public class InputPanelTest {
