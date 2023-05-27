@@ -18,12 +18,17 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
  */
 public class WorldGameStateTest {
 
-    InputQueue inputQueue = new InputQueueImpl();
-
+    /**
+     * This is a test to check if the world game state is created and if the update
+     * of the state is done.
+     * 
+     * @throws IOException
+     */
     @Test
     public void worldGameTest() throws IOException {
+        final InputQueue inputQueue = new InputQueueImpl();
         final long dt = 20;
-        final WorldGameState world = new WorldGameStateImpl(this.inputQueue);
+        final WorldGameState world = new WorldGameStateImpl(inputQueue);
         world.newGame();
         world.updateState(dt);
         assert world.getMoney().isEmpty() || !world.getMoney().isEmpty();

@@ -12,11 +12,10 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
 
+/**
+ * JUnit test for the HitboxImpl class.
+ */
 public class HitboxImplTest {
-    Point2d positionPlayer = new Point2d(20, 350);
-    HitboxImpl hitboxPlayer = new HitboxImpl(30, 15, positionPlayer);
-    private static final int X_PLAYER = 30;
-    private static final int Y_PLAYER = 15;
 
     /**
      * Test for the checkCollision method.
@@ -28,14 +27,20 @@ public class HitboxImplTest {
      */
     @Test
     public void testHitboxCollision() throws IOException, ParseException {
-        final Point2d positionEntity = new Point2d(20, 380);
+        final int xPlayer = 30;
+        final int yPlayer = 15;
+        final int heightPositionEntity = 380;
+        final int heightPositionPlayer = 350;
+        final Point2d positionEntity = new Point2d(xPlayer - 10, heightPositionEntity);
         final long dt = 2;
         int y = 0;
-        final HitboxImpl hitbox = new HitboxImpl(X_PLAYER, Y_PLAYER, positionEntity);
-        final GameObject entity = new GameObject(positionEntity, new Vector2d(this.positionPlayer, positionEntity),
+        final Point2d positionPlayer = new Point2d(xPlayer - 10, heightPositionPlayer);
+        final HitboxImpl hitboxPlayer = new HitboxImpl(xPlayer, yPlayer, positionPlayer);
+        final HitboxImpl hitbox = new HitboxImpl(xPlayer, yPlayer, positionEntity);
+        final GameObject entity = new GameObject(positionEntity, new Vector2d(positionPlayer, positionEntity),
                 hitbox);
 
-        while (y >= -X_PLAYER) {
+        while (y >= -xPlayer) {
             entity.updateState(dt);
             entity.getHitbox().updateHitbox(entity.getCurrentPos());
             if (entity.getHitbox().checkCollision(hitboxPlayer)) {
