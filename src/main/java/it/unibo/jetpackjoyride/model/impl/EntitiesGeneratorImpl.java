@@ -34,7 +34,7 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
         this.entities = entities;
         for (int i = 0; i < num; i++) {
             // Variable used to generate random number
-            int entityNum = 0;
+            int entityNum;
             final Random random = new Random();
             entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
             // Switch on types of entities based on random result
@@ -68,7 +68,7 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
         this.entities = entities;
         for (int i = 0; i < num; i++) {
             // Variable used to generate random number
-            int entityNum = 0;
+            int entityNum;
             final Random random = new Random();
             entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
             // Switch on types of entities based on random result
@@ -130,7 +130,7 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
         while (iterator.hasNext()) {
             final Pair<String, GameObject> pair = iterator.next();
             if (pair.getY().getCurrentPos().getX() < 0
-                    || pair.getX() == "Scientist" && pair.getY().getCurrentPos().getX() > EntitiesGeneratorImpl.XBOUND) {
+                    || "Scientist".equals(pair.getX()) && pair.getY().getCurrentPos().getX() > EntitiesGeneratorImpl.XBOUND) {
                 iterator.remove();
             }
         }
