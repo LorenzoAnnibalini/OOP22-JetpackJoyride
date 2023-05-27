@@ -10,8 +10,8 @@ import it.unibo.jetpackjoyride.core.api.Slider;
  */
 public final class SliderImpl extends Thread implements Slider {
 
-    private int pos = 0;
-    private boolean stop = false;
+    private int pos;
+    private boolean stop;
     private final int limit;
     /**
      * Milliseconds to stop the thread.
@@ -45,6 +45,7 @@ public final class SliderImpl extends Thread implements Slider {
     /**
      * Method to run the thread.
      */
+    @Override
     public void run() {
         while (!stop) {
             try {
@@ -64,6 +65,7 @@ public final class SliderImpl extends Thread implements Slider {
     /**
      * Method to stop the thread.
      */
+    @Override
     public void interrupt() {
         this.stop = true;
     }
