@@ -51,7 +51,7 @@ public final class SavesImpl implements Saves {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Error while writing statistics on file", e);
         }
     }
 
