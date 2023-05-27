@@ -12,22 +12,32 @@ import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
-public class SavesTest {
+/**
+ * JUnit test for {@link SavesImpl}.
+ * 
+ * @author emanuele.sanchi@studio.unibo.it
+ */
+class SavesTest {
 
     /**
-     * Test for Download and Upload datas
+     * Test for Download and Upload datas.
      * 
      * @throws IOException
      */
-    Saves saves = new SavesImpl();
-    Statistics stats = new StatisticsImpl();
+    private final Saves saves = new SavesImpl();
+    private final Statistics stats = new StatisticsImpl();
+    private static final int STATS_SIZE = 9;
 
     @Test
     void testDownloadAndUploadDatas() throws IOException {
-        Map<String, Integer> actualValues = saves.downloadSaves();
+        final Map<String, Integer> actualValues = saves.downloadSaves();
         // Test to count if there are 9 statistics downloaded
-        assertEquals(9, saves.downloadSaves().size());
-        Map<String, Integer> statsMap = Map.of("MaxMoney", 0, "MaxMeters", 0, "MoneySpent", 0, "KilledNpc", 0, "Deaths",
+        assertEquals(STATS_SIZE, saves.downloadSaves().size());
+        // CHECKSTYLE: MagicNumber OFF
+        // Rule disabled because the numbers are used to test the correct functioning
+        // and it would be redundant to create variables for each value
+        final Map<String, Integer> statsMap = Map.of("MaxMoney", 0, "MaxMeters", 0, "MoneySpent", 0, "KilledNpc", 0,
+                "Deaths",
                 0,
                 "GrabbedObjects", 0, "GrabbedMoney", 0, "TotalMeters", 0, "ActualMoney", 0);
         saves.uploadSaves(statsMap);
@@ -45,6 +55,7 @@ public class SavesTest {
         assertEquals(Map.of("MaxMoney", 0, "MaxMeters", 547, "MoneySpent", 2500, "KilledNpc", 5, "Deaths", 1,
                 "GrabbedObjects", 0, "GrabbedMoney", 0, "TotalMeters", 0, "ActualMoney", 0), saves.downloadSaves());
         // Reset all datas
+        // CHECKSTYLE: MagicNumber ON
         stats.setAll(actualValues);
         saves.uploadSaves(stats.getAll());
     }

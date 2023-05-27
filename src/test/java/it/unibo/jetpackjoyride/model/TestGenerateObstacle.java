@@ -11,6 +11,12 @@ import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
 import it.unibo.jetpackjoyride.model.impl.EntitiesGeneratorImpl;
 import it.unibo.jetpackjoyride.model.impl.GameObject;
 
+/**
+ * JUnit test for {@link EntitiesGeneratorImpl}.
+ * 
+ * @author emanuele.sanchi@studio.unibo.it
+ */
+
 public class TestGenerateObstacle {
     @Test
     void testGenerateSomeEntity() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
