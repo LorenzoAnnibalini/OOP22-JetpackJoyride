@@ -14,7 +14,7 @@ import it.unibo.jetpackjoyride.input.api.InputQueue;
  */
 public final class InputQueueImpl implements InputQueue {
 
-    private List<Input> inputQueue;
+    private final List<Input> inputQueue;
 
     /**
      * Constructor for the input queue.
@@ -30,7 +30,7 @@ public final class InputQueueImpl implements InputQueue {
 
     @Override
     public List<Input> getInputQueue() {
-        List<Input> inputQueueCopy = new ArrayList<>(this.inputQueue);
+        final List<Input> inputQueueCopy = new ArrayList<>(this.inputQueue);
         this.inputQueue.clear();
         return inputQueueCopy;
     }

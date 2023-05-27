@@ -12,8 +12,8 @@ import it.unibo.jetpackjoyride.input.api.Input;
  */
 public final class InputImpl implements Input {
 
-    private TypeInput type;
-    private Optional<String> name;
+    private final TypeInput type;
+    private final Optional<String> name;
 
     /**
      * Constructor for the input.
