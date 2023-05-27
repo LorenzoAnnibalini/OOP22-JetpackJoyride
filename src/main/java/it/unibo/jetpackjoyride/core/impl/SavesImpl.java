@@ -21,42 +21,37 @@ public final class SavesImpl implements Saves {
     private static final int NAME = 0;
     private static final int VALUE = 1;
     private static final String SEPARATOR = File.separator;
-    private String filename = "src" + SEPARATOR
+    private final String filename = "src" + SEPARATOR
             + "main" + SEPARATOR
             + "resources" + SEPARATOR
             + "saves.csv";
-    private Statistics statistics = new StatisticsImpl();
+    private final Statistics statistics = new StatisticsImpl();
 
     @Override
     public Map<String, Integer> downloadSaves() throws IOException {
-        Scanner sc = new Scanner(new File(filename));
-        Map<String, Integer> stats = new HashMap<>();
-        try {
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
+        final Map<String, Integer> stats = new HashMap<>();
+        try (Scanner scanner = new Scanner(new File(filename))) {
+            while (scanner.hasNextLine()) {
+                final String line = scanner.nextLine();
                 stats.put(line.split(";")[SavesImpl.NAME], Integer.parseInt(line.split(";")[SavesImpl.VALUE]));
             }
             this.statistics.setAll(stats);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            sc.close();
         }
         return stats;
     }
 
     @Override
     public void uploadSaves(final Map<String, Integer> stats) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-        try {
-            for (String name : stats.keySet()) {
+        //final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (final String name : stats.keySet()) {
                 writer.write(name + ";" + stats.get(name) + "\n");
             }
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            writer.close();
         }
     }
 
