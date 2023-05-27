@@ -2,10 +2,9 @@ package it.unibo.jetpackjoyride.graphics;
 
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,18 +31,16 @@ public class InputPanelTest {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inputPanel.requestFocus();
         inputPanel.keyPressed(new KeyEvent(inputPanel, 0, 0, 0, KeyEvent.VK_SPACE, ' '));
-        List<Input> inputList = new ArrayList<>();
-        inputList = inputQueue.getInputQueue();
+        final List<Input> inputList = inputQueue.getInputQueue();
         if (inputList.isEmpty()) {
-            assertTrue(false);
+            fail("Input list is empty");
         }
-        for (Input input : inputList) {
+        for (final Input input : inputList) {
             switch (input.getType()) {
                 case UP_PRESSED:
-                    assertTrue(true);
                     break;
                 default:
-                    assertTrue(false);
+                    fail("Wrong input type");
                     break;
             }
         }
