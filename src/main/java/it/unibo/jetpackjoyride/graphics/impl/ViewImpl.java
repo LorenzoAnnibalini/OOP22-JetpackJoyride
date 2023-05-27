@@ -27,20 +27,17 @@ public final class ViewImpl extends JFrame implements View {
     static final int SIZE = 48;
     static final float FLOAT_SIZE = 48f;
     private final GamePanel gamePanel;
-    private final MenuPanel menuPanel;
-    private final InputQueue inputHandler;
-    private final InputPanel inputPanel;
     private final ShopPanel shopPanel;
     private final CardLayout card;
     private final JPanel cardPanel;
     private final EndGamePanel endGamePanel;
     private final StatisticsPanel statisticsPanel;
-    private Font customFont;
     private static final String SEPARATOR = File.separator;
-    private String fontPath = "src" + SEPARATOR
+    private final String fontPath = "src" + SEPARATOR
             + "main" + SEPARATOR
             + "resources" + SEPARATOR
             + "New Athletic M54.ttf";
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructor of the ViewImpl.
@@ -52,23 +49,25 @@ public final class ViewImpl extends JFrame implements View {
      */
     public ViewImpl(final WorldGameStateImpl worldGameState, final InputQueue inputHandler)
             throws ParseException, IOException {
+        Font customFont;
         // load font
         try {
             customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(FLOAT_SIZE);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
             customFont = new Font("Arial", Font.PLAIN, SIZE);
         }
+        MenuPanel menuPanel;
+        InputPanel inputPanel;
         this.setTitle("Jetpack Joyride");
-        this.inputHandler = inputHandler;
-        this.menuPanel = new MenuPanel(this.inputHandler, this.customFont);
-        this.gamePanel = new GamePanel(this.customFont);
-        this.inputPanel = new InputPanel(inputHandler);
-        this.shopPanel = new ShopPanel(inputHandler, worldGameState.getGeneralStatistics(), this.customFont);
-        this.endGamePanel = new EndGamePanel(inputHandler, worldGameState, this.customFont);
-        this.statisticsPanel = new StatisticsPanel(inputHandler, this.customFont);
+        menuPanel = new MenuPanel(inputHandler, customFont);
+        this.gamePanel = new GamePanel(customFont);
+        inputPanel = new InputPanel(inputHandler);
+        this.shopPanel = new ShopPanel(inputHandler, worldGameState.getGeneralStatistics(), customFont);
+        this.endGamePanel = new EndGamePanel(inputHandler, worldGameState, customFont);
+        this.statisticsPanel = new StatisticsPanel(inputHandler, customFont);
         this.card = new CardLayout();
         this.cardPanel = new JPanel(this.card);
 
@@ -78,7 +77,7 @@ public final class ViewImpl extends JFrame implements View {
         this.setMinimumSize(this.gamePanel.getPreferredSize());
         this.pack();
 
-        this.add(this.inputPanel);
+        this.add(inputPanel);
 
         this.cardPanel.add(gamePanel, "gamePanel");
         this.cardPanel.add(menuPanel, "menuPanel");
