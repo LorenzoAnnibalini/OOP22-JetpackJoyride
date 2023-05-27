@@ -32,7 +32,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
      */
     private final int availableFile;
     private final int minAvailableFile;
-    private static final String filename = "/money";
+    private static final String FILENAME = "/money";
     private static final int NFILE = 4;
     // Range to change the y coordinate of the money.
     private static final int RANGE = 150;
@@ -73,30 +73,33 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
     @Override
     public final ArrayList<Money> getMoneyPattern() throws IOException {
         String fileNumber;
+        String fileContent;
         fileNumber = Integer.toString((int) Math.floor(Math.random()
                 * (this.availableFile - this.minAvailableFile + 1)
                 + this.minAvailableFile));
 
-        final InputStream stream = this.getClass().getResourceAsStream(filename + fileNumber + ".txt");
-        final String fileContent = new String(stream.readAllBytes(),
-                StandardCharsets.UTF_8);
-        stream.close();
+        try (InputStream stream = this.getClass().getResourceAsStream(FILENAME + fileNumber + ".txt")) {
+            fileContent = new String(stream.readAllBytes(),
+                    StandardCharsets.UTF_8);
+            stream.close();
+        }
 
         final ArrayList<Money> moneyList = new ArrayList<>();
-        final Scanner filePattern = new Scanner(fileContent);
         final double multiplier = Math.floor(Math.random() * (MAXRANDOM - MINRANDOM) + MINRANDOM);
-        while (filePattern.hasNextLine()) {
-            final String line = filePattern.nextLine();
-            final int x = Integer.parseInt(line.split(",")[X]);
-            int y = Integer.parseInt(line.split(",")[Y]);
-            y = y + (int) (multiplier * RANGE);
-            final Point2d startPosition = new Point2d(x, y);
-            final Point2d finishPosition = new Point2d(x - LIMIT, startPosition.getY());
-            final Vector2d vec = new Vector2d(finishPosition, startPosition);
-            final Hitbox hitbox = new HitboxImpl(15, 15, startPosition);
-            moneyList.add(new Money(startPosition, vec, hitbox));
+        try (Scanner filePattern = new Scanner(fileContent)) {
+            while (filePattern.hasNextLine()) {
+                final String line = filePattern.nextLine();
+                final int x = Integer.parseInt(line.split(",")[X]);
+                int y = Integer.parseInt(line.split(",")[Y]);
+                y = y + (int) (multiplier * RANGE);
+                final Point2d startPosition = new Point2d(x, y);
+                final Point2d finishPosition = new Point2d(x - LIMIT, startPosition.getY());
+                final Vector2d vec = new Vector2d(finishPosition, startPosition);
+                final Hitbox hitbox = new HitboxImpl(15, 15, startPosition);
+                moneyList.add(new Money(startPosition, vec, hitbox));
+            }
+            filePattern.close();
         }
-        filePattern.close();
         return moneyList;
     }
 }

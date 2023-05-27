@@ -28,20 +28,21 @@ public class GadgetLoaderImpl implements GadgetLoader {
 
     @Override
     public final Map<String, List<String>> downloadGadget() throws FileNotFoundException {
-        final Scanner sc = new Scanner(new File(filename));
         final Map<String, List<String>> gadgetMap = new HashMap<>();
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            final String name = line.split(";")[NAME];
-            line = line.substring(line.indexOf(';') + 1);
-            gadgetMap.put(name,
-                    new ArrayList<>(List.of(
-                            line.split(";")[GadgetInfoPositions.STATE.ordinal()],
-                            line.split(";")[GadgetInfoPositions.PURCHASED.ordinal()],
-                            line.split(";")[GadgetInfoPositions.PRICE.ordinal()],
-                            line.split(";")[GadgetInfoPositions.DESCRIPTION.ordinal()])));
+        try (Scanner sc = new Scanner(new File(filename))) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                final String name = line.split(";")[NAME];
+                line = line.substring(line.indexOf(';') + 1);
+                gadgetMap.put(name,
+                        new ArrayList<>(List.of(
+                                line.split(";")[GadgetInfoPositions.STATE.ordinal()],
+                                line.split(";")[GadgetInfoPositions.PURCHASED.ordinal()],
+                                line.split(";")[GadgetInfoPositions.PRICE.ordinal()],
+                                line.split(";")[GadgetInfoPositions.DESCRIPTION.ordinal()])));
+            }
+            sc.close();
         }
-        sc.close();
         GadgetImpl.setAll(gadgetMap);
         return gadgetMap;
     }
@@ -49,19 +50,20 @@ public class GadgetLoaderImpl implements GadgetLoader {
     @Override
     public final void uploadGadget(final Map<String, List<String>> gadgetMap) 
         throws IOException {
-        final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-        for (final String name : gadgetMap.keySet()) {
-            writer.write(name + ";"
-                    + gadgetMap.get(name).get(GadgetInfoPositions.STATE.ordinal())
-                    + ";"
-                    + gadgetMap.get(name).get(GadgetInfoPositions.PURCHASED.ordinal())
-                    + ";"
-                    + gadgetMap.get(name).get(GadgetInfoPositions.PRICE.ordinal())
-                    + ";"
-                    + gadgetMap.get(name).get(GadgetInfoPositions.DESCRIPTION.ordinal())
-                    + "\n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (final String name : gadgetMap.keySet()) {
+                writer.write(name + ";"
+                        + gadgetMap.get(name).get(GadgetInfoPositions.STATE.ordinal())
+                        + ";"
+                        + gadgetMap.get(name).get(GadgetInfoPositions.PURCHASED.ordinal())
+                        + ";"
+                        + gadgetMap.get(name).get(GadgetInfoPositions.PRICE.ordinal())
+                        + ";"
+                        + gadgetMap.get(name).get(GadgetInfoPositions.DESCRIPTION.ordinal())
+                        + "\n");
+            }
+            writer.close();
         }
-        writer.close();
     }
 
 }
