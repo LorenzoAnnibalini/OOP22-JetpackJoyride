@@ -43,7 +43,7 @@ public final class PlayerImpl extends GameObject implements Player {
     }
 
     @Override
-    public boolean getStatusPlayer() {
+    public boolean isStatusPlayer() {
         return statusPlayer;
     }
 

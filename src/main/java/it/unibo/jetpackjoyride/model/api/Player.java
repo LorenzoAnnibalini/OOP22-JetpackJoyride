@@ -33,7 +33,7 @@ public interface Player {
      * 
      * @return true if the player is alive, else return false.
      */
-    boolean getStatusPlayer();
+    boolean isStatusPlayer();
 
     /**
      * Function for add a heart to the player.

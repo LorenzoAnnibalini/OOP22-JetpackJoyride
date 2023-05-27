@@ -28,7 +28,7 @@ public class WorldGameStateTest {
         world.updateState(dt);
         assert (world.getMoney().isEmpty() || !world.getMoney().isEmpty());
         assert (world.getGeneralStatistics().getAll().isEmpty() || !world.getGeneralStatistics().getAll().isEmpty());
-        assert (world.getPlayer().getStatusPlayer());
+        assert (world.getPlayer().isStatusPlayer());
         assert (world.getWorldEntities().isEmpty() || !world.getWorldEntities().isEmpty());
     }
 

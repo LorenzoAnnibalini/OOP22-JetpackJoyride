@@ -108,7 +108,7 @@ public final class WorldGameStateImpl implements WorldGameState {
         this.updateEntities(elapsedTime);
         this.entitiesGarbage();
         this.checkPlayerCollision();
-        if (this.player.getStatusPlayer()) {
+        if (this.player.isStatusPlayer()) {
             this.newEntities();
             this.runStatistics.increment("TotalMeters");
         } else {
