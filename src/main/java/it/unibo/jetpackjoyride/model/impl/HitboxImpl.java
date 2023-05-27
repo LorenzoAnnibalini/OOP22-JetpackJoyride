@@ -12,8 +12,8 @@ public final class HitboxImpl implements Hitbox {
 
     private Point2d upLeftPoint;
     private Point2d downRightPoint;
-    private int height;
-    private int width;
+    private final int height;
+    private final int width;
     private boolean hitboxActive;
 
     /**

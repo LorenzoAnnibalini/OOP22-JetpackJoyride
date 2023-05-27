@@ -62,6 +62,7 @@ public interface GameEngine {
      * @throws ParseException
      * @throws IOException
      * @throws FileNotFoundException
+     * @throws InterruptedException
      */
-    void loopState() throws ParseException, FileNotFoundException, IOException;
+    void loopState() throws ParseException, FileNotFoundException, IOException, InterruptedException;
 }

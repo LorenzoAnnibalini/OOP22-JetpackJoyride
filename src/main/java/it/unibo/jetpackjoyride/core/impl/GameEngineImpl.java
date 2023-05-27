@@ -22,14 +22,14 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
  */
 public final class GameEngineImpl implements GameEngine {
 
-    private InputQueue inputHandler;
-    private View view;
-    private final long framePeriod = 20;
-    private WorldGameStateImpl worldGameState;
+    private final InputQueue inputHandler;
+    private final View view;
+    private static final long FRAME_PERIOD = 20;
+    private final WorldGameStateImpl worldGameState;
     private GameState currentState;
-    private SkinInfoLoaderImpl skinInfoLoader;
-    private GadgetLoaderImpl gadgetLoader;
-    private GameEconomy gameEconomy;
+    private final SkinInfoLoaderImpl skinInfoLoader;
+    private final GadgetLoaderImpl gadgetLoader;
+    private final GameEconomy gameEconomy;
 
     /**
      * Constructor for the game engine. It needs a view, a worldGameState and an
@@ -62,11 +62,11 @@ public final class GameEngineImpl implements GameEngine {
     }
 
     @Override
-    public void loopState() throws ParseException, FileNotFoundException, IOException {
+    public void loopState() throws ParseException, FileNotFoundException, IOException, InterruptedException {
         long previousCycleStartTime = System.currentTimeMillis();
         while (true) {
-            long currentCycleStartTime = System.currentTimeMillis();
-            long elapsedTime = currentCycleStartTime - previousCycleStartTime;
+            final long currentCycleStartTime = System.currentTimeMillis();
+            final long elapsedTime = currentCycleStartTime - previousCycleStartTime;
             this.processInput();
             this.updateWorldGameState(elapsedTime);
             this.renderView();
@@ -80,7 +80,7 @@ public final class GameEngineImpl implements GameEngine {
      * on the input type.
      */
     private void processInput() {
-        List<Input> inputQueue = this.inputHandler.getInputQueue();
+        final List<Input> inputQueue = this.inputHandler.getInputQueue();
         for (final Input inputElem : inputQueue) {
             switch (inputElem.getType()) {
 
@@ -221,14 +221,12 @@ public final class GameEngineImpl implements GameEngine {
      * wait the next frame.
      * 
      * @param cycleStartTime
+     * @throws InterruptedException
      */
-    private void waitNextFrame(final long cycleStartTime) {
-        long dt = System.currentTimeMillis() - cycleStartTime;
-        if (dt < this.framePeriod) {
-            try {
-                Thread.sleep(this.framePeriod - dt);
-            } catch (Exception ex) {
-            }
+    private void waitNextFrame(final long cycleStartTime) throws InterruptedException {
+        final long dt = System.currentTimeMillis() - cycleStartTime;
+        if (dt < FRAME_PERIOD) {
+            Thread.sleep(FRAME_PERIOD - dt);
         }
     }
 

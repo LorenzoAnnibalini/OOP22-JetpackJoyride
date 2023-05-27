@@ -33,8 +33,9 @@ public final class JetpackJoyride {
      * @param args
      * @throws ParseException
      * @throws IOException
+     * @throws InterruptedException
      */
-    public static void main(final String[] args) throws ParseException, IOException {
+    public static void main(final String[] args) throws ParseException, IOException, InterruptedException {
 
         final InputQueue inputHandler = new InputQueueImpl();
         final WorldGameStateImpl worldGameStateImpl = new WorldGameStateImpl(inputHandler);

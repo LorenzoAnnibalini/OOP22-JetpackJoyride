@@ -20,7 +20,7 @@ public final class PlayerImpl extends GameObject implements Player {
     private boolean statusPlayer;
     private int hearts;
     private PlayerDirection direction;
-    private StatisticsImpl statistics;
+    private final StatisticsImpl statistics;
     private static final int UP_VELOCITY = 145;
     private static final int DOWN_VELOCITY = -160;
     private static final double AIR_BARRY_MULTIPLIER = 1.3;
@@ -43,7 +43,7 @@ public final class PlayerImpl extends GameObject implements Player {
     }
 
     @Override
-    public boolean getStatusPlayer() {
+    public boolean isStatusPlayer() {
         return statusPlayer;
     }
 
@@ -82,7 +82,7 @@ public final class PlayerImpl extends GameObject implements Player {
     @Override
     public void setDirectionUP() {
         this.direction = PlayerDirection.UP;
-        double multiplier = this.applyGadget(direction);
+        final double multiplier = this.applyGadget(direction);
         this.setVel(new Vector2d(this.getCurrentPos(),
                 new Point2d(this.getCurrentPos().getX(), this.getCurrentPos().getY() + UP_VELOCITY * multiplier)));
     }
@@ -90,7 +90,7 @@ public final class PlayerImpl extends GameObject implements Player {
     @Override
     public void setDirectionDOWN() {
         this.direction = PlayerDirection.DOWN;
-        double multiplier = this.applyGadget(direction);
+        final double multiplier = this.applyGadget(direction);
         this.setVel(new Vector2d(this.getCurrentPos(),
                 new Point2d(this.getCurrentPos().getX(), this.getCurrentPos().getY() + DOWN_VELOCITY * multiplier)));
     }
@@ -113,10 +113,10 @@ public final class PlayerImpl extends GameObject implements Player {
      * @return a multiplier to apply to the velocity
      */
     private double applyGadget(final PlayerDirection direction) {
-        Gadget gadget = new GadgetImpl();
-        Map<String, List<String>> gadgets = gadget.getAll();
-        for (String name : gadgets.keySet()) {
-            if ((gadgets.get(name).get(GadgetInfoPositions.STATE.ordinal())).equals("true")) {
+        final Gadget gadget = new GadgetImpl();
+        final Map<String, List<String>> gadgets = gadget.getAll();
+        for (final String name : gadgets.keySet()) {
+            if ("true".equals(gadgets.get(name).get(GadgetInfoPositions.STATE.ordinal()))) {
                 switch (name) {
                     case "Air Barry":
                         if (direction == PlayerDirection.UP) {

@@ -52,22 +52,17 @@ public final class WorldGameStateImpl implements WorldGameState {
     private StatisticsImpl runStatistics;
     private EntitiesGenerator entitiesGenerator;
     private PlayerImpl player;
-    private Point2d playerPosition;
-    private Vector2d playerVelocity;
     private List<Money> money;
     private Set<Pair<String, GameObject>> entities;
     private long previousCycleStartTime;
-    private long timePassed;
-    private MoneyPatternLoader moneyPatternLoader;
-    private SavesImpl saves;
-    private Random random;
+    private final MoneyPatternLoader moneyPatternLoader;
+    private final SavesImpl saves;
+    private final Random random;
     private boolean isFlying;
     private int deciderEntitiesGenerator; // 0 = entities, 1 = money, 2 = laser
     private int timeToWaitNewEntities;
-    private InputQueue inputHandler;
-    private Statistics generalStatistics;
-    private SkinInfoLoaderImpl skinInfoLoader;
-    private GadgetLoaderImpl gadgetLoader;
+    private final InputQueue inputHandler;
+    private final Statistics generalStatistics;
 
     /**
      * Constructor for the world game state. It inzialize the world with his
@@ -82,15 +77,15 @@ public final class WorldGameStateImpl implements WorldGameState {
         this.saves = new SavesImpl();
         this.moneyPatternLoader = new MoneyPatternLoaderImpl();
         this.random = new Random();
-        this.skinInfoLoader = new SkinInfoLoaderImpl();
-        this.gadgetLoader = new GadgetLoaderImpl();
+        final SkinInfoLoaderImpl skinInfoLoader = new SkinInfoLoaderImpl();
+        final GadgetLoaderImpl gadgetLoader = new GadgetLoaderImpl();
         try {
-            this.skinInfoLoader.downloadSkin();
+            skinInfoLoader.downloadSkin();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
-            this.gadgetLoader.downloadGadget();
+            gadgetLoader.downloadGadget();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -113,7 +108,7 @@ public final class WorldGameStateImpl implements WorldGameState {
         this.updateEntities(elapsedTime);
         this.entitiesGarbage();
         this.checkPlayerCollision();
-        if (this.player.getStatusPlayer()) {
+        if (this.player.isStatusPlayer()) {
             this.newEntities();
             this.runStatistics.increment("TotalMeters");
         } else {
@@ -129,9 +124,9 @@ public final class WorldGameStateImpl implements WorldGameState {
      * lasers. If there are no scientists in the world, create new scientists.
      */
     private void newEntities() {
-        long currentCycleStartTime = System.currentTimeMillis();
-        this.timePassed = currentCycleStartTime - this.previousCycleStartTime;
-        if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 0) {
+        final long currentCycleStartTime = System.currentTimeMillis();
+        final long timePassed = currentCycleStartTime - this.previousCycleStartTime;
+        if (timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 0) {
             if (this.random.nextInt(100) < GENERATION_OBSTACLES_PROBABILITY) {
                 this.entitiesGenerator.generateObstacles(entities, this.random.nextInt(3) + 2);
                 this.entities = this.entitiesGenerator.getEntities();
@@ -143,7 +138,7 @@ public final class WorldGameStateImpl implements WorldGameState {
             this.previousCycleStartTime = currentCycleStartTime;
             this.timeToWaitNewEntities = this.timeToWait();
             this.deciderEntitiesGenerator = this.randomDecider();
-        } else if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 1) {
+        } else if (timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 1) {
             try {
                 this.money.addAll(moneyPatternLoader.getMoneyPattern());
             } catch (IOException e) {
@@ -152,8 +147,8 @@ public final class WorldGameStateImpl implements WorldGameState {
             this.previousCycleStartTime = currentCycleStartTime;
             this.timeToWaitNewEntities = this.timeToWait();
             this.deciderEntitiesGenerator = this.randomDecider();
-        } else if (this.timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 2
-                && this.entities.size() == 0) {
+        } else if (timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 2
+                && this.entities.isEmpty()) {
             this.entitiesGenerator.generateLaser(this.entities, random.nextInt(4));
             this.entities = this.entitiesGenerator.getEntities();
             this.previousCycleStartTime = currentCycleStartTime;
@@ -175,10 +170,9 @@ public final class WorldGameStateImpl implements WorldGameState {
      * eliminated.
      */
     private void checkPlayerCollision() {
-        Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
-        Iterator<Money> moneyIterator = this.money.iterator();
+        final Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
         while (entityIterator.hasNext()) {
-            Pair<String, GameObject> entity = entityIterator.next();
+            final Pair<String, GameObject> entity = entityIterator.next();
             if (entity.getY().getHitbox().checkCollision(this.player.getHitbox())
                     || player.getHitbox().checkCollision(entity.getY().getHitbox())) {
                 switch (entity.getX()) {
@@ -191,7 +185,7 @@ public final class WorldGameStateImpl implements WorldGameState {
                         entityIterator.remove();
                         break;
                     case "SpeedUpPowerup":
-                        SpeedUpPowerUpImpl speedUp = (SpeedUpPowerUpImpl) entity.getY();
+                        final SpeedUpPowerUpImpl speedUp = (SpeedUpPowerUpImpl) entity.getY();
                         this.runStatistics.increment("TotalMeters", speedUp.getDistanceSpeedUp());
                         this.runStatistics.increment("GrabbedObjects");
                         entityIterator.remove();
@@ -217,8 +211,9 @@ public final class WorldGameStateImpl implements WorldGameState {
 
             }
         }
+        final Iterator<Money> moneyIterator = this.money.iterator();
         while (moneyIterator.hasNext()) {
-            Money moneyElem = moneyIterator.next();
+            final Money moneyElem = moneyIterator.next();
             if (this.player.getHitbox().checkCollision(moneyElem.getHitbox())) {
                 this.runStatistics.increment("GrabbedMoney");
                 moneyIterator.remove();
@@ -245,10 +240,10 @@ public final class WorldGameStateImpl implements WorldGameState {
      * deleted.
      */
     private void entitiesGarbage() {
-        Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
-        Iterator<Money> moneyIterator = this.money.iterator();
+        final Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
+        final Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
-            Pair<String, GameObject> entity = entityIterator.next();
+            final Pair<String, GameObject> entity = entityIterator.next();
             if (entity.getY().getCurrentPos().getX() < 0
                     || entity.getY().getCurrentPos().getX() > FRAME_WIDTH + VOID_SPACE_ON_RIGHT) {
                 entityIterator.remove();
@@ -256,7 +251,7 @@ public final class WorldGameStateImpl implements WorldGameState {
         }
 
         while (moneyIterator.hasNext()) {
-            Money moneyElem = moneyIterator.next();
+            final Money moneyElem = moneyIterator.next();
             if (moneyElem.getCurrentPos().getX() < 0) {
                 moneyIterator.remove();
             }
@@ -289,12 +284,12 @@ public final class WorldGameStateImpl implements WorldGameState {
         this.runStatistics.addStatistic("KilledNpc", 0);
         this.runStatistics.addStatistic("GrabbedObjects", 0);
         this.isFlying = false;
+        final Point2d playerPosition = new Point2d(X_PLAYER_POSITION, Y_PLAYER_POSITION);
+        final Vector2d playerVelocity = new Vector2d(playerPosition, playerPosition);
         this.timeToWaitNewEntities = this.timeToWait();
         this.previousCycleStartTime = System.currentTimeMillis();
-        this.playerPosition = new Point2d(X_PLAYER_POSITION, Y_PLAYER_POSITION);
-        this.playerVelocity = new Vector2d(this.playerPosition, this.playerPosition);
-        this.player = new PlayerImpl(this.playerPosition, this.playerVelocity,
-                new HitboxImpl(HEIGHT_PLAYER, WIDTH_PLAYER, this.playerPosition), this.runStatistics);
+        this.player = new PlayerImpl(playerPosition, playerVelocity,
+                new HitboxImpl(HEIGHT_PLAYER, WIDTH_PLAYER, playerPosition), this.runStatistics);
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
@@ -311,7 +306,7 @@ public final class WorldGameStateImpl implements WorldGameState {
     private void updateEntities(final long elapsedTime) {
         this.entities.stream().forEach(entity -> {
             if (entity.getX().matches("Rocket")) {
-                Rocket rocket = (Rocket) entity.getY();
+                final Rocket rocket = (Rocket) entity.getY();
                 if (!rocket.isActive()) {
                     rocket.checkState(elapsedTime);
                 } else {
@@ -354,16 +349,16 @@ public final class WorldGameStateImpl implements WorldGameState {
      * change its state or doing something related to the entity.
      */
     private void updateTimeLaser() {
-        Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
+        final Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
         if (this.deciderEntitiesGenerator == 2
                 && this.entities.stream().filter(entity -> entity.getX().matches("Laser")).count() != 0) {
             while (entityIterator.hasNext()) {
-                Pair<String, GameObject> laserRay = entityIterator.next();
-                LaserRay laserRayObj = (LaserRay) laserRay.getY();
+                final Pair<String, GameObject> laserRay = entityIterator.next();
+                final LaserRay laserRayObj = (LaserRay) laserRay.getY();
                 laserRayObj.checkState(1);
                 if (laserRayObj.isEnd()) {
                     entityIterator.remove();
-                    if (this.entities.size() == 0) {
+                    if (this.entities.isEmpty()) {
                         this.deciderEntitiesGenerator = this.randomDecider();
                     }
                 }
@@ -380,7 +375,7 @@ public final class WorldGameStateImpl implements WorldGameState {
      * @return the number generated.
      */
     private int randomDecider() {
-        int valueRandom = random.nextInt(GENERAL_PROBABILITY);
+        final int valueRandom = random.nextInt(GENERAL_PROBABILITY);
         if (valueRandom < ENTITY_PROBABILITY) {
             return 0;
         } else if (valueRandom < ENTITY_PROBABILITY + MONEY_PROBABILITY) {

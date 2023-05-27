@@ -21,15 +21,15 @@ public class WorldGameStateTest {
     InputQueue inputQueue = new InputQueueImpl();
 
     @Test
-    public void WorldGameTest() throws IOException {
-        long dt = 20;
-        WorldGameState world = new WorldGameStateImpl(this.inputQueue);
+    public void worldGameTest() throws IOException {
+        final long dt = 20;
+        final WorldGameState world = new WorldGameStateImpl(this.inputQueue);
         world.newGame();
         world.updateState(dt);
-        assert (world.getMoney().isEmpty() || !world.getMoney().isEmpty());
-        assert (world.getGeneralStatistics().getAll().isEmpty() || !world.getGeneralStatistics().getAll().isEmpty());
-        assert (world.getPlayer().getStatusPlayer());
-        assert (world.getWorldEntities().isEmpty() || !world.getWorldEntities().isEmpty());
+        assert world.getMoney().isEmpty() || !world.getMoney().isEmpty();
+        assert world.getGeneralStatistics().getAll().isEmpty() || !world.getGeneralStatistics().getAll().isEmpty();
+        assert world.getPlayer().isStatusPlayer();
+        assert world.getWorldEntities().isEmpty() || !world.getWorldEntities().isEmpty();
     }
 
 }
