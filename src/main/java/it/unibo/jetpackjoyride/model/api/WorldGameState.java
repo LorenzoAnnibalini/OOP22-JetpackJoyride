@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.model.api;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -49,8 +50,9 @@ public interface WorldGameState {
      * Update the status of the world and its entities.
      * 
      * @param elapsedTime
+     * @throws IOException
      */
-    void updateState(long elapsedTime);
+    void updateState(long elapsedTime) throws IOException;
 
     /**
      * Start a new game.
