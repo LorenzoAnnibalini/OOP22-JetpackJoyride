@@ -36,7 +36,7 @@ public final class SavesImpl implements Saves {
                 stats.put(line.split(";")[SavesImpl.NAME], Integer.parseInt(line.split(";")[SavesImpl.VALUE]));
             }
             this.statistics.setAll(stats);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return stats;
@@ -50,7 +50,7 @@ public final class SavesImpl implements Saves {
                 writer.write(name + ";" + stats.get(name) + "\n");
             }
             writer.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
