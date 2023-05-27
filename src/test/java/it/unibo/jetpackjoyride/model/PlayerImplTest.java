@@ -45,7 +45,7 @@ class PlayerImplTest {
         try {
             statistics.setAll(saves.downloadSaves());
         } catch (final IOException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Error downloading statistics", e);
         }
         player = new PlayerImpl(this.position, this.velocity, this.hitbox, this.statistics);
     }

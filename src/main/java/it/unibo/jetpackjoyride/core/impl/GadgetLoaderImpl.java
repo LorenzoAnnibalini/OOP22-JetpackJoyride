@@ -42,7 +42,10 @@ public class GadgetLoaderImpl implements GadgetLoader {
                                 line.split(";")[GadgetInfoPositions.DESCRIPTION.ordinal()])));
             }
             sc.close();
+        } catch (FileNotFoundException e) {
+            throw new  IllegalStateException("gadget.csv file not found", e);
         }
+
         GadgetImpl.setAll(gadgetMap);
         return gadgetMap;
     }
@@ -63,6 +66,8 @@ public class GadgetLoaderImpl implements GadgetLoader {
                         + "\n");
             }
             writer.close();
+        } catch (IOException e) {
+            System.out.println("Error while writing on gadget info file");
         }
     }
 

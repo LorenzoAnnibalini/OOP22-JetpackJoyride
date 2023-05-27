@@ -42,6 +42,8 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader {
                                 line.split(";")[SkinInfoPositions.PRICE.ordinal()])));
             }
             sc.close();
+        } catch (FileNotFoundException e) {
+            throw new  IllegalStateException("skin.csv file not found", e);
         }
         SkinInfoImpl.setAll(skinMap);
         return skinMap;
@@ -57,6 +59,8 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader {
                         + skinMap.get(name).get(SkinInfoPositions.PRICE.ordinal()) + "\n");
             }
             writer.close();
+        } catch (IOException e) {
+            System.out.println("Error while writing on Skin info file");
         }
     }
 
