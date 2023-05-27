@@ -18,7 +18,7 @@ import it.unibo.jetpackjoyride.model.impl.Money;
  * 
  * @author lorenzo.bacchini4@studio.unibo.it
  */
-public class MoneyPatternTest {
+class MoneyPatternTest {
 
     private static final int FILE_NUMBER = 1;
     private final MoneyPatternLoader moneyPatternLoader = new MoneyPatternLoaderImpl(FILE_NUMBER);
@@ -32,7 +32,7 @@ public class MoneyPatternTest {
         /* rule deactivated because these are all values ​​of the x coordinates at different instants, 
          *it would be redundant to create a variable for each possible value
          */
-        Queue<Double> expectedXValue = new LinkedList<>(List.of(2330d, 2285d, 2248d, 2566d)); 
+        final Queue<Double> expectedXValue = new LinkedList<>(List.of(2330d, 2285d, 2248d, 2566d)); 
         // CHECKSTYLE: MagicNumber ON
         assertEquals(moneyListSize, moneyList.size());
         assertEquals(expectedXValue.poll(), moneyList.remove(index).getCurrentPos().getX());

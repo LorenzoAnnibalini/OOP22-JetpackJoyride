@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.model.impl;
 
+import java.util.List;
 import java.util.ArrayList;
 
 import it.unibo.jetpackjoyride.common.Point2d;
@@ -33,7 +34,7 @@ public class Money extends GameObject {
      * @param moneyString the list of string to convert
      * @return moneyList, the list of money
      */
-    public static ArrayList<Money> getMoneyFromStringList(final ArrayList<String> moneyString) {
+    public static List<Money> getMoneyFromStringList(final List<String> moneyString) {
         final ArrayList<Money> moneyList = new ArrayList<>();
         moneyString.stream().map(e -> e.split(",")).forEach(e -> {
             final int x = Integer.parseInt(e[X]);

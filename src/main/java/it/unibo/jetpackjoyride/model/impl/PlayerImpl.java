@@ -115,9 +115,9 @@ public final class PlayerImpl extends GameObject implements Player {
     private double applyGadget(final PlayerDirection direction) {
         final Gadget gadget = new GadgetImpl();
         final Map<String, List<String>> gadgets = gadget.getAll();
-        for (final String name : gadgets.keySet()) {
-            if ("true".equals(gadgets.get(name).get(GadgetInfoPositions.STATE.ordinal()))) {
-                switch (name) {
+        for (final Map.Entry<String, List<String>> entry : gadgets.entrySet()) {
+            if ("true".equals(gadgets.get(entry.getKey()).get(GadgetInfoPositions.STATE.ordinal()))) {
+                switch (entry.getKey()) {
                     case "Air Barry":
                         if (direction == PlayerDirection.UP) {
                             return AIR_BARRY_MULTIPLIER;

@@ -40,13 +40,13 @@ public abstract class ObstacleActivable extends ObstacleImpl {
      * @param dt time elapsed
      */
     public void checkState(final long dt) {
-        if ((System.currentTimeMillis() - this.creationTime > CHANGE_STATE_TIME)
+        if (System.currentTimeMillis() - this.creationTime > CHANGE_STATE_TIME
                 && !this.isActive()) {
             this.activationTime = System.currentTimeMillis();
             this.setActiveOn();
         }
         if (this.isActive()
-                && (System.currentTimeMillis() - this.activationTime > CHANGE_STATE_TIME)) {
+                && System.currentTimeMillis() - this.activationTime > CHANGE_STATE_TIME) {
             this.setActiveOff();
             this.setEndOn();
         }

@@ -20,18 +20,20 @@ import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 /**
  * JUnit test to test the correct download and upload of skins and gadget.
  */
-public class DownloadUploadSkinGadget {
+class DownloadUploadSkinGadgetTest {
 
     private final GadgetLoader gadgetLoader = new GadgetLoaderImpl();
     private final SkinInfoLoader skinInfoLoader = new SkinInfoLoaderImpl();
+    private static final String TRUE = "true";
+    private static final String FALSE = "false";
 
     @Test
     void testUploadDownloadGadget() throws Exception {
         final Map<String, List<String>> gadgetMap = new HashMap<>();
         gadgetMap.put("Air Barry",
-                List.of("true", "true", "100", "Moltiplicatore di salto iniziale"));
+                List.of(TRUE, TRUE, "100", "Moltiplicatore di salto iniziale"));
         gadgetMap.put("Gravity Belt",
-                List.of("true", "true", "150", "Aumento gravita'"));
+                List.of(TRUE, TRUE, "150", "Aumento gravita'"));
         gadgetLoader.uploadGadget(gadgetMap);
 
         final Gadget gadgets = new GadgetImpl();
@@ -44,9 +46,9 @@ public class DownloadUploadSkinGadget {
     void testUploadDownloadSkin() throws Exception {
         final Map<String, List<String>> skinInfoMap = new HashMap<>();
         skinInfoMap.put("barry",
-                List.of("true", "true", "0"));
+                List.of(TRUE, TRUE, "0"));
         skinInfoMap.put("barryWoman",
-                List.of("false", "false", "100"));
+                List.of(FALSE, FALSE, "100"));
         skinInfoLoader.uploadSkin(skinInfoMap);
 
         final SkinInfo skinsInfo = new SkinInfoImpl();
