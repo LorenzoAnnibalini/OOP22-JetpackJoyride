@@ -17,6 +17,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -73,6 +74,7 @@ public final class GamePanel extends JPanel {
     private final JLabel scoreLabel;
     private final JLabel moneyLabel;
     private static final float FONT_SIZE = 15f;
+    private static final String BACKGROUND = "background1";
     private static final long serialVersionUID = 1L;
     /**
      * Constant for the label's width.
@@ -108,10 +110,10 @@ public final class GamePanel extends JPanel {
         spriteLoader.loadSprites(FILENAME);
         final Map<String, Sprite> sprites = spriteLoader.getSpritesScaled();
         // loading background image
-        backgruondImage1 = sprites.get("background1").getScaled();
-        backgruondImage2 = sprites.get("background1").getScaled();
-        final int width = sprites.get("background1").getScaledlDim().getX();
-        final int height = sprites.get("background1").getScaledlDim().getY();
+        backgruondImage1 = sprites.get(BACKGROUND).getScaled();
+        backgruondImage2 = sprites.get(BACKGROUND).getScaled();
+        final int width = sprites.get(BACKGROUND).getScaledlDim().getX();
+        final int height = sprites.get(BACKGROUND).getScaledlDim().getY();
         slider = new SliderImpl(width);
         // loading sprite images and adjust sizes
         rocket = sprites.get("rocket").getScaled();
@@ -167,7 +169,10 @@ public final class GamePanel extends JPanel {
         g2d.drawImage(backgruondImage1, this.posImage1 - slider.getPos(), 0, this);
         g2d.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
         // Draw entities
-        for (final Pair<String, GameObject> el : entities) {
+        final Iterator<Pair<String, GameObject>> it = this.entities.iterator();
+        //for (final Pair<String, GameObject> el : entities) {
+        while(it.hasNext()) {
+            final Pair<String, GameObject> el = it.next();
             final String entityName = el.getX();
             final GameObject entity = el.getY();
             switch (entityName) {

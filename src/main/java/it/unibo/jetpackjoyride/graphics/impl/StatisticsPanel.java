@@ -29,7 +29,9 @@ public final class StatisticsPanel extends JPanel {
     private final Saves saves;
     private static final float FONT_SIZE = 30f;
     private Map<String, Integer> statsMap;
-    private JTextArea statsArea;
+    private final JTextArea statsArea;
+    private static final String SEPARATOR = " : ";
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructor of the class.
@@ -60,6 +62,7 @@ public final class StatisticsPanel extends JPanel {
         this.statsMap = new HashMap<>();
     }
 
+    //@SuppressFBWarnings
     /**
      * Method to update the statistics panel.
      * 
@@ -69,21 +72,21 @@ public final class StatisticsPanel extends JPanel {
     public void update() throws FileNotFoundException, IOException {
         statsMap.clear();
         statsMap = saves.downloadSaves();
-        String statsText = StatisticsImpl.ACTUAL_MONEY.getY() + " : "
-                + statsMap.get(StatisticsImpl.ACTUAL_MONEY.getX()) + "\n" + StatisticsImpl.DEATHS.getY() + " : "
-                + statsMap.get(StatisticsImpl.DEATHS.getX()) + "\n" + StatisticsImpl.MAX_MONEY.getY() + " : " + statsMap
+        final String statsText = StatisticsImpl.ACTUAL_MONEY.getY() + SEPARATOR
+                + statsMap.get(StatisticsImpl.ACTUAL_MONEY.getX()) + "\n" + StatisticsImpl.DEATHS.getY() + SEPARATOR
+                + statsMap.get(StatisticsImpl.DEATHS.getX()) + "\n" + StatisticsImpl.MAX_MONEY.getY() + SEPARATOR + statsMap
                         .get(StatisticsImpl.MAX_MONEY.getX())
-                + "\n" + StatisticsImpl.GRABBED_MONEY.getY() + " : " + statsMap
+                + "\n" + StatisticsImpl.GRABBED_MONEY.getY() + SEPARATOR + statsMap
                         .get(StatisticsImpl.GRABBED_MONEY.getX())
                 + "\n" + StatisticsImpl.GRABBED_OBJECTS.getY()
-                + " : " + statsMap.get(StatisticsImpl.GRABBED_OBJECTS.getX()) + "\n"
-                + StatisticsImpl.KILLED_NPC.getY() + " : " + statsMap.get(StatisticsImpl.KILLED_NPC.getX())
-                + "\n" + StatisticsImpl.MAX_METERS.getY() + " : "
+                + SEPARATOR + statsMap.get(StatisticsImpl.GRABBED_OBJECTS.getX()) + "\n"
+                + StatisticsImpl.KILLED_NPC.getY() + SEPARATOR + statsMap.get(StatisticsImpl.KILLED_NPC.getX())
+                + "\n" + StatisticsImpl.MAX_METERS.getY() + SEPARATOR
                 + statsMap.get(StatisticsImpl.MAX_METERS.getX()) + "\n" + StatisticsImpl.MAX_MONEY.getY()
-                + " : " + statsMap.get(StatisticsImpl.MAX_MONEY.getX()) + "\n"
-                + StatisticsImpl.MONEY_SPENT.getY() + " : "
+                + SEPARATOR + statsMap.get(StatisticsImpl.MAX_MONEY.getX()) + "\n"
+                + StatisticsImpl.MONEY_SPENT.getY() + SEPARATOR
                 + statsMap.get(StatisticsImpl.MONEY_SPENT.getX()) + "\n" + StatisticsImpl.TOTAL_METERS.getY()
-                + " : " + statsMap.get(StatisticsImpl.TOTAL_METERS.getX()) + "\n";
+                + SEPARATOR + statsMap.get(StatisticsImpl.TOTAL_METERS.getX()) + "\n";
         statsArea.setText(statsText);
     }
 }
