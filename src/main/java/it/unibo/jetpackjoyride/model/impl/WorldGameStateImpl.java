@@ -240,10 +240,10 @@ public final class WorldGameStateImpl implements WorldGameState {
      * deleted.
      */
     private void entitiesGarbage() {
-        Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
-        Iterator<Money> moneyIterator = this.money.iterator();
+        final Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
+        final Iterator<Money> moneyIterator = this.money.iterator();
         while (entityIterator.hasNext()) {
-            Pair<String, GameObject> entity = entityIterator.next();
+            final Pair<String, GameObject> entity = entityIterator.next();
             if (entity.getY().getCurrentPos().getX() < 0
                     || entity.getY().getCurrentPos().getX() > FRAME_WIDTH + VOID_SPACE_ON_RIGHT) {
                 entityIterator.remove();
@@ -251,7 +251,7 @@ public final class WorldGameStateImpl implements WorldGameState {
         }
 
         while (moneyIterator.hasNext()) {
-            Money moneyElem = moneyIterator.next();
+            final Money moneyElem = moneyIterator.next();
             if (moneyElem.getCurrentPos().getX() < 0) {
                 moneyIterator.remove();
             }
@@ -284,8 +284,8 @@ public final class WorldGameStateImpl implements WorldGameState {
         this.runStatistics.addStatistic("KilledNpc", 0);
         this.runStatistics.addStatistic("GrabbedObjects", 0);
         this.isFlying = false;
-        Point2d playerPosition = new Point2d(X_PLAYER_POSITION, Y_PLAYER_POSITION);
-        Vector2d playerVelocity = new Vector2d(playerPosition, playerPosition);
+        final Point2d playerPosition = new Point2d(X_PLAYER_POSITION, Y_PLAYER_POSITION);
+        final Vector2d playerVelocity = new Vector2d(playerPosition, playerPosition);
         this.timeToWaitNewEntities = this.timeToWait();
         this.previousCycleStartTime = System.currentTimeMillis();
         this.player = new PlayerImpl(playerPosition, playerVelocity,
@@ -306,7 +306,7 @@ public final class WorldGameStateImpl implements WorldGameState {
     private void updateEntities(final long elapsedTime) {
         this.entities.stream().forEach(entity -> {
             if (entity.getX().matches("Rocket")) {
-                Rocket rocket = (Rocket) entity.getY();
+                final Rocket rocket = (Rocket) entity.getY();
                 if (!rocket.isActive()) {
                     rocket.checkState(elapsedTime);
                 } else {
@@ -349,16 +349,16 @@ public final class WorldGameStateImpl implements WorldGameState {
      * change its state or doing something related to the entity.
      */
     private void updateTimeLaser() {
-        Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
+        final Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
         if (this.deciderEntitiesGenerator == 2
                 && this.entities.stream().filter(entity -> entity.getX().matches("Laser")).count() != 0) {
             while (entityIterator.hasNext()) {
-                Pair<String, GameObject> laserRay = entityIterator.next();
-                LaserRay laserRayObj = (LaserRay) laserRay.getY();
+                final Pair<String, GameObject> laserRay = entityIterator.next();
+                final LaserRay laserRayObj = (LaserRay) laserRay.getY();
                 laserRayObj.checkState(1);
                 if (laserRayObj.isEnd()) {
                     entityIterator.remove();
-                    if (this.entities.size() == 0) {
+                    if (this.entities.isEmpty()) {
                         this.deciderEntitiesGenerator = this.randomDecider();
                     }
                 }
@@ -375,7 +375,7 @@ public final class WorldGameStateImpl implements WorldGameState {
      * @return the number generated.
      */
     private int randomDecider() {
-        int valueRandom = random.nextInt(GENERAL_PROBABILITY);
+        final int valueRandom = random.nextInt(GENERAL_PROBABILITY);
         if (valueRandom < ENTITY_PROBABILITY) {
             return 0;
         } else if (valueRandom < ENTITY_PROBABILITY + MONEY_PROBABILITY) {

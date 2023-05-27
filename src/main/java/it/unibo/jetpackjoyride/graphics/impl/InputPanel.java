@@ -26,7 +26,8 @@ import it.unibo.jetpackjoyride.input.impl.InputImpl;
  */
 public final class InputPanel extends JPanel implements KeyListener {
 
-    private InputQueue inputHandler;
+    private static final long serialVersionUID = 22468L;
+    private final InputQueue inputHandler;
     private boolean isPressed;
 
     /**
