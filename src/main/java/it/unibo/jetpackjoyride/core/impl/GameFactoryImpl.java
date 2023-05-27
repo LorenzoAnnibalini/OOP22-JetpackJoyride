@@ -63,6 +63,7 @@ public class GameFactoryImpl implements GameFactory {
     public final Electrode createElectrode(final Set<Pair<String, GameObject>> entities) {
         final int y = this.getY(entities);
         final int orientation = random.nextInt(GameFactoryImpl.RANDOMSEED);
+        this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         if (orientation == GameFactoryImpl.HORIZONTAL) {
             this.hitbox = new HitboxImpl(RECTANGLEHITBOX.getY(), RECTANGLEHITBOX.getX(),
                     new Point2d(startPosition.getX(), startPosition.getY()));
@@ -70,7 +71,6 @@ public class GameFactoryImpl implements GameFactory {
             this.hitbox = new HitboxImpl(RECTANGLEHITBOX.getX(), RECTANGLEHITBOX.getY(),
                     new Point2d(startPosition.getX(), startPosition.getY()));
         }
-        this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
         return new Electrode(this.startPosition, this.velocity, 
