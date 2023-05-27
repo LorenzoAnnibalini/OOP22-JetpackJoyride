@@ -3,8 +3,10 @@ package it.unibo.jetpackjoyride.core;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import java.util.Queue;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedList;
+
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
@@ -18,29 +20,31 @@ import it.unibo.jetpackjoyride.model.impl.Money;
  */
 public class MoneyPatternTest {
 
-    private final static int fileNumber = 1;
-    private final MoneyPatternLoader moneyPatternLoader = new MoneyPatternLoaderImpl(fileNumber);
+    private static final int FILE_NUMBER = 1;
+    private final MoneyPatternLoader moneyPatternLoader = new MoneyPatternLoaderImpl(FILE_NUMBER);
 
     @Test
     void testMoneyPatternLoader() throws IOException {
         final int index = 0;
-        List<Money> moneyList = new ArrayList<>();
-        moneyList = moneyPatternLoader.getMoneyPattern();
-        assertEquals(28, moneyList.size());
-        assertEquals(2330, moneyList.remove(index).getCurrentPos().getX());
-        assertEquals(2285, moneyList.remove(index).getCurrentPos().getX());
-        assertEquals(2248, moneyList.remove(index).getCurrentPos().getX());
-        assertEquals(2233, moneyList.remove(index).getCurrentPos().getX());
-        assertEquals(2248, moneyList.remove(index).getCurrentPos().getX());
-        assertEquals(2285, moneyList.remove(index).getCurrentPos().getX());
-        assertEquals(2330, moneyList.remove(index).getCurrentPos().getX());
+        final int moneyListSize = 28;
+        final List<Money> moneyList = moneyPatternLoader.getMoneyPattern();
+        // CHECKSTYLE: MagicNumber OFF
+        /* rule deactivated because these are all values ​​of the x coordinates at different instants, 
+         *it would be redundant to create a variable for each possible value
+         */
+        Queue<Double> expectedXValue = new LinkedList<>(List.of(2330d, 2285d, 2248d, 2566d)); 
+        // CHECKSTYLE: MagicNumber ON
+        assertEquals(moneyListSize, moneyList.size());
+        assertEquals(expectedXValue.poll(), moneyList.remove(index).getCurrentPos().getX());
+        assertEquals(expectedXValue.poll(), moneyList.remove(index).getCurrentPos().getX());
+        assertEquals(expectedXValue.poll(), moneyList.remove(index).getCurrentPos().getX());
 
         /*Rimuovo tutti gli elementi tranne l'ultimo*/
-        while(moneyList.size() > 1) {
+        while (moneyList.size() > 1) {
             moneyList.remove(index);
         }
 
         /*Controllo che anche l'ultimo sia giusto*/
-        assertEquals(2566, moneyList.remove(index).getCurrentPos().getX());
+        assertEquals(expectedXValue.poll(), moneyList.remove(index).getCurrentPos().getX());
     }
 }

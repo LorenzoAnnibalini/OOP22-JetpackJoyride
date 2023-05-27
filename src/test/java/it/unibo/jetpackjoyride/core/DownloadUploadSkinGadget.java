@@ -17,6 +17,9 @@ import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 
+/**
+ * JUnit test to test the correct download and upload of skins and gadget.
+ */
 public class DownloadUploadSkinGadget {
 
     private final GadgetLoader gadgetLoader = new GadgetLoaderImpl();
@@ -33,8 +36,8 @@ public class DownloadUploadSkinGadget {
 
         final Gadget gadgets = new GadgetImpl();
         gadgetLoader.downloadGadget();
-        assertEquals("the map read from file is not" +
-                "equals to the map written in the file", gadgetMap, gadgets.getAll());
+        assertEquals("the map read from file is not"
+                + "equals to the map written in the file", gadgetMap, gadgets.getAll());
     }
 
     @Test
@@ -48,7 +51,7 @@ public class DownloadUploadSkinGadget {
 
         final SkinInfo skinsInfo = new SkinInfoImpl();
         skinInfoLoader.downloadSkin();
-        assertEquals("the map read from file is not " +
-                "equals to the map written in the file", skinInfoMap, skinsInfo.getAll());
+        assertEquals("the map read from file is not "
+                + "equals to the map written in the file", skinInfoMap, skinsInfo.getAll());
     }
 }
