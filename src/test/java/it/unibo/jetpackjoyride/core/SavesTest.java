@@ -24,13 +24,13 @@ public class SavesTest {
 
     @Test
     void testDownloadAndUploadDatas() throws IOException {
-        // Test to count if there are 8 statistics downloaded
+        // Test to count if there are 9 statistics downloaded
         assertEquals(9, saves.downloadSaves().size());
-        stats.setAll(saves.downloadSaves());
         Map<String, Integer> statsMap = Map.of("MaxMoney", 0, "MaxMeters", 0, "MoneySpent", 0, "KilledNpc", 0, "Deaths",
                 0,
                 "GrabbedObjects", 0, "GrabbedMoney", 0, "TotalMeters", 0, "ActualMoney", 0);
         saves.uploadSaves(statsMap);
+        stats.setAll(saves.downloadSaves());
         // Test to verify if the value are right
         assertEquals(statsMap, saves.downloadSaves());
         // Some operation on datas
@@ -43,7 +43,11 @@ public class SavesTest {
         // Test to verify if the value are still right after operations
         assertEquals(Map.of("MaxMoney", 0, "MaxMeters", 547, "MoneySpent", 2500, "KilledNpc", 5, "Deaths", 1,
                 "GrabbedObjects", 0, "GrabbedMoney", 0, "TotalMeters", 0, "ActualMoney", 0), saves.downloadSaves());
-
+        // Reset all datas
+        for (String key : stats.getAll().keySet()) {
+            stats.setValue(key, 0);
+        }
+        saves.uploadSaves(stats.getAll());
     }
 
 }
