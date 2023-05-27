@@ -71,7 +71,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
     }
 
     @Override
-    public final ArrayList<Money> getMoneyPattern() throws IOException {
+    public final ArrayList<Money> getMoneyPattern() {
         String fileNumber;
         String fileContent;
         fileNumber = Integer.toString((int) Math.floor(Math.random()
@@ -82,6 +82,8 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
             fileContent = new String(stream.readAllBytes(),
                     StandardCharsets.UTF_8);
             stream.close();
+        } catch (IOException e) {
+            throw new IllegalStateException("Error while reading Money Pattern " + fileNumber + "file", e);
         }
 
         final ArrayList<Money> moneyList = new ArrayList<>();
@@ -98,7 +100,6 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
                 final Hitbox hitbox = new HitboxImpl(15, 15, startPosition);
                 moneyList.add(new Money(startPosition, vec, hitbox));
             }
-            filePattern.close();
         }
         return moneyList;
     }
