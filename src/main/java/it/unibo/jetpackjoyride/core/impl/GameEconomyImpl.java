@@ -46,6 +46,11 @@ public class GameEconomyImpl implements GameEconomy {
     private final Saves saves;
     private final Statistics generalStatistics;
 
+    private static final String TRUE = "true";
+    private static final String FALSE = "false";
+    private static final String ACTUALMONEY = "ActualMoney";
+    private static final String MONEYSPENT = "MoneySpent";
+
     /**
      * Constructor of the GameEconomyImpl class.
      * @param generalStatistics
@@ -62,12 +67,12 @@ public class GameEconomyImpl implements GameEconomy {
         this.gadgetInfo = gadget.getValue(name);
         final int gadgetPrice = Integer.parseInt(
                 gadgetInfo.get(GadgetInfoPositions.PRICE.ordinal()));
-        final int actualMoney = this.generalStatistics.getValue("ActualMoney");
+        final int actualMoney = this.generalStatistics.getValue(ACTUALMONEY);
         if (actualMoney >= gadgetPrice) {
-            gadgetInfo.set(GadgetInfoPositions.PURCHASED.ordinal(), "true");
+            gadgetInfo.set(GadgetInfoPositions.PURCHASED.ordinal(), TRUE);
             gadget.setValue(name, gadgetInfo);
-            generalStatistics.increment("ActualMoney", -gadgetPrice);
-            generalStatistics.increment("MoneySpent", gadgetPrice);
+            generalStatistics.increment(ACTUALMONEY, -gadgetPrice);
+            generalStatistics.increment(MONEYSPENT, gadgetPrice);
         }
         try {
             saves.uploadSaves(generalStatistics.getAll());
@@ -79,8 +84,8 @@ public class GameEconomyImpl implements GameEconomy {
     @Override
     public final void enableGadget(final String name) {
         this.gadgetInfo = gadget.getValue(name);
-        if (gadgetInfo.get(GadgetInfoPositions.PURCHASED.ordinal()).equals("true")) {
-            gadgetInfo.set(GadgetInfoPositions.STATE.ordinal(), "true");
+        if (TRUE.equals(gadgetInfo.get(GadgetInfoPositions.PURCHASED.ordinal()))) {
+            gadgetInfo.set(GadgetInfoPositions.STATE.ordinal(), TRUE);
             gadget.setValue(name, gadgetInfo);
         }
     }
@@ -88,7 +93,7 @@ public class GameEconomyImpl implements GameEconomy {
     @Override
     public final void disableGadget(final String name) {
         this.gadgetInfo = gadget.getValue(name);
-        gadgetInfo.set(GadgetInfoPositions.STATE.ordinal(), "false");
+        gadgetInfo.set(GadgetInfoPositions.STATE.ordinal(), FALSE);
         gadget.setValue(name, gadgetInfo);
     }
 
@@ -97,12 +102,12 @@ public class GameEconomyImpl implements GameEconomy {
         this.skinInfo = skin.getValue(name);
         final int skinPrice = Integer.parseInt(
                 skinInfo.get(SkinInfoPositions.PRICE.ordinal()));
-        final int actualMoney = generalStatistics.getValue("ActualMoney");
+        final int actualMoney = generalStatistics.getValue(ACTUALMONEY);
         if (actualMoney >= skinPrice) {
-            skinInfo.set(SkinInfoPositions.PURCHASED.ordinal(), "true");
+            skinInfo.set(SkinInfoPositions.PURCHASED.ordinal(), TRUE);
             skin.setValue(name, skinInfo);
-            generalStatistics.increment("ActualMoney", -skinPrice);
-            generalStatistics.increment("MoneySpent", skinPrice);
+            generalStatistics.increment(ACTUALMONEY, -skinPrice);
+            generalStatistics.increment(MONEYSPENT, skinPrice);
         }
         try {
             saves.uploadSaves(generalStatistics.getAll());
@@ -114,16 +119,16 @@ public class GameEconomyImpl implements GameEconomy {
     @Override
     public final void selectSkin(final String name) {
         this.skinInfo = skin.getValue(name);
-        if (skinInfo.get(SkinInfoPositions.PURCHASED.ordinal()).equals("true")) {
+        if (TRUE.equals(skinInfo.get(SkinInfoPositions.PURCHASED.ordinal()))) {
             final Map<String, List<String>> allSkin = skin.getAll();
 
             allSkin.entrySet().stream()
-                    .filter(e -> e.getValue().get(SkinInfoPositions.STATE.ordinal()).equals("true"))
+                    .filter(e -> TRUE.equals(e.getValue().get(SkinInfoPositions.STATE.ordinal())))
                     .forEach(e -> {
-                        e.getValue().set(SkinInfoPositions.STATE.ordinal(), "false");
+                        e.getValue().set(SkinInfoPositions.STATE.ordinal(), FALSE);
                         skin.setValue(e.getKey(), e.getValue());
                     });
-            skinInfo.set(GadgetInfoPositions.STATE.ordinal(), "true");
+            skinInfo.set(GadgetInfoPositions.STATE.ordinal(), TRUE);
             skin.setValue(name, skinInfo);
         }
     }

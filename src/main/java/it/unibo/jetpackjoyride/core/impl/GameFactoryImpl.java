@@ -39,7 +39,7 @@ public class GameFactoryImpl implements GameFactory {
     private static final int RIGHT = 1;
     private static final int RANDOMSEED = 2;
     private static final int SQUAREHITBOX = 50;
-    private static final Pair<Integer, Integer> RECTANGLEHITBOX = new Pair<Integer, Integer>(100, 25);
+    private static final Pair<Integer, Integer> RECTANGLEHITBOX = new Pair<>(100, 25);
     private static final int SCIENTISTWIDTH = 30;
     private static final int LASERRAYHEIGHT = 30;
     private static final int NOTHINGHITBOX = 0;

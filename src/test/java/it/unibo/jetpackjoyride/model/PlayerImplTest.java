@@ -27,7 +27,7 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
  *
  * @author lorenzo.bacchini4@studio.unibo.it
  */
-public class PlayerImplTest {
+class PlayerImplTest {
 
     private final Point2d position = new Point2d(30, 250);
     private final Vector2d velocity = new Vector2d(30, 250);
@@ -35,6 +35,8 @@ public class PlayerImplTest {
     private final Saves saves = new SavesImpl();
     private final StatisticsImpl statistics = new StatisticsImpl();
     private final PlayerImpl player;
+    private static final String TRUE = "true";
+    private static final String FALSE = "false";
 
     /**
      * Constructor of the class PlayerImplTest.
@@ -52,15 +54,15 @@ public class PlayerImplTest {
     void testApplyGadget() {
         // Load gadget
         final Gadget gadget = new GadgetImpl();
-        Map<String, List<String>> gadgetMap = new HashMap<>();
+        final Map<String, List<String>> gadgetMap = new HashMap<>();
         // CHECKSTYLE: MagicNumber OFF
         /* rule deactivated because these are all values ​​of the speed y at different instants, 
          *it would be redundant to create a variable for each possible value
          */
-        Queue<Double> expectedYValue = new LinkedList<>(List.of(160d, -188.5d, 0d, 208d)); 
+        final Queue<Double> expectedYValue = new LinkedList<>(List.of(160d, -188.5d, 0d, 208d)); 
         // CHECKSTYLE: MagicNumber ON
-        gadgetMap.put("Air Barry", List.of("true", "true", "100", "Moltiplicatore di salto iniziale"));
-        gadgetMap.put("Gravity Belt", List.of("false", "true", "150", "Aumento gravita'"));
+        gadgetMap.put("Air Barry", List.of(TRUE, TRUE, "100", "Moltiplicatore di salto iniziale"));
+        gadgetMap.put("Gravity Belt", List.of(FALSE, TRUE, "150", "Aumento gravita'"));
         GadgetImpl.setAll(gadgetMap);
 
         // Check if the player constuction was successful
@@ -78,7 +80,7 @@ public class PlayerImplTest {
         assertEquals(expectedYValue.poll(), player.getCurrentVel().getY());
 
         /* Set to active also the second gadget */
-        gadget.setValue("Gravity Belt", "true", "true", "150$", "Aumento gravita'");
+        gadget.setValue("Gravity Belt", TRUE, TRUE, "150$", "Aumento gravita'");
 
         player.setDirectionSTATIC();
         assertEquals(expectedYValue.poll(), player.getCurrentVel().getY());

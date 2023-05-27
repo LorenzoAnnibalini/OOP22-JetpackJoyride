@@ -1,7 +1,8 @@
 package it.unibo.jetpackjoyride.core.api;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
+
 import it.unibo.jetpackjoyride.model.impl.Money;
 
 /**
@@ -16,5 +17,5 @@ public interface MoneyPatternLoader {
      * 
      * @return an array list of Money
      */
-    ArrayList<Money> getMoneyPattern() throws IOException;
+    List<Money> getMoneyPattern() throws IOException;
 }

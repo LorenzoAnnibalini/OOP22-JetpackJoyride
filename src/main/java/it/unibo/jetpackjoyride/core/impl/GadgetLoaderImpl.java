@@ -33,7 +33,7 @@ public class GadgetLoaderImpl implements GadgetLoader {
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             final String name = line.split(";")[NAME];
-            line = line.substring(line.indexOf(";") + 1);
+            line = line.substring(line.indexOf(';') + 1);
             gadgetMap.put(name,
                     new ArrayList<>(List.of(
                             line.split(";")[GadgetInfoPositions.STATE.ordinal()],
@@ -41,6 +41,7 @@ public class GadgetLoaderImpl implements GadgetLoader {
                             line.split(";")[GadgetInfoPositions.PRICE.ordinal()],
                             line.split(";")[GadgetInfoPositions.DESCRIPTION.ordinal()])));
         }
+        sc.close();
         GadgetImpl.setAll(gadgetMap);
         return gadgetMap;
     }

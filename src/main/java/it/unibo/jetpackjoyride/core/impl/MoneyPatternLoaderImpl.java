@@ -30,10 +30,10 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
      * N.B the number of available file must be the same of the number
      * of file money_.txt in the resources folder.
      */
-    private int availableFile = 4;
-    private int minAvailableFile = 1;
-    private String fileNumber;
-    private final String filename = "/money";
+    private final int availableFile;
+    private final int minAvailableFile;
+    private static final String filename = "/money";
+    private static final int NFILE = 4;
     // Range to change the y coordinate of the money.
     private static final int RANGE = 150;
     // Random to multiply the range.
@@ -50,6 +50,8 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
      *                                  file.
      */
     public MoneyPatternLoaderImpl() {
+        this.availableFile = NFILE;
+        this.minAvailableFile = 1;
         if (this.availableFile < this.minAvailableFile) {
             throw new IllegalArgumentException(
                     "The number of available file is less than the minimum number of available file.");
@@ -70,7 +72,8 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
 
     @Override
     public final ArrayList<Money> getMoneyPattern() throws IOException {
-        this.fileNumber = Integer.toString((int) Math.floor(Math.random()
+        String fileNumber;
+        fileNumber = Integer.toString((int) Math.floor(Math.random()
                 * (this.availableFile - this.minAvailableFile + 1)
                 + this.minAvailableFile));
 

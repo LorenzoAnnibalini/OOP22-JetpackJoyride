@@ -34,13 +34,14 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader {
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             final String name = line.split(";")[NAME];
-            line = line.substring(line.indexOf(";") + 1);
+            line = line.substring(line.indexOf(';') + 1);
             skinMap.put(name,
                     new ArrayList<>(List.of(
                             line.split(";")[SkinInfoPositions.STATE.ordinal()],
                             line.split(";")[SkinInfoPositions.PURCHASED.ordinal()],
                             line.split(";")[SkinInfoPositions.PRICE.ordinal()])));
         }
+        sc.close();
         SkinInfoImpl.setAll(skinMap);
         return skinMap;
     }
