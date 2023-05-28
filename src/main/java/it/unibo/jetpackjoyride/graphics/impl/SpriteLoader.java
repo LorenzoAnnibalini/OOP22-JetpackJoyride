@@ -6,16 +6,12 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.LogManager;
-
 import javax.imageio.ImageIO;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
-
 
 /**
  * Class that loads from file and saves sprites' images.
@@ -54,20 +50,20 @@ public class SpriteLoader {
      * 
      * @param filename the name of the file
      * @throws ParseException exception if file is not parsed
-     * @throws IOException exception if file is not found
+     * @throws IOException    exception if file is not found
      */
     public void loadSprites(final String filename) throws ParseException, IOException {
         final JSONParser parser = new JSONParser();
         String fileContent;
-        JSONObject jsonObj = new JSONObject();
-        //final InputStream stream = this.getClass().getResourceAsStream(filename);
-        try (InputStream stream = this.getClass().getResourceAsStream(filename)){
+        JSONObject jsonObj;
+        // final InputStream stream = this.getClass().getResourceAsStream(filename);
+        try (InputStream stream = this.getClass().getResourceAsStream(filename)) {
             fileContent = new String(stream.readAllBytes(),
                     StandardCharsets.UTF_8);
             stream.close();
             jsonObj = (JSONObject) parser.parse(fileContent);
         } catch (ParseException | IOException e) {
-            LogManager.getLogManager().getLogger(Logger.ROOT_LOGGER_NAME).severe(e.getMessage());
+            throw new IllegalStateException("Error while parsing file", e);
         }
         try {
             // load sprites
@@ -94,7 +90,7 @@ public class SpriteLoader {
             }
 
         } catch (final IOException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Error while loading sprites", e);
         }
     }
 }

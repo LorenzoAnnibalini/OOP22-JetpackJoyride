@@ -37,14 +37,14 @@ public final class SavesImpl implements Saves {
             }
             this.statistics.setAll(stats);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Error while reading statistics from file", e);
         }
         return stats;
     }
 
     @Override
     public void uploadSaves(final Map<String, Integer> stats) throws IOException {
-        //final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+        // final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (final String name : stats.keySet()) {
                 writer.write(name + ";" + stats.get(name) + "\n");
@@ -56,4 +56,3 @@ public final class SavesImpl implements Saves {
     }
 
 }
-

@@ -20,7 +20,7 @@ public interface EntitiesGenerator {
     void generateObstacles(Set<Pair<String, GameObject>> entities, int num);
 
     /**
-     * Method to generate new powerups (Electrode, LaserRay or Rocket).
+     * Method to generate new powerups (Electrode or Rocket).
      * 
      * @param entities the set of entities already spwaned in game
      * @param num number of entities to generate
