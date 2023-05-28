@@ -1,11 +1,13 @@
 package it.unibo.jetpackjoyride.core.impl;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import it.unibo.jetpackjoyride.core.api.Saves;
@@ -30,7 +32,7 @@ public final class SavesImpl implements Saves {
     @Override
     public Map<String, Integer> downloadSaves() throws IOException {
         final Map<String, Integer> stats = new HashMap<>();
-        try (Scanner scanner = new Scanner(new File(filename))) {
+        try (Scanner scanner = new Scanner(new File(filename), "UTF-8")) {
             while (scanner.hasNextLine()) {
                 final String line = scanner.nextLine();
                 stats.put(line.split(";")[SavesImpl.NAME], Integer.parseInt(line.split(";")[SavesImpl.VALUE]));
@@ -44,10 +46,9 @@ public final class SavesImpl implements Saves {
 
     @Override
     public void uploadSaves(final Map<String, Integer> stats) throws IOException {
-        // final BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            for (final String name : stats.keySet()) {
-                writer.write(name + ";" + stats.get(name) + "\n");
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(filename), "UTF-8");) {
+            for (final Entry<String, Integer> value : stats.entrySet()) {
+                writer.write(value.getKey() + ";" + value.getValue() + "\n");
             }
             writer.close();
         } catch (IOException e) {
