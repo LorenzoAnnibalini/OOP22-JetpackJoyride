@@ -73,31 +73,31 @@ public final class WorldGameStateImpl implements WorldGameState {
      */
     public WorldGameStateImpl(final InputQueue inputHandler) throws IOException {
         this.inputHandler = inputHandler;
-        this.generalStatistics = new StatisticsImpl();
         this.saves = new SavesImpl();
         this.moneyPatternLoader = new MoneyPatternLoaderImpl();
         this.random = new Random();
         final SkinInfoLoaderImpl skinInfoLoader = new SkinInfoLoaderImpl();
-        final GadgetLoaderImpl gadgetLoader = new GadgetLoaderImpl();
         try {
             skinInfoLoader.downloadSkin();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Error during dowload of the skin", e);
         }
+        final GadgetLoaderImpl gadgetLoader = new GadgetLoaderImpl();
         try {
             gadgetLoader.downloadGadget();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Error during dowload of the gadget", e);
         }
+        this.generalStatistics = new StatisticsImpl();
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Error during dowload of the saves", e);
         }
     }
 
     @Override
-    public void updateState(final long elapsedTime) {
+    public void updateState(final long elapsedTime) throws IOException {
         if (!this.isFlying) {
             this.player.setDirectionDOWN();
         } else {
@@ -122,8 +122,10 @@ public final class WorldGameStateImpl implements WorldGameState {
      * the decider is 0, create new entities. Else if the decider is 1, create new
      * money. Else if the decider is 2 and there are no entities, create new
      * lasers. If there are no scientists in the world, create new scientists.
+     * 
+     * @throws IOException
      */
-    private void newEntities() {
+    private void newEntities() throws IOException {
         final long currentCycleStartTime = System.currentTimeMillis();
         final long timePassed = currentCycleStartTime - this.previousCycleStartTime;
         if (timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 0) {
@@ -139,11 +141,7 @@ public final class WorldGameStateImpl implements WorldGameState {
             this.timeToWaitNewEntities = this.timeToWait();
             this.deciderEntitiesGenerator = this.randomDecider();
         } else if (timePassed >= this.timeToWaitNewEntities && this.deciderEntitiesGenerator == 1) {
-            try {
-                this.money.addAll(moneyPatternLoader.getMoneyPattern());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            this.money.addAll(moneyPatternLoader.getMoneyPattern());
             this.previousCycleStartTime = currentCycleStartTime;
             this.timeToWaitNewEntities = this.timeToWait();
             this.deciderEntitiesGenerator = this.randomDecider();
@@ -293,7 +291,7 @@ public final class WorldGameStateImpl implements WorldGameState {
         try {
             this.generalStatistics.setAll(this.saves.downloadSaves());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("The generalStatistics are not downloaded", e);
         }
         this.deciderEntitiesGenerator = START_NUMBER_DECIDER;
     }
@@ -330,18 +328,15 @@ public final class WorldGameStateImpl implements WorldGameState {
 
     /**
      * Notify that the game is ended at the game engine.
+     * 
+     * @throws IOException
      */
-    private void notifyEndGame() {
+    private void notifyEndGame() throws IOException {
         this.inputHandler.addInput(new InputImpl(Input.TypeInput.END_GAME, "endGame"));
         this.generalStatistics.increment("Deaths");
 
         this.generalStatistics.updateGeneralStats(this.runStatistics.getAll());
-        try {
-            this.saves.uploadSaves(this.generalStatistics.getAll());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        this.saves.uploadSaves(this.generalStatistics.getAll());
     }
 
     /**
@@ -407,7 +402,7 @@ public final class WorldGameStateImpl implements WorldGameState {
         try {
             this.inizializeWorldGameState();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("The game can't be started", e);
         }
     }
 

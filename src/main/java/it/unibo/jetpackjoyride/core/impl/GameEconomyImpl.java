@@ -77,7 +77,7 @@ public class GameEconomyImpl implements GameEconomy {
         try {
             saves.uploadSaves(generalStatistics.getAll());
         } catch (final IOException e) {
-            e.printStackTrace();
+            System.out.println("Error occurs while uploading statistics, impossible to buy gadget");
         }
     }
 
@@ -112,7 +112,7 @@ public class GameEconomyImpl implements GameEconomy {
         try {
             saves.uploadSaves(generalStatistics.getAll());
         } catch (final IOException e) {
-            e.printStackTrace();
+            System.out.println("Error occurs while uploading statistics, impossible to buy skin");
         }
     }
 

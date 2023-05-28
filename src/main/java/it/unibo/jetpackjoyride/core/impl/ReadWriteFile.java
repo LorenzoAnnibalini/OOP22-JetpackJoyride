@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -70,7 +71,7 @@ public class ReadWriteFile<T, G> {
      * @param <G> type of the value
      */
     public <T, G> Map<T, G> readMap() throws FileNotFoundException {
-        final Map<T, G> mappaTmp = new HashMap<T, G>();
+        final Map<T, G> mappaTmp = new HashMap<>();
         final Scanner sc = new Scanner(new File(this.path));
         sc.useDelimiter(";");
         while (sc.hasNext()) {
@@ -78,7 +79,6 @@ public class ReadWriteFile<T, G> {
             final G value = (G) sc.next();
             mappaTmp.put(key, value);
             sc.nextLine();
-            System.out.println("Reading Game Settings : " + key + " " + value);
         }
         sc.close();
         return mappaTmp;
@@ -91,7 +91,7 @@ public class ReadWriteFile<T, G> {
      * only use symple types (String,Integer,Double,Boolean,ECC)
      * @throws IOException
      */
-    public void writeArrayList(final ArrayList<T> list) throws IOException {
+    public void writeArrayList(final List<T> list) throws IOException {
         final PrintWriter writer = new PrintWriter(new File(this.path));
         for (final T name : list) {
             writer.write(name + "\n");
@@ -107,9 +107,9 @@ public class ReadWriteFile<T, G> {
      * @throws FileNotFoundException
      * @param <T> type of the list
      */
-    public <T> ArrayList<T> readArrayList() throws FileNotFoundException {
+    public <T> List<T> readArrayList() throws FileNotFoundException {
         final Scanner file = new Scanner(new File(this.path));
-        final ArrayList<T> list = new ArrayList<T>();
+        final ArrayList<T> list = new ArrayList<>();
         while (file.hasNextLine()) {
             final String line = file.nextLine();
             list.add((T) line);

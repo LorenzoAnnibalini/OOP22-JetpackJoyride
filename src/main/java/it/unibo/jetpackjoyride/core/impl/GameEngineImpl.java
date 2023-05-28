@@ -78,8 +78,10 @@ public final class GameEngineImpl implements GameEngine {
     /**
      * process the input from the input handler. It will do different things based
      * on the input type.
+     * 
+     * @throws IOException
      */
-    private void processInput() {
+    private void processInput() throws IOException {
         final List<Input> inputQueue = this.inputHandler.getInputQueue();
         for (final Input inputElem : inputQueue) {
             switch (inputElem.getType()) {
@@ -120,16 +122,9 @@ public final class GameEngineImpl implements GameEngine {
 
                 case EXIT:
                     if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
-                        try {
-                            this.gadgetLoader.uploadGadget(new GadgetImpl().getAll());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            this.skinInfoLoader.uploadSkin(new SkinInfoImpl().getAll());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        this.gadgetLoader.uploadGadget(new GadgetImpl().getAll());
+                        this.skinInfoLoader.uploadSkin(new SkinInfoImpl().getAll());
+
                         System.exit(0);
                     }
                     break;
@@ -177,8 +172,9 @@ public final class GameEngineImpl implements GameEngine {
      * update the world game state.
      * 
      * @param elapsedTime
+     * @throws IOException
      */
-    private void updateWorldGameState(final long elapsedTime) {
+    private void updateWorldGameState(final long elapsedTime) throws IOException {
         if (this.currentState == GameState.GAME) {
             this.worldGameState.updateState(elapsedTime);
         }

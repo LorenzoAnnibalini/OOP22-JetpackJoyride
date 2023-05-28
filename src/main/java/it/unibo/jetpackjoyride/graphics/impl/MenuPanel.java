@@ -17,6 +17,7 @@ import java.awt.Font;
 
 public class MenuPanel extends JPanel {
 
+    private static final long serialVersionUID = 11L;
 
     /**
      * Constructor of the MenuPanel.
