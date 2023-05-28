@@ -56,7 +56,6 @@ public final class ViewImpl extends JFrame implements View {
             final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
             customFont = new Font("Arial", Font.PLAIN, SIZE);
         }
         MenuPanel menuPanel;
