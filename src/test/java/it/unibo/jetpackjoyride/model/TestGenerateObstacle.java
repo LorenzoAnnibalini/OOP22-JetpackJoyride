@@ -43,20 +43,20 @@ class TestGenerateObstacle {
             InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
         Set<Pair<String, GameObject>> entities = new HashSet<>();
         final EntitiesGenerator eg = new EntitiesGeneratorImpl();
-        List<String> expectedReturns = List.of("Rocket", "Electrode", "ShieldPowerUp", "SpeedUpPowerUp", "Scientist",
+        List<String> expectedReturns = List.of("Rocket", "Electrode", "ShieldPowerUp", "SpeedUpPowerup", "Scientist",
                 "Laser", "Nothing");
         // Test for generateObstacles
         eg.generateObstacles(entities, 1);
-        assertEquals(1, entities.size());
         entities = eg.getEntities();
+        assertEquals(1, entities.size());
         // Test for generatePowerUps
         eg.generatePowerUps(entities, 2);
-        assertEquals(3, entities.size());
         entities = eg.getEntities();
+        assertEquals(3, entities.size());
         // Test for generateScientists
         eg.generateScientists(entities, 4);
-        assertEquals(7, entities.size());
         entities = eg.getEntities();
+        assertEquals(7, entities.size());
         for (final Pair<String, GameObject> ent : entities) {
             assertTrue(expectedReturns.contains(ent.getX()));
         }

@@ -57,7 +57,7 @@ public final class SliderImpl extends Thread implements Slider {
                     this.resetPos();
                 }
             } catch (final InterruptedException e) {
-                e.printStackTrace();
+                throw new IllegalStateException("Error while running the thread for background image", e);
             }
         }
     }
