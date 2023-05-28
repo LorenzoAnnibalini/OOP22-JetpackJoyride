@@ -39,10 +39,8 @@ public class ShieldPowerUpImpl extends GameObject {
      * 
      */
     public boolean isActive() {
-        if (this.active) {
-            if (System.currentTimeMillis() - this.startTime > this.duration) {
-                this.active = false;
-            }
+        if (this.active && System.currentTimeMillis() - this.startTime > this.duration) {
+            this.active = false;
         }
         return this.active;
     }

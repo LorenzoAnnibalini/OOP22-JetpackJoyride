@@ -16,6 +16,8 @@ import java.awt.GridLayout;
 
 public class MenuMainPage extends JPanel {
 
+    private static final long serialVersionUID = 12L;
+
     // Main Page panels
     private final JPanel mainPageOptions = new JPanel();
     private final JPanel mainPageComands = new JPanel();
@@ -30,7 +32,6 @@ public class MenuMainPage extends JPanel {
     // Title of the main page
     private final JTextArea title = new JTextArea();
     private final JPanel titlePanel = new JPanel();
-    private final Font font;
     static final float SIZE = 50f;
 
     /**
@@ -40,7 +41,6 @@ public class MenuMainPage extends JPanel {
      */
     public MenuMainPage(final Font font) {
 
-        this.font = font;
         // Main Page layout
         this.setLayout(new BorderLayout());
 

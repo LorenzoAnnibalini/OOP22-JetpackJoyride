@@ -5,6 +5,8 @@ import it.unibo.jetpackjoyride.core.impl.GameSettingsImpl;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -20,25 +22,34 @@ import javax.swing.GroupLayout.Alignment;
 
 public class MenuSettingsPage extends JPanel {
 
+    private static final long serialVersionUID = 10L;
+
+    //Constants
+    static final String AUDIOON = "Audio ON";
+    static final String AUDIOOFF = "Audio OFF";
+    static final String EASY = "Difficult : EASY";
+    static final String MEDIUM = "Difficult : MEDIUM";
+    static final String HARD = "Difficult : HARD";
+
     // Settings panels
-    private JPanel settingsPageOption = new JPanel();
-    private JPanel settingsPageComands = new JPanel();
+    private final JPanel settingsPageOption = new JPanel();
+    private final JPanel settingsPageComands = new JPanel();
 
     // Title of the settings page
-    private JTextArea title = new JTextArea();
-    private JPanel titlePanel = new JPanel();
+    private final JTextArea title = new JTextArea();
+    private final JPanel titlePanel = new JPanel();
     static final int SIZE = 30;
 
     // Settings buttons
-    private JButton exit = new JButton("Exit");
-    private JButton returnBack = new JButton("Return");
-    private JButton audio = new JButton("Audio ON");
-    private JButton difficulty = new JButton("Easy");
+    private final JButton exit = new JButton("Exit");
+    private final JButton returnBack = new JButton("Return");
+    private final JButton audio = new JButton("Audio ON");
+    private final JButton difficulty = new JButton("Easy");
 
     /**
      * Constructor of the settings page.
      */
-    public MenuSettingsPage() {
+    public MenuSettingsPage() throws FileNotFoundException, IOException {
 
         // Settings Page layout
         this.setLayout(new BorderLayout());
@@ -70,29 +81,35 @@ public class MenuSettingsPage extends JPanel {
         // Set visible to false
         this.setVisible(false);
 
-        // Load the settings from the file
-        loadSettings();
-
         // It will change the state of the button from ON to OFF and viceversa
         this.audio.addActionListener(e -> {
-            if (audio.getText().equals("Audio ON")) {
-                audio.setText("Audio OFF");
-            } else {
-                audio.setText("Audio ON");
+            switch (audio.getText()) {
+                case AUDIOON:
+                    audio.setText(AUDIOOFF);
+                    break;
+                case AUDIOOFF:
+                    audio.setText(AUDIOON);
+                    break;
+                default:
+                    break;
             }
-            this.saveSettings();
         });
 
         // It will change the state of the button from Easy to Medium to Hard
         difficulty.addActionListener(e -> {
-            if (difficulty.getText().equals("Difficult : EASY")) {
-                difficulty.setText("Difficult : MEDIUM");
-            } else if (difficulty.getText().equals("Difficult : MEDIUM")) {
-                difficulty.setText("Difficult : HARD");
-            } else if (difficulty.getText().equals("Difficult : HARD")) {
-                difficulty.setText("Difficult : EASY");
+            switch (difficulty.getText()) {
+                case EASY:
+                    difficulty.setText(MEDIUM);
+                    break;
+                case MEDIUM:
+                    difficulty.setText(HARD);
+                    break;
+                case HARD:
+                    difficulty.setText(EASY);
+                    break;
+                default:
+                    break;
             }
-            this.saveSettings();
         });
     }
 
@@ -115,8 +132,8 @@ public class MenuSettingsPage extends JPanel {
     /**
      * @return the audio saved state
      */
-    public boolean getAudioState() {
-        return audio.getText().equals("Audio ON");
+    public boolean isAudioOn() {
+        return audio.getText().equals(AUDIOON);
     }
 
     /**
@@ -133,20 +150,12 @@ public class MenuSettingsPage extends JPanel {
      * 
      * @throws FileNotFoundException
      */
-    public void loadSettings() {
-        try {
+    public void loadSettings() throws FileNotFoundException {
             final GameSettingsImpl settings = new GameSettingsImpl();
             // Audio settings
             audio.setText(settings.getValue("audio"));
-            System.out.println(settings.getValue("audio"));
             // Difficulty settings
             difficulty.setText(settings.getValue("difficulty"));
-            System.out.println(settings.getValue("difficulty"));
-
-        } catch (final Exception e) {
-            System.out.println(e.toString());
-        }
-
     }
 
     /**
@@ -154,8 +163,7 @@ public class MenuSettingsPage extends JPanel {
      * 
      * @throws IOException
      */
-    public void saveSettings() {
-        try {
+    public void saveSettings() throws FileNotFoundException, IOException {
             final GameSettingsImpl settings = new GameSettingsImpl();
             // Audio settings
             settings.setValue("audio", audio.getText());
@@ -164,19 +172,16 @@ public class MenuSettingsPage extends JPanel {
             settings.setValue("difficulty", difficulty.getText());
 
             settings.writeSettings();
-        } catch (final Exception e) {
-            System.out.println(e.toString());
-        }
     }
 
     /**
      * @param audio the audio to set
      */
-    public void setAudio(final boolean audio) {
+    public void setAudio(final boolean audio) throws FileNotFoundException, IOException {
         if (audio) {
-            this.audio.setText("Audio ON");
+            this.audio.setText(AUDIOON);
         } else {
-            this.audio.setText("Audio OFF");
+            this.audio.setText(AUDIOOFF);
         }
         this.saveSettings();
     }
@@ -184,7 +189,7 @@ public class MenuSettingsPage extends JPanel {
     /**
      * @param difficulty the difficulty to set
      */
-    public void setDifficulty(final String difficulty) {
+    public void setDifficulty(final String difficulty) throws FileNotFoundException, IOException {
         this.difficulty.setText(difficulty);
         this.saveSettings();
     }

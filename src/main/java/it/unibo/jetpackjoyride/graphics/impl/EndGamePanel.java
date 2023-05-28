@@ -14,7 +14,6 @@ import javax.swing.GroupLayout.Alignment;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
-import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 /**
@@ -23,28 +22,28 @@ import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
  * @author lorenzo.annibalini@studio.unibo.it
  */
 public class EndGamePanel extends JPanel {
+
+    private static final long serialVersionUID = 13L;
+
     // End Game panels
     private final JPanel statisticsPanel = new JPanel(new FlowLayout());
     private final JPanel mainPageComands = new JPanel();
 
     // Elements of the statistics panel
-    private WorldGameStateImpl worldGameState;
+    private final WorldGameStateImpl worldGameState;
 
     // End Games buttons
     private final JButton exit = new JButton("Exit");
     private final JButton menu = new JButton("Menu");
 
     // Title of the main page
-    private JTextArea title = new JTextArea();
-    private JPanel titlePanel = new JPanel();
+    private final JTextArea title = new JTextArea();
+    private final JPanel titlePanel = new JPanel();
     static final float FLOAT_SIZE = 50f;
     static final float LABEL_FONT_SIZE = 30f;
 
-    // Map of the statistics
-    private Statistics statistics;
-    private Map<String, Integer> statsMap;
-
-    private Font font;
+    //Font
+    private final Font font;
 
     /**
      * Constructor of the EndGamePanel.
@@ -96,16 +95,15 @@ public class EndGamePanel extends JPanel {
      * 
      */
     public void update() {
-        this.statistics = worldGameState.getPlayer().getStatistics();
-        this.statsMap = statistics.getAll();
+        final Map<String, Integer> statsMap = worldGameState.getPlayer().getStatistics().getAll();
         final JPanel boxPanel = new JPanel(new FlowLayout());
-        String statsText = "<html>";
-        for (final String statName : this.statsMap.keySet()) {
-            final int value = this.statsMap.get(statName);
-            statsText = statsText + statName + ": " + value + "<br>";
+        final StringBuilder sb = new StringBuilder("<html>");
+        for (final String statName : statsMap.keySet()) {
+            final int value = statsMap.get(statName);
+            sb.append(statName + " : " + value + "<br>");
         }
-        statsText = statsText + "</html>";
-        final JLabel label = new JLabel(statsText);
+        sb.append("</html>");
+        final JLabel label = new JLabel(sb.toString());
         label.setFont(this.font.deriveFont(LABEL_FONT_SIZE));
         boxPanel.add(label, BorderLayout.CENTER);
         this.add(boxPanel, BorderLayout.CENTER);
