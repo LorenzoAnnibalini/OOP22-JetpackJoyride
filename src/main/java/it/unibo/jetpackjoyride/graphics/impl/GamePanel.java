@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 import org.json.simple.parser.ParseException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,7 +18,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,30 +45,30 @@ import it.unibo.jetpackjoyride.model.impl.Rocket;
  */
 public final class GamePanel extends JPanel {
 
-    private Set<Pair<String, GameObject>> entities;
-    private PlayerImpl player;
-    private List<Money> money = new ArrayList<>();
+    private transient Set<Pair<String, GameObject>> entities;
+    private transient PlayerImpl player;
+    private transient List<Money> money;
     private final int posImage1;
     private final int posImage2;
-    private final Image backgruondImage1;
-    private final Image backgruondImage2;
-    private final Image rocket;
-    private final Image warning;
-    private final Image vertElectrode;
-    private final Image horElectrode;
-    private final Image shield;
-    private final Image speedup;
-    private final Image rightScientist;
-    private final Image leftScientist;
-    private final Image laser;
-    private final Image barry;
-    private final Image barryWoman;
-    private final Image barryUp;
-    private final Image barryWomanUp;
-    private Image playerImage;
-    private Image playerUpImage;
-    private final Image moneyImage;
-    private final SliderImpl slider;
+    private final transient Image backgruondImage1;
+    private final transient Image backgruondImage2;
+    private final transient Image rocket;
+    private final transient Image warning;
+    private final transient Image vertElectrode;
+    private final transient Image horElectrode;
+    private final transient Image shield;
+    private final transient Image speedup;
+    private final transient Image rightScientist;
+    private final transient Image leftScientist;
+    private final transient Image laser;
+    private final transient Image barry;
+    private final transient Image barryWoman;
+    private final transient Image barryUp;
+    private final transient Image barryWomanUp;
+    private transient Image playerImage;
+    private transient Image playerUpImage;
+    private final transient Image moneyImage;
+    private final transient SliderImpl slider;
     private int score;
     private int monies;
     private static final String FILENAME = "/config/sprites.json";
@@ -154,6 +155,8 @@ public final class GamePanel extends JPanel {
         this.slider.start();
     }
 
+    @SuppressFBWarnings(value = "BC_UNCONFIRMED_CAST",
+                        justification = "The cast is safe because is always in a switch case and it's sure that the object is what i'm casting to")
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
@@ -275,6 +278,8 @@ public final class GamePanel extends JPanel {
      * 
      * @param entities entities to draw
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", 
+                        justification = "This method is used to set the entities on start and the object is always the same")
     public void setEntities(final Set<Pair<String, GameObject>> entities) {
         this.entities = entities;
     }
@@ -284,6 +289,8 @@ public final class GamePanel extends JPanel {
      * 
      * @param player player to draw
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2",
+                        justification = "This method is used to set the player object on start and the object is always the same")
     public void setPlayer(final PlayerImpl player) {
         this.player = player;
         // Load the right image for the player based on the skin
@@ -300,6 +307,8 @@ public final class GamePanel extends JPanel {
      * 
      * @param money money to draw
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2",
+                        justification = "This method is used to set the monies on start and the object is always the same")
     public void setMoney(final List<Money> money) {
         // this.money.clear();
         this.money = money;
