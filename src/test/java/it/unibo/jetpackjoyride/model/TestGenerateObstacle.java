@@ -45,8 +45,7 @@ class TestGenerateObstacle {
      * @throws ClassNotFoundException    if the class cannot be found
      */
     @Test
-    void testGenerateSomeEntity() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+    void testGenerateSomeEntity() {
         Set<Pair<String, GameObject>> entities = new HashSet<>();
         final EntitiesGenerator eg = new EntitiesGeneratorImpl();
         final List<String> expectedReturns = List.of("Rocket", "Electrode", "ShieldPowerUp", "SpeedUpPowerup",
