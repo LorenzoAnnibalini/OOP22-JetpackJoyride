@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
@@ -20,10 +20,16 @@ import it.unibo.jetpackjoyride.model.impl.GameObject;
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-
 class TestGenerateObstacle {
+
+    private static final int FIRSTSIZE = 1;
+    private static final int SECONDSIZE = 3;
+    private static final int THIRDSIZE = 7;
+
     /**
-     * Test for generateObstacles.
+     * Test for generate entities.
+     * This test generates a set of entities and checks if the number of entities
+     * generated is correct and if the entities generated are correct.
      * 
      * @throws InstantiationException    if the class cannot be instantiated
      * @throws IllegalAccessException    if the class or its nullary constructor is
@@ -43,20 +49,21 @@ class TestGenerateObstacle {
             InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
         Set<Pair<String, GameObject>> entities = new HashSet<>();
         final EntitiesGenerator eg = new EntitiesGeneratorImpl();
-        List<String> expectedReturns = List.of("Rocket", "Electrode", "ShieldPowerUp", "SpeedUpPowerup", "Scientist",
+        final List<String> expectedReturns = List.of("Rocket", "Electrode", "ShieldPowerUp", "SpeedUpPowerup",
+                "Scientist",
                 "Laser", "Nothing");
         // Test for generateObstacles
         eg.generateObstacles(entities, 1);
         entities = eg.getEntities();
-        assertEquals(1, entities.size());
+        assertEquals(FIRSTSIZE, entities.size());
         // Test for generatePowerUps
         eg.generatePowerUps(entities, 2);
         entities = eg.getEntities();
-        assertEquals(3, entities.size());
+        assertEquals(SECONDSIZE, entities.size());
         // Test for generateScientists
         eg.generateScientists(entities, 4);
         entities = eg.getEntities();
-        assertEquals(7, entities.size());
+        assertEquals(THIRDSIZE, entities.size());
         for (final Pair<String, GameObject> ent : entities) {
             assertTrue(expectedReturns.contains(ent.getX()));
         }

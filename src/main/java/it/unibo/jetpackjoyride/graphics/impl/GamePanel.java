@@ -170,8 +170,8 @@ public final class GamePanel extends JPanel {
         g2d.drawImage(backgruondImage2, this.posImage2 - slider.getPos(), 0, this);
         // Draw entities
         final Iterator<Pair<String, GameObject>> it = this.entities.iterator();
-        //for (final Pair<String, GameObject> el : entities) {
-        while(it.hasNext()) {
+        // for (final Pair<String, GameObject> el : entities) {
+        while (it.hasNext()) {
             final Pair<String, GameObject> el = it.next();
             final String entityName = el.getX();
             final GameObject entity = el.getY();
