@@ -26,7 +26,7 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
  */
 public final class StatisticsPanel extends JPanel {
     private final InputQueue inputQueue;
-    private final Saves saves;
+    private final transient Saves saves;
     private static final float FONT_SIZE = 30f;
     private Map<String, Integer> statsMap;
     private final JTextArea statsArea;
