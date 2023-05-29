@@ -41,7 +41,7 @@ public class Money extends GameObject {
             final int y = Integer.parseInt(e[Y]);
             final Point2d pos = new Point2d(x, y);
             final Vector2d vec = new Vector2d(0, y);
-            final Hitbox hitbox = new HitboxImpl(5, 5, pos);
+            final Hitbox hitbox = new HitboxImpl(5.0, 5.0, pos);
             moneyList.add(new Money(pos, vec, hitbox));
         });
         return moneyList;

@@ -27,8 +27,8 @@ public class HitboxImplTest {
      */
     @Test
     public void testHitboxCollision() throws IOException, ParseException {
-        final int xPlayer = 30;
-        final int yPlayer = 15;
+        final double xPlayer = 30.0;
+        final double yPlayer = 15.0;
         final int heightPositionEntity = 380;
         final int heightPositionPlayer = 350;
         final Point2d positionEntity = new Point2d(xPlayer - 10, heightPositionEntity);

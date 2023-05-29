@@ -12,8 +12,8 @@ public final class HitboxImpl implements Hitbox {
 
     private Point2d upLeftPoint;
     private Point2d downRightPoint;
-    private final int height;
-    private final int width;
+    private final Double height;
+    private final Double width;
     private boolean hitboxActive;
 
     /**
@@ -24,7 +24,7 @@ public final class HitboxImpl implements Hitbox {
      * @param width
      * @param posObject
      */
-    public HitboxImpl(final int height, final int width, final Point2d posObject) {
+    public HitboxImpl(final Double height, final Double width, final Point2d posObject) {
         this.height = height;
         this.width = width;
         this.hitboxActive = true;
@@ -32,23 +32,23 @@ public final class HitboxImpl implements Hitbox {
     }
 
     @Override
-    public int getWidthHitbox() {
+    public Double getWidthHitbox() {
         return this.width;
     }
 
     @Override
-    public int getHeigthHitbox() {
+    public Double getHeigthHitbox() {
         return this.height;
     }
 
     @Override
     public Point2d getPointUpLeft() {
-        return this.upLeftPoint;
+        return new Point2d(this.upLeftPoint.getX(), this.upLeftPoint.getY());
     }
 
     @Override
     public Point2d getPointDownRight() {
-        return this.downRightPoint;
+        return new Point2d(this.downRightPoint.getX(), this.downRightPoint.getY());
     }
 
     @Override
@@ -57,14 +57,15 @@ public final class HitboxImpl implements Hitbox {
     }
 
     /**
-     * method for calculating the position of a point based on the object's position.
+     * method for calculating the position of a point based on the object's
+     * position.
      * and the size of its hitbox.
      * 
      * @param posObject
      */
     private void calcPointPosition(final Point2d posObject) {
-        this.upLeftPoint = new Point2d(posObject.getX() - this.width / 2, posObject.getY() - this.height / 2);
-        this.downRightPoint = new Point2d(posObject.getX() + this.width / 2, posObject.getY() + this.height / 2);
+        this.upLeftPoint = new Point2d(posObject.getX() - this.width / 2.0, posObject.getY() - this.height / 2.0);
+        this.downRightPoint = new Point2d(posObject.getX() + this.width / 2.0, posObject.getY() + this.height / 2.0);
     }
 
     @Override
@@ -84,11 +85,13 @@ public final class HitboxImpl implements Hitbox {
 
     @Override
     public boolean checkCollision(final Hitbox hitbox) {
-        return (this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft()) 
-        || this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight()) 
-        || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointUpLeft().getX(), hitbox.getPointDownRight().getY()))
-        || this.checkCollisionHitboxAndPoint(new Point2d(hitbox.getPointDownRight().getX(), hitbox.getPointUpLeft().getY()))) 
-        && hitbox.isHitboxActive() && this.hitboxActive;
+        return (this.checkCollisionHitboxAndPoint(hitbox.getPointUpLeft())
+                || this.checkCollisionHitboxAndPoint(hitbox.getPointDownRight())
+                || this.checkCollisionHitboxAndPoint(
+                        new Point2d(hitbox.getPointUpLeft().getX(), hitbox.getPointDownRight().getY()))
+                || this.checkCollisionHitboxAndPoint(
+                        new Point2d(hitbox.getPointDownRight().getX(), hitbox.getPointUpLeft().getY())))
+                && hitbox.isHitboxActive() && this.hitboxActive;
     }
 
     /**

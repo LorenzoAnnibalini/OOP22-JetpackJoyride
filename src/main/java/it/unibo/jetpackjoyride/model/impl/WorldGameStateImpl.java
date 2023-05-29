@@ -45,8 +45,8 @@ public final class WorldGameStateImpl implements WorldGameState {
     private static final int ENTITY_PROBABILITY = 69;
     private static final int X_PLAYER_POSITION = 200;
     private static final int Y_PLAYER_POSITION = 200;
-    private static final int HEIGHT_PLAYER = 40;
-    private static final int WIDTH_PLAYER = 50;
+    private static final Double HEIGHT_PLAYER = 40.0;
+    private static final Double WIDTH_PLAYER = 50.0;
     private static final int GENERATION_OBSTACLES_PROBABILITY = 75;
     private static final int DELTA_TIME_ENTITIES = 1500;
     private StatisticsImpl runStatistics;

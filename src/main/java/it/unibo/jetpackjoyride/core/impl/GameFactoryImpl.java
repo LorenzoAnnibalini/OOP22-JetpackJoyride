@@ -29,20 +29,20 @@ public class GameFactoryImpl implements GameFactory {
     private static final int DURATION = 0;
     private static final long SHORTDURATION = 5000;
     private static final long LONGDURATION = 8000;
-    private static final int YBOUND = 530;
-    private static final int XBOUND = 1180;
+    private static final double YBOUND = 530.0;
+    private static final double XBOUND = 1180.0;
     private static final int ROCKETBOUND = 1100;
-    private static final int LIMIT = GameFactoryImpl.XBOUND - 389;
-    private static final int SCIENTISTIMIT = GameFactoryImpl.XBOUND - 500;
+    private static final Double LIMIT = GameFactoryImpl.XBOUND - 389.0;
+    private static final Double SCIENTISTIMIT = GameFactoryImpl.XBOUND - 500.0;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
     private static final int RIGHT = 1;
     private static final int RANDOMSEED = 2;
-    private static final int SQUAREHITBOX = 50;
-    private static final Pair<Integer, Integer> RECTANGLEHITBOX = new Pair<>(100, 25);
-    private static final int SCIENTISTWIDTH = 30;
-    private static final int LASERRAYHEIGHT = 30;
-    private static final int NOTHINGHITBOX = 0;
+    private static final Double SQUAREHITBOX = 50.0;
+    private static final Pair<Double, Double> RECTANGLEHITBOX = new Pair<>(100.0, 25.0);
+    private static final Double SCIENTISTWIDTH = 30.0;
+    private static final Double LASERRAYHEIGHT = 30.0;
+    private static final Double NOTHINGHITBOX = 0.0;
     private static final int SPAWNRANGE = 50;
 
     private final Random random;
@@ -73,10 +73,10 @@ public class GameFactoryImpl implements GameFactory {
         }
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
-        return new Electrode(this.startPosition, this.velocity, 
+        return new Electrode(this.startPosition, this.velocity,
                 orientation == GameFactoryImpl.HORIZONTAL ? Orientation.HORIZONTAL
-                    : Orientation.VERTICAL,
-                    this.hitbox);
+                        : Orientation.VERTICAL,
+                this.hitbox);
     }
 
     @Override
@@ -86,9 +86,9 @@ public class GameFactoryImpl implements GameFactory {
         this.startPosition = new Point2d(GameFactoryImpl.ROCKETBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         rocketVelocity = new Vector2d(
-            new Point2d(0, startPosition.getY()),
-            startPosition);
-        this.hitbox = new HitboxImpl(SQUAREHITBOX / 2, SQUAREHITBOX, startPosition);
+                new Point2d(0, startPosition.getY()),
+                startPosition);
+        this.hitbox = new HitboxImpl(SQUAREHITBOX / 2.0, SQUAREHITBOX, startPosition);
         return new Rocket(this.startPosition, rocketVelocity, this.hitbox);
     }
 
@@ -118,7 +118,7 @@ public class GameFactoryImpl implements GameFactory {
 
     @Override
     public final SpeedUpPowerUpImpl createSpeedUpPowerUpImpl(final Set<Pair<String, GameObject>> entities) {
-        final int distance = random.nextInt(GameFactoryImpl.XBOUND);
+        final int distance = random.nextInt((int) GameFactoryImpl.XBOUND);
         final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
@@ -158,14 +158,13 @@ public class GameFactoryImpl implements GameFactory {
     /**
      * Method to check if new entities has y like others already spawned.
      * 
-     * @param y the y value of new entitiy
+     * @param y        the y value of new entitiy
      * @param entities the set of entities already spawned
      * @return true if y is like someone's else, false otherwise
      */
     private boolean checkY(final int y, final Set<Pair<String, GameObject>> entities) {
         return entities.stream()
-                .filter(x -> 
-                        x.getY().getCurrentPos().getY() - y > -SPAWNRANGE
+                .filter(x -> x.getY().getCurrentPos().getY() - y > -SPAWNRANGE
                         && x.getY().getCurrentPos().getY() - y < SPAWNRANGE)
                 .count() != 0;
     }
@@ -179,9 +178,9 @@ public class GameFactoryImpl implements GameFactory {
      * @return the y coordinate
      */
     private int getY(final Set<Pair<String, GameObject>> entities) {
-        int y = random.nextInt(GameFactoryImpl.YBOUND);
+        int y = random.nextInt((int) GameFactoryImpl.YBOUND);
         while (checkY(y, entities)) {
-            y = random.nextInt(GameFactoryImpl.YBOUND);
+            y = random.nextInt((int) GameFactoryImpl.YBOUND);
         }
         return y;
     }

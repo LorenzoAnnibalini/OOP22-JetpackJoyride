@@ -31,7 +31,7 @@ class PlayerImplTest {
 
     private final Point2d position = new Point2d(30, 250);
     private final Vector2d velocity = new Vector2d(30, 250);
-    private final Hitbox hitbox = new HitboxImpl(5, 5, position);
+    private final Hitbox hitbox = new HitboxImpl(5.0, 5.0, position);
     private final Saves saves = new SavesImpl();
     private final StatisticsImpl statistics = new StatisticsImpl();
     private final PlayerImpl player;

@@ -97,7 +97,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
                 final Point2d startPosition = new Point2d(x, y);
                 final Point2d finishPosition = new Point2d(x - LIMIT, startPosition.getY());
                 final Vector2d vec = new Vector2d(finishPosition, startPosition);
-                final Hitbox hitbox = new HitboxImpl(15, 15, startPosition);
+                final Hitbox hitbox = new HitboxImpl(15.0, 15.0, startPosition);
                 moneyList.add(new Money(startPosition, vec, hitbox));
             }
         }

@@ -14,14 +14,14 @@ public interface Hitbox {
      * 
      * @return the position of the hitbox.
      */
-    int getWidthHitbox();
+    Double getWidthHitbox();
 
     /**
      * Method to get the height of the hitbox.
      * 
      * @return the position of the hitbox.
      */
-    int getHeigthHitbox();
+    Double getHeigthHitbox();
 
     /**
      * Method to get the position of the up-left point of hitbox.
@@ -39,6 +39,7 @@ public interface Hitbox {
 
     /**
      * Method to update the position of the hitbox and main points.
+     * 
      * @param posObject
      */
     void updateHitbox(Point2d posObject);
