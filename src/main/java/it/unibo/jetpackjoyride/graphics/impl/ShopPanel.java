@@ -37,14 +37,14 @@ public class ShopPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private transient final InputQueue inputQueue;
-    private transient final Gadget gadget;
-    private transient final SkinInfo skinInfo;
+    private final transient InputQueue inputQueue;
+    private final transient Gadget gadget;
+    private final transient SkinInfo skinInfo;
     private final JLabel moneyLabel;
     private final Map<String, ArrayList<JButton>> buttonMapGadget;
     private final Map<String, ArrayList<JButton>> buttonMapSkin;
-    private transient final SpriteLoader spriteLoader;
-    private transient final Statistics generalStatistics;
+    private final transient SpriteLoader spriteLoader;
+    private final transient Statistics generalStatistics;
     private static final float FONTSIZE = 20; 
     private static final String ENABLE = "Enable";
     private static final String DISABLE = "Disable";
