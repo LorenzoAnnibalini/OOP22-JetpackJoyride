@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import org.json.simple.parser.ParseException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
@@ -120,12 +121,14 @@ public final class ViewImpl extends JFrame implements View {
     }
 
     @Override
+    @SuppressFBWarnings(value = "DM_EXIT", justification = "Exit from the game")
     public void close() {
         this.dispose();
         System.exit(0);
     }
 
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "gamePanel must be the same object")
     public GamePanel getGamePanel() {
         return this.gamePanel;
     }

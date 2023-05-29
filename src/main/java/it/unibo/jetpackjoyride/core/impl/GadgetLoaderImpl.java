@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,7 @@ public class GadgetLoaderImpl implements GadgetLoader {
     @Override
     public final Map<String, List<String>> downloadGadget() throws FileNotFoundException {
         final Map<String, List<String>> gadgetMap = new HashMap<>();
-        try (Scanner sc = new Scanner(new File(filename))) {
+        try (Scanner sc = new Scanner(new File(filename), StandardCharsets.UTF_8.name())) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 final String name = line.split(";")[NAME];
@@ -42,7 +43,7 @@ public class GadgetLoaderImpl implements GadgetLoader {
                                 line.split(";")[GadgetInfoPositions.DESCRIPTION.ordinal()])));
             }
             sc.close();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new  IllegalStateException("gadget.csv file not found", e);
         }
 
@@ -53,21 +54,21 @@ public class GadgetLoaderImpl implements GadgetLoader {
     @Override
     public final void uploadGadget(final Map<String, List<String>> gadgetMap) 
         throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            for (final String name : gadgetMap.keySet()) {
-                writer.write(name + ";"
-                        + gadgetMap.get(name).get(GadgetInfoPositions.STATE.ordinal())
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, StandardCharsets.UTF_8))) {
+            for (final Map.Entry<String, List<String>> entry : gadgetMap.entrySet()) {
+                writer.write(entry.getKey() + ";"
+                        + entry.getValue().get(GadgetInfoPositions.STATE.ordinal())
                         + ";"
-                        + gadgetMap.get(name).get(GadgetInfoPositions.PURCHASED.ordinal())
+                        + entry.getValue().get(GadgetInfoPositions.PURCHASED.ordinal())
                         + ";"
-                        + gadgetMap.get(name).get(GadgetInfoPositions.PRICE.ordinal())
+                        + entry.getValue().get(GadgetInfoPositions.PRICE.ordinal())
                         + ";"
-                        + gadgetMap.get(name).get(GadgetInfoPositions.DESCRIPTION.ordinal())
+                        + entry.getValue().get(GadgetInfoPositions.DESCRIPTION.ordinal())
                         + "\n");
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error while writing on gadget info file");
+            throw new  IllegalStateException("gadget.csv file not found", e);
         }
     }
 
