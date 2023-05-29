@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.Iterator;
 
 import it.unibo.jetpackjoyride.core.api.GameFactory;
@@ -27,19 +29,19 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int NOTHING = 2;
     private static final int ENTITIESSEED = 3;
     private static final int XBOUND = 1180;
+    private static final Random RANDOM = new Random();
     private final GameFactory factory = new GameFactoryImpl();
+    private static final String SUPPVALUE = "EI_EXPOSE_REP2";
+    private static final String SUPPJUSTIFICATION = "Entities are meant to be the same for the generator and the world";
 
     @Override
+    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
     public void generateObstacles(final Set<Pair<String, GameObject>> entities, final int num) {
         // Overwrite entities
         this.entities = entities;
         for (int i = 0; i < num; i++) {
-            // Variable used to generate random number
-            int entityNum;
-            final Random random = new Random();
-            entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
             // Switch on types of entities based on random result
-            switch (entityNum) {
+            switch (RANDOM.nextInt(EntitiesGeneratorImpl.ENTITIESSEED)) {
                 case EntitiesGeneratorImpl.ROCKET:
                     this.entities.add(
                             new Pair<String, GameObject>("Rocket",
@@ -64,16 +66,13 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
     }
 
     @Override
+    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
     public void generatePowerUps(final Set<Pair<String, GameObject>> entities, final int num) {
         // Overwrite entities
         this.entities = entities;
         for (int i = 0; i < num; i++) {
-            // Variable used to generate random number
-            int entityNum;
-            final Random random = new Random();
-            entityNum = random.nextInt(EntitiesGeneratorImpl.ENTITIESSEED);
             // Switch on types of entities based on random result
-            switch (entityNum) {
+            switch (RANDOM.nextInt(EntitiesGeneratorImpl.ENTITIESSEED)) {
                 case EntitiesGeneratorImpl.SHIELDPOWERUP:
                     this.entities.add(new Pair<String, GameObject>("ShieldPowerUp",
                             this.factory.createShieldPowerUp(
@@ -98,6 +97,7 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
     }
 
     @Override
+    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
     public void generateScientists(final Set<Pair<String, GameObject>> entities, final int num) {
         // Overwrite entities
         this.entities = entities;
@@ -109,6 +109,7 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
     }
 
     @Override
+    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
     public void generateLaser(final Set<Pair<String, GameObject>> entities, final int num) {
         // Overwrite entities
         this.entities = entities;
@@ -121,6 +122,7 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
     }
 
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = SUPPJUSTIFICATION)
     public Set<Pair<String, GameObject>> getEntities() {
         return this.entities;
     }
