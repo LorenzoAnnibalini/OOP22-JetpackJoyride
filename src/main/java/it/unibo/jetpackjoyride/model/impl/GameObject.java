@@ -1,5 +1,6 @@
 package it.unibo.jetpackjoyride.model.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
@@ -25,9 +26,9 @@ public class GameObject {
      * @param hitbox
      */
     public GameObject(final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
-        this.pos = pos;
-        this.vel = vel;
-        this.hitbox = hitbox;
+        this.pos = new Point2d(pos.getX(), pos.getY());
+        this.vel = new Vector2d(vel.getX(), vel.getY());
+        this.hitbox = new HitboxImpl(hitbox.getHeigthHitbox(), hitbox.getWidthHitbox(), pos);
     }
 
     /**
@@ -36,7 +37,7 @@ public class GameObject {
      * @param pos
      */
     public void setPos(final Point2d pos) {
-        this.pos = pos;
+        this.pos = new Point2d(pos.getX(), pos.getY());
     }
 
     /**
@@ -45,7 +46,7 @@ public class GameObject {
      * @param vel
      */
     public void setVel(final Vector2d vel) {
-        this.vel = vel;
+        this.vel = new Vector2d(vel.getX(), vel.getY());
     }
 
     /**
@@ -80,7 +81,7 @@ public class GameObject {
      * @return the current position of the game object
      */
     public Point2d getCurrentPos() {
-        return pos;
+        return new Point2d(pos.getX(), pos.getY());
     }
 
     /**
@@ -89,7 +90,7 @@ public class GameObject {
      * @return the current velocity of the game object
      */
     public Vector2d getCurrentVel() {
-        return vel;
+        return new Vector2d(vel.getX(), vel.getY());
     }
 
     /**
@@ -97,7 +98,8 @@ public class GameObject {
      * 
      * @return the current hitbox of the game object
      */
-    public Hitbox getHitbox() {
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "the returned hitmox must be the same object")
+    public final Hitbox getHitbox() {
         return this.hitbox;
     }
 }

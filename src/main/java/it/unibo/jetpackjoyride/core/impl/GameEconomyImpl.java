@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
 import it.unibo.jetpackjoyride.core.api.GameEconomy;
 import it.unibo.jetpackjoyride.core.api.Saves;
@@ -55,6 +56,7 @@ public class GameEconomyImpl implements GameEconomy {
      * Constructor of the GameEconomyImpl class.
      * @param generalStatistics
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "generalStatistics must be the same object")
     public GameEconomyImpl(final Statistics generalStatistics) {
         this.gadget = new GadgetImpl();
         this.skin = new SkinInfoImpl();
@@ -63,7 +65,7 @@ public class GameEconomyImpl implements GameEconomy {
     }
 
     @Override
-    public final void buyGadget(final String name) {
+    public final void buyGadget(final String name) throws IOException {
         this.gadgetInfo = gadget.getValue(name);
         final int gadgetPrice = Integer.parseInt(
                 gadgetInfo.get(GadgetInfoPositions.PRICE.ordinal()));
@@ -74,11 +76,8 @@ public class GameEconomyImpl implements GameEconomy {
             generalStatistics.increment(ACTUALMONEY, -gadgetPrice);
             generalStatistics.increment(MONEYSPENT, gadgetPrice);
         }
-        try {
-            saves.uploadSaves(generalStatistics.getAll());
-        } catch (final IOException e) {
-            System.out.println("Error occurs while uploading statistics, impossible to buy gadget");
-        }
+
+        saves.uploadSaves(generalStatistics.getAll());
     }
 
     @Override
@@ -98,7 +97,7 @@ public class GameEconomyImpl implements GameEconomy {
     }
 
     @Override
-    public final void buySkin(final String name) {
+    public final void buySkin(final String name) throws IOException {
         this.skinInfo = skin.getValue(name);
         final int skinPrice = Integer.parseInt(
                 skinInfo.get(SkinInfoPositions.PRICE.ordinal()));
@@ -109,11 +108,8 @@ public class GameEconomyImpl implements GameEconomy {
             generalStatistics.increment(ACTUALMONEY, -skinPrice);
             generalStatistics.increment(MONEYSPENT, skinPrice);
         }
-        try {
-            saves.uploadSaves(generalStatistics.getAll());
-        } catch (final IOException e) {
-            System.out.println("Error occurs while uploading statistics, impossible to buy skin");
-        }
+
+        saves.uploadSaves(generalStatistics.getAll());
     }
 
     @Override

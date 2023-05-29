@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,7 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader {
     @Override
     public final Map<String, List<String>> downloadSkin() throws FileNotFoundException {
         final Map<String, List<String>> skinMap = new HashMap<>();
-        try (Scanner sc = new Scanner(new File(filename))) {
+        try (Scanner sc = new Scanner(new File(filename), StandardCharsets.UTF_8.name())) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 final String name = line.split(";")[NAME];
@@ -51,16 +52,16 @@ public class SkinInfoLoaderImpl implements SkinInfoLoader {
 
     @Override
     public final void uploadSkin(final Map<String, List<String>> skinMap) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            for (final String name : skinMap.keySet()) {
-                writer.write(name + ";"
-                        + skinMap.get(name).get(SkinInfoPositions.STATE.ordinal()) + ";"
-                        + skinMap.get(name).get(SkinInfoPositions.PURCHASED.ordinal()) + ";"
-                        + skinMap.get(name).get(SkinInfoPositions.PRICE.ordinal()) + "\n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, StandardCharsets.UTF_8))) {
+            for (final Map.Entry<String, List<String>> entry : skinMap.entrySet()) {
+                writer.write(entry.getKey() + ";"
+                        + entry.getValue().get(SkinInfoPositions.STATE.ordinal()) + ";"
+                        + entry.getValue().get(SkinInfoPositions.PURCHASED.ordinal()) + ";"
+                        + entry.getValue().get(SkinInfoPositions.PRICE.ordinal()) + "\n");
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error while writing on Skin info file");
+            throw new  IllegalStateException("skin.csv file not found", e);
         }
     }
 

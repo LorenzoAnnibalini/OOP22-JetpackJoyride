@@ -1,5 +1,7 @@
 package it.unibo.jetpackjoyride.core.api;
 
+import java.io.IOException;
+
 /**
  * Interface GameEconomy to manage the game economy,
  * i.e. all the items that can be purchased from the shop
@@ -15,7 +17,7 @@ public interface GameEconomy {
      * 
      * @param name of the gadget
      */
-    void buyGadget(String name);
+    void buyGadget(String name) throws IOException;
 
     /**
      * Method to manage the activation of a gadget,
@@ -40,7 +42,7 @@ public interface GameEconomy {
      * 
      * @param name of the skin
      */
-    void buySkin(String name);
+    void buySkin(String name) throws IOException;
 
     /**
      * Method to manage the selection of a skin,

@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.model.api.Gadget;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
@@ -36,14 +37,14 @@ public class ShopPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private final InputQueue inputQueue;
-    private final Gadget gadget;
-    private final SkinInfo skinInfo;
+    private transient final InputQueue inputQueue;
+    private transient final Gadget gadget;
+    private transient final SkinInfo skinInfo;
     private final JLabel moneyLabel;
     private final Map<String, ArrayList<JButton>> buttonMapGadget;
     private final Map<String, ArrayList<JButton>> buttonMapSkin;
-    private final SpriteLoader spriteLoader;
-    private final Statistics generalStatistics;
+    private transient final SpriteLoader spriteLoader;
+    private transient final Statistics generalStatistics;
     private static final float FONTSIZE = 20; 
     private static final String ENABLE = "Enable";
     private static final String DISABLE = "Disable";
@@ -57,6 +58,7 @@ public class ShopPanel extends JPanel {
      * @param generalStatistics
      * @param font
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "generalStatistics and inputQueue must be the same object")
     public ShopPanel(final InputQueue inputQueue, final Statistics generalStatistics, final Font font) {
         super();
         this.inputQueue = inputQueue;
@@ -221,19 +223,19 @@ public class ShopPanel extends JPanel {
      * by reading new states from the gadget values and skin values.
      */
     public void update() {
-        for (final String name : buttonMapGadget.keySet()) {
-            final ArrayList<JButton> buttonList = buttonMapGadget.get(name);
-            final String purchased = gadget.getValue(name).get(GadgetInfoPositions.PURCHASED.ordinal());
+        for (final Map.Entry<String, ArrayList<JButton>> entry : buttonMapGadget.entrySet()) {
+            final ArrayList<JButton> buttonList = buttonMapGadget.get(entry.getKey());
+            final String purchased = gadget.getValue(entry.getKey()).get(GadgetInfoPositions.PURCHASED.ordinal());
             final String state = Boolean
-                    .parseBoolean(gadget.getValue(name).get(GadgetInfoPositions.STATE.ordinal())) ? DISABLE
+                    .parseBoolean(gadget.getValue(entry.getKey()).get(GadgetInfoPositions.STATE.ordinal())) ? DISABLE
                             : ENABLE;
             buttonList.get(GadgetInfoPositions.PURCHASED.ordinal()).setEnabled(!Boolean.parseBoolean(purchased));
             buttonList.get(GadgetInfoPositions.STATE.ordinal()).setText(state);
         }
-        for (final String name : buttonMapSkin.keySet()) {
-            final ArrayList<JButton> buttonList = buttonMapSkin.get(name);
-            final String purchased = skinInfo.getValue(name).get(SkinInfoPositions.PURCHASED.ordinal());
-            final String state = skinInfo.getValue(name).get(SkinInfoPositions.STATE.ordinal());
+        for (final Map.Entry<String, ArrayList<JButton>> entry : buttonMapSkin.entrySet()) {
+            final ArrayList<JButton> buttonList = buttonMapSkin.get(entry.getKey());
+            final String purchased = skinInfo.getValue(entry.getKey()).get(SkinInfoPositions.PURCHASED.ordinal());
+            final String state = skinInfo.getValue(entry.getKey()).get(SkinInfoPositions.STATE.ordinal());
             buttonList.get(SkinInfoPositions.PURCHASED.ordinal()).setEnabled(!Boolean.parseBoolean(purchased));
             buttonList.get(SkinInfoPositions.STATE.ordinal()).setEnabled(!Boolean.parseBoolean(state));
         }
