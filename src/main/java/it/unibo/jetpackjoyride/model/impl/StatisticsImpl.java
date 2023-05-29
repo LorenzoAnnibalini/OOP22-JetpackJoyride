@@ -2,6 +2,7 @@ package it.unibo.jetpackjoyride.model.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.api.Statistics;
@@ -73,7 +74,7 @@ public final class StatisticsImpl implements Statistics {
 
     @Override
     public Map<String, Integer> getAll() {
-        return this.statistics;
+        return new HashMap<>(this.statistics);
     }
 
     @Override
@@ -88,8 +89,8 @@ public final class StatisticsImpl implements Statistics {
 
     @Override
     public void updateGeneralStats(final Map<String, Integer> runStats) {
-        for (final String key : runStats.keySet()) {
-            this.increment(key, runStats.get(key));
+        for (final Entry<String, Integer> entry : runStats.entrySet()) {
+            this.increment(entry.getKey(), entry.getValue());
         }
         if (runStats.get(GRABBED_MONEY.getX()) > statistics.get(MAX_MONEY.getX())) {
             this.setValue(MAX_MONEY.getX(), runStats.get(GRABBED_MONEY.getX()));
