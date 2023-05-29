@@ -164,8 +164,8 @@ public class GameFactoryImpl implements GameFactory {
      */
     private boolean checkY(final int y, final Set<Pair<String, GameObject>> entities) {
         return entities.stream()
-                .filter(x -> x.getY().getCurrentPos().getY() - y > -SPAWNRANGE
-                        && x.getY().getCurrentPos().getY() - y < SPAWNRANGE)
+                .filter(x -> (int) x.getY().getCurrentPos().getY() - y > -SPAWNRANGE
+                        && (int) x.getY().getCurrentPos().getY() - y < SPAWNRANGE)
                 .count() != 0;
     }
 
@@ -180,6 +180,7 @@ public class GameFactoryImpl implements GameFactory {
     private int getY(final Set<Pair<String, GameObject>> entities) {
         int y = random.nextInt(GameFactoryImpl.YBOUND);
         while (checkY(y, entities)) {
+            System.out.println("Y: " + y);
             y = random.nextInt(GameFactoryImpl.YBOUND);
         }
         return y;
