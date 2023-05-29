@@ -18,7 +18,7 @@ import org.json.simple.parser.ParseException;
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-public class SpriteLoader {
+public final class SpriteLoader {
     private static final String ASSETS_FOLDER = "/assets/";
     private static Map<String, Sprite> sprites = new HashMap<>();
 
@@ -28,7 +28,8 @@ public class SpriteLoader {
      * @return the map of sprites
      */
     public Map<String, Sprite> getSprites() {
-        return sprites;
+        return new HashMap<>(sprites);
+        //return sprites;
     }
 
     /**
@@ -56,7 +57,6 @@ public class SpriteLoader {
         final JSONParser parser = new JSONParser();
         String fileContent;
         JSONObject jsonObj;
-        // final InputStream stream = this.getClass().getResourceAsStream(filename);
         try (InputStream stream = this.getClass().getResourceAsStream(filename)) {
             fileContent = new String(stream.readAllBytes(),
                     StandardCharsets.UTF_8);
