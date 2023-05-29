@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.core.api.Saves;
 import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
@@ -25,7 +26,7 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
  * @author emanuele.sanchi@studio.unibo.it
  */
 public final class StatisticsPanel extends JPanel {
-    private final InputQueue inputQueue;
+    private final transient InputQueue inputQueue;
     private final transient Saves saves;
     private static final float FONT_SIZE = 30f;
     private Map<String, Integer> statsMap;
@@ -39,6 +40,7 @@ public final class StatisticsPanel extends JPanel {
      * @param inputQueue the input queue
      * @param font       the font for labels and buttons
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Input queue is meant to be the same for all the objects")
     public StatisticsPanel(final InputQueue inputQueue, final Font font) {
         super();
         this.setLayout(new BorderLayout());
@@ -62,7 +64,7 @@ public final class StatisticsPanel extends JPanel {
         this.statsMap = new HashMap<>();
     }
 
-    //@SuppressFBWarnings
+    // @SuppressFBWarnings
     /**
      * Method to update the statistics panel.
      * 
@@ -74,7 +76,8 @@ public final class StatisticsPanel extends JPanel {
         statsMap = saves.downloadSaves();
         final String statsText = StatisticsImpl.ACTUAL_MONEY.getY() + SEPARATOR
                 + statsMap.get(StatisticsImpl.ACTUAL_MONEY.getX()) + "\n" + StatisticsImpl.DEATHS.getY() + SEPARATOR
-                + statsMap.get(StatisticsImpl.DEATHS.getX()) + "\n" + StatisticsImpl.MAX_MONEY.getY() + SEPARATOR + statsMap
+                + statsMap.get(StatisticsImpl.DEATHS.getX()) + "\n" + StatisticsImpl.MAX_MONEY.getY() + SEPARATOR
+                + statsMap
                         .get(StatisticsImpl.MAX_MONEY.getX())
                 + "\n" + StatisticsImpl.GRABBED_MONEY.getY() + SEPARATOR + statsMap
                         .get(StatisticsImpl.GRABBED_MONEY.getX())
