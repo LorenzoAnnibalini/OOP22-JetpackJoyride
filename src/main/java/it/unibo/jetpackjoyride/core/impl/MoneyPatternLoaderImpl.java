@@ -1,7 +1,7 @@
 package it.unibo.jetpackjoyride.core.impl;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,6 +25,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
     private static final int X = 0;
     private static final int Y = 1;
     private static final int LIMIT = 395;
+    private static final String SEPARATOR = File.separator;
     /*
      * Attribute that count the number of available pattern file.
      * N.B the number of available file must be the same of the number
@@ -32,7 +33,10 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
      */
     private final int availableFile;
     private final int minAvailableFile;
-    private static final String FILENAME = "/money";
+    private static final String FILENAME = "src" + SEPARATOR
+        + "main" + SEPARATOR
+        + "resources" + SEPARATOR
+        + "money";
     private static final int NFILE = 4;
     // Range to change the y coordinate of the money.
     private static final int RANGE = 150;
@@ -73,24 +77,15 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
     @Override
     public final ArrayList<Money> getMoneyPattern() {
         String fileNumber;
-        String fileContent;
         fileNumber = Integer.toString((int) Math.floor(Math.random()
                 * (this.availableFile - this.minAvailableFile + 1)
                 + this.minAvailableFile));
 
-        try (InputStream stream = this.getClass().getResourceAsStream(FILENAME + fileNumber + ".txt")) {
-            fileContent = new String(stream.readAllBytes(),
-                    StandardCharsets.UTF_8);
-            stream.close();
-        } catch (IOException e) {
-            throw new IllegalStateException("Error while reading Money Pattern " + fileNumber + "file", e);
-        }
-
         final ArrayList<Money> moneyList = new ArrayList<>();
         final double multiplier = Math.floor(Math.random() * (MAXRANDOM - MINRANDOM) + MINRANDOM);
-        try (Scanner filePattern = new Scanner(fileContent)) {
-            while (filePattern.hasNextLine()) {
-                final String line = filePattern.nextLine();
+        try (Scanner scanner = new Scanner(new File(FILENAME + fileNumber + ".txt"), StandardCharsets.UTF_8.name())) {
+            while (scanner.hasNextLine()) {
+                final String line = scanner.nextLine();
                 final int x = Integer.parseInt(line.split(",")[X]);
                 int y = Integer.parseInt(line.split(",")[Y]);
                 y = y + (int) (multiplier * RANGE);
@@ -100,6 +95,8 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
                 final Hitbox hitbox = new HitboxImpl(15.0, 15.0, startPosition);
                 moneyList.add(new Money(startPosition, vec, hitbox));
             }
+        } catch (IOException e) {
+            throw new IllegalStateException("Error while reading Money Pattern " + fileNumber + "file", e);
         }
         return moneyList;
     }
