@@ -3,6 +3,8 @@ package it.unibo.jetpackjoyride.graphics.impl;
 import it.unibo.jetpackjoyride.common.Pair;
 
 import java.awt.Image;
+import java.awt.Toolkit;
+
 
 /**
  * A class to modelize a sprite.
@@ -25,7 +27,7 @@ public class Sprite {
     public Sprite(final int width, final int height, final Image img) {
         this.originalDimension = new Pair<>(img.getWidth(null), img.getHeight(null));
         this.scaledDimension = new Pair<>(width, height);
-        this.originalImage = img;
+        this.originalImage = Toolkit.getDefaultToolkit().createImage(img.getSource());
     }
 
     /**
@@ -43,7 +45,7 @@ public class Sprite {
      * @return the image with original dimension
      */
     public Image getOriginal() {
-        return this.originalImage;
+        return Toolkit.getDefaultToolkit().createImage(this.originalImage.getSource());
     }
 
     /**
@@ -61,7 +63,7 @@ public class Sprite {
      * @return the image with scaled dimension
      */
     public Image getScaled() {
-        return this.scaledImage;
+        return Toolkit.getDefaultToolkit().createImage(this.scaledImage.getSource());
     }
 
     /**
