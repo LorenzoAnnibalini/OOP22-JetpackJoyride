@@ -26,8 +26,9 @@ public final class PlayerImpl extends GameObject implements Player {
     private static final int DOWN_VELOCITY = -160;
     private static final double AIR_BARRY_MULTIPLIER = 1.3;
     private static final double GRAVITY_BELT_MULTIPLIER = 1.3;
-    private static final String SUPPVALUE = "EI_EXPOSE_REP2";
-    private static final String SUPPJUSTIFICATION = "Statistics are meant to be the same for the player and the world";
+    private static final String SUPPVALUE1 = "EI_EXPOSE_REP2";
+    private static final String SUPPVALUE2 = "EI_EXPOSE_REP";
+    private static final String SUPPJUSTIFICATION1 = "Statistics are meant to be the same for the player and the world";
 
     /**
      * constructor to create a player.
@@ -37,7 +38,7 @@ public final class PlayerImpl extends GameObject implements Player {
      * @param hitbox
      * @param statistics
      */
-    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
+    @SuppressFBWarnings(value = SUPPVALUE1, justification = SUPPJUSTIFICATION1)
     public PlayerImpl(final Point2d pos, final Vector2d vel, final Hitbox hitbox, final StatisticsImpl statistics) {
         super(pos, vel, hitbox);
         this.hearts = 1;
@@ -146,6 +147,7 @@ public final class PlayerImpl extends GameObject implements Player {
     }
 
     @Override
+    @SuppressFBWarnings(value = SUPPVALUE2, justification = SUPPJUSTIFICATION1)
     public StatisticsImpl getStatistics() {
         return this.statistics;
     }

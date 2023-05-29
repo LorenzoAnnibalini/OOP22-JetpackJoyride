@@ -64,8 +64,15 @@ public final class WorldGameStateImpl implements WorldGameState {
     private int timeToWaitNewEntities;
     private final InputQueue inputHandler;
     private final Statistics generalStatistics;
-    private static final String SUPPVALUE = "EI_EXPOSE_REP2";
-    private static final String SUPPJUSTIFICATION = "InputHandler are meant to be the same for GameEngine, view and world";
+    private static final String SUPPVALUE1 = "EI_EXPOSE_REP2";
+    private static final String SUPPVALUE2 = "EI_EXPOSE_REP";
+    private static final String SUPPVALUE3 = "DB_DUPLICATE_SWITCH_CLAUSES";
+    private static final String SUPPJUSTIFICATION = "The double check collision is necessary for the right collision detection";
+    private static final String SUPPJUSTIFICATION1 = "InputHandler are meant to be the same for GameEngine, view and world";
+    private static final String SUPPJUSTIFICATION2 = "Player are meant to be the same for GameEngine, view and world";
+    private static final String SUPPJUSTIFICATION3 = "Moneys are meant to be the same for GameEngine, view and world";
+    private static final String SUPPJUSTIFICATION4 = "Statistics are meant to be the same for GameEngine, view and world";
+    private static final String SUPPJUSTIFICATION5 = "Entities are meant to be the same for GameEngine, view and world";
 
     /**
      * Constructor for the world game state. It inzialize the world with his
@@ -74,7 +81,7 @@ public final class WorldGameStateImpl implements WorldGameState {
      * @param inputHandler
      * @throws IOException
      */
-    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
+    @SuppressFBWarnings(value = SUPPVALUE1, justification = SUPPJUSTIFICATION1)
     public WorldGameStateImpl(final InputQueue inputHandler) throws IOException {
         this.inputHandler = inputHandler;
         this.saves = new SavesImpl();
@@ -171,6 +178,7 @@ public final class WorldGameStateImpl implements WorldGameState {
      * For all the entities that are not colliding with the player they are
      * eliminated.
      */
+    @SuppressFBWarnings(value = SUPPVALUE3, justification = SUPPJUSTIFICATION)
     private void checkPlayerCollision() {
         final Iterator<Pair<String, GameObject>> entityIterator = this.entities.iterator();
         while (entityIterator.hasNext()) {
@@ -387,16 +395,19 @@ public final class WorldGameStateImpl implements WorldGameState {
     }
 
     @Override
+    @SuppressFBWarnings(value = SUPPVALUE2, justification = SUPPJUSTIFICATION2)
     public PlayerImpl getPlayer() {
         return this.player;
     }
 
     @Override
+    @SuppressFBWarnings(value = SUPPVALUE2, justification = SUPPJUSTIFICATION3)
     public List<Money> getMoney() {
         return this.money;
     }
 
     @Override
+    @SuppressFBWarnings(value = SUPPVALUE2, justification = SUPPJUSTIFICATION5)
     public Set<Pair<String, GameObject>> getWorldEntities() {
         return this.entities;
     }
@@ -423,6 +434,7 @@ public final class WorldGameStateImpl implements WorldGameState {
     }
 
     @Override
+    @SuppressFBWarnings(value = SUPPVALUE2, justification = SUPPJUSTIFICATION4)
     public Statistics getGeneralStatistics() {
         return this.generalStatistics;
     }
