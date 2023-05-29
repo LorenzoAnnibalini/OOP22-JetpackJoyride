@@ -1,8 +1,11 @@
 package it.unibo.jetpackjoyride.input;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
+import org.junit.Test;
 
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
@@ -17,6 +20,7 @@ public class InputTest {
     /**
      * This is a test to check if the input queue is created and if the input are added.
      */
+    @Test
     public void testInput() {
 
         final InputQueue inputQueue = new InputQueueImpl();
@@ -28,7 +32,7 @@ public class InputTest {
         inputQueue.addInput(new InputImpl(Input.TypeInput.SHOP, "shop"));
         final List<Input> inputList = inputQueue.getInputQueue();
         assertEquals(dimension, inputList.size());
-        assertEquals(true, inputQueue.isEmpty());
+        assertTrue(inputQueue.isEmpty());
     }
 
 }
