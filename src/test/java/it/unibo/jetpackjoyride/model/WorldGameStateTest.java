@@ -1,5 +1,7 @@
 package it.unibo.jetpackjoyride.model;
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 
 import org.junit.Test;
@@ -31,10 +33,10 @@ public class WorldGameStateTest {
         final WorldGameState world = new WorldGameStateImpl(inputQueue);
         world.newGame();
         world.updateState(dt);
-        assert world.getMoney().isEmpty() || !world.getMoney().isEmpty();
-        assert world.getGeneralStatistics().getAll().isEmpty() || !world.getGeneralStatistics().getAll().isEmpty();
-        assert world.getPlayer().isStatusPlayer();
-        assert world.getWorldEntities().isEmpty() || !world.getWorldEntities().isEmpty();
+        if (world.getMoney() != null && world.getGeneralStatistics().getAll() != null
+                && world.getPlayer() != null && world.getWorldEntities() != null) {
+            fail("error in WorldGameState update.");
+        }
     }
 
 }
