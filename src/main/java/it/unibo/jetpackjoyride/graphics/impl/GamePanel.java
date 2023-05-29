@@ -156,7 +156,7 @@ public final class GamePanel extends JPanel {
     }
 
     @SuppressFBWarnings(value = "BC_UNCONFIRMED_CAST",
-                        justification = "The cast is safe because is always in a switch case and it's sure that the object is what i'm casting to")
+    justification = "The cast is safe because is always in a switch case and it's sure that the object is what i'm casting to")
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
