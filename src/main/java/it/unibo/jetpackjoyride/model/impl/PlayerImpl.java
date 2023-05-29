@@ -3,6 +3,7 @@ package it.unibo.jetpackjoyride.model.impl;
 import java.util.List;
 import java.util.Map;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Gadget;
@@ -25,6 +26,8 @@ public final class PlayerImpl extends GameObject implements Player {
     private static final int DOWN_VELOCITY = -160;
     private static final double AIR_BARRY_MULTIPLIER = 1.3;
     private static final double GRAVITY_BELT_MULTIPLIER = 1.3;
+    private static final String SUPPVALUE = "EI_EXPOSE_REP2";
+    private static final String SUPPJUSTIFICATION = "Statistics are meant to be the same for the player and the world";
 
     /**
      * constructor to create a player.
@@ -34,6 +37,7 @@ public final class PlayerImpl extends GameObject implements Player {
      * @param hitbox
      * @param statistics
      */
+    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
     public PlayerImpl(final Point2d pos, final Vector2d vel, final Hitbox hitbox, final StatisticsImpl statistics) {
         super(pos, vel, hitbox);
         this.hearts = 1;

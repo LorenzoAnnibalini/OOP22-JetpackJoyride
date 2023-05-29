@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.core.api.GameEconomy;
 import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.graphics.api.View;
@@ -30,6 +31,8 @@ public final class GameEngineImpl implements GameEngine {
     private final SkinInfoLoaderImpl skinInfoLoader;
     private final GadgetLoaderImpl gadgetLoader;
     private final GameEconomy gameEconomy;
+    private static final String SUPPVALUE = "EI_EXPOSE_REP2";
+    private static final String SUPPJUSTIFICATION = "InputHandler are meant to be the same for GameEngine, view and world";
 
     /**
      * Constructor for the game engine. It needs a view, a worldGameState and an
@@ -40,6 +43,7 @@ public final class GameEngineImpl implements GameEngine {
      * @param worldGameState
      * @param inputHandler
      */
+    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
     public GameEngineImpl(final View view, final WorldGameStateImpl worldGameState, final InputQueue inputHandler) {
         this.inputHandler = inputHandler;
         this.currentState = GameState.MAIN_MENU;
@@ -124,8 +128,7 @@ public final class GameEngineImpl implements GameEngine {
                     if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
                         this.gadgetLoader.uploadGadget(new GadgetImpl().getAll());
                         this.skinInfoLoader.uploadSkin(new SkinInfoImpl().getAll());
-
-                        System.exit(0);
+                        this.view.close();
                     }
                     break;
 

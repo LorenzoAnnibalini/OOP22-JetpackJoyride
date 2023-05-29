@@ -29,20 +29,20 @@ public class GameFactoryImpl implements GameFactory {
     private static final int DURATION = 0;
     private static final long SHORTDURATION = 5000;
     private static final long LONGDURATION = 8000;
-    private static final double YBOUND = 530.0;
-    private static final double XBOUND = 1180.0;
+    private static final int YBOUND = 530;
+    private static final int XBOUND = 1180;
     private static final int ROCKETBOUND = 1100;
-    private static final Double LIMIT = GameFactoryImpl.XBOUND - 389.0;
-    private static final Double SCIENTISTIMIT = GameFactoryImpl.XBOUND - 500.0;
+    private static final int LIMIT = GameFactoryImpl.XBOUND - 389;
+    private static final int SCIENTISTIMIT = GameFactoryImpl.XBOUND - 500;
     private static final int HORIZONTAL = 0;
     private static final int LEFT = 0;
     private static final int RIGHT = 1;
     private static final int RANDOMSEED = 2;
-    private static final Double SQUAREHITBOX = 50.0;
-    private static final Pair<Double, Double> RECTANGLEHITBOX = new Pair<>(100.0, 25.0);
-    private static final Double SCIENTISTWIDTH = 30.0;
-    private static final Double LASERRAYHEIGHT = 30.0;
-    private static final Double NOTHINGHITBOX = 0.0;
+    private static final int SQUAREHITBOX = 50;
+    private static final Pair<Integer, Integer> RECTANGLEHITBOX = new Pair<>(100, 25);
+    private static final int SCIENTISTWIDTH = 30;
+    private static final int LASERRAYHEIGHT = 30;
+    private static final int NOTHINGHITBOX = 0;
     private static final int SPAWNRANGE = 50;
 
     private final Random random;
@@ -65,10 +65,10 @@ public class GameFactoryImpl implements GameFactory {
         final int orientation = random.nextInt(GameFactoryImpl.RANDOMSEED);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         if (orientation == GameFactoryImpl.HORIZONTAL) {
-            this.hitbox = new HitboxImpl(RECTANGLEHITBOX.getY(), RECTANGLEHITBOX.getX(),
+            this.hitbox = new HitboxImpl(Double.valueOf(RECTANGLEHITBOX.getY()), Double.valueOf(RECTANGLEHITBOX.getX()),
                     new Point2d(startPosition.getX(), startPosition.getY()));
         } else {
-            this.hitbox = new HitboxImpl(RECTANGLEHITBOX.getX(), RECTANGLEHITBOX.getY(),
+            this.hitbox = new HitboxImpl(Double.valueOf(RECTANGLEHITBOX.getX()), Double.valueOf(RECTANGLEHITBOX.getY()),
                     new Point2d(startPosition.getX(), startPosition.getY()));
         }
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
@@ -88,17 +88,17 @@ public class GameFactoryImpl implements GameFactory {
         rocketVelocity = new Vector2d(
                 new Point2d(0, startPosition.getY()),
                 startPosition);
-        this.hitbox = new HitboxImpl(SQUAREHITBOX / 2.0, SQUAREHITBOX, startPosition);
+        this.hitbox = new HitboxImpl((double) SQUAREHITBOX / 2.0, (double) SQUAREHITBOX, startPosition);
         return new Rocket(this.startPosition, rocketVelocity, this.hitbox);
     }
 
     @Override
     public final LaserRay createLaserRay(final Set<Pair<String, GameObject>> entities) {
         final int y = this.getY(entities);
-        this.startPosition = new Point2d(GameFactoryImpl.XBOUND / 2, y);
+        this.startPosition = new Point2d(GameFactoryImpl.XBOUND / 2.0, y);
         this.finishPosition = startPosition;
         this.velocity = new Vector2d(finishPosition, startPosition);
-        this.hitbox = new HitboxImpl(LASERRAYHEIGHT, XBOUND, startPosition);
+        this.hitbox = new HitboxImpl((double) LASERRAYHEIGHT, (double) XBOUND, startPosition);
         return new LaserRay(this.startPosition, this.velocity, this.hitbox);
     }
 
@@ -109,7 +109,7 @@ public class GameFactoryImpl implements GameFactory {
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
-        this.hitbox = new HitboxImpl(SQUAREHITBOX, SQUAREHITBOX, startPosition);
+        this.hitbox = new HitboxImpl((double) SQUAREHITBOX, (double) SQUAREHITBOX, startPosition);
         return new ShieldPowerUpImpl(
                 duration == GameFactoryImpl.DURATION ? GameFactoryImpl.SHORTDURATION
                         : GameFactoryImpl.LONGDURATION,
@@ -118,12 +118,12 @@ public class GameFactoryImpl implements GameFactory {
 
     @Override
     public final SpeedUpPowerUpImpl createSpeedUpPowerUpImpl(final Set<Pair<String, GameObject>> entities) {
-        final int distance = random.nextInt((int) GameFactoryImpl.XBOUND);
+        final int distance = random.nextInt(GameFactoryImpl.XBOUND);
         final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
-        this.hitbox = new HitboxImpl(SQUAREHITBOX, SQUAREHITBOX, startPosition);
+        this.hitbox = new HitboxImpl((double) SQUAREHITBOX, (double) SQUAREHITBOX, startPosition);
         return new SpeedUpPowerUpImpl(distance, this.startPosition, this.velocity, this.hitbox);
     }
 
@@ -138,7 +138,7 @@ public class GameFactoryImpl implements GameFactory {
                         : GameFactoryImpl.XBOUND - GameFactoryImpl.SCIENTISTIMIT,
                 GameFactoryImpl.YBOUND);
         this.velocity = new Vector2d(finishPosition, startPosition);
-        this.hitbox = new HitboxImpl(SQUAREHITBOX, SCIENTISTWIDTH, startPosition);
+        this.hitbox = new HitboxImpl((double) SQUAREHITBOX, (double) SCIENTISTWIDTH, startPosition);
         return new ScientistImpl(
                 direction == GameFactoryImpl.LEFT ? Direction.LEFT
                         : Direction.RIGHT,
@@ -151,7 +151,7 @@ public class GameFactoryImpl implements GameFactory {
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
-        this.hitbox = new HitboxImpl(NOTHINGHITBOX, NOTHINGHITBOX, startPosition);
+        this.hitbox = new HitboxImpl((double) NOTHINGHITBOX, (double) NOTHINGHITBOX, startPosition);
         return new GameObject(this.startPosition, this.velocity, this.hitbox);
     }
 
@@ -178,9 +178,9 @@ public class GameFactoryImpl implements GameFactory {
      * @return the y coordinate
      */
     private int getY(final Set<Pair<String, GameObject>> entities) {
-        int y = random.nextInt((int) GameFactoryImpl.YBOUND);
+        int y = random.nextInt(GameFactoryImpl.YBOUND);
         while (checkY(y, entities)) {
-            y = random.nextInt((int) GameFactoryImpl.YBOUND);
+            y = random.nextInt(GameFactoryImpl.YBOUND);
         }
         return y;
     }

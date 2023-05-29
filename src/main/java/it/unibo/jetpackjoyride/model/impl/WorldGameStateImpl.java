@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
@@ -63,6 +64,8 @@ public final class WorldGameStateImpl implements WorldGameState {
     private int timeToWaitNewEntities;
     private final InputQueue inputHandler;
     private final Statistics generalStatistics;
+    private static final String SUPPVALUE = "EI_EXPOSE_REP2";
+    private static final String SUPPJUSTIFICATION = "InputHandler are meant to be the same for GameEngine, view and world";
 
     /**
      * Constructor for the world game state. It inzialize the world with his
@@ -71,6 +74,7 @@ public final class WorldGameStateImpl implements WorldGameState {
      * @param inputHandler
      * @throws IOException
      */
+    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
     public WorldGameStateImpl(final InputQueue inputHandler) throws IOException {
         this.inputHandler = inputHandler;
         this.saves = new SavesImpl();

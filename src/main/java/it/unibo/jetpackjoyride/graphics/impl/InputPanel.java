@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
@@ -27,14 +28,17 @@ import it.unibo.jetpackjoyride.input.impl.InputImpl;
 public final class InputPanel extends JPanel implements KeyListener {
 
     private static final long serialVersionUID = 22468L;
-    private final InputQueue inputHandler;
+    private final transient InputQueue inputHandler;
     private boolean isPressed;
+    private static final String SUPPVALUE = "EI_EXPOSE_REP2";
+    private static final String SUPPJUSTIFICATION = "InputHandler are meant to be the same for GameEngine, view and world";
 
     /**
      * Public constructor of the InputPanel class.
      * 
      * @param inputHandler
      */
+    @SuppressFBWarnings(value = SUPPVALUE, justification = SUPPJUSTIFICATION)
     public InputPanel(final InputQueue inputHandler) {
         this.isPressed = false;
         this.inputHandler = inputHandler;
