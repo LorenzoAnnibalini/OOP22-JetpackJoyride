@@ -22,6 +22,7 @@ import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
+import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
@@ -95,7 +96,7 @@ public class ShopPanel extends JPanel {
 
             final JPanel flowPanel = new JPanel(new FlowLayout());
             final JLabel nameLabel = new JLabel(name);
-            final JLabel priceLabel = new JLabel(price + "$");
+            final JLabel priceLabel = new JLabel(price);
             final JLabel descriptionLabel = new JLabel(description);
             nameLabel.setFont(font.deriveFont(FONTSIZE));
             priceLabel.setFont(font.deriveFont(FONTSIZE));
@@ -123,7 +124,7 @@ public class ShopPanel extends JPanel {
 
             final JPanel flowPanel = new JPanel(new FlowLayout());
             final JLabel nameLabel = new JLabel(name);
-            final JLabel priceLabel = new JLabel(price + "$");
+            final JLabel priceLabel = new JLabel(price);
             nameLabel.setFont(font.deriveFont(FONTSIZE));
             priceLabel.setFont(font.deriveFont(FONTSIZE));
             flowPanel.add(nameLabel);
@@ -145,7 +146,7 @@ public class ShopPanel extends JPanel {
      * @return the actual money of the player
      */
     private int getActualMoney() {
-        return this.generalStatistics.getValue("ActualMoney");
+        return this.generalStatistics.getValue(StatisticsImpl.ACTUAL_MONEY.getX());
     }
 
     /**
