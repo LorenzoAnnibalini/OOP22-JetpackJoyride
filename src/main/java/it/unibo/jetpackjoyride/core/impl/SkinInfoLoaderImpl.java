@@ -1,16 +1,12 @@
 package it.unibo.jetpackjoyride.core.impl;
 
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.prefs.Preferences;
 
 import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.core.api.SkinInfoLoader;
@@ -21,48 +17,82 @@ import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
  */
 public class SkinInfoLoaderImpl implements SkinInfoLoader {
 
-    private static final String SEPARATOR = File.separator;
-    private static final int NAME = 0;
-    private final String filename = "src" + SEPARATOR
-            + "main" + SEPARATOR
-            + "resources" + SEPARATOR
-            + "skin.csv";
+    /**
+     * Costants for BARRY skin name.
+     */
+    public static final String BARRY = "barry";
+
+    /**
+     * Costants for BARRY skin state.
+     */
+    public static final String BARRY_STATE = "barryState";
+
+    /**
+     * Costants for BARRY skin purchased.
+     */
+    public static final String BARRY_PURCHASED = "barryPurchased";
+
+    /**
+     * Costants for BARRY skin price.
+     */
+    public static final String BARRY_PRICE = "barryPrice";
+
+    /**
+     * Costants for BARRY_WOMAN skin name.
+     */
+    public static final String BARRY_WOMAN = "barryWoman";
+
+    /**
+     * Costants for BARRY_WOMAN skin state.
+     */
+    public static final String BARRY_WOMAN_STATE = "barryWomanState";
+
+    /**
+     * Costants for BARRY_WOMAN skin purchased.
+     */
+    public static final String BARRY_WOMAN_PURCHASED = "barryWomanPurchased";
+
+    /**
+     * Costants for BARRY_WOMAN skin price.
+     */
+    public static final String BARRY_WOMAN_PRICE = "barryWomanPrice";
+    private final Preferences prefs;
+
+    /**
+     * Constructor of the class SkinInfoImpl.
+     */
+    public SkinInfoLoaderImpl() {
+        this.prefs = Preferences.userRoot().node(this.getClass().getName());
+    }
 
     @Override
     public final Map<String, List<String>> downloadSkin() throws FileNotFoundException {
         final Map<String, List<String>> skinMap = new HashMap<>();
-        try (Scanner sc = new Scanner(new File(filename), StandardCharsets.UTF_8.name())) {
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                final String name = line.split(";")[NAME];
-                line = line.substring(line.indexOf(';') + 1);
-                skinMap.put(name,
-                        new ArrayList<>(List.of(
-                                line.split(";")[SkinInfoPositions.STATE.ordinal()],
-                                line.split(";")[SkinInfoPositions.PURCHASED.ordinal()],
-                                line.split(";")[SkinInfoPositions.PRICE.ordinal()])));
-            }
-            sc.close();
-        } catch (FileNotFoundException e) {
-            throw new  IllegalStateException("skin.csv file not found", e);
-        }
+        List<String> info;
+
+        info = List.of(prefs.get(BARRY_STATE, "true"),
+                prefs.get(BARRY_PURCHASED, "true"),
+                prefs.get(BARRY_PRICE, "0"));
+        skinMap.put(BARRY, new ArrayList<>(info));
+
+        info = List.of(prefs.get(BARRY_WOMAN_STATE, "false"),
+                prefs.get(BARRY_WOMAN_PURCHASED, "false"),
+                prefs.get(BARRY_WOMAN_PRICE, "100"));
+        skinMap.put(BARRY_WOMAN, new ArrayList<>(info));
+
         SkinInfoImpl.setAll(skinMap);
         return skinMap;
     }
 
     @Override
     public final void uploadSkin(final Map<String, List<String>> skinMap) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, StandardCharsets.UTF_8))) {
-            for (final Map.Entry<String, List<String>> entry : skinMap.entrySet()) {
-                writer.write(entry.getKey() + ";"
-                        + entry.getValue().get(SkinInfoPositions.STATE.ordinal()) + ";"
-                        + entry.getValue().get(SkinInfoPositions.PURCHASED.ordinal()) + ";"
-                        + entry.getValue().get(SkinInfoPositions.PRICE.ordinal()) + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            throw new  IllegalStateException("skin.csv file not found", e);
-        }
+        prefs.put(BARRY_STATE, skinMap.get(BARRY).get(SkinInfoPositions.STATE.ordinal()));
+        prefs.put(BARRY_PURCHASED, skinMap.get(BARRY).get(SkinInfoPositions.PURCHASED.ordinal()));
+        prefs.put(BARRY_PRICE, skinMap.get(BARRY).get(SkinInfoPositions.PRICE.ordinal()));
+
+        prefs.put(BARRY_WOMAN_STATE, skinMap.get(BARRY_WOMAN).get(SkinInfoPositions.STATE.ordinal()));
+        prefs.put(BARRY_WOMAN_PURCHASED, skinMap.get(BARRY_WOMAN).get(SkinInfoPositions.PURCHASED.ordinal()));
+        prefs.put(BARRY_WOMAN_PRICE, skinMap.get(BARRY_WOMAN).get(SkinInfoPositions.PRICE.ordinal()));
     }
 
 }

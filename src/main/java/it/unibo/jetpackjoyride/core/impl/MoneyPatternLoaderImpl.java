@@ -19,7 +19,7 @@ import it.unibo.jetpackjoyride.model.impl.Money;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
+public final class MoneyPatternLoaderImpl implements MoneyPatternLoader {
 
     /* Order to read data from nextLine(). */
     private static final int X = 0;
@@ -71,7 +71,7 @@ public class MoneyPatternLoaderImpl implements MoneyPatternLoader {
     }
 
     @Override
-    public final ArrayList<Money> getMoneyPattern() {
+    public ArrayList<Money> getMoneyPattern() {
         String fileNumber;
         String fileContent;
         fileNumber = Integer.toString((int) Math.floor(Math.random()

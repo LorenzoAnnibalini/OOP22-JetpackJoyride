@@ -14,6 +14,7 @@ import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
+import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 /**
  * Class to manage the game economy.
  * 
@@ -49,8 +50,6 @@ public class GameEconomyImpl implements GameEconomy {
 
     private static final String TRUE = "true";
     private static final String FALSE = "false";
-    private static final String ACTUALMONEY = "ActualMoney";
-    private static final String MONEYSPENT = "MoneySpent";
 
     /**
      * Constructor of the GameEconomyImpl class.
@@ -69,15 +68,14 @@ public class GameEconomyImpl implements GameEconomy {
         this.gadgetInfo = gadget.getValue(name);
         final int gadgetPrice = Integer.parseInt(
                 gadgetInfo.get(GadgetInfoPositions.PRICE.ordinal()));
-        final int actualMoney = this.generalStatistics.getValue(ACTUALMONEY);
+        final int actualMoney = this.generalStatistics.getValue(StatisticsImpl.ACTUAL_MONEY.getX());
         if (actualMoney >= gadgetPrice) {
             gadgetInfo.set(GadgetInfoPositions.PURCHASED.ordinal(), TRUE);
             gadget.setValue(name, gadgetInfo);
-            generalStatistics.increment(ACTUALMONEY, -gadgetPrice);
-            generalStatistics.increment(MONEYSPENT, gadgetPrice);
+            generalStatistics.increment(StatisticsImpl.ACTUAL_MONEY.getX(), -gadgetPrice);
+            generalStatistics.increment(StatisticsImpl.MONEY_SPENT.getX(), gadgetPrice);
+            saves.uploadSaves(generalStatistics.getAll());
         }
-
-        saves.uploadSaves(generalStatistics.getAll());
     }
 
     @Override
@@ -101,15 +99,14 @@ public class GameEconomyImpl implements GameEconomy {
         this.skinInfo = skin.getValue(name);
         final int skinPrice = Integer.parseInt(
                 skinInfo.get(SkinInfoPositions.PRICE.ordinal()));
-        final int actualMoney = generalStatistics.getValue(ACTUALMONEY);
+        final int actualMoney = generalStatistics.getValue(StatisticsImpl.ACTUAL_MONEY.getX());
         if (actualMoney >= skinPrice) {
             skinInfo.set(SkinInfoPositions.PURCHASED.ordinal(), TRUE);
             skin.setValue(name, skinInfo);
-            generalStatistics.increment(ACTUALMONEY, -skinPrice);
-            generalStatistics.increment(MONEYSPENT, skinPrice);
+            generalStatistics.increment(StatisticsImpl.ACTUAL_MONEY.getX(), -skinPrice);
+            generalStatistics.increment(StatisticsImpl.MONEY_SPENT.getX(), skinPrice);
+            saves.uploadSaves(generalStatistics.getAll());
         }
-
-        saves.uploadSaves(generalStatistics.getAll());
     }
 
     @Override
