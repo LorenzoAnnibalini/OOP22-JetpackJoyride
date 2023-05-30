@@ -51,6 +51,8 @@ public final class ViewImpl extends JFrame implements View {
      * @throws ParseException
      * @throws IOException
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", 
+                        justification = "inputHandler is meant to be the same Object")
     public ViewImpl(final WorldGameStateImpl worldGameState, final InputQueue inputHandler)
             throws ParseException, IOException {
         Font customFont;
@@ -64,7 +66,7 @@ public final class ViewImpl extends JFrame implements View {
         }
         MenuPanel menuPanel;
         InputPanel inputPanel; 
-        this.inputHandler=inputHandler;
+        this.inputHandler = inputHandler;
 
         this.setTitle("Jetpack Joyride");
         menuPanel = new MenuPanel(inputHandler, customFont);
