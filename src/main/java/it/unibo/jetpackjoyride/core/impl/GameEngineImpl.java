@@ -28,6 +28,7 @@ public final class GameEngineImpl implements GameEngine {
     private static final long FRAME_PERIOD = 20;
     private final WorldGameStateImpl worldGameState;
     private GameState currentState;
+    private boolean isRunning;
     private final SkinInfoLoaderImpl skinInfoLoader;
     private final GadgetLoaderImpl gadgetLoader;
     private final GameEconomy gameEconomy;
@@ -48,6 +49,7 @@ public final class GameEngineImpl implements GameEngine {
         this.inputHandler = inputHandler;
         this.currentState = GameState.MAIN_MENU;
         this.view = view;
+        this.isRunning = true;
         this.worldGameState = worldGameState;
         this.skinInfoLoader = new SkinInfoLoaderImpl();
         this.gadgetLoader = new GadgetLoaderImpl();
@@ -68,7 +70,7 @@ public final class GameEngineImpl implements GameEngine {
     @Override
     public void loopState() throws ParseException, FileNotFoundException, IOException, InterruptedException {
         long previousCycleStartTime = System.currentTimeMillis();
-        while (true) {
+        while (this.isRunning) {
             final long currentCycleStartTime = System.currentTimeMillis();
             final long elapsedTime = currentCycleStartTime - previousCycleStartTime;
             this.processInput();
@@ -128,6 +130,7 @@ public final class GameEngineImpl implements GameEngine {
                     if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
                         this.gadgetLoader.uploadGadget(new GadgetImpl().getAll());
                         this.skinInfoLoader.uploadSkin(new SkinInfoImpl().getAll());
+                        this.isRunning = false;
                         this.view.close();
                     }
                     break;
