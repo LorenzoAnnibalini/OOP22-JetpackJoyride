@@ -2,6 +2,7 @@ package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.prefs.BackingStoreException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -39,9 +40,10 @@ public final class StatisticsPanel extends JPanel {
      * 
      * @param inputQueue the input queue
      * @param font       the font for labels and buttons
+     * @throws BackingStoreException
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Input queue is meant to be the same for all the objects")
-    public StatisticsPanel(final InputQueue inputQueue, final Font font) {
+    public StatisticsPanel(final InputQueue inputQueue, final Font font) throws BackingStoreException {
         super();
         this.setLayout(new BorderLayout());
         this.inputQueue = inputQueue;
@@ -74,22 +76,17 @@ public final class StatisticsPanel extends JPanel {
     public void update() throws FileNotFoundException, IOException {
         statsMap.clear();
         statsMap = saves.downloadSaves();
-        final String statsText = StatisticsImpl.ACTUAL_MONEY.getY() + SEPARATOR
-                + statsMap.get(StatisticsImpl.ACTUAL_MONEY.getX()) + "\n" + StatisticsImpl.DEATHS.getY() + SEPARATOR
-                + statsMap.get(StatisticsImpl.DEATHS.getX()) + "\n" + StatisticsImpl.MAX_MONEY.getY() + SEPARATOR
-                + statsMap
-                        .get(StatisticsImpl.MAX_MONEY.getX())
-                + "\n" + StatisticsImpl.GRABBED_MONEY.getY() + SEPARATOR + statsMap
-                        .get(StatisticsImpl.GRABBED_MONEY.getX())
-                + "\n" + StatisticsImpl.GRABBED_OBJECTS.getY()
-                + SEPARATOR + statsMap.get(StatisticsImpl.GRABBED_OBJECTS.getX()) + "\n"
-                + StatisticsImpl.KILLED_NPC.getY() + SEPARATOR + statsMap.get(StatisticsImpl.KILLED_NPC.getX())
-                + "\n" + StatisticsImpl.MAX_METERS.getY() + SEPARATOR
-                + statsMap.get(StatisticsImpl.MAX_METERS.getX()) + "\n" + StatisticsImpl.MAX_MONEY.getY()
-                + SEPARATOR + statsMap.get(StatisticsImpl.MAX_MONEY.getX()) + "\n"
-                + StatisticsImpl.MONEY_SPENT.getY() + SEPARATOR
-                + statsMap.get(StatisticsImpl.MONEY_SPENT.getX()) + "\n" + StatisticsImpl.TOTAL_METERS.getY()
-                + SEPARATOR + statsMap.get(StatisticsImpl.TOTAL_METERS.getX()) + "\n";
+        final String statsText = StatisticsImpl.ACTUAL_MONEY + SEPARATOR + statsMap.get(StatisticsImpl.ACTUAL_MONEY)
+                + "\n"
+                + StatisticsImpl.MAX_METERS + SEPARATOR + statsMap.get(StatisticsImpl.MAX_METERS) + "\n"
+                + StatisticsImpl.MAX_MONEY + SEPARATOR + statsMap.get(StatisticsImpl.MAX_MONEY) + "\n"
+                + StatisticsImpl.MONEY_SPENT + SEPARATOR + statsMap.get(StatisticsImpl.MONEY_SPENT) + "\n"
+                + StatisticsImpl.TOTAL_METERS + SEPARATOR + statsMap.get(StatisticsImpl.TOTAL_METERS) + "\n"
+                + StatisticsImpl.KILLED_NPC + SEPARATOR + statsMap.get(StatisticsImpl.KILLED_NPC) + "\n"
+                + StatisticsImpl.GRABBED_MONEY + SEPARATOR + statsMap.get(StatisticsImpl.GRABBED_MONEY) + "\n"
+                + StatisticsImpl.GRABBED_OBJECTS + SEPARATOR + statsMap.get(StatisticsImpl.GRABBED_OBJECTS) + "\n"
+                + StatisticsImpl.MONEY_SPENT + SEPARATOR + statsMap.get(StatisticsImpl.MONEY_SPENT) + "\n"
+                + StatisticsImpl.TOTAL_METERS + SEPARATOR + statsMap.get(StatisticsImpl.TOTAL_METERS) + "\n";
         statsArea.setText(statsText);
     }
 }
