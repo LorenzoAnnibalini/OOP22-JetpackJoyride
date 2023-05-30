@@ -33,7 +33,7 @@ public final class ViewImpl extends JFrame implements View {
     private final JPanel cardPanel;
     private final EndGamePanel endGamePanel;
     private final StatisticsPanel statisticsPanel;
-    private final static String FONTPATH = "/New Athletic M54.ttf";
+    private static final String FONTPATH = "/New Athletic M54.ttf";
     private static final long serialVersionUID = 1L;
 
     /**
