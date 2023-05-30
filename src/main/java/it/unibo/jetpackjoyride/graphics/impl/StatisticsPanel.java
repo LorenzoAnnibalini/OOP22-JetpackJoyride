@@ -2,7 +2,6 @@ package it.unibo.jetpackjoyride.graphics.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.prefs.BackingStoreException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -40,10 +39,9 @@ public final class StatisticsPanel extends JPanel {
      * 
      * @param inputQueue the input queue
      * @param font       the font for labels and buttons
-     * @throws BackingStoreException
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Input queue is meant to be the same for all the objects")
-    public StatisticsPanel(final InputQueue inputQueue, final Font font) throws BackingStoreException {
+    public StatisticsPanel(final InputQueue inputQueue, final Font font) {
         super();
         this.setLayout(new BorderLayout());
         this.inputQueue = inputQueue;
