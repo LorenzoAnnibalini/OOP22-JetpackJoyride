@@ -96,7 +96,7 @@ public class ShopPanel extends JPanel {
 
             final JPanel flowPanel = new JPanel(new FlowLayout());
             final JLabel nameLabel = new JLabel(name);
-            final JLabel priceLabel = new JLabel(price + "$");
+            final JLabel priceLabel = new JLabel(price);
             final JLabel descriptionLabel = new JLabel(description);
             nameLabel.setFont(font.deriveFont(FONTSIZE));
             priceLabel.setFont(font.deriveFont(FONTSIZE));
@@ -124,7 +124,7 @@ public class ShopPanel extends JPanel {
 
             final JPanel flowPanel = new JPanel(new FlowLayout());
             final JLabel nameLabel = new JLabel(name);
-            final JLabel priceLabel = new JLabel(price + "$");
+            final JLabel priceLabel = new JLabel(price);
             nameLabel.setFont(font.deriveFont(FONTSIZE));
             priceLabel.setFont(font.deriveFont(FONTSIZE));
             flowPanel.add(nameLabel);
