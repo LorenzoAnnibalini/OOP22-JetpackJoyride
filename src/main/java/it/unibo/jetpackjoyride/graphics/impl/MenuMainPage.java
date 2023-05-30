@@ -43,6 +43,7 @@ public class MenuMainPage extends JPanel {
      * Constructor of the main page.
      * 
      * @param font
+     * @param inputHandler
      */
     public MenuMainPage(final Font font, final InputQueue inputHandler) {
 
