@@ -16,8 +16,6 @@ import org.json.simple.parser.ParseException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
-import it.unibo.jetpackjoyride.input.impl.InputImpl;
-import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 /**
@@ -40,7 +38,6 @@ public final class ViewImpl extends JFrame implements View {
             + "main" + SEPARATOR
             + "resources" + SEPARATOR
             + "New Athletic M54.ttf";
-    private final InputQueue inputHandler;
     private static final long serialVersionUID = 1L;
 
     /**
@@ -63,8 +60,7 @@ public final class ViewImpl extends JFrame implements View {
             customFont = new Font("Arial", Font.PLAIN, SIZE);
         }
         MenuPanel menuPanel;
-        InputPanel inputPanel; 
-        this.inputHandler=inputHandler;
+        InputPanel inputPanel;
 
         this.setTitle("Jetpack Joyride");
         menuPanel = new MenuPanel(inputHandler, customFont);
@@ -128,7 +124,6 @@ public final class ViewImpl extends JFrame implements View {
     @Override
     public void close() {
         this.dispose();
-        inputHandler.addInput(new InputImpl(TypeInput.EXIT, "Exit"));
     }
 
     @Override

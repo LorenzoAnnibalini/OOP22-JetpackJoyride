@@ -30,7 +30,7 @@ public class EndGamePanel extends JPanel {
     private final JPanel mainPageComands = new JPanel();
 
     // Elements of the statistics panel
-    private final WorldGameStateImpl worldGameState;
+    private final transient WorldGameStateImpl worldGameState;
 
     // End Games buttons
     private final JButton exit = new JButton("Exit");
@@ -98,9 +98,8 @@ public class EndGamePanel extends JPanel {
         final Map<String, Integer> statsMap = worldGameState.getPlayer().getStatistics().getAll();
         final JPanel boxPanel = new JPanel(new FlowLayout());
         final StringBuilder sb = new StringBuilder("<html>");
-        for (final String statName : statsMap.keySet()) {
-            final int value = statsMap.get(statName);
-            sb.append(statName + " : " + value + "<br>");
+        for (final Map.Entry<String, Integer> entry : statsMap.entrySet()) {
+            sb.append(entry.getKey() + " : " + entry.getValue() + "<br>");
         }
         sb.append("</html>");
         final JLabel label = new JLabel(sb.toString());
