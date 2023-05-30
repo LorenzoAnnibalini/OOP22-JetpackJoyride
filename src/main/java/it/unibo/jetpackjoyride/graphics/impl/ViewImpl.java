@@ -122,8 +122,10 @@ public final class ViewImpl extends JFrame implements View {
     }
 
     @Override
+    @SuppressFBWarnings(value = "DM_EXIT", justification = "Exit the game when the window is closed")
     public void close() {
         this.dispose();
+        System.exit(0);
     }
 
     @Override
