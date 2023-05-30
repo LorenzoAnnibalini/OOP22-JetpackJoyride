@@ -4,9 +4,9 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -33,11 +33,7 @@ public final class ViewImpl extends JFrame implements View {
     private final JPanel cardPanel;
     private final EndGamePanel endGamePanel;
     private final StatisticsPanel statisticsPanel;
-    private static final String SEPARATOR = File.separator;
-    private final String fontPath = "src" + SEPARATOR
-            + "main" + SEPARATOR
-            + "resources" + SEPARATOR
-            + "New Athletic M54.ttf";
+    private final static String FONTPATH = "/New Athletic M54.ttf";
     private static final long serialVersionUID = 1L;
 
     /**
@@ -52,8 +48,8 @@ public final class ViewImpl extends JFrame implements View {
             throws ParseException, IOException {
         Font customFont;
         // load font
-        try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(FLOAT_SIZE);
+        try (InputStream fontFile = this.getClass().getResourceAsStream(FONTPATH)) {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(FLOAT_SIZE);
             final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
