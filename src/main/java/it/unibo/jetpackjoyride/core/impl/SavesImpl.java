@@ -12,11 +12,14 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
  */
 public final class SavesImpl implements Saves {
 
+    private final Preferences prefs;
+
+    /**
+     * Constructor.
+     */
     public SavesImpl() {
         this.prefs = Preferences.userRoot().node(this.getClass().getName());
     }
-
-    private final Preferences prefs;
 
     @Override
     public Map<String, Integer> downloadSaves() throws IOException {

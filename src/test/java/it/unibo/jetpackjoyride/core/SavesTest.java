@@ -36,24 +36,24 @@ class SavesTest {
         // CHECKSTYLE: MagicNumber OFF
         // Rule disabled because the numbers are used to test the correct functioning
         // and it would be redundant to create variables for each value
-        final Map<String, Integer> statsMap = Map.of("MaxMoney", 0, "MaxMeters", 0, "MoneySpent", 0, "KilledNpc", 0,
+        final Map<String, Integer> statsMap = Map.of("Max Money", 0, "Max Meters", 0, "Money Spent", 0, "Killed NPC", 0,
                 "Deaths",
                 0,
-                "GrabbedObjects", 0, "GrabbedMoney", 0, "TotalMeters", 0, "ActualMoney", 0);
+                "Grabbed Objects", 0, "Grabbed Money", 0, "Total Meters", 0, "Actual Money", 0);
         saves.uploadSaves(statsMap);
         stats.setAll(saves.downloadSaves());
         // Test to verify if the value are right
         assertEquals(statsMap, saves.downloadSaves());
         // Some operation on datas
-        stats.setValue("KilledNpc", 5);
-        stats.setValue("MaxMeters", 547);
+        stats.setValue("Killed NPC", 5);
+        stats.setValue("Max Meters", 547);
         stats.increment("Deaths");
-        stats.increment("MoneySpent", 2500);
+        stats.increment("Money Spent", 2500);
         // Upload datas
         saves.uploadSaves(stats.getAll());
         // Test to verify if the value are still right after operations
-        assertEquals(Map.of("MaxMoney", 0, "MaxMeters", 547, "MoneySpent", 2500, "KilledNpc", 5, "Deaths", 1,
-                "GrabbedObjects", 0, "GrabbedMoney", 0, "TotalMeters", 0, "ActualMoney", 0), saves.downloadSaves());
+        assertEquals(Map.of("Max Money", 0, "Max Meters", 547, "Money Spent", 2500, "Killed NPC", 5, "Deaths", 1,
+                "Grabbed Objects", 0, "Grabbed Money", 0, "Total Meters", 0, "Actual Money", 0), saves.downloadSaves());
         // Reset all datas
         // CHECKSTYLE: MagicNumber ON
         stats.setAll(actualValues);

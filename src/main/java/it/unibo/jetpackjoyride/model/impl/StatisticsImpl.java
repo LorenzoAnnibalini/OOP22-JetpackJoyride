@@ -13,40 +13,40 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
  */
 public final class StatisticsImpl implements Statistics {
     /**
-     * Constants for max money name
+     * Constants for max money name.
      */
     public static final String MAX_MONEY = "Max Money";
     /**
-     * Constants for max meters name
+     * Constants for max meters name.
      */
 
     public static final String MAX_METERS = "Max Meters";
     /**
-     * Constants for actual money name
+     * Constants for actual money name.
      */
     public static final String ACTUAL_MONEY = "Actual Money";
     /**
-     * Constants for grabbed money name
+     * Constants for grabbed money name.
      */
     public static final String GRABBED_MONEY = "Grabbed Money";
     /**
-     * Constants for total meters name
+     * Constants for total meters name.
      */
     public static final String TOTAL_METERS = "Total Meters";
     /**
-     * Constants for deaths name
+     * Constants for deaths name.
      */
     public static final String DEATHS = "Deaths";
     /**
-     * Constants for killedNpc name
+     * Constants for killedNpc name.
      */
     public static final String KILLED_NPC = "Killed NPC";
     /**
-     * Constants for money spent name
+     * Constants for money spent name.
      */
     public static final String MONEY_SPENT = "Money Spent";
     /**
-     * Constants for grabbed objects name
+     * Constants for grabbed objects name.
      */
     public static final String GRABBED_OBJECTS = "Grabbed Objects";
 
