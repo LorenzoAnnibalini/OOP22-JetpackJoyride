@@ -22,6 +22,7 @@ import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
+import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
@@ -45,7 +46,7 @@ public class ShopPanel extends JPanel {
     private final Map<String, ArrayList<JButton>> buttonMapSkin;
     private final transient SpriteLoader spriteLoader;
     private final transient Statistics generalStatistics;
-    private static final float FONTSIZE = 20; 
+    private static final float FONTSIZE = 20;
     private static final String ENABLE = "Enable";
     private static final String DISABLE = "Disable";
     private static final String PURCHASED = "Purchased";
@@ -145,7 +146,7 @@ public class ShopPanel extends JPanel {
      * @return the actual money of the player
      */
     private int getActualMoney() {
-        return this.generalStatistics.getValue("ActualMoney");
+        return this.generalStatistics.getValue(StatisticsImpl.ACTUAL_MONEY);
     }
 
     /**

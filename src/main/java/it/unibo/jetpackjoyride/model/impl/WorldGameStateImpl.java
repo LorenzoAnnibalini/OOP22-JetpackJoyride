@@ -121,7 +121,7 @@ public final class WorldGameStateImpl implements WorldGameState {
         this.checkPlayerCollision();
         if (this.player.isStatusPlayer()) {
             this.newEntities();
-            this.runStatistics.increment("TotalMeters");
+            this.runStatistics.increment(StatisticsImpl.TOTAL_METERS);
         } else {
             this.notifyEndGame();
         }
@@ -196,13 +196,13 @@ public final class WorldGameStateImpl implements WorldGameState {
                         break;
                     case "SpeedUpPowerup":
                         final SpeedUpPowerUpImpl speedUp = (SpeedUpPowerUpImpl) entity.getY();
-                        this.runStatistics.increment("TotalMeters", speedUp.getDistanceSpeedUp());
-                        this.runStatistics.increment("GrabbedObjects");
+                        this.runStatistics.increment(StatisticsImpl.TOTAL_METERS, speedUp.getDistanceSpeedUp());
+                        this.runStatistics.increment(StatisticsImpl.GRABBED_OBJECTS);
                         entityIterator.remove();
                         break;
                     case "ShieldPowerUp":
                         this.player.addHeart();
-                        this.runStatistics.increment("GrabbedObjects");
+                        this.runStatistics.increment(StatisticsImpl.GRABBED_OBJECTS);
                         entityIterator.remove();
                         break;
                     case "Laser":
@@ -210,7 +210,7 @@ public final class WorldGameStateImpl implements WorldGameState {
                         entityIterator.remove();
                         break;
                     case "Scientist":
-                        this.runStatistics.increment("KilledNpc");
+                        this.runStatistics.increment(StatisticsImpl.KILLED_NPC);
                         entityIterator.remove();
                         break;
                     case "Nothing":
@@ -225,7 +225,7 @@ public final class WorldGameStateImpl implements WorldGameState {
         while (moneyIterator.hasNext()) {
             final Money moneyElem = moneyIterator.next();
             if (this.player.getHitbox().checkCollision(moneyElem.getHitbox())) {
-                this.runStatistics.increment("GrabbedMoney");
+                this.runStatistics.increment(StatisticsImpl.GRABBED_MONEY);
                 moneyIterator.remove();
             }
         }
@@ -289,10 +289,10 @@ public final class WorldGameStateImpl implements WorldGameState {
         this.entitiesGenerator = new EntitiesGeneratorImpl();
         this.entities = new HashSet<>();
         this.money = new ArrayList<>();
-        this.runStatistics.addStatistic("GrabbedMoney", 0);
-        this.runStatistics.addStatistic("TotalMeters", 0);
-        this.runStatistics.addStatistic("KilledNpc", 0);
-        this.runStatistics.addStatistic("GrabbedObjects", 0);
+        this.runStatistics.addStatistic(StatisticsImpl.GRABBED_MONEY, 0);
+        this.runStatistics.addStatistic(StatisticsImpl.TOTAL_METERS, 0);
+        this.runStatistics.addStatistic(StatisticsImpl.KILLED_NPC, 0);
+        this.runStatistics.addStatistic(StatisticsImpl.GRABBED_OBJECTS, 0);
         this.isFlying = false;
         final Point2d playerPosition = new Point2d(X_PLAYER_POSITION, Y_PLAYER_POSITION);
         final Vector2d playerVelocity = new Vector2d(playerPosition, playerPosition);
@@ -345,7 +345,7 @@ public final class WorldGameStateImpl implements WorldGameState {
      */
     private void notifyEndGame() throws IOException {
         this.inputHandler.addInput(new InputImpl(Input.TypeInput.END_GAME, "endGame"));
-        this.generalStatistics.increment("Deaths");
+        this.generalStatistics.increment(StatisticsImpl.DEATHS);
 
         this.generalStatistics.updateGeneralStats(this.runStatistics.getAll());
         this.saves.uploadSaves(this.generalStatistics.getAll());

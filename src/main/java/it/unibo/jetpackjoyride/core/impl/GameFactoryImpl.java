@@ -44,6 +44,7 @@ public class GameFactoryImpl implements GameFactory {
     private static final int LASERRAYHEIGHT = 30;
     private static final int NOTHINGHITBOX = 0;
     private static final int SPAWNRANGE = 50;
+    private static final int XRANGE = 20;
 
     private final Random random;
     private Point2d startPosition;
@@ -63,7 +64,7 @@ public class GameFactoryImpl implements GameFactory {
     public final Electrode createElectrode(final Set<Pair<String, GameObject>> entities) {
         final int y = this.getY(entities);
         final int orientation = random.nextInt(GameFactoryImpl.RANDOMSEED);
-        this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
+        this.startPosition = new Point2d(GameFactoryImpl.XBOUND + XRANGE - random.nextInt(10), y);
         if (orientation == GameFactoryImpl.HORIZONTAL) {
             this.hitbox = new HitboxImpl(Double.valueOf(RECTANGLEHITBOX.getY()), Double.valueOf(RECTANGLEHITBOX.getX()),
                     new Point2d(startPosition.getX(), startPosition.getY()));
@@ -148,7 +149,7 @@ public class GameFactoryImpl implements GameFactory {
     @Override
     public final GameObject createGenericGameObject(final Set<Pair<String, GameObject>> entities) {
         final int y = this.getY(entities);
-        this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
+        this.startPosition = new Point2d(GameFactoryImpl.XBOUND + XRANGE - random.nextInt(10), y);
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
         this.hitbox = new HitboxImpl((double) NOTHINGHITBOX, (double) NOTHINGHITBOX, startPosition);
@@ -165,7 +166,8 @@ public class GameFactoryImpl implements GameFactory {
     private boolean checkY(final int y, final Set<Pair<String, GameObject>> entities) {
         return entities.stream()
                 .filter(x -> (int) x.getY().getCurrentPos().getY() - y > -SPAWNRANGE
-                        && (int) x.getY().getCurrentPos().getY() - y < SPAWNRANGE)
+                        && (int) x.getY().getCurrentPos().getY() - y < SPAWNRANGE
+                        && GameFactoryImpl.XBOUND - x.getY().getCurrentPos().getX() > XRANGE)
                 .count() != 0;
     }
 
@@ -180,7 +182,6 @@ public class GameFactoryImpl implements GameFactory {
     private int getY(final Set<Pair<String, GameObject>> entities) {
         int y = random.nextInt(GameFactoryImpl.YBOUND);
         while (checkY(y, entities)) {
-            System.out.println("Y: " + y);
             y = random.nextInt(GameFactoryImpl.YBOUND);
         }
         return y;
