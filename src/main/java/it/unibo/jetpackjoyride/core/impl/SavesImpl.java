@@ -1,17 +1,10 @@
 package it.unibo.jetpackjoyride.core.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Scanner;
-
+import java.util.prefs.Preferences;
 import it.unibo.jetpackjoyride.core.api.Saves;
-import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 /**
@@ -19,41 +12,38 @@ import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
  */
 public final class SavesImpl implements Saves {
 
-    // private final String SEPARATOR = File.separator;
-    private static final int NAME = 0;
-    private static final int VALUE = 1;
-    private static final String SEPARATOR = File.separator;
-    private final String filename = "src" + SEPARATOR
-            + "main" + SEPARATOR
-            + "resources" + SEPARATOR
-            + "saves.csv";
-    private final Statistics statistics = new StatisticsImpl();
+    public SavesImpl() {
+        this.prefs = Preferences.userRoot().node(this.getClass().getName());
+    }
+
+    private final Preferences prefs;
 
     @Override
     public Map<String, Integer> downloadSaves() throws IOException {
         final Map<String, Integer> stats = new HashMap<>();
-        try (Scanner scanner = new Scanner(new File(filename), "UTF-8")) {
-            while (scanner.hasNextLine()) {
-                final String line = scanner.nextLine();
-                stats.put(line.split(";")[SavesImpl.NAME], Integer.parseInt(line.split(";")[SavesImpl.VALUE]));
-            }
-            this.statistics.setAll(stats);
-        } catch (IOException e) {
-            throw new IllegalStateException("Error while reading statistics from file", e);
-        }
+        stats.put(StatisticsImpl.MAX_MONEY, prefs.getInt(StatisticsImpl.MAX_MONEY, 0));
+        stats.put(StatisticsImpl.MAX_METERS, prefs.getInt(StatisticsImpl.MAX_METERS, 0));
+        stats.put(StatisticsImpl.MONEY_SPENT, prefs.getInt(StatisticsImpl.MONEY_SPENT, 0));
+        stats.put(StatisticsImpl.KILLED_NPC, prefs.getInt(StatisticsImpl.KILLED_NPC, 0));
+        stats.put(StatisticsImpl.DEATHS, prefs.getInt(StatisticsImpl.DEATHS, 0));
+        stats.put(StatisticsImpl.GRABBED_OBJECTS, prefs.getInt(StatisticsImpl.GRABBED_OBJECTS, 0));
+        stats.put(StatisticsImpl.GRABBED_MONEY, prefs.getInt(StatisticsImpl.GRABBED_MONEY, 0));
+        stats.put(StatisticsImpl.TOTAL_METERS, prefs.getInt(StatisticsImpl.TOTAL_METERS, 0));
+        stats.put(StatisticsImpl.ACTUAL_MONEY, prefs.getInt(StatisticsImpl.ACTUAL_MONEY, 0));
         return stats;
     }
 
     @Override
     public void uploadSaves(final Map<String, Integer> stats) throws IOException {
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(filename), "UTF-8");) {
-            for (final Entry<String, Integer> value : stats.entrySet()) {
-                writer.write(value.getKey() + ";" + value.getValue() + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            throw new IllegalStateException("Error while writing statistics on file", e);
-        }
+        prefs.putInt(StatisticsImpl.MAX_MONEY, stats.get(StatisticsImpl.MAX_MONEY));
+        prefs.putInt(StatisticsImpl.MAX_METERS, stats.get(StatisticsImpl.MAX_METERS));
+        prefs.putInt(StatisticsImpl.MONEY_SPENT, stats.get(StatisticsImpl.MONEY_SPENT));
+        prefs.putInt(StatisticsImpl.KILLED_NPC, stats.get(StatisticsImpl.KILLED_NPC));
+        prefs.putInt(StatisticsImpl.DEATHS, stats.get(StatisticsImpl.DEATHS));
+        prefs.putInt(StatisticsImpl.GRABBED_OBJECTS, stats.get(StatisticsImpl.GRABBED_OBJECTS));
+        prefs.putInt(StatisticsImpl.GRABBED_MONEY, stats.get(StatisticsImpl.GRABBED_MONEY));
+        prefs.putInt(StatisticsImpl.TOTAL_METERS, stats.get(StatisticsImpl.TOTAL_METERS));
+        prefs.putInt(StatisticsImpl.ACTUAL_MONEY, stats.get(StatisticsImpl.ACTUAL_MONEY));
     }
 
 }

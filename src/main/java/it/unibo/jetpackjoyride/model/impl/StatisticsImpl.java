@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 
 /**
@@ -14,41 +13,42 @@ import it.unibo.jetpackjoyride.model.api.Statistics;
  */
 public final class StatisticsImpl implements Statistics {
     /**
-     * Constants for max money grabbed and value to use in the view.
+     * Constants for max money name
      */
-    public static final Pair<String, String> MAX_MONEY = new Pair<>("MaxMoney", "Max Money");
+    public static final String MAX_MONEY = "Max Money";
     /**
-     * Constants for max meters traveled and value to use in the view.
+     * Constants for max meters name
      */
-    public static final Pair<String, String> MAX_METERS = new Pair<>("MaxMeters", "Max Distance");
+
+    public static final String MAX_METERS = "Max Meters";
     /**
-     * Constants for max score and value to use in the view.
+     * Constants for actual money name
      */
-    public static final Pair<String, String> MONEY_SPENT = new Pair<>("MoneySpent", "Money Spent");
+    public static final String ACTUAL_MONEY = "Actual Money";
     /**
-     * Constants for Killed Npc and value to use in the view.
+     * Constants for grabbed money name
      */
-    public static final Pair<String, String> KILLED_NPC = new Pair<>("KilledNpc", "Killd Npc");
+    public static final String GRABBED_MONEY = "Grabbed Money";
     /**
-     * Constants for deaths and value to use in the view.
+     * Constants for total meters name
      */
-    public static final Pair<String, String> DEATHS = new Pair<>("Deaths", "Deaths");
+    public static final String TOTAL_METERS = "Total Meters";
     /**
-     * Constants for grabbed objects and value to use in the view.
+     * Constants for deaths name
      */
-    public static final Pair<String, String> GRABBED_OBJECTS = new Pair<>("GrabbedObjects", "Grabbed Objects");
+    public static final String DEATHS = "Deaths";
     /**
-     * Constants for grabbed money and value to use in the view.
+     * Constants for killedNpc name
      */
-    public static final Pair<String, String> GRABBED_MONEY = new Pair<>("GrabbedMoney", "Grabbed Money");
+    public static final String KILLED_NPC = "Killed NPC";
     /**
-     * Constants for total meters traveled and value to use in the view.
+     * Constants for money spent name
      */
-    public static final Pair<String, String> TOTAL_METERS = new Pair<>("TotalMeters", "Total Distance");
+    public static final String MONEY_SPENT = "Money Spent";
     /**
-     * Constants for actual money and value to use in the view.
+     * Constants for grabbed objects name
      */
-    public static final Pair<String, String> ACTUAL_MONEY = new Pair<>("ActualMoney", "Actual Money");
+    public static final String GRABBED_OBJECTS = "Grabbed Objects";
 
     private final Map<String, Integer> statistics = new HashMap<>();
 
@@ -92,13 +92,13 @@ public final class StatisticsImpl implements Statistics {
         for (final Entry<String, Integer> entry : runStats.entrySet()) {
             this.increment(entry.getKey(), entry.getValue());
         }
-        if (runStats.get(GRABBED_MONEY.getX()) > statistics.get(MAX_MONEY.getX())) {
-            this.setValue(MAX_MONEY.getX(), runStats.get(GRABBED_MONEY.getX()));
+        if (runStats.get(GRABBED_MONEY) > statistics.get(MAX_MONEY)) {
+            this.setValue(MAX_MONEY, runStats.get(GRABBED_MONEY));
         }
-        if (runStats.get(TOTAL_METERS.getX()) > statistics.get(MAX_METERS.getX())) {
-            this.setValue(MAX_METERS.getX(), runStats.get(TOTAL_METERS.getX()));
+        if (runStats.get(TOTAL_METERS) > statistics.get(MAX_METERS)) {
+            this.setValue(MAX_METERS, runStats.get(TOTAL_METERS));
         }
-        this.increment(ACTUAL_MONEY.getX(), runStats.get(GRABBED_MONEY.getX()));
+        this.increment(ACTUAL_MONEY, runStats.get(GRABBED_MONEY));
     }
 
 }

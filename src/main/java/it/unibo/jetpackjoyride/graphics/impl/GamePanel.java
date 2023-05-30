@@ -163,8 +163,8 @@ public final class GamePanel extends JPanel {
         final Graphics2D g2d = (Graphics2D) g;
         // Update stats
         final StatisticsImpl currentStats = this.player.getStatistics();
-        this.monies = currentStats.getValue("GrabbedMoney");
-        this.score = currentStats.getValue("TotalMeters");
+        this.monies = currentStats.getValue(StatisticsImpl.ACTUAL_MONEY);
+        this.score = currentStats.getValue(StatisticsImpl.TOTAL_METERS);
         // Update labels
         this.moneyLabel.setText("Monies: " + this.monies);
         this.scoreLabel.setText("Score: " + this.score);
