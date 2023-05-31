@@ -81,7 +81,12 @@ public interface Input {
         /**
          * Input type for open the settings.
          */
-        SETTINGS
+        SETTINGS,
+
+        /**
+         * Input type for notify an error.
+         */
+        ERROR
     }
 
     /**
