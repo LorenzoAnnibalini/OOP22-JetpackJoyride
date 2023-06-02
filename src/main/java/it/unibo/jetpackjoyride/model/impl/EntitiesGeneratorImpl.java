@@ -6,8 +6,6 @@ import java.util.Set;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import java.util.Iterator;
-
 import it.unibo.jetpackjoyride.core.api.GameFactory;
 import it.unibo.jetpackjoyride.core.impl.GameFactoryImpl;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
@@ -28,7 +26,6 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
     private static final int SPEEDUPPOWERUP = 1;
     private static final int NOTHING = 2;
     private static final int ENTITIESSEED = 3;
-    private static final int XBOUND = 1180;
     private static final Random RANDOM = new Random();
     private final GameFactory factory = new GameFactoryImpl();
     private static final String SUPPVALUE = "EI_EXPOSE_REP2";
@@ -127,16 +124,4 @@ public final class EntitiesGeneratorImpl implements EntitiesGenerator {
         return this.entities;
     }
 
-    @Override
-    public void entitiesGarbage(final Set<Pair<String, GameObject>> entities) {
-        final Iterator<Pair<String, GameObject>> iterator = this.entities.iterator();
-        while (iterator.hasNext()) {
-            final Pair<String, GameObject> pair = iterator.next();
-            if (pair.getY().getCurrentPos().getX() < 0
-                    || "Scientist".equals(pair.getX())
-                            && pair.getY().getCurrentPos().getX() > EntitiesGeneratorImpl.XBOUND) {
-                iterator.remove();
-            }
-        }
-    }
 }

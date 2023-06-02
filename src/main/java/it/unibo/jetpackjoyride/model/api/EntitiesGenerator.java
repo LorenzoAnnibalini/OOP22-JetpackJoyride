@@ -15,7 +15,7 @@ public interface EntitiesGenerator {
      * Method to generate new obstacles (Electrode, LaserRay or Rocket).
      * 
      * @param entities the set of entities already spwaned in game
-     * @param num number of entities to generate
+     * @param num      number of entities to generate
      */
     void generateObstacles(Set<Pair<String, GameObject>> entities, int num);
 
@@ -23,7 +23,7 @@ public interface EntitiesGenerator {
      * Method to generate new powerups (Electrode or Rocket).
      * 
      * @param entities the set of entities already spwaned in game
-     * @param num number of entities to generate
+     * @param num      number of entities to generate
      */
     void generatePowerUps(Set<Pair<String, GameObject>> entities, int num);
 
@@ -31,7 +31,7 @@ public interface EntitiesGenerator {
      * Method to generate new scientists (5 scientist per time).
      * 
      * @param entities the set of entities already spwaned in game
-     * @param num   of scientist to generate
+     * @param num      of scientist to generate
      */
     void generateScientists(Set<Pair<String, GameObject>> entities, int num);
 
@@ -50,11 +50,4 @@ public interface EntitiesGenerator {
      */
     Set<Pair<String, GameObject>> getEntities();
 
-    /**
-     * Method to check if an entity is out of visible range and so has to be
-     * deleted.
-     * 
-     * @param entities the set of entities already in game
-     */
-    void entitiesGarbage(Set<Pair<String, GameObject>> entities);
 }
