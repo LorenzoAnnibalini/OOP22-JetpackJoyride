@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.json.simple.parser.ParseException;
@@ -115,6 +116,12 @@ public final class ViewImpl extends JFrame implements View {
     public void renderStatistics() throws FileNotFoundException, IOException {
         this.statisticsPanel.update();
         this.card.show(this.cardPanel, "statisticsPanel");
+    }
+
+    @Override
+    public void launchError(final String message) {
+        JOptionPane.showMessageDialog(this, message,
+               "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override

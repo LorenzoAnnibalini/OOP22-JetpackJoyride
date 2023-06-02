@@ -53,7 +53,7 @@ public final class GameEngineImpl implements GameEngine {
         this.worldGameState = worldGameState;
         this.skinInfoLoader = new SkinInfoLoaderImpl();
         this.gadgetLoader = new GadgetLoaderImpl();
-        this.gameEconomy = new GameEconomyImpl(worldGameState.getGeneralStatistics());
+        this.gameEconomy = new GameEconomyImpl(inputHandler, worldGameState.getGeneralStatistics());
     }
 
     @Override
@@ -165,6 +165,10 @@ public final class GameEngineImpl implements GameEngine {
                     if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
                         this.worldGameStateStart();
                     }
+                    break;
+
+                case ERROR:
+                    this.view.launchError(inputElem.getName().get());
                     break;
 
                 default:

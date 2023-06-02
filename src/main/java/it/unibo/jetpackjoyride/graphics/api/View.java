@@ -49,6 +49,13 @@ public interface View {
     void renderStatistics() throws FileNotFoundException, IOException;
 
     /**
+     * Method to launch an error dialog with the given message.
+     * 
+     * @param message to be displayed
+     */
+    void launchError(String message);
+
+    /**
      * Method to get the game panel.
      * 
      * @return the game panel
