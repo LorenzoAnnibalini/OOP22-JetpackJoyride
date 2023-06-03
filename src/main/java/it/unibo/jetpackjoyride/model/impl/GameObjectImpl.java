@@ -3,6 +3,7 @@ package it.unibo.jetpackjoyride.model.impl;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
+import it.unibo.jetpackjoyride.model.api.GameObject;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 
 /**
@@ -11,7 +12,7 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class GameObject {
+public class GameObjectImpl implements GameObject {
 
     private Point2d pos;
     private Vector2d vel;
@@ -25,7 +26,7 @@ public class GameObject {
      * @param vel
      * @param hitbox
      */
-    public GameObject(final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
+    public GameObjectImpl(final Point2d pos, final Vector2d vel, final Hitbox hitbox) {
         this.pos = new Point2d(pos.getX(), pos.getY());
         this.vel = new Vector2d(vel.getX(), vel.getY());
         this.hitbox = new HitboxImpl(hitbox.getHeigthHitbox(), hitbox.getWidthHitbox(), pos);
@@ -36,6 +37,7 @@ public class GameObject {
      * 
      * @param pos
      */
+    @Override
     public void setPos(final Point2d pos) {
         this.pos = new Point2d(pos.getX(), pos.getY());
     }
@@ -45,6 +47,7 @@ public class GameObject {
      * 
      * @param vel
      */
+    @Override
     public void setVel(final Vector2d vel) {
         this.vel = new Vector2d(vel.getX(), vel.getY());
     }
@@ -52,6 +55,7 @@ public class GameObject {
     /**
      * flip the velocity of the game object on the y axis.
      */
+    @Override
     public void flipVelOnY() {
         this.vel = new Vector2d(vel.getX(), -vel.getY());
     }
@@ -59,6 +63,7 @@ public class GameObject {
     /**
      * flip the velocity of the game object on the x axis.
      */
+    @Override
     public void flipVelOnX() {
         this.vel = new Vector2d(-vel.getX(), vel.getY());
     }
@@ -71,6 +76,7 @@ public class GameObject {
      * 
      * @param dt
      */
+    @Override
     public void updateState(final long dt) {
         this.pos = this.pos.sum(vel.mul(DELTA_TIME_MULTIPLIER * dt));
     }
@@ -80,6 +86,7 @@ public class GameObject {
      * 
      * @return the current position of the game object
      */
+    @Override
     public Point2d getCurrentPos() {
         return new Point2d(pos.getX(), pos.getY());
     }
@@ -89,6 +96,7 @@ public class GameObject {
      * 
      * @return the current velocity of the game object
      */
+    @Override
     public Vector2d getCurrentVel() {
         return new Vector2d(vel.getX(), vel.getY());
     }
@@ -98,6 +106,7 @@ public class GameObject {
      * 
      * @return the current hitbox of the game object
      */
+    @Override
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "the returned hitmox must be the same object")
     public final Hitbox getHitbox() {
         return this.hitbox;

@@ -3,8 +3,8 @@ package it.unibo.jetpackjoyride.core.api;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
+import it.unibo.jetpackjoyride.model.api.GameObject;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
-import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.LaserRay;
 import it.unibo.jetpackjoyride.model.impl.Rocket;
 import it.unibo.jetpackjoyride.model.impl.ScientistImpl;

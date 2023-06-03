@@ -13,7 +13,7 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public class Money extends GameObject {
+public class Money extends GameObjectImpl {
 
     private static final int X = 0;
     private static final int Y = 1;

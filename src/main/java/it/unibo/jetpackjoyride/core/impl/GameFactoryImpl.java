@@ -1,8 +1,9 @@
 package it.unibo.jetpackjoyride.core.impl;
 
 import it.unibo.jetpackjoyride.model.api.Direction;
+import it.unibo.jetpackjoyride.model.api.GameObject;
 import it.unibo.jetpackjoyride.model.impl.Electrode;
-import it.unibo.jetpackjoyride.model.impl.GameObject;
+import it.unibo.jetpackjoyride.model.impl.GameObjectImpl;
 import it.unibo.jetpackjoyride.model.impl.LaserRay;
 import it.unibo.jetpackjoyride.model.impl.Rocket;
 import it.unibo.jetpackjoyride.model.impl.ScientistImpl;
@@ -153,7 +154,7 @@ public class GameFactoryImpl implements GameFactory {
         this.finishPosition = new Point2d(GameFactoryImpl.LIMIT, startPosition.getY());
         this.velocity = new Vector2d(finishPosition, startPosition);
         this.hitbox = new HitboxImpl((double) NOTHINGHITBOX, (double) NOTHINGHITBOX, startPosition);
-        return new GameObject(this.startPosition, this.velocity, this.hitbox);
+        return new GameObjectImpl(this.startPosition, this.velocity, this.hitbox);
     }
 
     /**

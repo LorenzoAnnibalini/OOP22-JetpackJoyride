@@ -11,7 +11,7 @@ import it.unibo.jetpackjoyride.model.api.Obstacle;
  * @author lorenzo.bacchini4@studio.unibo.it
  */
 
-public abstract class ObstacleImpl extends GameObject implements Obstacle {
+public abstract class ObstacleImpl extends GameObjectImpl implements Obstacle {
 
     private boolean active;
 
