@@ -10,7 +10,7 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
  * @author lorenzo.annibalini@studio.unibo.it
  * 
  */
-public class SpeedUpPowerUpImpl extends GameObject {
+public class SpeedUpPowerUpImpl extends GameObjectImpl {
 
     private boolean active;
     private final int distanceSpeedUp;

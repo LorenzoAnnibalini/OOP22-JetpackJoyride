@@ -10,7 +10,7 @@ import it.unibo.jetpackjoyride.model.api.Hitbox;
  * @author lorenzo.annibalini@studio.unibo.it
  * 
  */
-public class ShieldPowerUpImpl extends GameObject {
+public class ShieldPowerUpImpl extends GameObjectImpl {
 
     private boolean active;
     private final long duration;
