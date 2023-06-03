@@ -16,7 +16,7 @@ import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
  * 
  * @author mattia.burreli@studio.unibo.it
  */
-public final class PlayerImpl extends GameObject implements Player {
+public final class PlayerImpl extends GameObjectImpl implements Player {
 
     private boolean statusPlayer;
     private int hearts;

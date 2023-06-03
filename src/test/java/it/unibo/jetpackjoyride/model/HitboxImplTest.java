@@ -9,7 +9,8 @@ import org.junit.Test;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
-import it.unibo.jetpackjoyride.model.impl.GameObject;
+import it.unibo.jetpackjoyride.model.api.GameObject;
+import it.unibo.jetpackjoyride.model.impl.GameObjectImpl;
 import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
 
 /**
@@ -37,7 +38,7 @@ public class HitboxImplTest {
         final Point2d positionPlayer = new Point2d(xPlayer - 10, heightPositionPlayer);
         final HitboxImpl hitboxPlayer = new HitboxImpl(xPlayer, yPlayer, positionPlayer);
         final HitboxImpl hitbox = new HitboxImpl(xPlayer, yPlayer, positionEntity);
-        final GameObject entity = new GameObject(positionEntity, new Vector2d(positionPlayer, positionEntity),
+        final GameObject entity = new GameObjectImpl(positionEntity, new Vector2d(positionPlayer, positionEntity),
                 hitbox);
 
         while (y >= -xPlayer) {

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
-import it.unibo.jetpackjoyride.model.impl.GameObject;
 import it.unibo.jetpackjoyride.model.impl.Money;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 

@@ -16,6 +16,7 @@ import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.api.WorldGameState;
+import it.unibo.jetpackjoyride.model.api.GameObject;
 import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
 import it.unibo.jetpackjoyride.core.impl.GadgetLoaderImpl;
 import it.unibo.jetpackjoyride.core.impl.MoneyPatternLoaderImpl;
