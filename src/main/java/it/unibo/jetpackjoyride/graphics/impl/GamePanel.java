@@ -29,7 +29,7 @@ import it.unibo.jetpackjoyride.model.api.Direction;
 import it.unibo.jetpackjoyride.model.api.Orientation;
 import it.unibo.jetpackjoyride.model.api.Scientist;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
-import it.unibo.jetpackjoyride.model.impl.GameObject;
+import it.unibo.jetpackjoyride.model.api.GameObject;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;

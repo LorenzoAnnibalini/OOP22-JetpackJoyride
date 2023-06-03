@@ -9,6 +9,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.core.api.GameFactory;
 import it.unibo.jetpackjoyride.core.impl.GameFactoryImpl;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
+import it.unibo.jetpackjoyride.model.api.GameObject;
 import it.unibo.jetpackjoyride.common.Pair;
 
 /**

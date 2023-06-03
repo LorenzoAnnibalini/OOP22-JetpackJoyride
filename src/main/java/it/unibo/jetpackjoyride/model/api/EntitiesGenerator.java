@@ -3,7 +3,6 @@ package it.unibo.jetpackjoyride.model.api;
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
-import it.unibo.jetpackjoyride.model.impl.GameObject;
 
 /**
  * An interface to generate new enetitites in the game map.

@@ -11,14 +11,14 @@ import org.junit.Test;
 import it.unibo.jetpackjoyride.common.Pair;
 import it.unibo.jetpackjoyride.model.api.EntitiesGenerator;
 import it.unibo.jetpackjoyride.model.impl.EntitiesGeneratorImpl;
-import it.unibo.jetpackjoyride.model.impl.GameObject;
+import it.unibo.jetpackjoyride.model.api.GameObject;
 
 /**
  * JUnit test for {@link EntitiesGeneratorImpl}.
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-class TestGenerateObstacle {
+class TestGenerateEntities {
 
     private static final int FIRSTSIZE = 1;
     private static final int SECONDSIZE = 3;
