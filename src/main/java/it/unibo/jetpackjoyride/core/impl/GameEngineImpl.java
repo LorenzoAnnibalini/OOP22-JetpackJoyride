@@ -56,8 +56,7 @@ public final class GameEngineImpl implements GameEngine {
         this.gameEconomy = new GameEconomyImpl(inputHandler, worldGameState.getGeneralStatistics());
     }
 
-    @Override
-    public void worldGameStateStart() {
+    private void worldGameStateStart() {
         if (this.currentState == GameState.MAIN_MENU || this.currentState == GameState.GAMEOVER) {
             this.worldGameState.newGame();
             this.view.getGamePanel().setMoney(this.worldGameState.getMoney());

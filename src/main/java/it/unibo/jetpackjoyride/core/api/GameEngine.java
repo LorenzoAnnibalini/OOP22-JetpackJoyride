@@ -51,14 +51,10 @@ public interface GameEngine {
     }
 
     /**
-     * Start the game engine.
-     */
-    void worldGameStateStart();
-
-    /**
      * Start the game loop of the game engine.
      * It will process inputs, update the game state, render the view and wait for
      * the next frame.
+     * 
      * @throws ParseException
      * @throws IOException
      * @throws FileNotFoundException
