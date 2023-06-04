@@ -62,7 +62,7 @@ public class GameFactoryImpl implements GameFactory {
     }
 
     @Override
-    public final Electrode createElectrode(final Set<Pair<String, GameObject>> entities) {
+    public final GameObject createElectrode(final Set<Pair<String, GameObject>> entities) {
         final int y = this.getY(entities);
         final int orientation = random.nextInt(GameFactoryImpl.RANDOMSEED);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND + XRANGE - random.nextInt(10), y);
@@ -82,7 +82,7 @@ public class GameFactoryImpl implements GameFactory {
     }
 
     @Override
-    public final Rocket createRocket(final Set<Pair<String, GameObject>> entities) {
+    public final GameObject createRocket(final Set<Pair<String, GameObject>> entities) {
         final int y = this.getY(entities);
         Vector2d rocketVelocity;
         this.startPosition = new Point2d(GameFactoryImpl.ROCKETBOUND, y);
@@ -95,7 +95,7 @@ public class GameFactoryImpl implements GameFactory {
     }
 
     @Override
-    public final LaserRay createLaserRay(final Set<Pair<String, GameObject>> entities) {
+    public final GameObject createLaserRay(final Set<Pair<String, GameObject>> entities) {
         final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND / 2.0, y);
         this.finishPosition = startPosition;
@@ -105,7 +105,7 @@ public class GameFactoryImpl implements GameFactory {
     }
 
     @Override
-    public final ShieldPowerUpImpl createShieldPowerUp(final Set<Pair<String, GameObject>> entities) {
+    public final GameObject createShieldPowerUp(final Set<Pair<String, GameObject>> entities) {
         final int duration = random.nextInt(GameFactoryImpl.RANDOMSEED);
         final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
@@ -119,7 +119,7 @@ public class GameFactoryImpl implements GameFactory {
     }
 
     @Override
-    public final SpeedUpPowerUpImpl createSpeedUpPowerUpImpl(final Set<Pair<String, GameObject>> entities) {
+    public final GameObject createSpeedUpPowerUpImpl(final Set<Pair<String, GameObject>> entities) {
         final int distance = random.nextInt(GameFactoryImpl.XBOUND);
         final int y = this.getY(entities);
         this.startPosition = new Point2d(GameFactoryImpl.XBOUND, y);
@@ -130,7 +130,7 @@ public class GameFactoryImpl implements GameFactory {
     }
 
     @Override
-    public final ScientistImpl createScientist(final Set<Pair<String, GameObject>> entities) {
+    public final GameObject createScientist(final Set<Pair<String, GameObject>> entities) {
         final int direction = random.nextInt(2);
         this.startPosition = new Point2d(
                 direction == GameFactoryImpl.LEFT ? GameFactoryImpl.XBOUND : 0,
