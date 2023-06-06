@@ -18,7 +18,7 @@ import it.unibo.jetpackjoyride.model.api.GameObject;
  * 
  * @author emanuele.sanchi@studio.unibo.it
  */
-class TestGenerateEntities {
+class GenerateEntitiesTest {
 
     private static final int FIRSTSIZE = 1;
     private static final int SECONDSIZE = 3;
