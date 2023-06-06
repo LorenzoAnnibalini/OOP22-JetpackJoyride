@@ -29,7 +29,6 @@ public final class SpriteLoader {
      */
     public Map<String, Sprite> getSprites() {
         return new HashMap<>(sprites);
-        //return sprites;
     }
 
     /**
