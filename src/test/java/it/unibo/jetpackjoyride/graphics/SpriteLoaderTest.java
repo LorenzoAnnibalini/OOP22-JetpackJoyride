@@ -1,6 +1,6 @@
 package it.unibo.jetpackjoyride.graphics;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
@@ -16,6 +16,7 @@ import it.unibo.jetpackjoyride.graphics.impl.SpriteLoader;
  */
 class SpriteLoaderTest {
     private final SpriteLoader sl;
+    private static final int SIZE = 16;
 
     SpriteLoaderTest() {
         sl = new SpriteLoader();
@@ -24,7 +25,6 @@ class SpriteLoaderTest {
     @Test
     void testLoadSprites() throws ParseException, IOException {
         sl.loadSprites("sprites.json");
-        assertEquals(7, sl.getSprites().size());
-
+        assertEquals(SIZE, sl.getSprites().size());
     }
 }
