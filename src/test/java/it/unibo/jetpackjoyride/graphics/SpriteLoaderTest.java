@@ -16,7 +16,7 @@ import it.unibo.jetpackjoyride.graphics.impl.SpriteLoader;
  */
 class SpriteLoaderTest {
     private final SpriteLoader sl;
-    private static final int SIZE = 7;
+    private static final int SIZE = 16;
 
     SpriteLoaderTest() {
         sl = new SpriteLoader();
@@ -26,6 +26,5 @@ class SpriteLoaderTest {
     void testLoadSprites() throws ParseException, IOException {
         sl.loadSprites("sprites.json");
         assertEquals(SIZE, sl.getSprites().size());
-
     }
 }
