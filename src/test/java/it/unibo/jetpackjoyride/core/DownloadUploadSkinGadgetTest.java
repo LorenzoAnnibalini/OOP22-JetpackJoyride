@@ -31,9 +31,9 @@ class DownloadUploadSkinGadgetTest {
     void testUploadDownloadGadget() throws Exception {
         final Map<String, List<String>> gadgetMap = new HashMap<>();
         gadgetMap.put("Air Barry",
-                List.of(TRUE, TRUE, "100", "Moltiplicatore di salto iniziale"));
+                List.of(FALSE, FALSE, "100", "Moltiplicatore di salto iniziale"));
         gadgetMap.put("Gravity Belt",
-                List.of(TRUE, TRUE, "150", "Aumento gravita'"));
+                List.of(FALSE, FALSE, "150", "Aumento gravita'"));
         gadgetLoader.uploadGadget(gadgetMap);
 
         final Gadget gadgets = new GadgetImpl();
