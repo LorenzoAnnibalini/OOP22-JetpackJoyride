@@ -39,12 +39,12 @@ class MoneyPatternTest {
         assertEquals(expectedXValue.poll(), moneyList.remove(index).getCurrentPos().getX());
         assertEquals(expectedXValue.poll(), moneyList.remove(index).getCurrentPos().getX());
 
-        /*Rimuovo tutti gli elementi tranne l'ultimo*/
+        /*Removing all element except the last one*/
         while (moneyList.size() > 1) {
             moneyList.remove(index);
         }
 
-        /*Controllo che anche l'ultimo sia giusto*/
+        /*Check also the last element of the file*/
         assertEquals(expectedXValue.poll(), moneyList.remove(index).getCurrentPos().getX());
     }
 }
