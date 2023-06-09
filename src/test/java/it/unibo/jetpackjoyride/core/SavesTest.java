@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.jetpackjoyride.core.api.Saves;
-import it.unibo.jetpackjoyride.core.impl.SavesImpl;
+import it.unibo.jetpackjoyride.model.api.Saves;
 import it.unibo.jetpackjoyride.model.api.Statistics;
+import it.unibo.jetpackjoyride.model.impl.SavesImpl;
 import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 /**

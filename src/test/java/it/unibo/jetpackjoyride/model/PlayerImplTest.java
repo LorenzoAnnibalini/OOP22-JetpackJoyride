@@ -13,13 +13,13 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
-import it.unibo.jetpackjoyride.core.api.Saves;
-import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.model.api.Gadget;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
+import it.unibo.jetpackjoyride.model.api.Saves;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
 import it.unibo.jetpackjoyride.model.impl.PlayerImpl;
+import it.unibo.jetpackjoyride.model.impl.SavesImpl;
 import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 /**

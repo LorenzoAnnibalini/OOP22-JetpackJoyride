@@ -1,23 +1,20 @@
-package it.unibo.jetpackjoyride.core.impl;
+package it.unibo.jetpackjoyride.model.impl;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
-import it.unibo.jetpackjoyride.core.api.GameEconomy;
-import it.unibo.jetpackjoyride.core.api.Saves;
-import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
 import it.unibo.jetpackjoyride.model.api.Gadget;
+import it.unibo.jetpackjoyride.model.api.GadgetInfoPositions;
+import it.unibo.jetpackjoyride.model.api.GameEconomy;
+import it.unibo.jetpackjoyride.model.api.Saves;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
+import it.unibo.jetpackjoyride.model.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.model.api.Statistics;
-import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
-import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
-import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 /**
  * Class to manage the game economy.
  * 

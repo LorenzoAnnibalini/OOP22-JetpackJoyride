@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.jetpackjoyride.core.api.Saves;
-import it.unibo.jetpackjoyride.core.impl.SavesImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
+import it.unibo.jetpackjoyride.model.api.Saves;
+import it.unibo.jetpackjoyride.model.impl.SavesImpl;
 import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 
 /**

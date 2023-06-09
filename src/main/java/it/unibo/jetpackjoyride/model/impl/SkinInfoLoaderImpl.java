@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.core.impl;
+package it.unibo.jetpackjoyride.model.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.prefs.Preferences;
 
-import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
-import it.unibo.jetpackjoyride.core.api.SkinInfoLoader;
-import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
+import it.unibo.jetpackjoyride.model.api.SkinInfoLoader;
+import it.unibo.jetpackjoyride.model.api.SkinInfoPositions;
 
 /**
  * Class to load and write skins information from file.

@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.core.impl;
+package it.unibo.jetpackjoyride.model.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,10 +8,8 @@ import java.util.Scanner;
 
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
-import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
-import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
-import it.unibo.jetpackjoyride.model.impl.Money;
+import it.unibo.jetpackjoyride.model.api.MoneyPatternLoader;
 
 /**
  * A class to load money from file.

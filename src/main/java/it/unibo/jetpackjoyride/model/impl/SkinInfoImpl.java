@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
+import it.unibo.jetpackjoyride.model.api.SkinInfoPositions;
 
 /**
  * Class to model a skin info.

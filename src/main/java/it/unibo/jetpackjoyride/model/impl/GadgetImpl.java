@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
 import it.unibo.jetpackjoyride.model.api.Gadget;
+import it.unibo.jetpackjoyride.model.api.GadgetInfoPositions;
 
 /**
  * Class to modelize the Gadget information.

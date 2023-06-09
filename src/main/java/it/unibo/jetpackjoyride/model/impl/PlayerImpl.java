@@ -7,9 +7,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.model.api.Gadget;
+import it.unibo.jetpackjoyride.model.api.GadgetInfoPositions;
 import it.unibo.jetpackjoyride.model.api.Hitbox;
 import it.unibo.jetpackjoyride.model.api.Player;
-import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
 
 /**
  * This is a class to model a generic player.
