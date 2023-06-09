@@ -18,16 +18,16 @@ import javax.swing.JPanel;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jetpackjoyride.model.api.Gadget;
+import it.unibo.jetpackjoyride.model.api.GadgetInfoPositions;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
+import it.unibo.jetpackjoyride.model.api.SkinInfoPositions;
 import it.unibo.jetpackjoyride.model.api.Statistics;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
 import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
 import it.unibo.jetpackjoyride.input.api.Input.TypeInput;
 import it.unibo.jetpackjoyride.input.impl.InputImpl;
-import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
-import it.unibo.jetpackjoyride.core.api.SkinInfoPositions;
 
 /**
  * Class that represents the panel of the shop.

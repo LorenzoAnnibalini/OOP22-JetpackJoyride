@@ -8,14 +8,14 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.jetpackjoyride.core.api.GadgetLoader;
-import it.unibo.jetpackjoyride.core.api.SkinInfoLoader;
-import it.unibo.jetpackjoyride.core.impl.GadgetLoaderImpl;
-import it.unibo.jetpackjoyride.core.impl.SkinInfoLoaderImpl;
 import it.unibo.jetpackjoyride.model.api.Gadget;
+import it.unibo.jetpackjoyride.model.api.GadgetLoader;
 import it.unibo.jetpackjoyride.model.api.SkinInfo;
+import it.unibo.jetpackjoyride.model.api.SkinInfoLoader;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
+import it.unibo.jetpackjoyride.model.impl.GadgetLoaderImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
+import it.unibo.jetpackjoyride.model.impl.SkinInfoLoaderImpl;
 
 /**
  * JUnit test to test the correct download and upload of skins and gadget.

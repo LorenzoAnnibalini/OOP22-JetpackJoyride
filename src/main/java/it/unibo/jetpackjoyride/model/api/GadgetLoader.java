@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.core.api;
+package it.unibo.jetpackjoyride.model.api;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

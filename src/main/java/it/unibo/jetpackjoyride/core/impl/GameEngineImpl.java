@@ -7,13 +7,16 @@ import java.util.List;
 import org.json.simple.parser.ParseException;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.jetpackjoyride.core.api.GameEconomy;
 import it.unibo.jetpackjoyride.core.api.GameEngine;
 import it.unibo.jetpackjoyride.graphics.api.View;
 import it.unibo.jetpackjoyride.input.api.Input;
 import it.unibo.jetpackjoyride.input.api.InputQueue;
+import it.unibo.jetpackjoyride.model.api.GameEconomy;
 import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
+import it.unibo.jetpackjoyride.model.impl.GadgetLoaderImpl;
+import it.unibo.jetpackjoyride.model.impl.GameEconomyImpl;
 import it.unibo.jetpackjoyride.model.impl.SkinInfoImpl;
+import it.unibo.jetpackjoyride.model.impl.SkinInfoLoaderImpl;
 import it.unibo.jetpackjoyride.model.impl.WorldGameStateImpl;
 
 /**

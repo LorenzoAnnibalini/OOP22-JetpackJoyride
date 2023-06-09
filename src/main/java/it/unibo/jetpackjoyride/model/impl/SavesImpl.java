@@ -1,11 +1,11 @@
-package it.unibo.jetpackjoyride.core.impl;
+package it.unibo.jetpackjoyride.model.impl;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.prefs.Preferences;
-import it.unibo.jetpackjoyride.core.api.Saves;
-import it.unibo.jetpackjoyride.model.impl.StatisticsImpl;
+
+import it.unibo.jetpackjoyride.model.api.Saves;
 
 /**
  * Class to save statistics on file.

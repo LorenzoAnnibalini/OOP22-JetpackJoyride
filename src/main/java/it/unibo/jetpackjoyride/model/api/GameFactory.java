@@ -1,9 +1,8 @@
-package it.unibo.jetpackjoyride.core.api;
+package it.unibo.jetpackjoyride.model.api;
 
 import java.util.Set;
 
 import it.unibo.jetpackjoyride.common.Pair;
-import it.unibo.jetpackjoyride.model.api.GameObject;
 
 /**
  * Interface to create the game objects.

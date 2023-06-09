@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.core.api;
+package it.unibo.jetpackjoyride.model.api;
 
 /**
  * enum to get the position of the skin information.

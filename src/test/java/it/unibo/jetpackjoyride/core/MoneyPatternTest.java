@@ -9,9 +9,9 @@ import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.jetpackjoyride.core.api.MoneyPatternLoader;
-import it.unibo.jetpackjoyride.core.impl.MoneyPatternLoaderImpl;
+import it.unibo.jetpackjoyride.model.api.MoneyPatternLoader;
 import it.unibo.jetpackjoyride.model.impl.Money;
+import it.unibo.jetpackjoyride.model.impl.MoneyPatternLoaderImpl;
 
 /**
  * Class to test the MoneyPatternLoader and the class Money.

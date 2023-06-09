@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.core.impl;
+package it.unibo.jetpackjoyride.model.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.prefs.Preferences;
 
-import it.unibo.jetpackjoyride.core.api.GadgetLoader;
-import it.unibo.jetpackjoyride.model.impl.GadgetImpl;
-import it.unibo.jetpackjoyride.core.api.GadgetInfoPositions;
+import it.unibo.jetpackjoyride.model.api.GadgetInfoPositions;
+import it.unibo.jetpackjoyride.model.api.GadgetLoader;
 /**
  * Class to load and write gadgets from file.
  */

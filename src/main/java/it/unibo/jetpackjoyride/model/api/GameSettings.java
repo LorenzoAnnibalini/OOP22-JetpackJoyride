@@ -1,4 +1,4 @@
-package it.unibo.jetpackjoyride.core.api;
+package it.unibo.jetpackjoyride.model.api;
 
 import java.io.IOException;
 import java.util.Map;

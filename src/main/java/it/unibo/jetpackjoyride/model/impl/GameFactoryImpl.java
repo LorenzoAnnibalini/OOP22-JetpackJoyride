@@ -1,15 +1,8 @@
-package it.unibo.jetpackjoyride.core.impl;
+package it.unibo.jetpackjoyride.model.impl;
 
 import it.unibo.jetpackjoyride.model.api.Direction;
+import it.unibo.jetpackjoyride.model.api.GameFactory;
 import it.unibo.jetpackjoyride.model.api.GameObject;
-import it.unibo.jetpackjoyride.model.impl.Electrode;
-import it.unibo.jetpackjoyride.model.impl.GameObjectImpl;
-import it.unibo.jetpackjoyride.model.impl.LaserRay;
-import it.unibo.jetpackjoyride.model.impl.Rocket;
-import it.unibo.jetpackjoyride.model.impl.ScientistImpl;
-import it.unibo.jetpackjoyride.model.impl.ShieldPowerUpImpl;
-import it.unibo.jetpackjoyride.model.impl.SpeedUpPowerUpImpl;
-import it.unibo.jetpackjoyride.model.impl.HitboxImpl;
 
 import java.util.Random;
 import java.util.Set;
@@ -17,7 +10,6 @@ import java.util.Set;
 import it.unibo.jetpackjoyride.common.Point2d;
 import it.unibo.jetpackjoyride.common.Vector2d;
 import it.unibo.jetpackjoyride.common.Pair;
-import it.unibo.jetpackjoyride.core.api.GameFactory;
 import it.unibo.jetpackjoyride.model.api.Orientation;
 
 /**
