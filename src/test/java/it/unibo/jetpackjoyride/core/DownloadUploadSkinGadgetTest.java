@@ -29,6 +29,10 @@ class DownloadUploadSkinGadgetTest {
 
     @Test
     void testUploadDownloadGadget() throws Exception {
+        /*actualValues ​​is a temporary class to keep game info 
+        * that will be reloaded at the end of the test */
+        Map<String, List<String>> actualValues;
+        actualValues = gadgetLoader.downloadGadget();
         final Map<String, List<String>> gadgetMap = new HashMap<>();
         gadgetMap.put("Air Barry",
                 List.of(FALSE, FALSE, "100", "Moltiplicatore di salto iniziale"));
@@ -40,10 +44,15 @@ class DownloadUploadSkinGadgetTest {
         gadgetLoader.downloadGadget();
         assertEquals("the map read from file is not"
                 + "equals to the map written in the file", gadgetMap, gadgets.getAll());
+        gadgetLoader.uploadGadget(actualValues);
     }
 
     @Test
     void testUploadDownloadSkin() throws Exception {
+        /*actualValues ​​is a temporary class to keep game info 
+        * that will be reloaded at the end of the test */
+        Map<String, List<String>> actualValues;
+        actualValues = skinInfoLoader.downloadSkin();
         final Map<String, List<String>> skinInfoMap = new HashMap<>();
         skinInfoMap.put("barry",
                 List.of(TRUE, TRUE, "0"));
@@ -55,5 +64,6 @@ class DownloadUploadSkinGadgetTest {
         skinInfoLoader.downloadSkin();
         assertEquals("the map read from file is not "
                 + "equals to the map written in the file", skinInfoMap, skinsInfo.getAll());
+        skinInfoLoader.uploadSkin(actualValues);
     }
 }
