@@ -12,12 +12,18 @@ E-mail dei componenti:
 
 - lorenzo.annibalini@studio.unibo.it 
 
-Guida Utente
+GUIDA UTENTE
+
 All’inizio del gioco l’utente si trova davanti ad un menu in cui può:
+
 • Iniziare una nuova partita premendo il bottone ”New Game”
+
 • Controllare le proprie statistiche premendo il bottone ”Statistics”
+
 • Comprare nuovi gadget o skin premendo il bottone ”Shop”
+
 • Uscire dal gioco con il bottone ”Exit”
+
 All’interno di ogni schermata ci sono altri due bottoni che permettono di
 tornare al menu o di uscire dal gioco. All’interno dello shop ci sono dei
 bottoni specifici per ogni gadget o skin per comprarli o indossarli. Se non si
