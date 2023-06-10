@@ -83,7 +83,6 @@ public final class StatisticsPanel extends JPanel {
                 + StatisticsImpl.KILLED_NPC + SEPARATOR + statsMap.get(StatisticsImpl.KILLED_NPC) + "\n"
                 + StatisticsImpl.GRABBED_MONEY + SEPARATOR + statsMap.get(StatisticsImpl.GRABBED_MONEY) + "\n"
                 + StatisticsImpl.GRABBED_OBJECTS + SEPARATOR + statsMap.get(StatisticsImpl.GRABBED_OBJECTS) + "\n"
-                + StatisticsImpl.MONEY_SPENT + SEPARATOR + statsMap.get(StatisticsImpl.MONEY_SPENT) + "\n"
                 + StatisticsImpl.DEATHS + SEPARATOR + statsMap.get(StatisticsImpl.DEATHS) + "\n";
         statsArea.setText(statsText);
     }
